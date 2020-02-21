@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "1723809116",
+    "firebase_url": "https://fir-auth-9099a.firebaseio.com",
+    "project_id": "fir-auth-9099a",
+    "storage_bucket": "fir-auth-9099a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1723809116:android:a905075e28c398d165d599",
+        "android_client_info": {
+          "package_name": "com.example.edupedia"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1723809116-vj7ppd2hk6ppfabf50l9671o3rivoqvi.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.edupedia",
+            "certificate_hash": "25048abc401c8c844f8bdcda3d695ec9165da1c2"
+          }
+        },
+        {
+          "client_id": "1723809116-fues86tvv2da7idskqv46v07nmqv8412.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDq_uIXzUoFS9IO7nb59NV-iq6N0ua4s9E"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1723809116-fues86tvv2da7idskqv46v07nmqv8412.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
