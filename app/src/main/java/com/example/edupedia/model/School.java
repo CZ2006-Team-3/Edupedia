@@ -18,6 +18,9 @@ public class School {
     private int drivingTime;
     private int publicTime;
 
+    public School(SchoolBuilder schoolBuilder) {
+    }
+
     public static class SchoolBuilder {
         private String schoolName;
         private String educationLevel;
