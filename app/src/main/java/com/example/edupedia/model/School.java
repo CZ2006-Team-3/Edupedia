@@ -1,6 +1,7 @@
 package com.example.edupedia.model;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class School {
     // Compulsory attributes
@@ -28,8 +29,8 @@ public class School {
     private ArrayList<String> moeProgramme;
     private ArrayList<String> sdp;
     // Optional Attributes
-    private int drivingTime;
-    private int publicTime;
+    private double drivingTime;
+    private double publicTime;
 
     public static class SchoolBuilder {
         private String schoolName;          // [1]
@@ -56,8 +57,8 @@ public class School {
         private ArrayList<String> moeProgramme;
         private ArrayList<String> sdp;
         // Optional Attributes
-        private int drivingTime;
-        private int publicTime;
+        private double drivingTime;
+        private double publicTime;
 
         public SchoolBuilder(String schoolName) {
             this.schoolName = schoolName;
@@ -149,54 +150,168 @@ public class School {
         }
 
         public SchoolBuilder schoolSubjectsOffered(ArrayList<String> subjectsOffered) {
-            //this.subjectsOffered = subjectsOffered.clone();
+            this.subjectsOffered = subjectsOffered;
             return this;
         }
 
-        public void setCcas(ArrayList<String> ccas) {
+        public SchoolBuilder schoolCcas(ArrayList<String> ccas) {
             this.ccas = ccas;
+            return this;
         }
 
-        public void setMoeProgramme(ArrayList<String> moeProgramme) {
+        public SchoolBuilder schoolMoeProgramme(ArrayList<String> moeProgramme) {
             this.moeProgramme = moeProgramme;
+            return this;
         }
 
-        public void setSdp(ArrayList<String> sdp) {
+        public SchoolBuilder schoolSdp(ArrayList<String> sdp) {
             this.sdp = sdp;
+            return this;
         }
 
-        public void setDrivingTime(int drivingTime) {
+        public SchoolBuilder schoolDrivingTime(double drivingTime) {
             this.drivingTime = drivingTime;
+            return this;
         }
 
-        public void setPublicTime(int publicTime) {
+        public SchoolBuilder schoolPublicTime(double publicTime) {
             this.publicTime = publicTime;
+            return this;
         }
     }
     private School(SchoolBuilder schoolBuilder) {
-        schoolBuilder.schoolName = schoolName;
-        schoolBuilder.urlAddress = urlAddress;
-        schoolBuilder.address = address;
-        schoolBuilder.postalCode = postalCode;
-        schoolBuilder.telephoneNo = telephoneNo;
-        schoolBuilder.emailAddress = emailAddress;
-        schoolBuilder.visionStatement = visionStatement;
-        schoolBuilder.missionStatement = missionStatement;
-        schoolBuilder.philosophyCulture = philosophyCulture;
-        schoolBuilder.dgpCode = dgpCode;
-        schoolBuilder.zoneCode = zoneCode;
-        schoolBuilder.clusterCode = clusterCode;
-        schoolBuilder.typeCode = typeCode;
-        schoolBuilder.natureCode = natureCode;
-        schoolBuilder.sap = sap;
-        schoolBuilder.autonomous = autonomous;
-        schoolBuilder.gifted = gifted;
-        schoolBuilder.ip = ip;
-        schoolBuilder.subjectsOffered = subjectsOffered;
-        schoolBuilder.ccas = ccas;
-        schoolBuilder.moeProgramme = moeProgramme;
-        schoolBuilder.sdp = sdp;
-        schoolBuilder.drivingTime = drivingTime;
-        schoolBuilder.publicTime = publicTime;
+        this.schoolName = schoolBuilder.schoolName;
+        this.urlAddress = schoolBuilder.urlAddress;
+        this.address = schoolBuilder.address;
+        this.postalCode = schoolBuilder.postalCode;
+        this.telephoneNo = schoolBuilder.telephoneNo;
+        this.emailAddress = schoolBuilder.emailAddress;
+        this.visionStatement = schoolBuilder.visionStatement;
+        this.missionStatement = schoolBuilder.missionStatement;
+        this.philosophyCulture = schoolBuilder.philosophyCulture;
+        this.dgpCode = schoolBuilder.dgpCode;
+        this.zoneCode = schoolBuilder.zoneCode;
+        this.clusterCode = schoolBuilder.clusterCode;
+        this.typeCode = schoolBuilder.typeCode;
+        this.natureCode = schoolBuilder.natureCode;
+        this.sap = schoolBuilder.sap ;
+        this.autonomous = schoolBuilder.autonomous;
+        this.gifted = schoolBuilder.gifted;
+        this.ip = schoolBuilder.ip;
+        this.subjectsOffered = new ArrayList<>();
+        Collections.copy(this.subjectsOffered, schoolBuilder.subjectsOffered);
+        this.ccas = new ArrayList<>();
+        Collections.copy(this.ccas, schoolBuilder.ccas);
+        this.moeProgramme = new ArrayList<>();
+        Collections.copy(this.moeProgramme, schoolBuilder.moeProgramme);
+        this.sdp = new ArrayList<>();
+        Collections.copy(this.sdp, schoolBuilder.sdp);
+        this.drivingTime = schoolBuilder.drivingTime;
+        this.publicTime = schoolBuilder.publicTime;
+    }
+
+
+    public void setDrivingTime(double drivingTime) {
+        this.drivingTime = drivingTime;
+    }
+
+    public void setPublicTime(double publicTime) {
+        this.publicTime = publicTime;
+    }
+
+    public String getSchoolName() {
+        return schoolName;
+    }
+
+    public String getUrlAddress() {
+        return urlAddress;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public String getPostalCode() {
+        return postalCode;
+    }
+
+    public String getTelephoneNo() {
+        return telephoneNo;
+    }
+
+    public String getEmailAddress() {
+        return emailAddress;
+    }
+
+    public String getVisionStatement() {
+        return visionStatement;
+    }
+
+    public String getMissionStatement() {
+        return missionStatement;
+    }
+
+    public String getPhilosophyCulture() {
+        return philosophyCulture;
+    }
+
+    public String getDgpCode() {
+        return dgpCode;
+    }
+
+    public String getZoneCode() {
+        return zoneCode;
+    }
+
+    public String getClusterCode() {
+        return clusterCode;
+    }
+
+    public String getTypeCode() {
+        return typeCode;
+    }
+
+    public String getNatureCode() {
+        return natureCode;
+    }
+
+    public boolean isSap() {
+        return sap;
+    }
+
+    public boolean isAutonomous() {
+        return autonomous;
+    }
+
+    public boolean isGifted() {
+        return gifted;
+    }
+
+    public boolean isIp() {
+        return ip;
+    }
+
+    public ArrayList<String> getSubjectsOffered() {
+        return subjectsOffered;
+    }
+
+    public ArrayList<String> getCcas() {
+        return ccas;
+    }
+
+    public ArrayList<String> getMoeProgramme() {
+        return moeProgramme;
+    }
+
+    public ArrayList<String> getSdp() {
+        return sdp;
+    }
+
+    public double getDrivingTime() {
+        return drivingTime;
+    }
+
+    public double getPublicTime() {
+        return publicTime;
     }
 }
