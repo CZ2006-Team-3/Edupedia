@@ -56,6 +56,7 @@ public class School {
         private ArrayList<String> ccas;
         private ArrayList<String> moeProgramme;
         private ArrayList<String> sdp;
+
         // Optional Attributes
         private double drivingTime;
         private double publicTime;
@@ -178,6 +179,11 @@ public class School {
             this.publicTime = publicTime;
             return this;
         }
+
+        public School build() {
+            return new School(this);
+        }
+
     }
     private School(SchoolBuilder schoolBuilder) {
         this.schoolName = schoolBuilder.schoolName;
