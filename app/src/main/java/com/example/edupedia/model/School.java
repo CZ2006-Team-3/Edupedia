@@ -27,7 +27,6 @@ public class School {
     private ArrayList<String> subjectsOffered;
     private ArrayList<String> ccas;
     private ArrayList<String> moeProgramme;
-    private ArrayList<String> sdp;
     // Optional Attributes
     private double drivingTime;
     private double publicTime;
@@ -150,26 +149,6 @@ public class School {
             return this;
         }
 
-        public SchoolBuilder schoolSubjectsOffered(ArrayList<String> subjectsOffered) {
-            this.subjectsOffered = subjectsOffered;
-            return this;
-        }
-
-        public SchoolBuilder schoolCcas(ArrayList<String> ccas) {
-            this.ccas = ccas;
-            return this;
-        }
-
-        public SchoolBuilder schoolMoeProgramme(ArrayList<String> moeProgramme) {
-            this.moeProgramme = moeProgramme;
-            return this;
-        }
-
-        public SchoolBuilder schoolSdp(ArrayList<String> sdp) {
-            this.sdp = sdp;
-            return this;
-        }
-
         public SchoolBuilder schoolDrivingTime(double drivingTime) {
             this.drivingTime = drivingTime;
             return this;
@@ -204,16 +183,6 @@ public class School {
         this.autonomous = schoolBuilder.autonomous;
         this.gifted = schoolBuilder.gifted;
         this.ip = schoolBuilder.ip;
-        this.subjectsOffered = new ArrayList<>();
-        Collections.copy(this.subjectsOffered, schoolBuilder.subjectsOffered);
-        this.ccas = new ArrayList<>();
-        Collections.copy(this.ccas, schoolBuilder.ccas);
-        this.moeProgramme = new ArrayList<>();
-        Collections.copy(this.moeProgramme, schoolBuilder.moeProgramme);
-        this.sdp = new ArrayList<>();
-        Collections.copy(this.sdp, schoolBuilder.sdp);
-        this.drivingTime = schoolBuilder.drivingTime;
-        this.publicTime = schoolBuilder.publicTime;
     }
 
 
@@ -223,6 +192,18 @@ public class School {
 
     public void setPublicTime(double publicTime) {
         this.publicTime = publicTime;
+    }
+
+    public void setSubjectsOffered(ArrayList<String> subjectsOffered) {
+        this.subjectsOffered = subjectsOffered;
+    }
+
+    public void setCcas(ArrayList<String> ccas) {
+        this.ccas = ccas;
+    }
+
+    public void setMoeProgramme(ArrayList<String> moeProgramme) {
+        this.moeProgramme = moeProgramme;
     }
 
     public String getSchoolName() {
@@ -307,10 +288,6 @@ public class School {
 
     public ArrayList<String> getMoeProgramme() {
         return moeProgramme;
-    }
-
-    public ArrayList<String> getSdp() {
-        return sdp;
     }
 
     public double getDrivingTime() {

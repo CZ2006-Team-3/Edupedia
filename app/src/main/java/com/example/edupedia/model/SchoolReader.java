@@ -10,8 +10,13 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class SchoolReader {
+    public static final String CCA = "ccas";
+    public static final String MOE = "moe";
+    public static final String SUBJECT = "subjects";
+
     private static BufferedReader br = null;
     private static String line;
     private static String[] tempArray;
@@ -22,12 +27,12 @@ public class SchoolReader {
         this.context = context;
     }
 
-    public ArrayList<School> retrieveSchools() throws IOException {
-        ArrayList<School> schools = new ArrayList<>();
+    public HashMap<String, School> retrieveSchools() throws IOException {
+        HashMap<String, School> schools = new HashMap<String, School>();
         stream = context.getResources().openRawResource(R.raw.general_info);
         try {
             br = new BufferedReader(new InputStreamReader(stream));
-            String row;
+            String row = br.readLine();
             while ((row = br.readLine()) != null) {
                 String[] data = row.split(",");
                 School school = new School
@@ -50,7 +55,7 @@ public class SchoolReader {
                         .giftedProgram(data[30].equals("Yes"))
                         .schoolIp(data[31].equals("Yes"))
                         .build();
-                schools.add(school);
+                schools.put(school.getSchoolName(),school);
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -64,5 +69,76 @@ public class SchoolReader {
             }
             return schools;
         }
+    }
+
+    public void addArray(HashMap<String, School> schools, String arrayType) {
+        switch(arrayType) {
+            case SUBJECT:
+                stream = context.getResources().openRawResource(R.raw.subjects_offered);
+                break;
+
+            case MOE:
+                stream = context.getResources().openRawResource(R.raw.moe_programme);
+                break;
+
+            case CCA:
+                stream = context.getResources().openRawResource(R.raw.ccas);
+                break;
+        }
+
+        try {
+            br = new BufferedReader(new InputStreamReader(stream));
+            String nextSchoolName, schoolName;
+            line = br.readLine();
+            line = br.readLine();
+            tempArray = line.split(",");
+            nextSchoolName = tempArray[0];
+            schoolName = nextSchoolName;
+            ArrayList<String> array = new ArrayList<>();
+
+            while (true) {
+                while (schoolName.equals(nextSchoolName)) {
+                    if(arrayType==MOE || arrayType==SUBJECT) array.add(tempArray[1]);
+                    else array.add(tempArray[3]);
+                    line = br.readLine();
+                    if (line == null) break;
+                    tempArray = line.split(",");
+                    nextSchoolName = tempArray[0];
+                }
+                if(line==null) break;
+                addArrayToSchool(schools, array, schoolName, arrayType);
+                array = new ArrayList<>();
+                schoolName = nextSchoolName;
+
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (br != null) {
+                try {
+                    br.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+
+
+    private void addArrayToSchool(HashMap<String, School> schools, ArrayList<String> array, String schoolName, String type) {
+            switch(type) {
+                case CCA:
+                    schools.get(schoolName).setCcas(array);
+                    break;
+
+                case MOE:
+                    schools.get(schoolName).setMoeProgramme(array);
+                    break;
+
+                case SUBJECT:
+                    schools.get(schoolName).setSubjectsOffered(array);
+                    break;
+            }
     }
 }
