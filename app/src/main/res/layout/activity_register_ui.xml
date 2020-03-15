@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.example.edupedia.RegisterUI">
+    tools:context="com.example.edupedia.ui.RegisterUI">
 
 
     <RelativeLayout
@@ -113,7 +113,7 @@
                 android:textColorHint="@color/colorAccent" />
 
             <Button
-                android:id="@+id/buttonSignUp"
+                android:id="@+id/textViewLogin"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -124,7 +124,7 @@
                 android:textColor="@color/colorAccent" />
 
             <TextView
-                android:id="@+id/textViewLogin"
+                android:id="@+id/buttonSignUp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="15dp"

@@ -1,4 +1,4 @@
-package com.example.edupedia;
+package com.example.edupedia.ui;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -24,6 +24,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
+import com.example.edupedia.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -50,7 +51,7 @@ public class RegisterUI extends AppCompatActivity implements View.OnClickListene
             editTextName, editTextLocation, editTextRetypePassword;
     String dateOfBirth;
 
-    private FirebaseAuth mAuth;
+    private FirebaseAuth mAuth = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -222,7 +223,7 @@ public class RegisterUI extends AppCompatActivity implements View.OnClickListene
                     current_user_db.setValue(newPost);
 
 
-                    startActivity(new Intent(RegisterUI.this, MainSearchUI.class));
+                    startActivity(new Intent(RegisterUI.this, MainNavigationUI.class));
                 } else {
 
                     if (task.getException() instanceof FirebaseAuthUserCollisionException) {

@@ -11,4 +11,6 @@
         <item>Tertiary Level</item>
         <item>Select Education Level (Future)</item>
     </string-array>
+    <string name="title_activity_main_navigation_ui">MainNavigationUI</string>
+    <string name="title_activity_main_search_u_i">MainSearchUI</string>
 </resources>

@@ -1,4 +1,4 @@
-package com.example.edupedia;
+package com.example.edupedia.ui;
 
 
 
@@ -7,12 +7,14 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 import android.util.Patterns;
 
+import com.example.edupedia.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -20,7 +22,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseUser;
 
 
-public class StartUI extends AppCompatActivity implements View.OnClickListener {
+public class    StartUI extends AppCompatActivity implements View.OnClickListener {
 
     FirebaseAuth mAuth;
     EditText editTextEmail, editTextPassword;
@@ -78,7 +80,7 @@ public class StartUI extends AppCompatActivity implements View.OnClickListener {
                 progressBar.setVisibility(View.GONE);
                 if (task.isSuccessful()) {
                     finish();
-                    Intent intent = new Intent(StartUI.this, RegisterUI.class);
+                    Intent intent = new Intent(StartUI.this, MainNavigationUI.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(intent);
                 } else {
@@ -94,7 +96,8 @@ public class StartUI extends AppCompatActivity implements View.OnClickListener {
 
         if (mAuth.getCurrentUser() != null) {
             finish();
-            startActivity(new Intent(this, MainSearchUI.class));
+            Log.d("STARTUI", "Logged In");
+            startActivity(new Intent(this, MainNavigationUI.class));
         }
     }
 

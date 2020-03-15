@@ -13,13 +13,13 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".MainSearchUI"
-            android:label="@string/title_activity_main_search_ui"></activity>
+            android:name=".ui.MainNavigationUI"
+            android:label="MainNavigationUI" />
         <activity
-            android:name=".RegisterUI"
+            android:name=".ui.RegisterUI"
             android:label="@string/title_activity_register_ui"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".StartUI">
+        <activity android:name=".ui.StartUI">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
