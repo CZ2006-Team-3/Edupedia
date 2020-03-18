@@ -1,32 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent" android:layout_height="match_parent"
     android:background="@drawable/settings_bg"
     android:id="@+id/fragment_settings">
 
     <TextView
-        android:id="@+id/firstName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:id="@+id/email_entry"
+        android:layout_width="280dp"
+        android:layout_height="55dp"
         android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginEnd="307dp"
-        android:layout_marginBottom="506dp"
-        android:text="First Name"
-        android:textColor="@color/blackText"
-        android:textSize="16sp"
         android:layout_alignParentRight="true"
-        android:layout_marginRight="307dp" />
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="13dp"
+        android:layout_marginRight="13dp"
+        android:layout_marginBottom="318dp"
+        android:background="@drawable/edit_text_round_box"
+        android:ems="10"
+        android:gravity="center"
+        android:hint="Email" />
 
     <TextView
-        android:id="@+id/lastName"
+        android:id="@+id/first_Name"
+        android:layout_width="280dp"
+        android:layout_height="55dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="18dp"
+        android:layout_marginRight="18dp"
+        android:layout_marginBottom="497dp"
+        android:background="@drawable/edit_text_round_box"
+        android:ems="10"
+        android:gravity="center"
+        android:hint="First Name" />
+
+    <TextView
+        android:id="@+id/last_Name"
+        android:layout_width="280dp"
+        android:layout_height="55dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="13dp"
+        android:layout_marginRight="13dp"
+        android:layout_marginBottom="410dp"
+        android:background="@drawable/edit_text_round_box"
+        android:ems="10"
+        android:gravity="center"
+        android:hint="Last Name" />
+
+    <TextView
+        android:id="@+id/Gender"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginEnd="307dp"
-        android:layout_marginBottom="406dp"
-        android:text="Last Name"
+        android:layout_marginEnd="333dp"
+        android:layout_marginRight="333dp"
+        android:layout_marginBottom="267dp"
+        android:text="Gender"
         android:textColor="@color/blackText"
         android:textSize="16sp" />
 
@@ -36,11 +70,136 @@
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginEnd="307dp"
-        android:layout_marginBottom="306dp"
+        android:layout_marginEnd="309dp"
+        android:layout_marginBottom="340dp"
         android:text="Last Name"
         android:textColor="@color/blackText"
         android:textSize="16sp" />
 
+    <TextView
+        android:id="@+id/lastName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="310dp"
+        android:layout_marginRight="310dp"
+        android:layout_marginBottom="429dp"
+        android:text="Last Name"
+        android:textColor="@color/blackText"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/LocationAccess"
+        android:layout_width="158dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="28dp"
+        android:layout_marginEnd="225dp"
+        android:layout_marginRight="225dp"
+        android:layout_marginBottom="210dp"
+        android:text="Location Access"
+        android:textColor="@color/blackText"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/firstName"
+        android:layout_width="123dp"
+        android:layout_height="36dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="268dp"
+        android:layout_marginRight="268dp"
+        android:layout_marginBottom="502dp"
+        android:text="First Name"
+        android:textColor="@color/blackText"
+        android:textSize="16sp" />
+
+    <RadioButton
+        android:id="@+id/radio_female"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginEnd="202dp"
+        android:layout_marginBottom="257dp"
+        android:onClick="onRadioButtonClicked"
+        android:text="Female" />
+
+    <RadioButton
+        android:id="@+id/radio_male"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginEnd="77dp"
+        android:layout_marginBottom="257dp"
+        android:onClick="onRadioButtonClicked"
+        android:text="Male" />
+
+    <Switch
+        android:id="@+id/switch1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="170dp"
+        android:layout_marginBottom="205dp" />
+
+    <ImageButton
+        android:id="@+id/ChangePasswordButton"
+        android:layout_width="202dp"
+        android:layout_height="48dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="2dp"
+        android:layout_marginRight="2dp"
+        android:layout_marginBottom="141dp"
+        android:adjustViewBounds="true"
+        android:background="#00000000"
+        android:scaleType="fitCenter"
+        android:src="@drawable/group58" />
+
+    <ImageButton
+        android:id="@+id/ChangeUsernameButton"
+        android:layout_width="wrap_content"
+        android:layout_height="102dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="206dp"
+        android:layout_marginRight="206dp"
+        android:layout_marginBottom="114dp"
+        android:adjustViewBounds="true"
+        android:background="#00000000"
+        android:scaleType="fitCenter"
+        android:src="@drawable/group57" />
+
+    <ImageButton
+        android:id="@+id/LogOutButton"
+        android:layout_width="256dp"
+        android:layout_height="147dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginEnd="80dp"
+        android:layout_marginRight="80dp"
+        android:layout_marginBottom="55dp"
+        android:adjustViewBounds="true"
+        android:background="#00000000"
+        android:padding="1dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/group60" />
 
 </RelativeLayout>

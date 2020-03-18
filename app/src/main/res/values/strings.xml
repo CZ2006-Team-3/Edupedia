@@ -11,6 +11,37 @@
         <item>Tertiary Level</item>
         <item>Select Education Level (Future)</item>
     </string-array>
-    <string name="title_activity_main_navigation_ui">MainNavigationUI</string>
-    <string name="title_activity_main_search_u_i">MainSearchUI</string>
+    <string-array name="educationLevel">
+        <item>Primary</item>
+        <item>Secondary</item>
+        <item>Junior College</item>
+        <item>Polytechnic</item>
+    </string-array>
+    <string-array name="gradeCutOff">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+        <item>9</item>
+        <item>10</item>
+        <item>15</item>
+    </string-array>
+    <string-array name="preferredStream">
+        <item>Not Applicable</item>
+        <item>Art Stream</item>
+        <item>Science Stream</item>
+    </string-array>
+
+    <string-array name="result">
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+    </string-array>
 </resources>

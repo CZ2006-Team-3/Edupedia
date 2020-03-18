@@ -9,6 +9,6 @@ public class HomeUI extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home_ui);
+        setContentView(R.layout.fragment_home);
     }
 }

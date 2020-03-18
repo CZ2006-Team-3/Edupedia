@@ -20,14 +20,14 @@ public class SchoolReader {
     private static BufferedReader br = null;
     private static String line;
     private static String[] tempArray;
-    private static Context context;
+    private Context context;
     private static InputStream stream;
 
     public SchoolReader(Context context) {
         this.context = context;
     }
 
-    public static HashMap<String, School> retrieveSchools() throws IOException {
+    public HashMap<String, School> retrieveSchools() throws IOException {
         HashMap<String, School> schools = new HashMap<String, School>();
         stream = context.getResources().openRawResource(R.raw.general_info);
         try {

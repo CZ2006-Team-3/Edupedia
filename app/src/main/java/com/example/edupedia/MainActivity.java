@@ -1,55 +1,67 @@
 package com.example.edupedia;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.view.MenuItem;
 
-import com.google.android.material.bottomnavigation.BottomNavigationView;
+import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.Toast;
+
+import com.example.edupedia.Login;
+import com.example.edupedia.RegisterUI;
 
 public class MainActivity extends AppCompatActivity {
+    private Button buttonA;
+    private Button buttonB;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.acivity_main);
+        setContentView(R.layout.activity_main);
 
-        BottomNavigationView bottomMenu = findViewById(com.example.edupedia.R.id.bottom_menu);
-        bottomMenu.setOnNavigationItemSelectedListener(navListener);
+        // get the button
+        buttonA = (Button) findViewById(R.id.login);
+        buttonA.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openLogin();
+            }
+        });
+        buttonB = (Button) findViewById(R.id.newUser);
+        buttonA.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openRegister();
+            }
+        });
+
+        buttonA.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openLogin();
+            }
+        });
+
+        buttonB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openRegister();
+            }
+        });
 
     }
 
-    private BottomNavigationView.OnNavigationItemSelectedListener navListener =
-            new BottomNavigationView.OnNavigationItemSelectedListener() {
-                @Override
-                public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                    Fragment selectedFragment = null;
+    public void openLogin(){
+        Intent intent1 = new Intent(this, Login.class);
+        startActivity(intent1);
+    }
 
-                    switch (item.getItemId()){
-                        case com.example.edupedia.R.id.searchIcon:
-                            selectedFragment = new SearchFragment();
-                            break;
-
-                        case com.example.edupedia.R.id.watchListIcon:
-                            selectedFragment = new WatchListFragment();
-                            break;
-                        case com.example.edupedia.R.id.homeIcon:
-                            selectedFragment = new HomeFragment();
-                            break;
-                        case com.example.edupedia.R.id.compareIcon:
-                            selectedFragment = new CompareFragment();
-                            break;
-                        case com.example.edupedia.R.id.settingsIcon:
-                            selectedFragment = new SettingsFragment();
-                            break;
-                    }
-                    getSupportFragmentManager().beginTransaction().replace(com.example.edupedia.R.id.fragment_container,
-                            selectedFragment).commit();
-
-                    return true;
-                }
-            };
+    public void openRegister(){
+        Intent intent2 = new Intent(this, RegisterUI.class);
+        startActivity(intent2);
+    }
 
 }

@@ -9,9 +9,7 @@
     <color name="colorWhite">#FFFFFF</color>
     <color name="bgcolor">#FFFFFF</color>
     <color name="blackText">#000000</color>
-
     <color name="white">#FFFFFF</color>
     <color name="bgTint">#EEDDFF</color>
     <color name="iconColor">#7C43A0</color>
-
 </resources>

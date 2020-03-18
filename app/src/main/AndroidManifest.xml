@@ -7,25 +7,34 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/bg_page1"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
         <activity
-            android:name=".ui.MainNavigationUI"
-            android:label="MainNavigationUI" />
+            android:name=".MainActivity">
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter></activity>
+
+        <activity android:name=".PopUpClass"></activity>
+
         <activity
-            android:name=".ui.RegisterUI"
+            android:name=".HomeUI"></activity>
+        <activity
+            android:name=".RegisterUI"
             android:label="@string/title_activity_register_ui"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".ui.StartUI">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+        <activity
+            android:name=".MainSearchUI"
+            android:label="@string/title_activity_main_search_ui" />
+        <activity
+            android:name=".StartUI"
+            android:label="StartUI" />
+        <activity android:name=".MainMenu"></activity>
     </application>
 
 </manifest>
