@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/android_background"
+    android:id="@+id/fragment_search">
+
+    <TextView
+        android:id="@+id/textView8"
+        android:layout_width="504dp"
+        android:layout_height="69dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="-126dp"
+        android:layout_marginRight="-126dp"
+        android:layout_marginBottom="427dp"
+        android:fontFamily="sans-serif"
+        android:text="Finding your next step for education"
+        android:textColor="@color/blackText"
+        android:textSize="20dp" />
+    <ImageButton
+        android:id="@+id/findInstitute"
+        android:layout_width="380dp"
+        android:layout_height="56dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="147dp"
+        android:background="#00000000"
+        app:srcCompat="@drawable/find_institute" />
+
+    <TextView
+        android:id="@+id/education"
+        android:layout_width="142dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="250dp"
+        android:layout_marginRight="250dp"
+        android:layout_marginBottom="416dp"
+        android:text="Education Level"
+        android:textColor="@color/blackText" />
+
+
+    <Spinner
+        android:id="@+id/dropdown_education"
+        android:layout_width="220dp"
+        android:layout_height="36dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="21dp"
+        android:layout_marginRight="21dp"
+        android:layout_marginBottom="407dp"
+        android:entries="@array/educationLevel"
+        android:outlineAmbientShadowColor="@color/blackText"
+        android:outlineSpotShadowColor="@color/blackText" />
+
+    <TextView
+        android:id="@+id/gradeCutOff"
+        android:layout_width="142dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="250dp"
+        android:layout_marginRight="250dp"
+        android:layout_marginBottom="363dp"
+        android:text="Grade Cut-off"
+        android:textColor="@color/blackText" />
+
+    <Spinner
+        android:id="@+id/gradeCut_Off"
+        android:layout_width="220dp"
+        android:layout_height="36dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="352dp"
+        android:entries="@array/gradeCutOff"
+        android:outlineSpotShadowColor="@color/blackText" />
+
+    <TextView
+        android:id="@+id/preferredStream"
+        android:layout_width="142dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="246dp"
+        android:layout_marginRight="246dp"
+        android:layout_marginBottom="311dp"
+        android:text="Preferred Stream"
+        android:textColor="@color/blackText" />
+
+    <Spinner
+        android:id="@+id/preferred_Stream"
+        android:layout_width="220dp"
+        android:layout_height="36dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="18dp"
+        android:layout_marginRight="18dp"
+        android:layout_marginBottom="304dp"
+        android:entries="@array/preferredStream"
+        android:outlineSpotShadowColor="@color/blackText" />
+
+    <TextView
+        android:id="@+id/location"
+        android:layout_width="142dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="244dp"
+        android:layout_marginRight="244dp"
+        android:layout_marginBottom="259dp"
+        android:text="Location"
+        android:textColor="@color/blackText" />
+
+    <EditText
+        android:layout_width="220dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="18dp"
+        android:layout_marginRight="18dp"
+        android:layout_marginBottom="249dp" />
+
+
+
+
+</RelativeLayout>
