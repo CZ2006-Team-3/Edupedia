@@ -50,6 +50,7 @@ public class SchoolReader {
                         .schoolClusterCode(data[23])
                         .schoolTypeCode(data[24])
                         .schoolNatureCode(data[25])
+                        .schoolMainCode(data[27])
                         .sapSchool(data[28].equals("Yes"))
                         .autonomousSchool(data[29].equals("Yes"))
                         .giftedProgram(data[30].equals("Yes"))

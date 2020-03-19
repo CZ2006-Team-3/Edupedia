@@ -19,6 +19,7 @@ public class School {
     private String clusterCode;         // [24]
     private String typeCode;            // [25]
     private String natureCode;          // [26]
+    private String mainCode;            // [27]
     private boolean sap;                // [29]
     private boolean autonomous;         // [30]
     private boolean gifted;             // [31]
@@ -46,6 +47,7 @@ public class School {
         private String clusterCode;         // [24]
         private String typeCode;            // [25]
         private String natureCode;          // [26]
+        private String mainCode;            // [27]
         private boolean sap;                // [29]
         private boolean autonomous;         // [30]
         private boolean gifted;             // [31]
@@ -126,6 +128,11 @@ public class School {
 
         public SchoolBuilder schoolNatureCode(String natureCode) {
             this.natureCode = natureCode;
+            return this;
+        }
+
+        public SchoolBuilder schoolMainCode(String mainCode) {
+            this.mainCode = mainCode;
             return this;
         }
 
