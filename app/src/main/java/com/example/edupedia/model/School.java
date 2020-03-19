@@ -28,6 +28,9 @@ public class School {
     private ArrayList<String> subjectsOffered;
     private ArrayList<String> ccas;
     private ArrayList<String> moeProgramme;
+
+    private int gradeCutOff;
+
     // Optional Attributes
     private double drivingTime;
     private double publicTime;
@@ -57,6 +60,8 @@ public class School {
         private ArrayList<String> ccas;
         private ArrayList<String> moeProgramme;
         private ArrayList<String> sdp;
+
+        private int gradeCutOff;
 
         // Optional Attributes
         private double drivingTime;
@@ -171,6 +176,7 @@ public class School {
         }
 
     }
+
     private School(SchoolBuilder schoolBuilder) {
         this.schoolName = schoolBuilder.schoolName;
         this.urlAddress = schoolBuilder.urlAddress;
@@ -186,12 +192,16 @@ public class School {
         this.clusterCode = schoolBuilder.clusterCode;
         this.typeCode = schoolBuilder.typeCode;
         this.natureCode = schoolBuilder.natureCode;
-        this.sap = schoolBuilder.sap ;
+        this.mainCode = schoolBuilder.mainCode;
+        this.sap = schoolBuilder.sap;
         this.autonomous = schoolBuilder.autonomous;
         this.gifted = schoolBuilder.gifted;
         this.ip = schoolBuilder.ip;
     }
 
+    public void setGradeCutOff(int gradeCutOff) {
+        this.gradeCutOff = gradeCutOff;
+    }
 
     public void setDrivingTime(double drivingTime) {
         this.drivingTime = drivingTime;
@@ -269,6 +279,10 @@ public class School {
         return natureCode;
     }
 
+    public String getMainCode() {
+        return mainCode;
+    }
+
     public boolean isSap() {
         return sap;
     }
@@ -303,5 +317,9 @@ public class School {
 
     public double getPublicTime() {
         return publicTime;
+    }
+
+    public int getGradeCutOff() {
+        return gradeCutOff;
     }
 }
