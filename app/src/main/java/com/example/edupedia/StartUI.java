@@ -94,7 +94,7 @@ public class StartUI extends AppCompatActivity implements View.OnClickListener {
 
         if (mAuth.getCurrentUser() != null) {
             finish();
-            startActivity(new Intent(this, MainSearchUI.class));
+            startActivity(new Intent(this, SearchFragment.class));
         }
     }
 

@@ -10,8 +10,6 @@ import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import com.example.edupedia.MainSearchUI;
-import com.example.edupedia.RegisterUI;
 
 public class Login extends AppCompatActivity {
 
@@ -29,7 +27,7 @@ public class Login extends AppCompatActivity {
         userNameInput = (EditText) findViewById(R.id.editTextEmail);
 
         loginButton = (Button) findViewById(R.id.loginproceed);
-        registerButton = (Button) findViewById(R.id.loginproceed);
+        registerButton = (Button) findViewById(R.id.signUpButton);
 
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -46,16 +44,10 @@ public class Login extends AppCompatActivity {
                 openRegister();
             }
         });
-        registerButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openRegister();
-            }
-        });
     }
 
     public void openSearch(){
-        Intent intent1 = new Intent(this, MainSearchUI.class);
+        Intent intent1 = new Intent(this, SettingsFragment.class);
         startActivity(intent1);
     }
 

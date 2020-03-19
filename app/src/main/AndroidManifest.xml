@@ -20,21 +20,15 @@
             <category android:name="android.intent.category.LAUNCHER" />
         </intent-filter></activity>
 
-        <activity android:name=".PopUpClass"></activity>
-
-        <activity
-            android:name=".HomeUI"></activity>
-        <activity
-            android:name=".RegisterUI"
-            android:label="@string/title_activity_register_ui"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".MainSearchUI"
-            android:label="@string/title_activity_main_search_ui" />
-        <activity
-            android:name=".StartUI"
-            android:label="StartUI" />
+        <activity android:name=".Login"></activity>
+        <activity android:name=".RegisterUI"></activity>
+        <activity android:name=".StartUI"></activity>
+        <activity android:name=".HomeUI"></activity>
         <activity android:name=".MainMenu"></activity>
+        <activity android:name=".ChangePassword"
+            android:theme="@style/AppTheme.CustomTheme"
+            ></activity>
+
     </application>
 
 </manifest>
