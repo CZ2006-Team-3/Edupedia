@@ -49,17 +49,11 @@ public class Filter implements DataStoreInterface {
             }
 
             String jsonString = sb.toString();
-            JSONObject json = new JSONObject(jsonString);
-            return json;
+            return new JSONObject(jsonString);
 
-        } catch (FileNotFoundException e) {
+        } catch (JSONException | IOException e) {
             e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        finally {
+        } finally {
             if (fis != null) {
                 try {
                     fis.close();
@@ -92,8 +86,6 @@ public class Filter implements DataStoreInterface {
             bw = new BufferedWriter(fw);
             bw.write(text);
             Log.d("File Written to ", fileDir);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         } finally {

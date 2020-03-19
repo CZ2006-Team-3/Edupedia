@@ -67,8 +67,8 @@ public class SchoolReader {
                     e.printStackTrace();
                 }
             }
-            return schools;
         }
+        return schools;
     }
 
     public void addArray(HashMap<String, School> schools, String arrayType) {
@@ -98,7 +98,7 @@ public class SchoolReader {
 
             while (true) {
                 while (schoolName.equals(nextSchoolName)) {
-                    if(arrayType==MOE || arrayType==SUBJECT) array.add(tempArray[1]);
+                    if(arrayType.equals(MOE) || arrayType.equals(SUBJECT)) array.add(tempArray[1]);
                     else array.add(tempArray[3]);
                     line = br.readLine();
                     if (line == null) break;
