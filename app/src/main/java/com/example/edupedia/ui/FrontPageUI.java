@@ -9,7 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.edupedia.R;
 
-public class FrontPageUI extends AppCompatActivity {
+public class FrontPageUI extends AppCompatActivity  {
     private Button buttonA;
     private Button buttonB;
 

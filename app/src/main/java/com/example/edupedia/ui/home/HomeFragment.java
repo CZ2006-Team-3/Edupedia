@@ -43,7 +43,7 @@ public class HomeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View layout = inflater.inflate(R.layout.fragment_home, container, false);
-        ImageButton toSort = (ImageButton) layout.findViewById(R.id.sortButton);
+        /*ImageButton toSort = (ImageButton) layout.findViewById(R.id.sortButton);
         toSort.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -54,8 +54,8 @@ public class HomeFragment extends Fragment {
                 Toast.makeText(getActivity(), "You Clicked the sort button!", Toast.LENGTH_LONG).show();
 
             }
-        });
-
+        });*/
+/*
         ImageButton toFilter = (ImageButton) layout.findViewById(R.id.filterButton);
         toSort.setOnClickListener(new View.OnClickListener() {
 
@@ -68,6 +68,8 @@ public class HomeFragment extends Fragment {
 
             }
         });
+        */
+
 
         createSchoolList();
         buildRecyclerView(layout);

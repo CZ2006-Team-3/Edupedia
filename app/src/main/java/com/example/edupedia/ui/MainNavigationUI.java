@@ -10,6 +10,7 @@ import android.view.SearchEvent;
 import android.widget.SearchView;
 
 import com.example.edupedia.R;
+import com.example.edupedia.SettingsFragment;
 import com.example.edupedia.ui.WatchList.WatchListFragment;
 import com.example.edupedia.ui.home.HomeFragment;
 import com.example.edupedia.ui.Compare.CompareFragment;
