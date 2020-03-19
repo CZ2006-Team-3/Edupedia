@@ -1,15 +1,23 @@
 package com.example.edupedia.ui;
 
+import android.app.SearchManager;
+import android.content.Context;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.view.SearchEvent;
+import android.widget.SearchView;
 
 import com.example.edupedia.R;
+import com.example.edupedia.ui.WatchList.WatchListFragment;
+import com.example.edupedia.ui.home.HomeFragment;
+import com.example.edupedia.ui.Compare.CompareFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-import androidx.navigation.ui.AppBarConfiguration;
-import androidx.navigation.ui.NavigationUI;
+import androidx.fragment.app.Fragment;
 
 public class MainNavigationUI extends AppCompatActivity {
 
@@ -17,15 +25,45 @@ public class MainNavigationUI extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_navigation_ui);
-        BottomNavigationView navView = findViewById(R.id.nav_view);
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
-        AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.navigation_home, R.id.navigation_dashboard, R.id.navigation_notifications)
-                .build();
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
-        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
-        NavigationUI.setupWithNavController(navView, navController);
+
+        BottomNavigationView bottomMenu = findViewById(R.id.bottom_menu);
+        bottomMenu.setOnNavigationItemSelectedListener(navListener);
+
     }
 
+    private BottomNavigationView.OnNavigationItemSelectedListener navListener =
+            new BottomNavigationView.OnNavigationItemSelectedListener() {
+                @Override
+                public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                    Fragment selectedFragment = null;
+
+                    switch (item.getItemId()){
+                        case R.id.searchIcon:
+                            selectedFragment = new SearchFragment();
+                            break;
+
+                        case R.id.watchListIcon:
+                            selectedFragment = new WatchListFragment();
+                            break;
+                        case R.id.homeIcon:
+                            selectedFragment = new HomeFragment();
+                            break;
+                        case R.id.compareIcon:
+                            selectedFragment = new CompareFragment();
+                            break;
+                        case R.id.settingsIcon:
+                            selectedFragment = new SettingsFragment();
+                            break;
+                    }
+                    getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                            selectedFragment).commit();
+
+                    return true;
+                }
+            };
+
+
 }
+
+
+

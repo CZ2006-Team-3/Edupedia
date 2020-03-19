@@ -1,81 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".ui.home.HomeFragment">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:background="@drawable/home_background"
+    android:id="@+id/fragment_home">
 
-    <!--Text View "Main Search" Below Not necessary -->
 
-    <RelativeLayout
-        android:layout_width="match_parent"
+    <ImageButton
+        android:id="@+id/sortButton"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_weight="1">
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginEnd="11dp"
+        android:layout_marginRight="11dp"
+        android:layout_marginBottom="499dp"
+        android:adjustViewBounds="true"
+        android:background="#00000000"
+        android:padding="1dp"
+        android:src="@drawable/sort" />
 
-        <TextView
-            android:id="@+id/text_home"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:text="MainSearch"
-            android:textAlignment="center"
-            android:textSize="20sp" />
-
-    </RelativeLayout>
-    <!-- //////////////////////////////////////////// -->
-
-
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
+    <ImageButton
+        android:id="@+id/filterButton"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_weight="3"
-        android:orientation="vertical"
-        android:background="@color/colorPrimary">
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginEnd="81dp"
+        android:layout_marginRight="81dp"
+        android:layout_marginBottom="499dp"
+        android:adjustViewBounds="true"
+        android:background="#00000000"
+        android:padding="1dp"
+        android:src="@drawable/filter" />
+
+    <SearchView
+        android:layout_width="240dp"
+        android:layout_height="59dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="153dp"
+        android:layout_marginRight="111dp"
+        android:layout_marginBottom="499dp"
+        android:background="#F8F0FF" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="4dp"
+        android:scrollbars="vertical"
+        android:layout_marginTop="240dp"
+        android:background="#FFFFFF"/>
 
 
-        <Spinner
-            android:id="@+id/textFilterEdLevel"
-            android:layout_width="fill_parent"
-            android:hint="Sasdfasdfel (Future)"
-            android:layout_height="wrap_content"
-            />
-
-        <Spinner
-            android:id="@+id/textFilterGradeCutOff"
-            android:layout_width="fill_parent"
-            android:hint="Select Education Level (Future)"
-            android:layout_height="wrap_content" />
-        <Spinner
-            android:id="@+id/textFilterPrefStream"
-            android:layout_width="fill_parent"
-            android:hint="Select Education Level (Future)"
-            android:layout_height="wrap_content" />
-        <EditText
-            android:id="@+id/textFilterLocation"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fontFamily="sans-serif"
-            android:hint="Email"
-            android:inputType="textEmailAddress"
-            android:paddingBottom="15dp"
-            android:textColorHint="@color/colorAccent" />
-        <Button
-            android:id="@+id/buttonSearch"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_margin="7dp"
-            android:background="@drawable/rounded_button_transparent"
-            android:text="Search"
-            android:textAllCaps="false"
-            android:textColor="@color/colorAccent" />
-
-
-    </LinearLayout>
-</LinearLayout>
+</RelativeLayout>
