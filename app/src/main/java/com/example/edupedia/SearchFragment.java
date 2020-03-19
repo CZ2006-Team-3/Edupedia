@@ -1,26 +1,26 @@
-package com.example.edupedia;
+package com.example.edupedia.ui;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-public class SearchFragment extends Fragment {
+import com.example.edupedia.R;
 
+public class SearchFragment extends Fragment implements
+        View.OnClickListener, AdapterView.OnItemSelectedListener {
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState){
-        View rootview = inflater.inflate(R.layout.fragment_search, container, false);
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
+        View rootview = inflater.inflate(R.layout.fragment_search, container, false);
         Spinner dropdown_education = (Spinner) rootview.findViewById(R.id.dropdown_education);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity().getApplicationContext(), R.array.educationLevel, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -44,13 +44,20 @@ public class SearchFragment extends Fragment {
         return rootview;
     }
 
+
     public void onItemSelected(AdapterView<?> parent, View view,
                                int pos, long id) {
         String text = parent.getItemAtPosition(pos).toString();
         Toast.makeText(parent.getContext(), text, Toast.LENGTH_SHORT).show();
     }
 
-    public void onNothingSelected(AdapterView<?> parent){
+    public void onNothingSelected(AdapterView<?> parent) {
+
+    }
+
+    @Override
+    public void onClick(View view) {
 
     }
 }
+

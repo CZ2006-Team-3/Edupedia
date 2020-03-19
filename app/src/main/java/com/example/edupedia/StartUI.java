@@ -13,6 +13,7 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 import android.util.Patterns;
 
+import com.example.edupedia.ui.SearchFragment;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;

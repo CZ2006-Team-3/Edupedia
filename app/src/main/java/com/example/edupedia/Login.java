@@ -1,7 +1,10 @@
 package com.example.edupedia;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
+import android.app.FragmentManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -10,8 +13,10 @@ import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.example.edupedia.ui.SearchFragment;
 
-public class Login extends AppCompatActivity {
+
+public class Login extends AppCompatActivity{
 
     String userName;
     EditText userNameInput;
@@ -32,9 +37,12 @@ public class Login extends AppCompatActivity {
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                userName = userNameInput.getText().toString();
-                showToast(userName);
-                openSearch();
+
+
+                Fragment fragment = new SearchFragment();
+                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                transaction.replace(R.id.fragment_search, fragment);
+                transaction.commit();
             }
         });
 

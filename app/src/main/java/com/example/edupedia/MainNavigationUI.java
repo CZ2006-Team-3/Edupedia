@@ -1,22 +1,33 @@
 package com.example.edupedia;
 
+import android.app.SearchManager;
+import android.content.Context;
+import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.view.SearchEvent;
+import android.widget.SearchView;
+
+import com.example.edupedia.CompareFragment;
+import com.example.edupedia.R;
+import com.example.edupedia.SettingsFragment;
+import com.example.edupedia.WatchListFragment;
+
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
-import android.os.Bundle;
-import android.view.MenuItem;
-
-import com.google.android.material.bottomnavigation.BottomNavigationView;
-
-public class MainMenu extends AppCompatActivity {
+public class MainNavigationUI extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.menu_main);
+        setContentView(R.layout.activity_main_navigation_ui);
 
-        BottomNavigationView bottomMenu = findViewById(com.example.edupedia.R.id.bottom_menu);
+        BottomNavigationView bottomMenu = findViewById(R.id.bottom_menu);
         bottomMenu.setOnNavigationItemSelectedListener(navListener);
 
     }
@@ -28,28 +39,29 @@ public class MainMenu extends AppCompatActivity {
                     Fragment selectedFragment = null;
 
                     switch (item.getItemId()){
-                        case com.example.edupedia.R.id.searchIcon:
-                            selectedFragment = new SearchFragment();
+                        case R.id.searchIcon:
+                            selectedFragment = new com.example.edupedia.ui.SearchFragment();
                             break;
 
-                        case com.example.edupedia.R.id.watchListIcon:
+                        case R.id.watchListIcon:
                             selectedFragment = new WatchListFragment();
                             break;
-                        case com.example.edupedia.R.id.homeIcon:
+                        case R.id.homeIcon:
                             selectedFragment = new HomeFragment();
                             break;
-                        case com.example.edupedia.R.id.compareIcon:
+                        case R.id.compareIcon:
                             selectedFragment = new CompareFragment();
                             break;
-                        case com.example.edupedia.R.id.settingsIcon:
+                        case R.id.settingsIcon:
                             selectedFragment = new SettingsFragment();
                             break;
                     }
-                    getSupportFragmentManager().beginTransaction().replace(com.example.edupedia.R.id.fragment_container,
+                    getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                             selectedFragment).commit();
 
                     return true;
                 }
             };
+
 
 }
