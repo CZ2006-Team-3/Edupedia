@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="400dp"
+    android:layout_height="131dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardCornerRadius="4dp"
+    android:background="#EFEEED"
+    android:paddingBottom="12dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="4dp">
+        
+        <ImageView
+            android:id="@+id/school_img"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:padding="2dp" />
+        
+        <TextView
+            android:id="@+id/school_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="School Name"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="@color/blackText"
+            android:layout_alignParentTop="true"
+            android:paddingBottom="4dp"
+            android:layout_toEndOf="@+id/school_img"/>
+
+        <TextView
+            android:id="@+id/grade_cutOff"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Grade Cut-Off"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:textColor="@color/blackText"
+            android:layout_below="@+id/school_name"
+            android:layout_marginStart="8dp"
+            android:paddingBottom="3dp"
+            android:layout_toEndOf="@+id/school_img"/>
+
+        <TextView
+            android:id="@+id/distanceInfo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Distance"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:textColor="@color/blackText"
+            android:layout_below="@+id/grade_cutOff"
+            android:layout_marginStart="8dp"
+            android:paddingBottom="2dp"
+            android:layout_toEndOf="@+id/school_img"/>
+
+
+
+
+
+
+    </RelativeLayout>
+</androidx.cardview.widget.CardView>

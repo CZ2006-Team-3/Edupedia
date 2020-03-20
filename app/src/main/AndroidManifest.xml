@@ -4,6 +4,8 @@
     package="com.example.edupedia">
 
     <dist:module dist:instant="true" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+
 
     <application
         android:allowBackup="true"
@@ -12,20 +14,21 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity
-            android:name=".ui.MainNavigationUI"
-            android:label="MainNavigationUI" />
+        <activity android:name=".ui.FrontPageUI">
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
+        </activity>
         <activity
             android:name=".ui.RegisterUI"
             android:label="@string/title_activity_register_ui"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".ui.StartUI">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+        <activity android:name=".ui.StartUI"
+            android:label="StartUI"/>
+        <activity
+            android:name=".ui.MainNavigationUI"
+            android:label="MainNavigationUI" />
     </application>
 
 </manifest>

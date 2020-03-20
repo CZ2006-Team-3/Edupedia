@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id = "@+id/searchIcon"
+        android:icon="@drawable/ic_search_24dp"
+        android:title ="Search" />
+
+    <item
+        android:id = "@+id/watchListIcon"
+        android:icon="@drawable/ic_list_black_24dp"
+        android:title ="WatchList" />
+
+    <item
+        android:id = "@+id/homeIcon"
+        android:icon="@drawable/ic_home_black_24dp"
+        android:title="Home" />
+
+    <item
+        android:id = "@+id/compareIcon"
+        android:icon="@drawable/ic_compare_black_24dp"
+        android:title="Compare" />
+
+    <item
+        android:id = "@+id/settingsIcon"
+        android:icon="@drawable/ic_settings_black_24dp"
+        android:title="Settings" />
+
+
+</menu>
