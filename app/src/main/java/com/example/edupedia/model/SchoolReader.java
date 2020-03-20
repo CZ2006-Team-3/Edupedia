@@ -35,8 +35,7 @@ public class SchoolReader {
             String row = br.readLine();
             while ((row = br.readLine()) != null) {
                 String[] data = row.split(",");
-                School school = new School
-                        .SchoolBuilder(data[0])
+                School school = new School.SchoolBuilder(data[0])
                         .schoolUrlAddress(data[1])
                         .schoolAddress(data[2])
                         .schoolPostalCode(data[3])
