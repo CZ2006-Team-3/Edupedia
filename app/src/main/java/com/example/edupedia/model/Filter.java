@@ -26,9 +26,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-
-
-
 public class Filter implements DataStoreInterface {
     private static final String FILE_NAME = "filter.json";
 

@@ -1,6 +1,8 @@
 package com.example.edupedia.viewmodel;
 
 import com.example.edupedia.model.DataStoreInterface;
+import com.example.edupedia.model.School;
+import com.example.edupedia.model.SchoolDB;
 
 import android.util.Log;
 import android.widget.EditText;
@@ -14,13 +16,14 @@ import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Map;
 
 public class SearchController extends ViewModel {
 
-
     private MutableLiveData<String> textFilterEdLevel, textFilterGradeCutOff, textFilterPrefStream, textFilterLocation;
+    private EditText editLocation;
 
-    public void onSearch() {
+    public void onBasicSearch() {
 
         //1. Save Filter Settings to Internal Storage
 
@@ -34,11 +37,32 @@ public class SearchController extends ViewModel {
             e.printStackTrace();
         }
 
-        DataStoreInterface dataStore = DataStoreFactory.getDatastore("Filter");
-        dataStore.storeToMap(jsonFilter);
+        DataStoreInterface dataStore = DataStoreFactory.getDatastore("Filter"); //returns a filter object
+        dataStore.storeToMap(jsonFilter); //
 
+        SchoolDB db = new SchoolDB();
+        HashMap<String, School> schoolDB = db.getDB();
+
+        //SchoolDB is in a HashMap
+        //Parse through the schools that fit the criteria.
+        HashMap<String, School> results = new HashMap<String, School>();
+        Iterator dbIterator = schoolDB.entrySet().iterator();
+        while (dbIterator.hasNext()) {
+            Map.Entry schoolEntry = (Map.Entry) dbIterator.next();
+            School school = (School) schoolEntry.getValue();
+            if (school.getMainCode().equals(textFilterEdLevel.getValue())
+                    && school.getGradeCutOff() < Integer.parseInt(textFilterGradeCutOff.getValue())
+                    && school.equals(textFilterPrefStream.getValue())) {
+                results.put(school.getSchoolName(), school);
+            }
+        }
+        //somehow when location is clicked
 
     }
+    private void onAdvancedSearch() {
+
+    }
+
 
     public HashMap<String, String> retrieveFilterSettings() {
         DataStoreInterface dataStore = DataStoreFactory.getDatastore("Filter");
@@ -107,7 +131,6 @@ public class SearchController extends ViewModel {
         }
         return textFilterLocation;
     }
-
 
     public void setTextFilterEdLevel(String s) {
         MutableLiveData<String> liveData = this.getTextFilterEdLevel();

@@ -41,7 +41,6 @@ public class SearchFragment extends Fragment implements
         dropdown_preffered_stream.setAdapter(adapter3);
         dropdown_preffered_stream.setOnItemSelectedListener((AdapterView.OnItemSelectedListener) this);
 
-
         return rootview;
     }
 

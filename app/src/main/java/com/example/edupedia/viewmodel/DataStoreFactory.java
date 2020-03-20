@@ -9,7 +9,6 @@ public class DataStoreFactory {
     private DataStoreFactory() {
 
     }
-
     // static method to return appropriate DataStoreInterface object based on user choice
     public static DataStoreInterface getDatastore(String datastoreOption) {
         DataStoreInterface datastore = null;
