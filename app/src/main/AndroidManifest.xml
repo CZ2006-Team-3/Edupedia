@@ -29,6 +29,9 @@
         <activity android:name=".ChangeUsername"
             android:theme="@style/AppTheme.CustomTheme"
             ></activity>
+        <activity android:name=".SortBy"
+            android:theme="@style/AppTheme.CustomTheme"
+            ></activity>
     </application>
 
 </manifest>

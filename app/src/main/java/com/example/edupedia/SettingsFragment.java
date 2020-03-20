@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ImageButton;
+import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -49,7 +50,14 @@ public class SettingsFragment extends Fragment {
             }
         });
 
-
+        RadioGroup sortBy = (RadioGroup) rootview.findViewById(R.id.radioGender);
+        sortBy.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener()
+        {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                // checkedId is the RadioButton selected
+            }
+        });
 
         return rootview;
     }

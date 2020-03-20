@@ -6,14 +6,26 @@
     android:animationCache="true"
     android:background="@drawable/group40">
 
+    <TextView
+        android:id="@+id/sortOrderBy"
+        android:layout_width="242dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="14dp"
+        android:layout_marginEnd="0dp"
+        android:layout_marginRight="198dp"
+        android:layout_marginBottom="124dp"
+        android:text="Order By:" />
+
     <RadioGroup
-        android:id="@+id/radioSex"
-        android:layout_width="wrap_content"
+        android:id="@+id/sortBy"
+        android:layout_width="203dp"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginEnd="106dp"
-        android:layout_marginBottom="238dp">
+        android:layout_marginEnd="92dp"
+        android:layout_marginBottom="173dp">
 
         <RadioButton
             android:id="@+id/radioName"
@@ -48,8 +60,9 @@
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginEnd="148dp"
-        android:layout_marginBottom="157dp">
+        android:layout_centerHorizontal="true"
+        android:layout_marginEnd="123dp"
+        android:layout_marginBottom="36dp">
 
         <RadioButton
             android:id="@+id/radioDesc"
@@ -60,7 +73,7 @@
 
         <RadioButton
             android:id="@+id/radioAss"
-            android:layout_width="wrap_content"
+            android:layout_width="167dp"
             android:layout_height="wrap_content"
             android:text="Descending" />
 
