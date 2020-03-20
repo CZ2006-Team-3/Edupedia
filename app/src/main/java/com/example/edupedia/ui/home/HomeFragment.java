@@ -25,8 +25,12 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.edupedia.AdapterClass;
+import com.example.edupedia.ChangePassword;
 import com.example.edupedia.R;
 import com.example.edupedia.SchoolItem;
+import com.example.edupedia.SettingsFragment;
+import com.example.edupedia.SortBy;
+import com.example.edupedia.controller.SortController;
 import com.example.edupedia.ui.RegisterUI;
 import com.example.edupedia.viewmodel.SearchController;
 
@@ -43,13 +47,20 @@ public class HomeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View layout = inflater.inflate(R.layout.fragment_home, container, false);
-        /*ImageButton toSort = (ImageButton) layout.findViewById(R.id.sortButton);
-        toSort.setOnClickListener(new View.OnClickListener() {
+        ImageButton toSort = (ImageButton) layout.findViewById(R.id.sortButton);
 
-            @Override
+        toSort.setOnClickListener(new View.OnClickListener(){
+                @Override
+                public void onClick(View v) {
+                    Intent myIntent2 = new Intent(v.getContext(), SortBy.class);
+                    HomeFragment.this.startActivity(myIntent2);
+                }
+            });
+
+         /*   @Override
             public void onClick(View v) {
                 //sort Functionalities to occur!
-                Intent sortIntent = Intent(v.getContext(),sortingClass);
+                Intent sortIntent = new Intent(v.getContext(), SortController.class);
                 HomeFragment.this.startActivity(sortIntent);
                 Toast.makeText(getActivity(), "You Clicked the sort button!", Toast.LENGTH_LONG).show();
 
