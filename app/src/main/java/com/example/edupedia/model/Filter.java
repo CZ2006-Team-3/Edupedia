@@ -53,7 +53,8 @@ public class Filter implements DataStoreInterface {
 
         } catch (JSONException | IOException e) {
             e.printStackTrace();
-        } finally {
+        }
+        finally {
             if (fis != null) {
                 try {
                     fis.close();
