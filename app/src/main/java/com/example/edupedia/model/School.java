@@ -2,6 +2,7 @@ package com.example.edupedia.model;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 
 public class School {
     // Compulsory attributes
@@ -34,6 +35,7 @@ public class School {
     // Optional Attributes
     private double drivingTime;
     private double publicTime;
+    private double distance;
 
     public static class SchoolBuilder {
         private String schoolName;          // [1]
@@ -211,6 +213,8 @@ public class School {
         this.publicTime = publicTime;
     }
 
+    public void setDistance(double distance) {this.distance = distance; }
+
     public void setSubjectsOffered(ArrayList<String> subjectsOffered) {
         this.subjectsOffered = subjectsOffered;
     }
@@ -311,6 +315,8 @@ public class School {
         return moeProgramme;
     }
 
+    public double getDistance() { return distance; }
+
     public double getDrivingTime() {
         return drivingTime;
     }
@@ -322,4 +328,26 @@ public class School {
     public int getGradeCutOff() {
         return gradeCutOff;
     }
+
+
+    public static Comparator<School> DrivingTimeComparator = new Comparator<School>() {
+        @Override
+        public int compare(School school, School school2) {
+            return Double.compare(school.getDrivingTime(), school2.getDrivingTime());
+        }
+    };
+
+    public static Comparator<School> PublicTransportTimeComparator = new Comparator<School>() {
+        @Override
+        public int compare(School school, School school2) {
+            return Double.compare(school.getPublicTime(), school2.getPublicTime());
+        }
+    };
+
+    public static Comparator<School> DistanceComparator = new Comparator<School>() {
+        @Override
+        public int compare(School school, School school2) {
+            return Double.compare(school.getDistance(), school2.getDistance());
+        }
+    };
 }
