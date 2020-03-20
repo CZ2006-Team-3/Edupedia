@@ -3,12 +3,11 @@ package com.example.edupedia.controller;
 import com.example.edupedia.model.School;
 
 public class WatchlistController {
-    private School[] watchList;
+    private School[] watchList = new School[10];
 
     private static WatchlistController watchlistController = null;
 
     private WatchlistController() {
-        watchList = new School[10];
     }
 
     public static WatchlistController getInstance() {
@@ -20,7 +19,6 @@ public class WatchlistController {
     public School[] getWatchList() {
         return watchList;
     }
-
 
     void addSchool(School school, int toAdd) {
         watchList[toAdd] = school;
