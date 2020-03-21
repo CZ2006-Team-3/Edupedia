@@ -8,12 +8,11 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.edupedia.R;
 import com.example.edupedia.model.School;
 
-public class schoolInfoUI extends AppCompatActivity {
+public class schoolInfoUI extends Activity implements View.OnClickListener {
     private TextView schoolName;
     private TextView grade;
     private TextView course;
@@ -22,27 +21,34 @@ public class schoolInfoUI extends AppCompatActivity {
     private TextView drive;
 
 
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState){
-        View layout =  inflater.inflate(R.layout.school_info_page, container, false);
+    @Override
+    protected void onCreate(Bundle savedInstanceState){
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.school_info_page);
+        Bundle extras = getIntent().getExtras();
 
-        schoolName = layout.findViewById(R.id.schoolName);
-        course = layout.findViewById(R.id.courseName);
-        grade = layout.findViewById(R.id.gradeCut);
-        drive = layout.findViewById(R.id.drivingTime);
-        dist = layout.findViewById(R.id.distance);
-        publicTime = layout.findViewById(R.id.publicTransportTiming);
+        schoolName = findViewById(R.id.schoolName);
+        course = findViewById(R.id.courseName);
+        grade = findViewById(R.id.gradeCut);
+        drive = findViewById(R.id.drivingTime);
+        dist = findViewById(R.id.distance);
+        publicTime = findViewById(R.id.publicTransportTiming);
 
-        return layout;
+        setData(extras);
         }
 
-        public void setData(School schoolInfoNeeded){
-            schoolName.setText(schoolInfoNeeded.getSchoolName());
-            course.setText(schoolInfoNeeded.getMainCode());
-            grade.setText(Double.toString(schoolInfoNeeded.getGradeCutOff()));
-            drive.setText(Double.toString(schoolInfoNeeded.getDrivingTime()));
-            dist.setText(Double.toString(schoolInfoNeeded.getDistance()));
-            publicTime.setText(Double.toString(schoolInfoNeeded.getPublicTime()));
+        public void setData(Bundle extras){
+            schoolName.setText(extras.getString("schoolName"));
+            course.setText(extras.getString("course"));
+            grade.setText(Double.toString(extras.getInt("grade")));
+            drive.setText(Double.toString(extras.getDouble("drive")));
+            dist.setText(Double.toString(extras.getDouble("dist")));
+            publicTime.setText(Double.toString(extras.getDouble("publicTime")));
         }
 
 
+    @Override
+    public void onClick(View v) {
+
+    }
 }

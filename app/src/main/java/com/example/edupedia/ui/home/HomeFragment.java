@@ -45,6 +45,7 @@ public class HomeFragment extends Fragment {
     public static final String SORT_VARIABLE_NAME = "sort";
     public static final String ASCENDING_SORT = "ascending_sort";
     public static final int RESULT_SUCCESS = 1;
+    private String TAG = "HomeFragment";
 
 
     private int SORT_VARIABLE = SortController.NAME;
@@ -79,16 +80,6 @@ public class HomeFragment extends Fragment {
         //retrieving results from background files
         ArrayList<String> results = searchController.retrieveResults(schools);
         schoolArrayList = searchController.generateSchools(schools, results);
-
-        //////Testing
-//        ArrayList<String> results = new ArrayList<String>() ;
-//        results.add("asd");
-//        results.add("123");
-//        results.add("122");
-//        searchController = new ViewModelProvider(this).get(SearchController.class);
-//        searchController.storeResults(results);
-//        searchController.retrieveResults();
-        /////
 
         toSort.setOnClickListener(new View.OnClickListener(){
                 @Override
@@ -145,7 +136,22 @@ public class HomeFragment extends Fragment {
             public void onItemClick(int position) {
                 mSchoolList.get(position).openSchoolInfo();
                 mAdapter.notifyItemChanged(position);
+                Intent intent = new Intent(HomeFragment.super.getContext(), schoolInfoUI.class);
+                School school = schoolArrayList.get(position);
 
+                String schoolName = school.getSchoolName();
+                String course = school.getMainCode();
+                Integer grade = school.getGradeCutOff();
+                Double drive = school.getDrivingTime();
+                Double dist = school.getDistance();
+                Double publicTime = school.getPublicTime();
+                intent.putExtra("schoolName", schoolName);
+                intent.putExtra("course", course);
+                intent.putExtra("grade", grade);
+                intent.putExtra("drive", drive);
+                intent.putExtra("dist", dist);
+                intent.putExtra("publicTime", publicTime);
+                startActivity(intent);
             }
             @Override
             public void onWatchListSelect(int position) {
