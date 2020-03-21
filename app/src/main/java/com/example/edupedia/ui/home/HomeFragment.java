@@ -22,6 +22,7 @@ import com.example.edupedia.model.DataStoreInterface;
 import com.example.edupedia.model.Filter;
 import com.example.edupedia.ui.AdapterClass;
 import com.example.edupedia.R;
+import com.example.edupedia.ui.Compare.CompareFragment;
 import com.example.edupedia.ui.FilterUI;
 import com.example.edupedia.ui.SchoolItem;
 import com.example.edupedia.controller.SortController;
@@ -31,6 +32,8 @@ import com.example.edupedia.model.SchoolDB;
 import com.example.edupedia.ui.AdapterClass;
 import com.example.edupedia.ui.FilterUI;
 import com.example.edupedia.ui.SchoolItem;
+import com.example.edupedia.ui.SearchFragment;
+import com.example.edupedia.ui.SettingsFragment;
 import com.example.edupedia.ui.SortBy;
 
 import java.util.ArrayList;
@@ -164,15 +167,21 @@ public class HomeFragment extends Fragment {
 
             @Override
             public void onCompareSelect(int position) {
-                mSchoolList.get(position).addToCompare();
+                String schoolToCompare = mSchoolList.get(position).getSchoolName();
+                CompareFragment comparison = new CompareFragment();
+                Bundle args = new Bundle();
+                args.putString("SchoolName", schoolToCompare);
+                comparison.setArguments(args);
+                getFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                        comparison).commit();
+                Toast toast = Toast.makeText(getActivity(), "School has been added to comparison", Toast.LENGTH_LONG);
+                toast.show();
                 mAdapter.notifyItemChanged(position);
                 //mSchoolList.get(position).addToWatchList();
             }
         });
 
-
     }
-
 
     // to do
     @RequiresApi(api = Build.VERSION_CODES.N)
