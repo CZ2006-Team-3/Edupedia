@@ -135,6 +135,37 @@ public class SearchController extends ViewModel {
         return map;
     }
 
+    public ArrayList<String> retrieveResults(HashMap<String, School> db) {
+        DataStoreInterface dataStore = DataStoreFactory.getDatastore("Results");
+        ArrayList<String> results = (ArrayList<String>) dataStore.retrieveData();
+        Log.d("PRINT ARRAYLIST RESULTS", results.get(0));
+        if (results == null) {
+            Iterator dbIterator = db.keySet().iterator();
+            while (dbIterator.hasNext()) {
+                String schoolName = (String) dbIterator.next();
+                results.add(schoolName);
+            }
+            dataStore.storeToMap(results);
+        }
+        if (results.isEmpty()){
+            return null;
+        }
+        return results;
+    }
+
+    public void storeResults(ArrayList<String> results) {
+        DataStoreInterface dataStore = DataStoreFactory.getDatastore("Results");
+        dataStore.storeToMap(results);
+    }
+
+    public ArrayList<School> generateSchools(HashMap<String, School> db, ArrayList<String> results) {
+        ArrayList<School> schoolList = new ArrayList<>();
+        for (String name : results){
+            schoolList.add(db.get(name));
+        }
+        return schoolList;
+    }
+
     public MutableLiveData<String> getTextFilterEdLevel() {
         HashMap<String, String> filterSettings = retrieveFilterSettings();
         String s = filterSettings.get("EdLevel");

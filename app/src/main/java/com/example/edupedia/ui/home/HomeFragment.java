@@ -15,7 +15,14 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.edupedia.controller.DataStoreFactory;
+import com.example.edupedia.controller.SearchController;
+import com.example.edupedia.model.DataStoreInterface;
+import com.example.edupedia.model.Filter;
+import com.example.edupedia.ui.AdapterClass;
 import com.example.edupedia.R;
+import com.example.edupedia.ui.FilterUI;
+import com.example.edupedia.ui.SchoolItem;
 import com.example.edupedia.controller.SortController;
 import com.example.edupedia.controller.WatchlistController;
 import com.example.edupedia.model.School;
@@ -41,32 +48,40 @@ public class HomeFragment extends Fragment {
     private RecyclerView mRecyclerView;
     private AdapterClass mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
-
     private SortController sortController;
     private HashMap<String, School> schools;
     private ArrayList<School> schoolArrayList;
     private SchoolDB schoolDB;
     private WatchlistController watchlistController = WatchlistController.getInstance();
 
+    private SearchController searchController;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View layout = inflater.inflate(R.layout.fragment_home, container, false);
+        searchController = new ViewModelProvider(this).get(SearchController.class);
+
         ImageButton toSort = (ImageButton) layout.findViewById(R.id.sortButton);
         ImageButton filter = (ImageButton) layout.findViewById(R.id.filterButton);
         schoolDB = new SchoolDB(getContext());
         schools = schoolDB.getValue();
+
+        //retrieving results from background files
+        ArrayList<String> results = searchController.retrieveResults(schools);
+        schoolArrayList = searchController.generateSchools(schools, results);
 
         //////Testing
 //        ArrayList<String> results = new ArrayList<String>() ;
 //        results.add("asd");
 //        results.add("123");
 //        results.add("122");
-//        DataStoreInterface dataStore = DataStoreFactory.getDatastore("Results"); //returns a filter object
-//        dataStore.storeToMap(results);
+//        searchController = new ViewModelProvider(this).get(SearchController.class);
+//        searchController.storeResults(results);
+//        searchController.retrieveResults();
         /////
+
         toSort.setOnClickListener(new View.OnClickListener(){
                 @Override
                 public void onClick(View v) {
