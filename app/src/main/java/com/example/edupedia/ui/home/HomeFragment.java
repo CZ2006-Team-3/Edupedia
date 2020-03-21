@@ -11,9 +11,13 @@ import android.widget.ImageButton;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.edupedia.controller.DataStoreFactory;
+import com.example.edupedia.controller.SearchController;
+import com.example.edupedia.model.DataStoreInterface;
 import com.example.edupedia.ui.AdapterClass;
 import com.example.edupedia.R;
 import com.example.edupedia.ui.SchoolItem;
@@ -51,6 +55,15 @@ public class HomeFragment extends Fragment {
         ImageButton toSort = (ImageButton) layout.findViewById(R.id.sortButton);
         schoolDB = new SchoolDB(getContext());
         schools = schoolDB.getValue();
+
+        //////Testing
+//        ArrayList<String> results = new ArrayList<String>() ;
+//        results.add("asd");
+//        results.add("123");
+//        results.add("122");
+//        DataStoreInterface dataStore = DataStoreFactory.getDatastore("Results"); //returns a filter object
+//        dataStore.storeToMap(results);
+        /////
         toSort.setOnClickListener(new View.OnClickListener(){
                 @Override
                 public void onClick(View v) {

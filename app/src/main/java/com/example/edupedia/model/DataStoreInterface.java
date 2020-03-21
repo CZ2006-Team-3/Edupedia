@@ -5,8 +5,8 @@ import org.json.JSONObject;
 
 public interface DataStoreInterface {
 
-    public JSONObject retrieveData();
+    public Object retrieveData();
 
-    public void storeToMap(JSONObject obj);
+    public void storeToMap(Object obj);
 
 }

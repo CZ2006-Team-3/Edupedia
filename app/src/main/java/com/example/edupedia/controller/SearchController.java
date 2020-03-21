@@ -3,7 +3,9 @@ package com.example.edupedia.controller;
 import com.example.edupedia.model.DataStoreInterface;
 import com.example.edupedia.model.School;
 
+import android.util.Log;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
@@ -11,17 +13,20 @@ import androidx.lifecycle.ViewModel;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
 public class SearchController extends ViewModel {
 
+
     private MutableLiveData<String> textFilterEdLevel, textFilterGradeCutOff, textFilterPrefStream, textFilterLocation;
     private EditText editLocation;
 
     public void storeFilter() {
         //1. Save Filter Settings to Internal Storage
+
         JSONObject jsonFilter = new JSONObject();
         try {
             jsonFilter.put("EdLevel", textFilterEdLevel.getValue());
@@ -36,10 +41,14 @@ public class SearchController extends ViewModel {
         dataStore.storeToMap(jsonFilter); //
     }
 
-    public HashMap<String, School> onBasicSearch(HashMap<String, School> schoolDB) {
+    public ArrayList<String> onBasicSearch(HashMap<String, School> schoolDB) {
         //SchoolDB is in a HashMap
         //Parse through the schools that fit the criteria.
-        HashMap<String, School> results = new HashMap<String, School>();
+        //original
+        //HashMap<String, School> results = new HashMap<String, School>();
+
+        //change
+        ArrayList<String> results = new ArrayList<>();
         Iterator dbIterator = schoolDB.entrySet().iterator();
         while (dbIterator.hasNext()) {
             Map.Entry schoolEntry = (Map.Entry) dbIterator.next();
@@ -47,10 +56,11 @@ public class SearchController extends ViewModel {
             if (school.getMainCode().equals(textFilterEdLevel.getValue()))
 //                    && school.getGradeCutOff() < Integer.parseInt(textFilterGradeCutOff.getValue())
 //                    && school.equals(textFilterPrefStream.getValue())) {
-                results.put(school.getSchoolName(), school);
+                results.add(school.getSchoolName());
 //            }
         }
         //somehow when location is clicked
+
         return results;
     }
 
@@ -61,7 +71,7 @@ public class SearchController extends ViewModel {
 
     public HashMap<String, String> retrieveFilterSettings() {
         DataStoreInterface dataStore = DataStoreFactory.getDatastore("Filter");
-        JSONObject jsonFilter = dataStore.retrieveData();
+        JSONObject jsonFilter = (JSONObject) dataStore.retrieveData();
         if (jsonFilter == null) {
             jsonFilter = new JSONObject();
         }
@@ -126,6 +136,7 @@ public class SearchController extends ViewModel {
         }
         return textFilterLocation;
     }
+
 
     public void setTextFilterEdLevel(String s) {
         MutableLiveData<String> liveData = this.getTextFilterEdLevel();

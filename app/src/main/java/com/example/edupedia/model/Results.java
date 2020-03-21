@@ -25,17 +25,15 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 
-
-
-
-public class Filter implements DataStoreInterface {
-    private static final String FILE_NAME = "filter.json";
+public class Results implements DataStoreInterface {
+    private static final String FILE_NAME = "results.json";
 
     private static final String fileDir = "/data/user/0/com.example.edupedia/files";
 
 
-    public JSONObject retrieveData(){
+    public ArrayList<String> retrieveData(){
         FileReader fis = null;
         try {
             fis = new FileReader(fileDir+"/"+FILE_NAME);
@@ -49,7 +47,16 @@ public class Filter implements DataStoreInterface {
             }
 
             String jsonString = sb.toString();
-            return new JSONObject(jsonString);
+
+            ArrayList<String> results = new ArrayList<String>();
+            JSONArray jArray = new JSONArray(jsonString);
+            if (jArray != null) {
+                for (int i=0;i<jArray.length();i++){
+                    results.add(jArray.getString(i));
+                }
+            }
+
+            return results;
 
         } catch(FileNotFoundException e){
             e.printStackTrace();
@@ -72,8 +79,9 @@ public class Filter implements DataStoreInterface {
 
     }
 
-    public void storeToMap(Object json){
-        String text = json.toString();
+    public void storeToMap(Object results){
+        JSONArray jsonArray = new JSONArray((ArrayList<String>) results);
+        String text = jsonArray.toString();
         File file = new File(fileDir+"/"+FILE_NAME);
         BufferedWriter bw = null;
 
@@ -91,8 +99,6 @@ public class Filter implements DataStoreInterface {
             bw = new BufferedWriter(fw);
             bw.write(text);
             Log.d("File Written to ", fileDir);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
