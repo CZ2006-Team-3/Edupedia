@@ -32,33 +32,57 @@
 
         <TextView
             android:id="@+id/grade_cutOff"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Grade Cut-Off"
-            android:textSize="15sp"
-            android:textStyle="bold"
-            android:textColor="@color/blackText"
+            android:layout_width="127dp"
+            android:layout_height="27dp"
             android:layout_below="@+id/school_name"
-            android:layout_marginStart="8dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="6dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="57dp"
+            android:layout_toEndOf="@+id/school_img"
             android:paddingBottom="3dp"
-            android:layout_toEndOf="@+id/school_img"/>
+            android:text="Grade Cut-Off"
+            android:textColor="@color/blackText"
+            android:textSize="15sp"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/distanceInfo"
+            android:layout_width="97dp"
+            android:layout_height="41dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="6dp"
+            android:layout_marginEnd="240dp"
+            android:layout_marginBottom="13dp"
+            android:layout_toEndOf="@+id/school_img"
+            android:paddingBottom="2dp"
+            android:text="Distance"
+            android:textColor="@color/blackText"
+            android:textSize="15sp"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:id="@+id/watchListStar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Distance"
-            android:textSize="15sp"
-            android:textStyle="bold"
-            android:textColor="@color/blackText"
-            android:layout_below="@+id/grade_cutOff"
-            android:layout_marginStart="8dp"
-            android:paddingBottom="2dp"
-            android:layout_toEndOf="@+id/school_img"/>
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginEnd="9dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="72dp"
+            android:src="@drawable/icon_awesome_star" />
 
-
-
-
+        <ImageView
+            android:id="@+id/compareClick"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginEnd="9dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="22dp"
+            android:src="@drawable/icon_material_compare" />
 
 
     </RelativeLayout>
