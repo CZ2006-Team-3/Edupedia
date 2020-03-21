@@ -41,12 +41,6 @@ public class SearchController extends ViewModel {
     }
 
     public ArrayList<String> onBasicSearch(HashMap<String, School> schoolDB) {
-        //SchoolDB is in a HashMap
-        //Parse through the schools that fit the criteria.
-        //original
-        //HashMap<String, School> results = new HashMap<String, School>();
-
-        //change
         ArrayList<String> results = new ArrayList<>();
         Iterator dbIterator = schoolDB.entrySet().iterator();
         while (dbIterator.hasNext()) {
@@ -56,6 +50,7 @@ public class SearchController extends ViewModel {
 //                    && school.getGradeCutOff() < Integer.parseInt(textFilterGradeCutOff.getValue())
 //                    && school.equals(textFilterPrefStream.getValue())) {
                 results.add(school.getSchoolName());
+            //Log("School is added:", school.getSchoolName());
 //            }
         }
         //somehow when location is clicked
@@ -132,9 +127,9 @@ public class SearchController extends ViewModel {
         }
         return map;
     }
-    public void getDistances(ArrayList<School> schools, String userLocation) {
+    public void getDistances(ArrayList<School> schools) {
         for (School school: schools) {
-            school = GoogleMapsDistance.googleMapsDistance(school, userLocation);
+            school = GoogleMapsDistance.googleMapsDistance(school, getTextFilterLocation().getValue());
         }
     }
 
@@ -144,7 +139,6 @@ public class SearchController extends ViewModel {
 //        Log.d("PRINT ARRAYLIST RESULTS", results.get(0));
         if (results == null) {
             results = new ArrayList<>(db.keySet());
-
         }
         if (results.isEmpty()){
             return null;

@@ -8,7 +8,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.Toast;
+import android.widget.SearchView;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
@@ -69,6 +71,8 @@ public class HomeFragment extends Fragment {
 
         ImageButton toSort = (ImageButton) layout.findViewById(R.id.sortButton);
         ImageButton filter = (ImageButton) layout.findViewById(R.id.filterButton);
+        SearchView searchButton = (SearchView) layout.findViewById(R.id.searchButton);
+
         schoolDB = new SchoolDB(getContext());
         schools = schoolDB.getValue();
 
@@ -100,7 +104,17 @@ public class HomeFragment extends Fragment {
                 startActivityForResult(myIntent2, RESULT_SUCCESS);
             }
         });
-
+        searchButton.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                return false;
+            }
+            @Override
+            public boolean onQueryTextChange(String s) {
+                mAdapter.getFilter().filter(s);
+                return false;
+            }
+        });
         createSchoolList();
         buildRecyclerView(layout);
         return layout;
@@ -115,8 +129,6 @@ public class HomeFragment extends Fragment {
             //mSchoolList.add(new SchoolItem(R.drawable.school_icon, "AGS", "8 Points", "5 km"));
         }
     }
-
-
 
     public void buildRecyclerView(View layout){
         mRecyclerView = layout.findViewById(R.id.recycler_view);
