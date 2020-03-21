@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "1723809116-79o4masi3jh8ua9mcb38khv5eagqq5qi.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.edupedia",
+            "certificate_hash": "7ee221f9265084a2619d1825ea02a1a12db26a95"
+          }
+        },
+        {
           "client_id": "1723809116-vj7ppd2hk6ppfabf50l9671o3rivoqvi.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
