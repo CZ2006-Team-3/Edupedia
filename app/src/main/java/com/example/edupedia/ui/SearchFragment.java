@@ -249,8 +249,12 @@ public class SearchFragment extends Fragment implements
                 viewModel.setTextFilterGradeCutOff(textFilterGradeCutOff.getText().toString());
                 viewModel.setTextFilterPrefStream(textFilterPrefStream.getText().toString());
                 viewModel.setTextFilterLocation(textFilterLocation.getText().toString());
-                viewModel.onBasicSearch(schools);
-
+                viewModel.storeFilterSettings();
+                //Filters applied and School Names are returned
+                ArrayList<String> results = viewModel.onBasicSearch(schools);
+                //Store List of School Names
+                viewModel.storeResults(results);
+                //shift Fragment here
             }
         });
 

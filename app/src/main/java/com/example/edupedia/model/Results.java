@@ -30,14 +30,13 @@ import java.util.ArrayList;
 public class Results implements DataStoreInterface {
     private static final String FILE_NAME = "results.json";
 
-    private static final String fileDir = "/data/user/0/com.example.edupedia/files";
+    private static final String fileDir = "/data/data/com.example.edupedia/files";
 
 
     public ArrayList<String> retrieveData(){
         FileReader fis = null;
         try {
             fis = new FileReader(fileDir+"/"+FILE_NAME);
-
             BufferedReader br = new BufferedReader(fis);
             StringBuilder sb = new StringBuilder();
             String receiveString;
@@ -79,6 +78,7 @@ public class Results implements DataStoreInterface {
 
     }
 
+    //parameter takes in an ArrayList
     public void storeToMap(Object results){
         JSONArray jsonArray = new JSONArray((ArrayList<String>) results);
         String text = jsonArray.toString();
