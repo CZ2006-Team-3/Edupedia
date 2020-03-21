@@ -1,5 +1,6 @@
 package com.example.edupedia.ui.WatchList;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,10 +19,15 @@ import com.example.edupedia.model.SchoolDB;
 import com.example.edupedia.ui.AdapterClass;
 import com.example.edupedia.ui.Compare.CompareFragment;
 import com.example.edupedia.ui.SchoolItem;
+import com.example.edupedia.ui.StartUI;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthEmailException;
+import com.google.firebase.auth.FirebaseUser;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import static android.content.Context.MODE_PRIVATE;
 import static com.example.edupedia.controller.WatchlistController.*;
 
 public class WatchListFragment extends Fragment {
@@ -41,7 +47,6 @@ public class WatchListFragment extends Fragment {
 
     // Instantiating watchlistController class
     private WatchlistController watchlistController = WatchlistController.getInstance();
-
 
     @Nullable
     @Override
@@ -78,8 +83,10 @@ public class WatchListFragment extends Fragment {
                 }
             }
         }
+        View layout = inflater.inflate(R.layout.fragment_watchlist, container, false);
+        buildRecyclerView(layout);
 
-        return inflater.inflate(R.layout.fragment_watchlist, container, false);
+        return layout;
 
     }
 
@@ -116,14 +123,19 @@ public class WatchListFragment extends Fragment {
                 String[] watchlist = watchlistController.getWatchlist();
                 int i = 0;
                 while (i<10){
-                    if (watchlist[i] == schoolToremove){
-                        watchlistController.removeSchool(i);
-                        wSchoolList.remove(i);
-                        Toast toast = Toast.makeText(getActivity(), "School has been removed", Toast.LENGTH_SHORT);
-                        toast.show();
+                    if(watchlist[i]!=null) {
+                        if (watchlist[i].equals(schoolToremove)) {
+                            watchlistController.removeSchool(i);
+                            if(i<wSchoolList.size())
+                                wSchoolList.remove(i);
+                            Toast toast = Toast.makeText(getActivity(), "School has been removed", Toast.LENGTH_SHORT);
+                            toast.show();
+                            break;
+                        }
                     }
-
+                    i++;
                 }
+                watchlistController.pushWatchlist();
                 wAdapter.notifyItemChanged(position);
                 //mSchoolList.get(position).addToWatchList();
             }

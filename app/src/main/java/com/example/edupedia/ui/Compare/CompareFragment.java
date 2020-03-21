@@ -16,6 +16,7 @@ import com.example.edupedia.model.SchoolDB;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Locale;
 
 public class CompareFragment extends Fragment {
 
@@ -67,20 +68,25 @@ public class CompareFragment extends Fragment {
             school1Name.setText(compareList[0].getSchoolName());
 
             grade1 = layout.findViewById(R.id.school1Grade);
-            grade1.setText(compareList[0].getGradeCutOff());
+//            grade1.setText(compareList[0].getGradeCutOff());
+            grade1.setText("A");
 
             course1 = layout.findViewById(R.id.school1Course);
             course1.setText(compareList[0].getMainCode());
 
             public1 = layout.findViewById(R.id.school1Public);
-            public1.setText(Double.toString(compareList[0].getPublicTime()));
+//            public1.setText(Double.toString(compareList[0].getPublicTime()));
+            public1.setText(Double.toString(0));
 
             dist1 = layout.findViewById(R.id.school1Dist);
-            dist1.setText(Double.toString(compareList[0].getDistance()));
+//            dist1.setText(Double.toString(compareList[0].getDistance()));
+            dist1.setText(Double.toString(0));
 
 
             drive1 = layout.findViewById(R.id.school1Driving);
-            drive1.setText(Double.toString(compareList[0].getDrivingTime()));
+//            drive1.setText(Double.toString(compareList[0].getDrivingTime()));
+            drive1.setText(Double.toString(0));
+
         }
 
         //For School 2

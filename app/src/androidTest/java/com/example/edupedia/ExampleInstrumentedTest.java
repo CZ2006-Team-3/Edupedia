@@ -33,7 +33,7 @@ public class ExampleInstrumentedTest {
     @Test
     public void readSchools() throws IOException {
         Context context = InstrumentationRegistry.getInstrumentation().getTargetContext();
-        SchoolReader schoolReader = new SchoolReader(context);
+        SchoolReader schoolReader = SchoolReader.getInstance(context);
         HashMap<String, School> schools = schoolReader.retrieveSchools();
         assertEquals(344,schools.size());
         assertEquals("NATIONAL JUNIOR COLLEGE" , schools.get("NATIONAL JUNIOR COLLEGE").getSchoolName());
@@ -43,7 +43,7 @@ public class ExampleInstrumentedTest {
     @Test
     public void addCCA() throws IOException {
         Context context = InstrumentationRegistry.getInstrumentation().getTargetContext();
-        SchoolReader schoolReader = new SchoolReader(context);
+        SchoolReader schoolReader = SchoolReader.getInstance(context);
         HashMap<String, School> schools = schoolReader.retrieveSchools();
 
         schoolReader.addArray(schools, SchoolReader.CCA);
@@ -53,7 +53,7 @@ public class ExampleInstrumentedTest {
     @Test
     public void addSubjects() throws IOException {
         Context context = InstrumentationRegistry.getInstrumentation().getTargetContext();
-        SchoolReader schoolReader = new SchoolReader(context);
+        SchoolReader schoolReader = SchoolReader.getInstance(context);
         HashMap<String, School> schools = schoolReader.retrieveSchools();
 
         schoolReader.addArray(schools, SchoolReader.SUBJECT);
@@ -63,7 +63,7 @@ public class ExampleInstrumentedTest {
     @Test
     public void addMoeProg() throws IOException {
         Context context = InstrumentationRegistry.getInstrumentation().getTargetContext();
-        SchoolReader schoolReader = new SchoolReader(context);
+        SchoolReader schoolReader = SchoolReader.getInstance(context);
         HashMap<String, School> schools = schoolReader.retrieveSchools();
 
         schoolReader.addArray(schools, SchoolReader.MOE);
