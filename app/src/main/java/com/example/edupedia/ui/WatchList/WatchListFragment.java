@@ -54,11 +54,28 @@ public class WatchListFragment extends Fragment {
 //        watchlistController.pullWatchlist();
 //         */
         watchList = watchlistController.getWatchlist();
-        schoolDB = new SchoolDB(getContext());
-        schools = schoolDB.getValue();
-        schoolList = generateSchools(schools, watchList);
-        for (int i = 0; i < schoolList.size(); i++) {
-            wSchoolList.add(new SchoolItem(R.drawable.school_icon, schoolList.get(i).getSchoolName(), Integer.toString(schoolList.get(i).getGradeCutOff()), Double.toString(schoolList.get(i).getDistance())));
+        boolean empty = true;
+        for (String schoolName : watchList) {
+            if (schoolName != null) {
+                empty = false;
+                break;
+            }
+        }
+        if (empty) {
+            Toast toast = Toast.makeText(getActivity(), "None of the schools have been added to the WatchList", Toast.LENGTH_SHORT);
+            toast.show();
+        }
+        else {
+            schoolDB = new SchoolDB(getContext());
+            schools = schoolDB.getValue();
+            schoolList = generateSchools(schools, watchList);
+            if (schoolList.size() != 0) {
+                wSchoolList = new ArrayList<>();
+                for (School school : schoolList) {
+                    if(school!=null)
+                        wSchoolList.add(new SchoolItem(R.drawable.school_icon, school.getSchoolName(), Integer.toString(school.getGradeCutOff()), Double.toString(school.getDistance())));
+                }
+            }
         }
 
         return inflater.inflate(R.layout.fragment_watchlist, container, false);
@@ -70,9 +87,9 @@ public class WatchListFragment extends Fragment {
         for (String name : results) {
             schoolList.add(db.get(name));
         }
+
         return schoolList;
     }
-
 
     public void buildRecyclerView(View layout) {
         wRecyclerView = layout.findViewById(R.id.recycler_view);

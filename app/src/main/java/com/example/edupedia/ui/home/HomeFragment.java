@@ -137,24 +137,29 @@ public class HomeFragment extends Fragment {
                 String[] watchlist = watchlistController.getWatchlist();
                 int i = 0;
                 boolean added = false;
-                while (i < 10 && !added) {
+                while ((i < 10) && !added) {
                     if (watchlist[i] == null) {
                         watchlistController.addSchool(schoolToAdd, i);
+                        Toast toast = Toast.makeText(getActivity(), "School has been added", Toast.LENGTH_SHORT);
+                        toast.show();
                         added = true;
                     }
                     i++;
-                    if (i == 10 && !added) {
-                        String text = "The watchlist already contains a maximum of 10 schools!";
+
+                    if ((i == 10) && !added) {
+                        String text = Integer.toString(i);
+                        //String text = "The watchlist already contains a maximum of 10 schools!";
                         int duration = Toast.LENGTH_SHORT;
 
                         Toast toast = Toast.makeText(getActivity(), text, duration);
                         toast.show();
 
                     }
+                }
 
                     mAdapter.notifyItemChanged(position);
                     //mSchoolList.get(position).addToWatchList();
-                }
+
             }
 
             @Override
