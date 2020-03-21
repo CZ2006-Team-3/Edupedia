@@ -58,6 +58,7 @@ public class WatchlistController {
     // Method for user to add a result to the watchlist
     public void addSchool(String school, int toAdd) {
         watchlist[toAdd] = school;
+        pushWatchlist();
     }
 
     // Method for user to swap 2 result positions in the watchlist
@@ -65,11 +66,13 @@ public class WatchlistController {
         String temp = watchlist[pos1];
         watchlist[pos1] = watchlist[pos2];
         watchlist[pos2] = temp;
+        pushWatchlist();
     }
 
     // To remove a result from the watchlist
     public void removeSchool(int toRemove) {
         watchlist[toRemove] = null;
+        pushWatchlist();
     }
 
     final String user_id = "INmxYLFnjyRM2tO8PujPc9KyFxD2";
