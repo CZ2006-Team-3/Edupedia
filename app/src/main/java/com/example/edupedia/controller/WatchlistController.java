@@ -3,6 +3,7 @@ package com.example.edupedia.controller;
 import android.util.Log;
 
 import com.example.edupedia.model.School;
+import com.example.edupedia.model.SchoolDB;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -31,7 +32,7 @@ public class WatchlistController {
         this.user = user;
     }
 
-    // Watchlist to push to cloud
+    // Watchlist attribute of String and School classes
     private String[] watchlist;
 
     private FirebaseUser user;
@@ -55,8 +56,8 @@ public class WatchlistController {
 
 
     // Method for user to add a result to the watchlist
-    public void addSchool(School school, int toAdd) {
-        watchlist[toAdd] = school.getSchoolName();
+    public void addSchool(String school, int toAdd) {
+        watchlist[toAdd] = school;
     }
 
     // Method for user to swap 2 result positions in the watchlist
@@ -66,11 +67,10 @@ public class WatchlistController {
         watchlist[pos2] = temp;
     }
 
-    // method to remove a result from the watchlist
+    // To remove a result from the watchlist
     public void removeSchool(int toRemove) {
         watchlist[toRemove] = null;
     }
-
 
     final String user_id = "INmxYLFnjyRM2tO8PujPc9KyFxD2";
     DatabaseReference current_user_db = FirebaseDatabase.getInstance().getReference().child("User_DB").child(user_id);
@@ -90,7 +90,6 @@ public class WatchlistController {
         current_user_db.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                // ...
                 if (dataSnapshot.child("watchlist").getValue() != null) {
                     String key = dataSnapshot.getKey();
                     Log.d("FireBase REAADDD", key);

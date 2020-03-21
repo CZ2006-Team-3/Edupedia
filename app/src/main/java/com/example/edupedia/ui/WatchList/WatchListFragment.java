@@ -23,7 +23,10 @@ public class WatchListFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        watchlistController.setWatchlist(new String[] {"alal", "asd","as","",""});
+        watchlistController.setWatchlist(new String[] {"zero","one", "two","three","four",null,"six","seven","eight","nine"});
+        watchlistController.addSchool("five",5);
+        watchlistController.changePosition(3,7);
+        watchlistController.removeSchool(9);
         watchlistController.pushWatchlist();
         watchlistController.pullWatchlist();
         return inflater.inflate(R.layout.fragment_watchlist, container, false);
