@@ -32,7 +32,7 @@ import java.io.InputStreamReader;
 public class Filter implements DataStoreInterface {
     private static final String FILE_NAME = "filter.json";
 
-    private static final String fileDir = "/data/user/0/com.example.edupedia/files";
+    private static final String fileDir = "/data/data/com.example.edupedia/files";
 
 
     public JSONObject retrieveData(){
@@ -72,6 +72,7 @@ public class Filter implements DataStoreInterface {
 
     }
 
+    //parameter takes in JSONObject
     public void storeToMap(Object json){
         String text = json.toString();
         File file = new File(fileDir+"/"+FILE_NAME);

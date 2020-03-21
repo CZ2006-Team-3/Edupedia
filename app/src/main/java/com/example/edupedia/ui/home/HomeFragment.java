@@ -48,6 +48,7 @@ public class HomeFragment extends Fragment {
     private HashMap<String, School> schools;
     private ArrayList<School> schoolArrayList;
     private SchoolDB schoolDB;
+    private SearchController searchController;
 
     @Nullable
     @Override
@@ -64,9 +65,11 @@ public class HomeFragment extends Fragment {
 //        results.add("asd");
 //        results.add("123");
 //        results.add("122");
-//        DataStoreInterface dataStore = DataStoreFactory.getDatastore("Results"); //returns a filter object
-//        dataStore.storeToMap(results);
+//        searchController = new ViewModelProvider(this).get(SearchController.class);
+//        searchController.storeResults(results);
+//        searchController.retrieveResults();
         /////
+
         toSort.setOnClickListener(new View.OnClickListener(){
                 @Override
                 public void onClick(View v) {
