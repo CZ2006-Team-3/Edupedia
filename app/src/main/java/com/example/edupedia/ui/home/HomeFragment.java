@@ -1,46 +1,47 @@
 package com.example.edupedia.ui.home;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.Spinner;
-import android.widget.TextView;
-import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.edupedia.AdapterClass;
-import com.example.edupedia.ChangePassword;
 import com.example.edupedia.R;
 import com.example.edupedia.SchoolItem;
-import com.example.edupedia.SettingsFragment;
-import com.example.edupedia.SortBy;
 import com.example.edupedia.controller.SortController;
-import com.example.edupedia.ui.RegisterUI;
-import com.example.edupedia.viewmodel.SearchController;
+import com.example.edupedia.model.School;
+import com.example.edupedia.model.SchoolDB;
+import com.example.edupedia.ui.SortBy;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class HomeFragment extends Fragment {
+    public static final String SORT_VARIABLE_NAME = "sort";
+    public static final String ASCENDING_SORT = "ascending_sort";
+    public static final int RESULT_SUCCESS = 1;
+
+
+    private int SORT_VARIABLE = SortController.NAME;
+    private boolean SORT_ASCENDING = true;
+
     private ArrayList <SchoolItem> mSchoolList;
     private RecyclerView mRecyclerView;
     private AdapterClass mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
+    private SortController sortController;
+    private HashMap<String, School> schools;
+    private ArrayList<School> schoolArrayList;
+    private SchoolDB schoolDB;
 
     @Nullable
     @Override
@@ -48,12 +49,13 @@ public class HomeFragment extends Fragment {
         // Inflate the layout for this fragment
         View layout = inflater.inflate(R.layout.fragment_home, container, false);
         ImageButton toSort = (ImageButton) layout.findViewById(R.id.sortButton);
-
+        schoolDB = new SchoolDB(getContext());
+        schools = schoolDB.getValue();
         toSort.setOnClickListener(new View.OnClickListener(){
                 @Override
                 public void onClick(View v) {
                     Intent myIntent2 = new Intent(v.getContext(), SortBy.class);
-                    HomeFragment.this.startActivity(myIntent2);
+                    startActivityForResult(myIntent2, RESULT_SUCCESS);
                 }
             });
 
@@ -114,6 +116,24 @@ public class HomeFragment extends Fragment {
             }
         });
 
+
+    }
+
+
+    // to do
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode==RESULT_SUCCESS) {
+            Bundle extras = data.getExtras();
+            SORT_VARIABLE = extras.getInt(SORT_VARIABLE_NAME);
+            SORT_ASCENDING = extras.getBoolean(ASCENDING_SORT);
+            if(sortController==null) {
+                sortController = SortController.getInstance();
+            }
+//            sortController.sortBy(SORT_VARIABLE, SORT_ASCENDING, );
+        }
 
     }
 

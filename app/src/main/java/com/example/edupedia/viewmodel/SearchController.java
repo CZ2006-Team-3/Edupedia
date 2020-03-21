@@ -23,10 +23,8 @@ public class SearchController extends ViewModel {
     private MutableLiveData<String> textFilterEdLevel, textFilterGradeCutOff, textFilterPrefStream, textFilterLocation;
     private EditText editLocation;
 
-    public void onBasicSearch() {
-
+    public void storeFilter() {
         //1. Save Filter Settings to Internal Storage
-
         JSONObject jsonFilter = new JSONObject();
         try {
             jsonFilter.put("EdLevel", textFilterEdLevel.getValue());
@@ -39,10 +37,9 @@ public class SearchController extends ViewModel {
 
         DataStoreInterface dataStore = DataStoreFactory.getDatastore("Filter"); //returns a filter object
         dataStore.storeToMap(jsonFilter); //
+    }
 
-        SchoolDB db = new SchoolDB();
-        HashMap<String, School> schoolDB = db.getDB();
-
+    public HashMap<String, School> onBasicSearch(HashMap<String, School> schoolDB) {
         //SchoolDB is in a HashMap
         //Parse through the schools that fit the criteria.
         HashMap<String, School> results = new HashMap<String, School>();
@@ -50,15 +47,16 @@ public class SearchController extends ViewModel {
         while (dbIterator.hasNext()) {
             Map.Entry schoolEntry = (Map.Entry) dbIterator.next();
             School school = (School) schoolEntry.getValue();
-            if (school.getMainCode().equals(textFilterEdLevel.getValue())
-                    && school.getGradeCutOff() < Integer.parseInt(textFilterGradeCutOff.getValue())
-                    && school.equals(textFilterPrefStream.getValue())) {
+            if (school.getMainCode().equals(textFilterEdLevel.getValue()))
+//                    && school.getGradeCutOff() < Integer.parseInt(textFilterGradeCutOff.getValue())
+//                    && school.equals(textFilterPrefStream.getValue())) {
                 results.put(school.getSchoolName(), school);
-            }
+//            }
         }
         //somehow when location is clicked
-
+        return results;
     }
+
     private void onAdvancedSearch() {
 
     }
@@ -91,7 +89,7 @@ public class SearchController extends ViewModel {
             textFilterEdLevel = new MutableLiveData<String>();
         }
         if (s != null) {
-            textFilterEdLevel.setValue(s);
+            textFilterEdLevel.postValue(s);
         }
         return textFilterEdLevel;
     }
@@ -115,7 +113,7 @@ public class SearchController extends ViewModel {
             textFilterPrefStream = new MutableLiveData<String>();
         }
         if (s != null) {
-            textFilterPrefStream.setValue(s);
+            textFilterPrefStream.postValue(s);
         }
         return textFilterPrefStream;
     }
@@ -127,28 +125,28 @@ public class SearchController extends ViewModel {
             textFilterLocation = new MutableLiveData<String>();
         }
         if (s != null) {
-            textFilterLocation.setValue(s);
+            textFilterLocation.postValue(s);
         }
         return textFilterLocation;
     }
 
     public void setTextFilterEdLevel(String s) {
         MutableLiveData<String> liveData = this.getTextFilterEdLevel();
-        liveData.setValue(s);
+        liveData.postValue(s);
     }
 
     public void setTextFilterPrefStream(String s) {
         MutableLiveData<String> liveData = this.getTextFilterPrefStream();
-        liveData.setValue(s);
+        liveData.postValue(s);
     }
 
     public void setTextFilterGradeCutOff(String s) {
         MutableLiveData<String> liveData = this.getTextFilterGradeCutOff();
-        liveData.setValue(s);
+        liveData.postValue(s);
     }
 
     public void setTextFilterLocation(String s) {
         MutableLiveData<String> liveData = this.getTextFilterLocation();
-        liveData.setValue(s);
+        liveData.postValue(s);
     }
 }

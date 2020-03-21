@@ -350,4 +350,11 @@ public class School {
             return Double.compare(school.getDistance(), school2.getDistance());
         }
     };
+
+    public static Comparator<School> NameComparator = new Comparator<School>() {
+        @Override
+        public int compare(School school, School t2) {
+            return school.getSchoolName().compareTo(t2.getSchoolName());
+        }
+    };
 }

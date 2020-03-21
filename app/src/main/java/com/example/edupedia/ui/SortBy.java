@@ -1,6 +1,7 @@
-package com.example.edupedia;
+package com.example.edupedia.ui;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.Gravity;
@@ -15,10 +16,17 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.edupedia.R;
+import com.example.edupedia.controller.SortController;
+import com.example.edupedia.ui.home.HomeFragment;
+
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
 public class SortBy extends Activity {
+    private int sort_variable = SortController.NAME;
+    private boolean sort_ascending = true;
+
     @Override
     protected void onCreate(Bundle savedInstanceState){
         //to show the pop up:
@@ -48,6 +56,17 @@ public class SortBy extends Activity {
                 // checkedId is the RadioButton selected
             }
         });
-
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Intent returnIntent = new Intent();
+        returnIntent.putExtra(HomeFragment.SORT_VARIABLE_NAME, sort_variable);
+        returnIntent.putExtra(HomeFragment.ASCENDING_SORT, sort_ascending);
+        setResult(HomeFragment.RESULT_SUCCESS, returnIntent);
+        finish();
+    }
+
+
 }
