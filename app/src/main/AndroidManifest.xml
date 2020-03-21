@@ -24,10 +24,10 @@
         <activity android:name=".ui.StartUI"></activity>
         <activity android:name=".ui.RegisterUI"></activity>
         <activity android:name=".ui.MainNavigationUI"></activity>
-        <activity android:name=".ChangePassword"
+        <activity android:name=".ui.ChangePassword"
             android:theme="@style/AppTheme.CustomTheme"
             ></activity>
-        <activity android:name=".ChangeUsername"
+        <activity android:name=".ui.ChangeUsername"
             android:theme="@style/AppTheme.CustomTheme"
             ></activity>
         <activity android:name=".ui.SortBy"

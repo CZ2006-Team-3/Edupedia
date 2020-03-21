@@ -1,12 +1,9 @@
-package com.example.edupedia.viewmodel;
+package com.example.edupedia.controller;
 
 import com.example.edupedia.model.DataStoreInterface;
 import com.example.edupedia.model.School;
-import com.example.edupedia.model.SchoolDB;
 
-import android.util.Log;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;

@@ -1,15 +1,11 @@
 package com.example.edupedia;
 
-import android.app.Instrumentation;
-import android.content.Context;
-
 import com.example.edupedia.model.School;
 import com.example.edupedia.model.SchoolReader;
-import com.example.edupedia.viewmodel.SearchController;
+import com.example.edupedia.controller.SearchController;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.junit.runners.JUnit4;
 
 import java.io.IOException;
 import java.util.HashMap;

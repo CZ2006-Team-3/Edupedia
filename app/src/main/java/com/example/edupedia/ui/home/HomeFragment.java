@@ -14,9 +14,9 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.edupedia.AdapterClass;
+import com.example.edupedia.ui.AdapterClass;
 import com.example.edupedia.R;
-import com.example.edupedia.SchoolItem;
+import com.example.edupedia.ui.SchoolItem;
 import com.example.edupedia.controller.SortController;
 import com.example.edupedia.model.School;
 import com.example.edupedia.model.SchoolDB;

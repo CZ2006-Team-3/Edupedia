@@ -1,4 +1,4 @@
-package com.example.edupedia;
+package com.example.edupedia.ui;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -6,10 +6,10 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.edupedia.R;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 

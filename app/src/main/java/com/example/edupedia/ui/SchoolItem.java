@@ -1,4 +1,4 @@
-package com.example.edupedia;
+package com.example.edupedia.ui;
 
 import android.content.Intent;
 

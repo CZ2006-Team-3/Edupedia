@@ -1,4 +1,4 @@
-package com.example.edupedia.viewmodel;
+package com.example.edupedia.controller;
 
 import com.example.edupedia.model.DataStoreInterface;
 import com.example.edupedia.model.Filter;

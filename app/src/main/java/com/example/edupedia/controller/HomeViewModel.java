@@ -1,4 +1,4 @@
-package com.example.edupedia.viewmodel;
+package com.example.edupedia.controller;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;

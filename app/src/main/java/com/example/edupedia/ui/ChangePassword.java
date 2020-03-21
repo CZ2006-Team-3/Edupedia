@@ -1,4 +1,4 @@
-package com.example.edupedia;
+package com.example.edupedia.ui;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -14,14 +14,16 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.edupedia.R;
+
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
-public class ChangeUsername extends Activity {
+public class ChangePassword extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.change_username);
+        setContentView(R.layout.change_password);
 
         DisplayMetrics dm = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(dm);
