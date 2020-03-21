@@ -39,9 +39,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.Calendar;
 import java.util.HashMap;
 
-
-
-
 public class RegisterUI extends AppCompatActivity implements View.OnClickListener{
 
     ProgressBar progressBar;
