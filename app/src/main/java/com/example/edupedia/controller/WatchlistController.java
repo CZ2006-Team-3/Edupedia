@@ -77,7 +77,7 @@ public class WatchlistController {
 
     // Push watchlist to database
     public void pushWatchlist() {
-        Log.d("PUSHWATCHLIST", watchlist[0]);
+//        Log.d("PUSHWATCHLIST", watchlist[0]);
         List<String> watchlist_List =  new ArrayList<>();
         for (int i =0; i<10; i++){
             watchlist_List.add(watchlist[i]);
@@ -107,6 +107,14 @@ public class WatchlistController {
         });
 
 
+    }
+
+    public boolean exists(String schoolName) {
+        for(String schoolNameCompare : watchlist) {
+            if(schoolNameCompare!=null && schoolName.equals(schoolNameCompare))
+                return true;
+        }
+        return false;
     }
 
 }

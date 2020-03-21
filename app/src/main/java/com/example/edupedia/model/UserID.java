@@ -3,7 +3,7 @@ package com.example.edupedia.model;
 import com.google.firebase.auth.FirebaseUser;
 
 public class UserID {
-    private FirebaseUser ID;
+    private String ID;
     private static UserID userID = null;
 
     private UserID() {
@@ -15,11 +15,11 @@ public class UserID {
         return userID;
     }
 
-    public FirebaseUser getID() {
+    public String getID() {
         return ID;
     }
 
-    public void setID(FirebaseUser ID) {
+    public void setID(String ID) {
         this.ID = ID;
     }
 }

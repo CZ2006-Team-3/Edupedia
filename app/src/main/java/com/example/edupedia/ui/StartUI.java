@@ -81,9 +81,14 @@ public class StartUI extends AppCompatActivity implements View.OnClickListener {
             progressBar.setVisibility(View.GONE);
             if (task.isSuccessful()) {
                 finish();
-                Intent intent = new Intent(StartUI.this, MainNavigationUI.class);
+                String userId = mAuth.getCurrentUser().getUid();
+                Intent intent = new Intent(this, MainNavigationUI.class);
+                intent.putExtra(firebase_key, userId);
+                UserID.getInstance().setID(userId);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                Log.d("STARTUI", "Logged In");
                 startActivity(intent);
+
             } else {
                 Toast.makeText(getApplicationContext(), task.getException().getMessage(), Toast.LENGTH_SHORT).show();
             }
@@ -96,12 +101,13 @@ public class StartUI extends AppCompatActivity implements View.OnClickListener {
     protected void onStart() {
         super.onStart();
 
-        userID.setID(mAuth.getCurrentUser());
+//        userID.setID(mAuth.getCurrentUser());
         if (userID.getID() != null) {
             finish();
             String userId = mAuth.getCurrentUser().getUid();
             Intent intent = new Intent(this, MainNavigationUI.class);
             intent.putExtra(firebase_key, userId);
+            UserID.getInstance().setID(userId);
             Log.d("STARTUI", "Logged In");
             startActivity(intent);
         }

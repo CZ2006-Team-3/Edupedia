@@ -114,8 +114,11 @@ public class HomeFragment extends Fragment {
 
     public void createSchoolList() {
         mSchoolList = new ArrayList<>();
-        for (int i =0; i<schoolArrayList.size(); i++) {
-           mSchoolList.add(new SchoolItem(R.drawable.school_icon, schoolArrayList.get(i).getSchoolName(), Integer.toString(schoolArrayList.get(i).getGradeCutOff()), Double.toString(schoolArrayList.get(i).getDistance())));
+        for(School school : schoolArrayList) {
+            mSchoolList.add(new SchoolItem(R.drawable.school_icon, school.getSchoolName(),
+                                Integer.toString(school.getGradeCutOff()),
+                                Double.toString(school.getDistance())));
+
             //mSchoolList.add(new SchoolItem(R.drawable.school_icon, "RI", "4 Points", "2 km"));
             //mSchoolList.add(new SchoolItem(R.drawable.school_icon, "AJC", "6 Points", "3 km"));
             //mSchoolList.add(new SchoolItem(R.drawable.school_icon, "AGS", "8 Points", "5 km"));
@@ -144,6 +147,11 @@ public class HomeFragment extends Fragment {
             @Override
             public void onWatchListSelect(int position) {
                 String schoolToAdd = mSchoolList.get(position).getSchoolName();
+                if(watchlistController.exists(schoolToAdd)){
+                    Toast toast = Toast.makeText(getActivity(), "School already exists!", Toast.LENGTH_SHORT);
+                    toast.show();
+                    return;
+                }
                 String[] watchlist = watchlistController.getWatchlist();
                 int i = 0;
                 boolean added = false;

@@ -7,6 +7,7 @@ import android.view.MenuItem;
 
 import com.example.edupedia.R;
 import com.example.edupedia.controller.WatchlistController;
+import com.example.edupedia.model.UserID;
 import com.example.edupedia.ui.WatchList.WatchListFragment;
 import com.example.edupedia.ui.home.HomeFragment;
 import com.example.edupedia.ui.Compare.CompareFragment;
@@ -25,7 +26,8 @@ public class MainNavigationUI extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_navigation_ui);
         Intent intent = getIntent();
-        uid = intent.getStringExtra(StartUI.firebase_key);
+//        uid = intent.getStringExtra(StartUI.firebase_key);
+        uid = UserID.getInstance().getID();
         WatchlistController.init(uid);
         BottomNavigationView bottomMenu = findViewById(R.id.bottom_menu);
         bottomMenu.setOnNavigationItemSelectedListener(navListener);

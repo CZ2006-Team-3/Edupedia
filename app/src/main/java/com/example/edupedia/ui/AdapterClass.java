@@ -55,7 +55,7 @@ public class AdapterClass extends RecyclerView.Adapter<AdapterClass.ExampleViewH
 
     @Override
     public int getItemCount() {
-        return schoolItemList.size();
+        return schoolItemList==null? 0 : schoolItemList.size();
     }
 
     public static class ExampleViewHolder extends RecyclerView.ViewHolder{
