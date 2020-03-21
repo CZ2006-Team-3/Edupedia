@@ -1,7 +1,13 @@
 package com.example.edupedia.ui;
 
+import android.app.SearchManager;
+import android.content.Context;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.SearchEvent;
+import android.widget.SearchView;
 
 import com.example.edupedia.R;
 import com.example.edupedia.ui.WatchList.WatchListFragment;
@@ -22,6 +28,8 @@ public class MainNavigationUI extends AppCompatActivity {
 
         BottomNavigationView bottomMenu = findViewById(R.id.bottom_menu);
         bottomMenu.setOnNavigationItemSelectedListener(navListener);
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                new SearchFragment()).commit();
 
     }
 
@@ -58,6 +66,3 @@ public class MainNavigationUI extends AppCompatActivity {
 
 
 }
-
-
-

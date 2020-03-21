@@ -5,12 +5,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.example.edupedia.R;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
 import java.util.ArrayList;
 
 public class AdapterClass extends RecyclerView.Adapter<AdapterClass.ExampleViewHolder> {
