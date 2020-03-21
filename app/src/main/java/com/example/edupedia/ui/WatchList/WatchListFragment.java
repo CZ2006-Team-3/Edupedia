@@ -129,6 +129,7 @@ public class WatchListFragment extends Fragment {
 
             @Override
             public void onCompareSelect(int position) {
+
                 wSchoolList.get(position).addToCompare();
                 wAdapter.notifyItemChanged(position);
                 //mSchoolList.get(position).addToWatchList();
