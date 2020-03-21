@@ -141,7 +141,7 @@ public class SearchController extends ViewModel {
 //        Log.d("PRINT ARRAYLIST RESULTS", results.get(0));
         if (results == null) {
             results = new ArrayList<>(db.keySet());
-
+            storeResults(results);
         }
         if (results.isEmpty()){
             return null;

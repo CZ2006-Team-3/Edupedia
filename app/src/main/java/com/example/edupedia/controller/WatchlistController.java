@@ -94,7 +94,7 @@ public class WatchlistController {
                     String key = dataSnapshot.getKey();
                     Log.d("FireBase REAADDD", key);
                     watchlist = ((ArrayList<String>) dataSnapshot.child("watchlist").getValue()).toArray(new String[10]);
-                    Log.d("FireBase REAADDD", watchlist[0]);
+//                    Log.d("FireBase REAADDD", watchlist[0]);
                 } else {
                     watchlist = new String[10];
                 }
