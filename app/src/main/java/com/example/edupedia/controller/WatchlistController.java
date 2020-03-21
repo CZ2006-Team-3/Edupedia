@@ -20,37 +20,35 @@ public class WatchlistController {
         return watchlist;
     }
 
-    public FirebaseUser getUser() {
-        return user;
-    }
 
     public void setWatchlist(String[] watchlist) {
         this.watchlist = watchlist;
     }
 
-    public void setUser(FirebaseUser user) {
-        this.user = user;
-    }
-
     // Watchlist attribute of String and School classes
     private String[] watchlist;
-
-    private FirebaseUser user;
+    private DatabaseReference current_user_db;
+    private String uid;
 
     // static variable watchlistController of type WatchlistController
     private static WatchlistController watchlistController = null;
 
     // private constructor restricted to this class itself
-    private WatchlistController() {
+    private WatchlistController(String uid) {
         watchlist = new String[10];
+        this.uid = uid;
+        current_user_db = FirebaseDatabase.getInstance().getReference().child("User_DB").child(uid);
         pullWatchlist();
     }
 
 
     // Static method to create instance of Singleton class
-    public static WatchlistController getInstance() {
+    public static void init(String uid) {
         if (watchlistController == null)
-            watchlistController = new WatchlistController();
+            watchlistController = new WatchlistController(uid);
+    }
+
+    public static WatchlistController getInstance() {
         return watchlistController;
     }
 
@@ -75,8 +73,7 @@ public class WatchlistController {
         pushWatchlist();
     }
 
-    final String user_id = "INmxYLFnjyRM2tO8PujPc9KyFxD2";
-    DatabaseReference current_user_db = FirebaseDatabase.getInstance().getReference().child("User_DB").child(user_id);
+
 
     // Push watchlist to database
     public void pushWatchlist() {

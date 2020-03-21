@@ -1,6 +1,7 @@
 package com.example.edupedia.ui.home;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -32,9 +33,14 @@ import com.example.edupedia.ui.AdapterClass;
 import com.example.edupedia.ui.FilterUI;
 import com.example.edupedia.ui.SchoolItem;
 import com.example.edupedia.ui.SortBy;
+import com.example.edupedia.ui.StartUI;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+
+import static android.content.Context.MODE_PRIVATE;
 
 public class HomeFragment extends Fragment {
     public static final String SORT_VARIABLE_NAME = "sort";
@@ -53,6 +59,7 @@ public class HomeFragment extends Fragment {
     private HashMap<String, School> schools;
     private ArrayList<School> schoolArrayList;
     private SchoolDB schoolDB;
+
     private WatchlistController watchlistController = WatchlistController.getInstance();
 
     private SearchController searchController;
@@ -72,7 +79,6 @@ public class HomeFragment extends Fragment {
         //retrieving results from background files
         ArrayList<String> results = searchController.retrieveResults(schools);
         schoolArrayList = searchController.generateSchools(schools, results);
-
         //////Testing
 //        ArrayList<String> results = new ArrayList<String>() ;
 //        results.add("asd");

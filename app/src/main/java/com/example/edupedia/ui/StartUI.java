@@ -2,6 +2,7 @@ package com.example.edupedia.ui;
 
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.Patterns;
@@ -25,6 +26,8 @@ public class StartUI extends AppCompatActivity implements View.OnClickListener {
     FirebaseAuth mAuth;
     EditText editTextEmail, editTextPassword;
     ProgressBar progressBar;
+    private SharedPreferences sharedPref;
+    public static String firebase_key = "firebase_key";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,18 +75,15 @@ public class StartUI extends AppCompatActivity implements View.OnClickListener {
 
         progressBar.setVisibility(View.VISIBLE);
 
-        mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                progressBar.setVisibility(View.GONE);
-                if (task.isSuccessful()) {
-                    finish();
-                    Intent intent = new Intent(StartUI.this, MainNavigationUI.class);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    startActivity(intent);
-                } else {
-                    Toast.makeText(getApplicationContext(), task.getException().getMessage(), Toast.LENGTH_SHORT).show();
-                }
+        mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
+            progressBar.setVisibility(View.GONE);
+            if (task.isSuccessful()) {
+                finish();
+                Intent intent = new Intent(StartUI.this, MainNavigationUI.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+            } else {
+                Toast.makeText(getApplicationContext(), task.getException().getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -94,8 +94,11 @@ public class StartUI extends AppCompatActivity implements View.OnClickListener {
 
         if (mAuth.getCurrentUser() != null) {
             finish();
+            String userId = mAuth.getCurrentUser().getUid();
+            Intent intent = new Intent(this, MainNavigationUI.class);
+            intent.putExtra(firebase_key, userId);
             Log.d("STARTUI", "Logged In");
-            startActivity(new Intent(this, MainNavigationUI.class));
+            startActivity(intent);
         }
     }
 
