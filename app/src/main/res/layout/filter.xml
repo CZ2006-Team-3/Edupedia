@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:fab="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/group90">
+
+    <TextView
+        android:id="@+id/heading2"
+        android:layout_width="match_parent"
+        android:layout_height="161dp"
+        android:padding="8dp"
+        android:textAlignment="center"
+        android:gravity="center"
+        android:text="Advanced Filter Options"
+        android:textSize="20dp"
+        android:textStyle="bold"/>
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="115dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/locationFilter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:text="Location"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                android:layout_marginLeft="50dp"
+                android:layout_marginBottom="10dp"/>
+
+            <CheckBox
+                android:id="@+id/checkBoxNorth"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentBottom="true"
+                android:text="North"
+                android:layout_marginLeft="50dp"/>
+
+            <CheckBox
+                android:id="@+id/checkBoxEast"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentBottom="true"
+                android:text="East"
+                android:layout_marginLeft="50dp"/>
+
+            <CheckBox
+                android:id="@+id/checkBoxNorthEast"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentBottom="true"
+                android:text="North East"
+                android:layout_marginLeft="50dp"/>
+
+            <CheckBox
+                android:id="@+id/checkBoxCentral"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:text="Central"
+                android:layout_marginLeft="50dp"/>
+
+            <CheckBox
+                android:id="@+id/checkBoxWest"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentBottom="true"
+                android:text="West"
+                android:layout_marginLeft="50dp"/>
+
+            <TextView
+                android:id="@+id/specialNeeds"
+                android:layout_width="242dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentBottom="true"
+                android:text="Special Needs Facility:"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                android:layout_marginLeft="50dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginBottom="10dp"/>
+
+            <CheckBox
+                android:id="@+id/checkBoxPhysicalAid"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentBottom="true"
+                android:text="Physical Aid"
+                android:layout_marginLeft="50dp"/>
+
+            <CheckBox
+                android:id="@+id/checkBoxHearingLoss"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentBottom="true"
+                android:text="Hearing Loss"
+                android:layout_marginLeft="50dp"/>
+
+            <CheckBox
+                android:id="@+id/checkBoxMentalDisorder"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:text="Mental Disorder"
+                android:layout_marginLeft="50dp"/>
+
+            <CheckBox
+                android:id="@+id/checkBoxVisualImpairment"
+                android:layout_width="wrap_content"
+                android:layout_height="24dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                android:text="Visual Impairment"
+                android:layout_marginLeft="50dp"/>
+
+            <TextView
+                android:id="@+id/TypeOfSchool"
+                android:layout_width="242dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentBottom="true"
+                android:text="Type of School:"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                android:layout_marginLeft="50dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginBottom="10dp"/>
+
+            <CheckBox
+                android:id="@+id/checkBoxIndependent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentBottom="true"
+                android:text="Independent"
+                android:layout_marginLeft="50dp"/>
+
+            <CheckBox
+                android:id="@+id/checkBoxGirlsOnly"
+                android:layout_width="wrap_content"
+                android:layout_height="24dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                android:text="Girls only"
+                android:layout_marginLeft="50dp"/>
+
+            <CheckBox
+                android:id="@+id/checkBoxBoysOnly"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentBottom="true"
+                android:text="Boys only"
+                android:layout_marginLeft="50dp"/>
+
+            <CheckBox
+                android:id="@+id/checkBoxSpecialised"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentBottom="true"
+                android:text="Specialised "
+                android:layout_marginLeft="50dp"/>
+
+            <CheckBox
+                android:id="@+id/checkBoxCoed"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:text="Co-ed"
+                android:layout_marginLeft="50dp"/>
+
+            <CheckBox
+                android:id="@+id/checkBoxGovernment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentBottom="true"
+                android:text="Government "
+                android:layout_marginLeft="50dp"/>
+
+        </LinearLayout>
+    </ScrollView>
+</RelativeLayout>
