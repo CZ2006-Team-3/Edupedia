@@ -55,10 +55,16 @@ public class HomeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View layout = inflater.inflate(R.layout.fragment_home, container, false);
+        searchController = new ViewModelProvider(this).get(SearchController.class);
+
         ImageButton toSort = (ImageButton) layout.findViewById(R.id.sortButton);
         ImageButton filter = (ImageButton) layout.findViewById(R.id.filterButton);
         schoolDB = new SchoolDB(getContext());
         schools = schoolDB.getValue();
+
+        //retrieving results from background files
+        ArrayList<String> results = searchController.retrieveResults(schools);
+        schoolArrayList = searchController.generateSchools(schools, results);
 
         //////Testing
 //        ArrayList<String> results = new ArrayList<String>() ;
@@ -121,7 +127,6 @@ public class HomeFragment extends Fragment {
         mSchoolList.add(new SchoolItem(R.drawable.school_icon, "RI", "4 Points", "2 km"));
         mSchoolList.add(new SchoolItem(R.drawable.school_icon, "AJC", "6 Points", "3 km"));
         mSchoolList.add(new SchoolItem(R.drawable.school_icon, "AGS", "8 Points", "5 km"));
-
     }
 
 
