@@ -175,7 +175,7 @@ public class RegisterUI extends AppCompatActivity implements View.OnClickListene
         }
 
         if (password.length() < 6) {
-            editTextPassword.setError("Minimum lenght of password should be 6");
+            editTextPassword.setError("Minimum length of password should be 6");
             editTextPassword.requestFocus();
             return;
         }
