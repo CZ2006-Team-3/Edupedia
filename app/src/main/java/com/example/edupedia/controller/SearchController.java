@@ -138,14 +138,10 @@ public class SearchController extends ViewModel {
     public ArrayList<String> retrieveResults(HashMap<String, School> db) {
         DataStoreInterface dataStore = DataStoreFactory.getDatastore("Results");
         ArrayList<String> results = (ArrayList<String>) dataStore.retrieveData();
-        Log.d("PRINT ARRAYLIST RESULTS", results.get(0));
+//        Log.d("PRINT ARRAYLIST RESULTS", results.get(0));
         if (results == null) {
-            Iterator dbIterator = db.keySet().iterator();
-            while (dbIterator.hasNext()) {
-                String schoolName = (String) dbIterator.next();
-                results.add(schoolName);
-            }
-            dataStore.storeToMap(results);
+            results = new ArrayList<>(db.keySet());
+
         }
         if (results.isEmpty()){
             return null;
