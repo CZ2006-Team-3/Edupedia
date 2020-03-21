@@ -101,28 +101,17 @@
         android:entries="@array/preferredStream"
         android:outlineSpotShadowColor="@color/blackText" />
 
-    <EditText
-        android:layout_width="220dp"
+    <Button
+        android:id="@+id/location"
+        android:layout_width="380dp"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
+        android:text="Location"
         android:layout_marginEnd="18dp"
         android:layout_marginRight="18dp"
         android:layout_marginBottom="155dp" />
-
-    <TextView
-        android:id="@+id/location"
-        android:layout_width="142dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginEnd="244dp"
-        android:layout_marginRight="244dp"
-        android:layout_marginBottom="165dp"
-        android:text="Location"
-        android:textColor="@color/blackText" />
 
     <TextView
         android:id="@+id/education"
@@ -136,6 +125,8 @@
         android:layout_marginBottom="322dp"
         android:text="Education Level"
         android:textColor="@color/blackText" />
+
+
 
 
 </RelativeLayout>

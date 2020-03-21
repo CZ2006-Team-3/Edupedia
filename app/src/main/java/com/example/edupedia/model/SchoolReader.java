@@ -22,12 +22,13 @@ public class SchoolReader {
     private static String[] tempArray;
     private static Context context;
     private static InputStream stream;
+    private static SchoolReader instance = null;
 
-    public SchoolReader(Context context) {
+    private SchoolReader(Context context) {
         this.context = context;
     }
 
-    public static HashMap<String, School> retrieveSchools() throws IOException {
+    public HashMap<String, School> retrieveSchools() throws IOException {
         HashMap<String, School> schools = new HashMap<String, School>();
         stream = context.getResources().openRawResource(R.raw.general_info);
         try {
@@ -140,5 +141,9 @@ public class SchoolReader {
                     schools.get(schoolName).setSubjectsOffered(array);
                     break;
             }
+    }
+
+    public static SchoolReader getInstance(Context context) {
+        return instance==null? instance = new SchoolReader(context) : instance;
     }
 }
