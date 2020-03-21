@@ -22,6 +22,8 @@ public class MainNavigationUI extends AppCompatActivity {
 
         BottomNavigationView bottomMenu = findViewById(R.id.bottom_menu);
         bottomMenu.setOnNavigationItemSelectedListener(navListener);
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                new SearchFragment()).commit();
 
     }
 

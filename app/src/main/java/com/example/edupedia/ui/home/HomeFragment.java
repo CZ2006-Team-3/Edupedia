@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
@@ -24,8 +25,12 @@ import com.example.edupedia.R;
 import com.example.edupedia.ui.FilterUI;
 import com.example.edupedia.ui.SchoolItem;
 import com.example.edupedia.controller.SortController;
+import com.example.edupedia.controller.WatchlistController;
 import com.example.edupedia.model.School;
 import com.example.edupedia.model.SchoolDB;
+import com.example.edupedia.ui.AdapterClass;
+import com.example.edupedia.ui.FilterUI;
+import com.example.edupedia.ui.SchoolItem;
 import com.example.edupedia.ui.SortBy;
 
 import java.util.ArrayList;
@@ -48,6 +53,8 @@ public class HomeFragment extends Fragment {
     private HashMap<String, School> schools;
     private ArrayList<School> schoolArrayList;
     private SchoolDB schoolDB;
+    private WatchlistController watchlistController = WatchlistController.getInstance();
+
     private SearchController searchController;
 
     @Nullable
@@ -91,31 +98,6 @@ public class HomeFragment extends Fragment {
             }
         });
 
-         /*   @Override
-            public void onClick(View v) {
-                //sort Functionalities to occur!
-                Intent sortIntent = new Intent(v.getContext(), SortController.class);
-                HomeFragment.this.startActivity(sortIntent);
-                Toast.makeText(getActivity(), "You Clicked the sort button!", Toast.LENGTH_LONG).show();
-
-            }
-        });*/
-/*
-        ImageButton toFilter = (ImageButton) layout.findViewById(R.id.filterButton);
-        toSort.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                //sort Functionalities to occur!
-                Intent filterIntent = Intent(v.getContext(),filterClass);
-                HomeFragment.this.startActivity(filterIntent);
-                Toast.makeText(getActivity(), "You Clicked the sort button!", Toast.LENGTH_LONG).show();
-
-            }
-        });
-        */
-
-
         createSchoolList();
         buildRecyclerView(layout);
         return layout;
@@ -123,10 +105,12 @@ public class HomeFragment extends Fragment {
 
     public void createSchoolList() {
         mSchoolList = new ArrayList<>();
-        mSchoolList.add(new SchoolItem(R.drawable.school_icon, "RJC", "2 Points", "4 km"));
-        mSchoolList.add(new SchoolItem(R.drawable.school_icon, "RI", "4 Points", "2 km"));
-        mSchoolList.add(new SchoolItem(R.drawable.school_icon, "AJC", "6 Points", "3 km"));
-        mSchoolList.add(new SchoolItem(R.drawable.school_icon, "AGS", "8 Points", "5 km"));
+        for (int i =0; i<schoolArrayList.size(); i++) {
+           mSchoolList.add(new SchoolItem(R.drawable.school_icon, schoolArrayList.get(i).getSchoolName(), Integer.toString(schoolArrayList.get(i).getGradeCutOff()), Double.toString(schoolArrayList.get(i).getDistance())));
+            //mSchoolList.add(new SchoolItem(R.drawable.school_icon, "RI", "4 Points", "2 km"));
+            //mSchoolList.add(new SchoolItem(R.drawable.school_icon, "AJC", "6 Points", "3 km"));
+            //mSchoolList.add(new SchoolItem(R.drawable.school_icon, "AGS", "8 Points", "5 km"));
+        }
     }
 
 
@@ -144,6 +128,40 @@ public class HomeFragment extends Fragment {
             @Override
             public void onItemClick(int position) {
                 mSchoolList.get(position).openSchoolInfo();
+                mAdapter.notifyItemChanged(position);
+
+            }
+            @Override
+            public void onWatchListSelect(int position) {
+                String schoolToAdd = mSchoolList.get(position).getSchoolName();
+                String[] watchlist = watchlistController.getWatchlist();
+                int i = 0;
+                boolean added = false;
+                while (i < 10 && !added) {
+                    if (watchlist[i] == null) {
+                        watchlistController.addSchool(schoolToAdd, i);
+                        added = true;
+                    }
+                    i++;
+                    if (i == 10 && !added) {
+                        String text = "The watchlist already contains a maximum of 10 schools!";
+                        int duration = Toast.LENGTH_SHORT;
+
+                        Toast toast = Toast.makeText(getActivity(), text, duration);
+                        toast.show();
+
+                    }
+
+                    mAdapter.notifyItemChanged(position);
+                    //mSchoolList.get(position).addToWatchList();
+                }
+            }
+
+            @Override
+            public void onCompareSelect(int position) {
+                mSchoolList.get(position).addToCompare();
+                mAdapter.notifyItemChanged(position);
+                //mSchoolList.get(position).addToWatchList();
             }
         });
 
