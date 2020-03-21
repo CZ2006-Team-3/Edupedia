@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.example.edupedia.model.School;
 import com.example.edupedia.model.SchoolDB;
+import com.example.edupedia.model.UserID;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -24,12 +25,15 @@ public class WatchlistController {
         return user;
     }
 
+    // setWatchlist is for testing only
     public void setWatchlist(String[] watchlist) {
         this.watchlist = watchlist;
     }
 
+    private UserID userID = UserID.getInstance();
+
     public void setUser(FirebaseUser user) {
-        this.user = user;
+        this.user = userID.getID();
     }
 
     // Watchlist attribute of String and School classes
@@ -79,7 +83,7 @@ public class WatchlistController {
     DatabaseReference current_user_db = FirebaseDatabase.getInstance().getReference().child("User_DB").child(user_id);
 
     // Push watchlist to database
-    public void pushWatchlist() {
+    private void pushWatchlist() {
         Log.d("PUSHWATCHLIST", watchlist[0]);
         List<String> watchlist_List =  new ArrayList<>();
         for (int i =0; i<10; i++){
@@ -89,7 +93,7 @@ public class WatchlistController {
     }
 
     // Retrieve watchlist from database
-    public void pullWatchlist() {
+    private void pullWatchlist() {
         current_user_db.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -108,8 +112,6 @@ public class WatchlistController {
                 // ...
             }
         });
-
-
     }
 
 }

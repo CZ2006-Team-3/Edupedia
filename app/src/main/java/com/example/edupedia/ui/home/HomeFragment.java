@@ -117,6 +117,7 @@ public class HomeFragment extends Fragment {
     }
 
 
+
     public void buildRecyclerView(View layout){
         mRecyclerView = layout.findViewById(R.id.recycler_view);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -148,21 +149,17 @@ public class HomeFragment extends Fragment {
                         added = true;
                     }
                     i++;
-
                     if ((i == 10) && !added) {
                         String text = Integer.toString(i);
                         //String text = "The watchlist already contains a maximum of 10 schools!";
                         int duration = Toast.LENGTH_SHORT;
-
                         Toast toast = Toast.makeText(getActivity(), text, duration);
                         toast.show();
-
                     }
                 }
 
                     mAdapter.notifyItemChanged(position);
                     //mSchoolList.get(position).addToWatchList();
-
             }
 
             @Override
