@@ -5,6 +5,9 @@ import android.location.Address;
 import com.example.edupedia.model.School;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 
 import android.util.Log;
 
@@ -56,8 +59,8 @@ public class GoogleMapsDistance {
         school.setDrivingTime(durList.get(0));
         school.setPublicTime(durList.get(1));
         school.setDistance(distList.get(0));
-            //school.setTravelTimes(durList);
-            //school.setDistances(distList);
+        //school.setTravelTimes(durList);
+        //school.setDistances(distList);
         return school;
     }
 }

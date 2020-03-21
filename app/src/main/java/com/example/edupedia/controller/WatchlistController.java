@@ -3,6 +3,8 @@ package com.example.edupedia.controller;
 import android.util.Log;
 
 import com.example.edupedia.model.School;
+import com.example.edupedia.model.SchoolDB;
+import com.example.edupedia.model.UserID;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -23,15 +25,18 @@ public class WatchlistController {
         return user;
     }
 
+    // setWatchlist is for testing only
     public void setWatchlist(String[] watchlist) {
         this.watchlist = watchlist;
     }
 
+    private UserID userID = UserID.getInstance();
+
     public void setUser(FirebaseUser user) {
-        this.user = user;
+        this.user = userID.getID();
     }
 
-    // Watchlist to push to cloud
+    // Watchlist attribute of String and School classes
     private String[] watchlist;
 
     private FirebaseUser user;
@@ -55,8 +60,9 @@ public class WatchlistController {
 
 
     // Method for user to add a result to the watchlist
-    public void addSchool(School school, int toAdd) {
-        watchlist[toAdd] = school.getSchoolName();
+    public void addSchool(String school, int toAdd) {
+        watchlist[toAdd] = school;
+        pushWatchlist();
     }
 
     // Method for user to swap 2 result positions in the watchlist
@@ -64,19 +70,20 @@ public class WatchlistController {
         String temp = watchlist[pos1];
         watchlist[pos1] = watchlist[pos2];
         watchlist[pos2] = temp;
+        pushWatchlist();
     }
 
-    // method to remove a result from the watchlist
+    // To remove a result from the watchlist
     public void removeSchool(int toRemove) {
         watchlist[toRemove] = null;
+        pushWatchlist();
     }
-
 
     final String user_id = "INmxYLFnjyRM2tO8PujPc9KyFxD2";
     DatabaseReference current_user_db = FirebaseDatabase.getInstance().getReference().child("User_DB").child(user_id);
 
     // Push watchlist to database
-    public void pushWatchlist() {
+    private void pushWatchlist() {
         Log.d("PUSHWATCHLIST", watchlist[0]);
         List<String> watchlist_List =  new ArrayList<>();
         for (int i =0; i<10; i++){
@@ -86,15 +93,14 @@ public class WatchlistController {
     }
 
     // Retrieve watchlist from database
-    public void pullWatchlist() {
+    private void pullWatchlist() {
         current_user_db.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                // ...
                 if (dataSnapshot.child("watchlist").getValue() != null) {
                     String key = dataSnapshot.getKey();
                     Log.d("FireBase REAADDD", key);
-                    watchlist = (String[]) dataSnapshot.child("watchlist").getValue();
+                    watchlist = ((ArrayList<String>) dataSnapshot.child("watchlist").getValue()).toArray(new String[10]);
                     Log.d("FireBase REAADDD", watchlist[0]);
                 } else {
                     watchlist = new String[10];
@@ -106,8 +112,6 @@ public class WatchlistController {
                 // ...
             }
         });
-
-
     }
 
 }

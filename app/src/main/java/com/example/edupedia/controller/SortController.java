@@ -47,8 +47,8 @@ public class SortController {
         if(!ascending) {
             Collections.reverse(schools);
         }
+
         return schools;
     }
-
 
 }

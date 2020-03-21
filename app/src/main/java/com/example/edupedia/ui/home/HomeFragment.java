@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
@@ -21,11 +22,18 @@ import com.example.edupedia.model.DataStoreInterface;
 import com.example.edupedia.model.Filter;
 import com.example.edupedia.ui.AdapterClass;
 import com.example.edupedia.R;
+import com.example.edupedia.ui.Compare.CompareFragment;
 import com.example.edupedia.ui.FilterUI;
 import com.example.edupedia.ui.SchoolItem;
 import com.example.edupedia.controller.SortController;
+import com.example.edupedia.controller.WatchlistController;
 import com.example.edupedia.model.School;
 import com.example.edupedia.model.SchoolDB;
+import com.example.edupedia.ui.AdapterClass;
+import com.example.edupedia.ui.FilterUI;
+import com.example.edupedia.ui.SchoolItem;
+import com.example.edupedia.ui.SearchFragment;
+import com.example.edupedia.ui.SettingsFragment;
 import com.example.edupedia.ui.SortBy;
 
 import java.util.ArrayList;
@@ -48,25 +56,36 @@ public class HomeFragment extends Fragment {
     private HashMap<String, School> schools;
     private ArrayList<School> schoolArrayList;
     private SchoolDB schoolDB;
+    private WatchlistController watchlistController = WatchlistController.getInstance();
+
+    private SearchController searchController;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View layout = inflater.inflate(R.layout.fragment_home, container, false);
+        searchController = new ViewModelProvider(this).get(SearchController.class);
+
         ImageButton toSort = (ImageButton) layout.findViewById(R.id.sortButton);
         ImageButton filter = (ImageButton) layout.findViewById(R.id.filterButton);
         schoolDB = new SchoolDB(getContext());
         schools = schoolDB.getValue();
+
+        //retrieving results from background files
+        ArrayList<String> results = searchController.retrieveResults(schools);
+        schoolArrayList = searchController.generateSchools(schools, results);
 
         //////Testing
 //        ArrayList<String> results = new ArrayList<String>() ;
 //        results.add("asd");
 //        results.add("123");
 //        results.add("122");
-//        DataStoreInterface dataStore = DataStoreFactory.getDatastore("Results"); //returns a filter object
-//        dataStore.storeToMap(results);
+//        searchController = new ViewModelProvider(this).get(SearchController.class);
+//        searchController.storeResults(results);
+//        searchController.retrieveResults();
         /////
+
         toSort.setOnClickListener(new View.OnClickListener(){
                 @Override
                 public void onClick(View v) {
@@ -82,31 +101,6 @@ public class HomeFragment extends Fragment {
             }
         });
 
-         /*   @Override
-            public void onClick(View v) {
-                //sort Functionalities to occur!
-                Intent sortIntent = new Intent(v.getContext(), SortController.class);
-                HomeFragment.this.startActivity(sortIntent);
-                Toast.makeText(getActivity(), "You Clicked the sort button!", Toast.LENGTH_LONG).show();
-
-            }
-        });*/
-/*
-        ImageButton toFilter = (ImageButton) layout.findViewById(R.id.filterButton);
-        toSort.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                //sort Functionalities to occur!
-                Intent filterIntent = Intent(v.getContext(),filterClass);
-                HomeFragment.this.startActivity(filterIntent);
-                Toast.makeText(getActivity(), "You Clicked the sort button!", Toast.LENGTH_LONG).show();
-
-            }
-        });
-        */
-
-
         createSchoolList();
         buildRecyclerView(layout);
         return layout;
@@ -114,12 +108,14 @@ public class HomeFragment extends Fragment {
 
     public void createSchoolList() {
         mSchoolList = new ArrayList<>();
-        mSchoolList.add(new SchoolItem(R.drawable.school_icon, "RJC", "2 Points", "4 km"));
-        mSchoolList.add(new SchoolItem(R.drawable.school_icon, "RI", "4 Points", "2 km"));
-        mSchoolList.add(new SchoolItem(R.drawable.school_icon, "AJC", "6 Points", "3 km"));
-        mSchoolList.add(new SchoolItem(R.drawable.school_icon, "AGS", "8 Points", "5 km"));
-
+        for (int i =0; i<schoolArrayList.size(); i++) {
+           mSchoolList.add(new SchoolItem(R.drawable.school_icon, schoolArrayList.get(i).getSchoolName(), Integer.toString(schoolArrayList.get(i).getGradeCutOff()), Double.toString(schoolArrayList.get(i).getDistance())));
+            //mSchoolList.add(new SchoolItem(R.drawable.school_icon, "RI", "4 Points", "2 km"));
+            //mSchoolList.add(new SchoolItem(R.drawable.school_icon, "AJC", "6 Points", "3 km"));
+            //mSchoolList.add(new SchoolItem(R.drawable.school_icon, "AGS", "8 Points", "5 km"));
+        }
     }
+
 
 
     public void buildRecyclerView(View layout){
@@ -136,12 +132,53 @@ public class HomeFragment extends Fragment {
             @Override
             public void onItemClick(int position) {
                 mSchoolList.get(position).openSchoolInfo();
+                mAdapter.notifyItemChanged(position);
+
+            }
+            @Override
+            public void onWatchListSelect(int position) {
+                String schoolToAdd = mSchoolList.get(position).getSchoolName();
+                String[] watchlist = watchlistController.getWatchlist();
+                int i = 0;
+                boolean added = false;
+                while ((i < 10) && !added) {
+                    if (watchlist[i] == null) {
+                        watchlistController.addSchool(schoolToAdd, i);
+                        Toast toast = Toast.makeText(getActivity(), "School has been added", Toast.LENGTH_SHORT);
+                        toast.show();
+                        added = true;
+                    }
+                    i++;
+                    if ((i == 10) && !added) {
+                        String text = Integer.toString(i);
+                        //String text = "The watchlist already contains a maximum of 10 schools!";
+                        int duration = Toast.LENGTH_SHORT;
+                        Toast toast = Toast.makeText(getActivity(), text, duration);
+                        toast.show();
+                    }
+                }
+
+                    mAdapter.notifyItemChanged(position);
+                    //mSchoolList.get(position).addToWatchList();
+            }
+
+            @Override
+            public void onCompareSelect(int position) {
+                String schoolToCompare = mSchoolList.get(position).getSchoolName();
+                CompareFragment comparison = new CompareFragment();
+                Bundle args = new Bundle();
+                args.putString("SchoolName", schoolToCompare);
+                comparison.setArguments(args);
+                getFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                        comparison).commit();
+                Toast toast = Toast.makeText(getActivity(), "School has been added to comparison", Toast.LENGTH_LONG);
+                toast.show();
+                mAdapter.notifyItemChanged(position);
+                //mSchoolList.get(position).addToWatchList();
             }
         });
 
-
     }
-
 
     // to do
     @RequiresApi(api = Build.VERSION_CODES.N)
