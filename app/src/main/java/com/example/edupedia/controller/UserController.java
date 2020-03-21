@@ -118,6 +118,14 @@ public class UserController {
         return edLevel;
     }
 
+    public String getEmail(){
+        String email;
+        if (user!=null)
+            email = user.getEmail();
+        else email = "User Invalid";
+        return email;
+    }
+
     public boolean getLocationAccess(){
         String user_id = user.getUid();
         DatabaseReference current_user_db = FirebaseDatabase.getInstance().getReference().child("User_DB").child(user_id);
