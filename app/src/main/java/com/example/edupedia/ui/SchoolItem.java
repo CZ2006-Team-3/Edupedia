@@ -25,7 +25,7 @@ public class SchoolItem {
     }
     public void openSchoolInfo(){
         //technically should open up the schoolInformation Page;
-        schoolName = "clicked";
+
         //search through school hashmap based on the schoolName.
         //pass that school into the schoolInfoUIClass
         //creates layout dynamically and goes to that activity
