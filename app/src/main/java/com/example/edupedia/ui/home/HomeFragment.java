@@ -14,8 +14,10 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.edupedia.model.Filter;
 import com.example.edupedia.ui.AdapterClass;
 import com.example.edupedia.R;
+import com.example.edupedia.ui.FilterUI;
 import com.example.edupedia.ui.SchoolItem;
 import com.example.edupedia.controller.SortController;
 import com.example.edupedia.model.School;
@@ -49,6 +51,7 @@ public class HomeFragment extends Fragment {
         // Inflate the layout for this fragment
         View layout = inflater.inflate(R.layout.fragment_home, container, false);
         ImageButton toSort = (ImageButton) layout.findViewById(R.id.sortButton);
+        ImageButton filter = (ImageButton) layout.findViewById(R.id.filterButton);
         schoolDB = new SchoolDB(getContext());
         schools = schoolDB.getValue();
         toSort.setOnClickListener(new View.OnClickListener(){
@@ -58,6 +61,13 @@ public class HomeFragment extends Fragment {
                     startActivityForResult(myIntent2, RESULT_SUCCESS);
                 }
             });
+        filter.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                Intent myIntent2 = new Intent(v.getContext(), FilterUI.class);
+                startActivityForResult(myIntent2, RESULT_SUCCESS);
+            }
+        });
 
          /*   @Override
             public void onClick(View v) {

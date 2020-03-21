@@ -5,7 +5,7 @@ import com.example.edupedia.model.Filter;
 import org.json.JSONObject;
 import org.junit.Test;
 
-public class FilterStoreTest {
+public class FilterUIStoreTest {
     @Test
     public void checkJSONObject() {
         Filter filter = new Filter();
