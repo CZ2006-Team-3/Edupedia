@@ -11,7 +11,7 @@ import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Build;
-//import android.os.Bundle;
+import android.os.Bundle;
 import android.provider.Settings;
 import android.util.Log;
 import android.view.Menu;
@@ -62,7 +62,8 @@ public class GoogleMapsActivity extends AppCompatActivity implements OnMapReadyC
     private EditText mSearchAddress;
     private FusedLocationProviderClient mFusedLocationProviderClient;
 
-    private GoogleMapsActivity() {
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         setContentView(R.layout.google_maps_toolbar);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -73,29 +74,51 @@ public class GoogleMapsActivity extends AppCompatActivity implements OnMapReadyC
 
         initGoogleMap();
     }
-
-    private void geoLocate(View view) {
-        hideSoftKeyboard(view);
-        String locationName = mSearchAddress.getText().toString();
+    public Address geoLocate2(String locationName) {
         Geocoder geocoder = new Geocoder(this, Locale.getDefault());
-
         try {
             List<Address> addressList = geocoder.getFromLocationName(locationName, 1);
-            if (addressList.size() > 0) {
+            if (addressList.size() == 1) {
                 Address address = addressList.get(0);
-                gotoLocation(this.mGoogleMap, address.getLatitude(), address.getLongitude());
-                showMarker(address.getLatitude(), address.getLongitude());
-                Toast.makeText(this, address.getLocality(), Toast.LENGTH_SHORT).show();
-                Log.d(TAG, "geoLocate: Locality: " + address.getLocality());
+                return address;
             }
-
-            for (Address address : addressList) {
-                Log.d(TAG, "geoLocate: Address: " + address.getAddressLine(address.getMaxAddressLineIndex()));
+            else {
+                for (Address address : addressList) {
+                    Log.d(TAG, "geoLocate: Address: " + address.getAddressLine(address.getMaxAddressLineIndex()));
+                }
+                return addressList.get(0);
             }
-
         } catch (IOException e) {
 
         }
+        return null;
+    }
+
+    public Address geoLocate(View view) {
+        hideSoftKeyboard(view);
+        String locationName = mSearchAddress.getText().toString();
+        Geocoder geocoder = new Geocoder(this, Locale.getDefault());
+        try {
+            List<Address> addressList = geocoder.getFromLocationName(locationName, 1);
+            if (addressList.size() == 1) {
+                return addressList.get(0);
+            }
+            else {
+                for (Address address : addressList) {
+                    Log.d(TAG, "geoLocate: Address: " + address.getAddressLine(address.getMaxAddressLineIndex()));
+                }
+                return addressList.get(0);
+            }
+        } catch (IOException e) {
+
+        }
+        return null;
+    }
+    private void displayGeolocate(Address address) {
+        gotoLocation(this.mGoogleMap, address.getLatitude(), address.getLongitude());
+        showMarker(address.getLatitude(), address.getLongitude());
+        Toast.makeText(this, address.getLocality(), Toast.LENGTH_SHORT).show();
+        Log.d(TAG, "geoLocate: Locality: " + address.getLocality());
     }
 
     private void getCurrentLocation(GoogleMap mGoogleMap) {
@@ -143,7 +166,6 @@ public class GoogleMapsActivity extends AppCompatActivity implements OnMapReadyC
             if (isGPSEnabled()) {
                 if (checkLocationPermission()) {
                     Toast.makeText(this, "Ready to Map", Toast.LENGTH_SHORT).show();
-
                     SupportMapFragment supportMapFragment = (SupportMapFragment) getSupportFragmentManager()
                             .findFragmentById(R.id.map_fragment_container);
 
