@@ -5,8 +5,6 @@ import com.example.edupedia.model.School;
 
 import android.util.Log;
 import android.widget.EditText;
-import android.widget.TextView;
-
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
@@ -133,6 +131,11 @@ public class SearchController extends ViewModel {
             }
         }
         return map;
+    }
+    public void getDistances(ArrayList<School> schools, String userLocation) {
+        for (School school: schools) {
+            school = GoogleMapsDistance.googleMapsDistance(school, userLocation);
+        }
     }
 
     public MutableLiveData<String> getTextFilterEdLevel() {
