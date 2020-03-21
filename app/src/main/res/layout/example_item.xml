@@ -23,7 +23,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="School Name"
-            android:textSize="20sp"
+            android:textSize="16sp"
             android:textStyle="bold"
             android:textColor="@color/blackText"
             android:layout_alignParentTop="true"
@@ -43,7 +43,7 @@
             android:paddingBottom="3dp"
             android:text="Grade Cut-Off"
             android:textColor="@color/blackText"
-            android:textSize="15sp"
+            android:textSize="12sp"
             android:textStyle="bold" />
 
         <TextView
@@ -59,7 +59,7 @@
             android:paddingBottom="2dp"
             android:text="Distance"
             android:textColor="@color/blackText"
-            android:textSize="15sp"
+            android:textSize="12sp"
             android:textStyle="bold" />
 
         <ImageView

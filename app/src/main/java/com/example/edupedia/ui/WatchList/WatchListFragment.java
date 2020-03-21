@@ -17,6 +17,7 @@ import com.example.edupedia.controller.WatchlistController;
 import com.example.edupedia.model.School;
 import com.example.edupedia.model.SchoolDB;
 import com.example.edupedia.ui.AdapterClass;
+import com.example.edupedia.ui.Compare.CompareFragment;
 import com.example.edupedia.ui.SchoolItem;
 import com.example.edupedia.ui.StartUI;
 import com.google.firebase.auth.FirebaseAuth;
@@ -140,7 +141,15 @@ public class WatchListFragment extends Fragment {
             @Override
             public void onCompareSelect(int position) {
 
-                wSchoolList.get(position).addToCompare();
+                String schoolToCompare = wSchoolList.get(position).getSchoolName();
+                CompareFragment comparison = new CompareFragment();
+                Bundle args = new Bundle();
+                args.putString("SchoolName", schoolToCompare);
+                comparison.setArguments(args);
+                getFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                        comparison).commit();
+                Toast toast = Toast.makeText(getActivity(), "School has been added to comparison", Toast.LENGTH_LONG);
+                toast.show();
                 wAdapter.notifyItemChanged(position);
                 //mSchoolList.get(position).addToWatchList();
             }

@@ -15,6 +15,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.edupedia.R;
+import com.example.edupedia.controller.WatchlistController;
+import com.example.edupedia.model.UserID;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -88,11 +90,14 @@ public class StartUI extends AppCompatActivity implements View.OnClickListener {
         });
     }
 
+    private UserID userID = UserID.getInstance();
+
     @Override
     protected void onStart() {
         super.onStart();
 
-        if (mAuth.getCurrentUser() != null) {
+        userID.setID(mAuth.getCurrentUser());
+        if (userID.getID() != null) {
             finish();
             String userId = mAuth.getCurrentUser().getUid();
             Intent intent = new Intent(this, MainNavigationUI.class);
