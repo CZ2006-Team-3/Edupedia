@@ -26,9 +26,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-
-
-
 public class Filter implements DataStoreInterface {
     private static final String FILE_NAME = "filter.json";
 
@@ -92,8 +89,6 @@ public class Filter implements DataStoreInterface {
             bw = new BufferedWriter(fw);
             bw.write(text);
             Log.d("File Written to ", fileDir);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         } finally {

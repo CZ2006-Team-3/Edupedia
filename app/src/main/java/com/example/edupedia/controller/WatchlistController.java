@@ -73,8 +73,6 @@ public class WatchlistController {
         pushWatchlist();
     }
 
-
-
     // Push watchlist to database
     public void pushWatchlist() {
 //        Log.d("PUSHWATCHLIST", watchlist[0]);
