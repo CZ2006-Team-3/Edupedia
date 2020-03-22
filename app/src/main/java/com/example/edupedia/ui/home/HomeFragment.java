@@ -124,6 +124,7 @@ public class HomeFragment extends Fragment {
                 return false;
             }
         });
+
         createSchoolList();
         buildRecyclerView(layout);
         return layout;
@@ -132,15 +133,34 @@ public class HomeFragment extends Fragment {
     public void createSchoolList() {
         mSchoolList = new ArrayList<>();
         for(School school : schoolArrayList) {
-            mSchoolList.add(new SchoolItem(R.drawable.school_icon, school.getSchoolName(),
-                                Integer.toString(school.getGradeCutOff()),
-                                Double.toString(school.getDistance())));
+            if (school.getMainCode().equals("SECONDARY")) {
+                mSchoolList.add(new SchoolItem(R.drawable.school_icon, school.getSchoolName(),
+                        "Grade Cut-Off: " + Integer.toString(school.getGradePSLE()),
+                        "Distance: " + Double.toString(school.getDistance())));
+            }
+            if (school.getMainCode().equals("JUNIOR COLLEGE")){
+                mSchoolList.add(new SchoolItem(R.drawable.school_icon, school.getSchoolName(),
+                        "Grade Cut-Off: " + Integer.toString(school.getGradeO()),
+                        "Distance: " + Double.toString(school.getDistance())));
+            }
+            if (school.getMainCode().equals("MIXED LEVEL")){
+                mSchoolList.add(new SchoolItem(R.drawable.school_icon, school.getSchoolName(),
+                        "Grade Cut-Off for A-level: " + Integer.toString(school.getGradePSLE()) + " Grade Cut-Off for O-level: " + Integer.toString(school.getGradeO()) ,
+                        "Distance: " + Double.toString(school.getDistance())));
+            }
+            else
+                mSchoolList.add(new SchoolItem(R.drawable.school_icon, school.getSchoolName(),
+                        "Grade Cut-Off: Not Applicable " ,
+                        "Distance: " + Double.toString(school.getDistance())));
+            }
+
+
 
             //mSchoolList.add(new SchoolItem(R.drawable.school_icon, "RI", "4 Points", "2 km"));
             //mSchoolList.add(new SchoolItem(R.drawable.school_icon, "AJC", "6 Points", "3 km"));
             //mSchoolList.add(new SchoolItem(R.drawable.school_icon, "AGS", "8 Points", "5 km"));
         }
-    }
+
 
     public void buildRecyclerView(View layout){
         mRecyclerView = layout.findViewById(R.id.recycler_view);
@@ -162,7 +182,8 @@ public class HomeFragment extends Fragment {
 
                 String schoolName = school.getSchoolName();
                 String course = school.getMainCode();
-                Integer grade = school.getGradeCutOff();
+                Integer grade;
+                grade = school.getGradeCutOff();
                 Double drive = school.getDrivingTime();
                 Double dist = school.getDistance();
                 Double publicTime = school.getPublicTime();
@@ -194,10 +215,9 @@ public class HomeFragment extends Fragment {
                     }
                     i++;
                     if ((i == 10) && !added) {
-                        String text = Integer.toString(i);
-                        //String text = "The watchlist already contains a maximum of 10 schools!";
+                        String text = "The watchlist already contains a maximum of 10 schools!";
                         int duration = Toast.LENGTH_SHORT;
-                        Toast toast = Toast.makeText(getActivity(), text, duration);
+                        Toast toast = Toast.makeText(getActivity(), text + i, duration);
                         toast.show();
                     }
                 }
