@@ -11,13 +11,13 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="4dp">
-        
+
         <ImageView
             android:id="@+id/school_img"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:padding="2dp" />
-        
+
         <TextView
             android:id="@+id/school_name"
             android:layout_width="wrap_content"
@@ -64,19 +64,21 @@
 
         <ImageView
             android:id="@+id/watchListStar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
             android:layout_marginEnd="9dp"
             android:layout_marginRight="10dp"
             android:layout_marginBottom="72dp"
-            android:src="@drawable/icon_awesome_star" />
+            android:src="@drawable/star"
+            android:background="@drawable/star"
+            android:onClick="onToggleStar"/>
 
         <ImageView
             android:id="@+id/compareClick"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
             android:layout_marginEnd="9dp"
