@@ -97,7 +97,6 @@ public class AdapterClass extends RecyclerView.Adapter<AdapterClass.ExampleViewH
         public ImageView mWatchListSelect;
         public ImageView mCompareSelect;
 
-
         public ExampleViewHolder(View itemView, final OnItemClickListener listener) {
             super(itemView);
             mImageView = itemView.findViewById(R.id.school_img);

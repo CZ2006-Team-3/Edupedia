@@ -1,5 +1,6 @@
 package com.example.edupedia.ui;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
@@ -8,8 +9,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.SearchView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -19,6 +22,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.edupedia.R;
+import com.example.edupedia.controller.GoogleMapsActivity;
 import com.example.edupedia.controller.SortController;
 import com.example.edupedia.model.School;
 import com.example.edupedia.model.SchoolDB;
@@ -35,12 +39,15 @@ public class SearchFragment extends Fragment implements
     private static final String TAG = "SearchFragment";
 
     private SearchController viewModel;
-    private TextView textFilterEdLevel, textFilterGradeCutOff, textFilterPrefStream;
-    private EditText textFilterLocation;
+    private TextView textFilterEdLevel, textFilterGradeCutOff, textFilterPrefStream, textFilterLocation;
     private SortController sortController;
     private HashMap<String, School> schools;
     private ArrayList<School> schoolArrayList;
     private SchoolDB schoolDB;
+    private static final int REQUEST_CODE = 0;
+    public static final int RESULT_OK = -1;
+    public static final int RESULT_CANCELED = 0;
+
 
     @Nullable
     @Override
@@ -205,7 +212,7 @@ public class SearchFragment extends Fragment implements
         textFilterGradeCutOff = (TextView) dropdown_gradeCut_Off.getSelectedView();
 
         ///Spinner 3 ////////////////////////////////
-        Spinner dropdown_preffered_stream = (Spinner) rootview.findViewById(R.id.preferred_Stream);
+        Spinner dropdown_preferred_stream = (Spinner) rootview.findViewById(R.id.preferred_Stream);
         ArrayAdapter<CharSequence> adapter3 = new ArrayAdapter<CharSequence>(getActivity().getApplicationContext(), android.R.layout.simple_spinner_dropdown_item) {
             @Override
             public View getView(int position, View convertView, ViewGroup parent) {
@@ -228,20 +235,25 @@ public class SearchFragment extends Fragment implements
         adapter3.add("Science Stream");
         adapter3.add("Art Stream");
         adapter3.add("");
-        dropdown_preffered_stream.setAdapter(adapter3);
+        dropdown_preferred_stream.setAdapter(adapter3);
         s = viewModel.getTextFilterPrefStream().getValue(); //retrieve from filter.json
-        dropdown_preffered_stream.setSelection((s!=null)? adapter3.getPosition(s):adapter3.getCount());
-        textFilterPrefStream = (TextView) dropdown_preffered_stream.getSelectedView();
+        dropdown_preferred_stream.setSelection((s!=null)? adapter3.getPosition(s):adapter3.getCount());
+        textFilterPrefStream = (TextView) dropdown_preferred_stream.getSelectedView();
 
-
-        ///EditText Location ////////////////////////////////
-        textFilterLocation = (EditText) rootview.findViewById(R.id.locationEnter);
-        textFilterLocation.setText(viewModel.getTextFilterLocation().getValue());
-
+        textFilterLocation = (TextView) rootview.findViewById(R.id.locationEnter);
+        ///Click on Location button brings you to map view
+        //Starts GoogleMapsActivity-> GoogleMapsActivity returns a result to be displayed in text views
+        Button button = rootview.findViewById(R.id.locationButton);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(view.getContext(), GoogleMapsActivity.class);
+                startActivityForResult(i, REQUEST_CODE);
+            }
+        });
 
         ImageButton searchButton = (ImageButton) rootview.findViewById(R.id.findInstitute);
         searchButton.setOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(View v) {
                 Log.d(TAG, "searchButton is clicked!");
@@ -261,6 +273,24 @@ public class SearchFragment extends Fragment implements
         return rootview;
     }
 
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_CODE) {
+            if(resultCode == RESULT_OK){
+                String result=data.getStringExtra("Address");
+                //Toast.makeText()
+                Log.d("Address:", result);
+                textFilterLocation.setText(result);
+
+            }
+            if (resultCode == RESULT_CANCELED) {
+                //Write your code if there's no result
+                Log.d("There is nothing!", "NOTHING");
+            }
+        }
+    }//onActivityResult
 
     public void onItemSelected(AdapterView<?> parent, View view,
                                int pos, long id) {
