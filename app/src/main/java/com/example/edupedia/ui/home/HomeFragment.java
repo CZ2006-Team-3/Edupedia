@@ -144,12 +144,12 @@ public class HomeFragment extends Fragment implements SortByDialogFragment.SortB
                         "Grade Cut-Off: " + Integer.toString(school.getGradePSLE()),
                         "Distance: " + Double.toString(school.getDistance())));
             }
-            if (school.getMainCode().equals("JUNIOR COLLEGE")){
+            else if (school.getMainCode().equals("JUNIOR COLLEGE")){
                 mSchoolList.add(new SchoolItem(R.drawable.school_icon, school.getSchoolName(),
                         "Grade Cut-Off: " + Integer.toString(school.getGradeO()),
                         "Distance: " + Double.toString(school.getDistance())));
             }
-            if (school.getMainCode().equals("MIXED LEVEL")){
+            else if (school.getMainCode().equals("MIXED LEVEL")){
                 mSchoolList.add(new SchoolItem(R.drawable.school_icon, school.getSchoolName(),
                         "Grade Cut-Off for A-level: " + Integer.toString(school.getGradePSLE()) + " Grade Cut-Off for O-level: " + Integer.toString(school.getGradeO()) ,
                         "Distance: " + Double.toString(school.getDistance())));
@@ -159,8 +159,6 @@ public class HomeFragment extends Fragment implements SortByDialogFragment.SortB
                         "Grade Cut-Off: Not Applicable " ,
                         "Distance: " + Double.toString(school.getDistance())));
             }
-
-
 
             //mSchoolList.add(new SchoolItem(R.drawable.school_icon, "RI", "4 Points", "2 km"));
             //mSchoolList.add(new SchoolItem(R.drawable.school_icon, "AJC", "6 Points", "3 km"));
@@ -189,7 +187,15 @@ public class HomeFragment extends Fragment implements SortByDialogFragment.SortB
                 String schoolName = school.getSchoolName();
                 String course = school.getMainCode();
                 Integer grade;
-                grade = school.getGradeCutOff();
+                if (school.getMainCode().equals("SECONDARY")) {
+                    grade = school.getGradePSLE();
+                }
+                else if (school.getMainCode().equals("JUNIOR COLLEGE")){
+                    grade = school.getGradeO();
+                }
+                else{
+                    grade = school.getGradeCutOff();
+                }
                 Double drive = school.getDrivingTime();
                 Double dist = school.getDistance();
                 Double publicTime = school.getPublicTime();
