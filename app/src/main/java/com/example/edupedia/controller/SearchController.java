@@ -22,19 +22,20 @@ import java.util.Map;
 
 public class SearchController extends ViewModel {
 
-    private MutableLiveData<String> textFilterEdLevel, textFilterGradeCutOff, textFilterPrefStream,
-            textFilterLocation, textFilterRegion, textFilterSchoolType, textFilterSpecialNeeds;
+    private MutableLiveData<String> textFilterEdLevel, textFilterGradeCutOff, textFilterNature,
+            textFilterLocation;
+    private MutableLiveData<ArrayList<String>> textFilterRegion, textFilterSchoolType, textFilterIP;
     private EditText editLocation;
     private MutableLiveData<ArrayList<String>> textFilterCCAs;
     private SortController sortController = SortController.getInstance();
 
     public void storeFilterSettings() {
-            //1. Save Filter Settings to Internal Storage
+        //1. Save Filter Settings to Internal Storage
         JSONObject jsonFilter = new JSONObject();
         try {
             jsonFilter.put("EdLevel", textFilterEdLevel.getValue());
             jsonFilter.put("GradeCutOff", textFilterGradeCutOff.getValue());
-            jsonFilter.put("PrefStream", textFilterPrefStream.getValue());
+            jsonFilter.put("Nature", textFilterNature);
             jsonFilter.put("Location", textFilterLocation.getValue());
         } catch (JSONException e) {
             e.printStackTrace();
@@ -49,31 +50,87 @@ public class SearchController extends ViewModel {
         while (dbIterator.hasNext()) {
             Map.Entry schoolEntry = (Map.Entry) dbIterator.next();
             School school = (School) schoolEntry.getValue();
-            String compare1 = school.getMainCode().toLowerCase()+" level";
-            String compare2 = textFilterEdLevel.getValue().toLowerCase();
-            Log.d("Main code", compare1);
-            Log.d("Text Filter Ed Level:", compare2);
-            if (compare1.equals(compare2)) {
-//                    && school.getGradeCutOff() < Integer.parseInt(textFilterGradeCutOff.getValue())
-//                    && school.equals(textFilterPrefStream.getValue())) {
-                Log.d("School is added:", school.getSchoolName());
+            if (applyFilter(school, textFilterEdLevel.getValue(),
+                    textFilterGradeCutOff.getValue(),
+                    null,
+                    null,
+                    null,
+                    null
+                    ))
                 results.add(school.getSchoolName());
-            }
-//            }
         }
         //somehow when location is clicked
         return results;
     }
-    private HashMap<String, School> onAdvancedSearch(HashMap<String, School> basicResults) {
-        JSONObject jsonFilter = new JSONObject();
-        try {
-            jsonFilter.put("Region", textFilterRegion.getValue());
-            jsonFilter.put("Type of School", textFilterSchoolType.getValue());
-            jsonFilter.put("Special Needs ", textFilterSpecialNeeds.getValue());
-            jsonFilter.put("CCAs", textFilterCCAs.getValue());
-        } catch (JSONException e) {
-            e.printStackTrace();
+
+    private boolean applyFilter(School school,
+                                String edLevel,
+                                String gradeCutOff,
+                                String nature,
+                                ArrayList<String> region,
+                                ArrayList<String> type,
+                                ArrayList<String> ip) {
+        HashMap<String, Object> filters = new HashMap<>();
+        if (edLevel != null && !edLevel.isEmpty()) filters.put("EdLevel", edLevel);
+        if (gradeCutOff != null && !gradeCutOff.isEmpty()) filters.put("GradeCutOff", gradeCutOff);
+        if (nature != null && !nature.isEmpty()) filters.put("Nature", nature);
+        if (region != null && !region.isEmpty()) filters.put("Region", region);
+        if (type != null && !type.isEmpty()) filters.put("Type", type);
+        if (ip != null && !ip.isEmpty()) filters.put("IntegratedProgramme", ip);
+        Iterator iterator = filters.entrySet().iterator();
+        while (iterator.hasNext()) {
+            Map.Entry filterEntry = (Map.Entry) iterator.next();
+            Object filter =  filterEntry.getValue();
+            switch ((String) filterEntry.getKey()) {
+                case "EdLevel":
+                    String maincode = school.getMainCode();
+                    String filterLevel = ((String) filter).substring(0, ((String) filter).length()-6).toUpperCase();
+                    if (!maincode.equals(filterLevel)) {
+                        if ((maincode.equals("JUNIOR COLLEGE") |maincode.equals("MIXED LEVEL") )
+                                && ((String) filter).equals("Tertiary Level"))
+                            break;
+                        return false;
+                    }
+                    break;
+                case "GradeCutOff" :
+                    if (edLevel.equals("Secondary Level")){
+
+                        if (school.getGradePSLE()<Integer.parseInt((String) filter))
+                            return false;
+                    }
+                    if (edLevel.equals("Tertiary Level")){
+                        if (school.getGradeO()>Integer.parseInt((String) filter))
+                            return false;
+                    }
+                    break;
+                case "Nature":
+                    if (!school.getNatureCode().equals(((String) filter)))
+                        return false;
+                    break;
+                case "Region":
+                    if (((ArrayList<String>) filter).contains(school.getZoneCode()))
+                        return false;
+                    break;
+                case "Type":
+                    if (((ArrayList<String>) filter).contains(school.getTypeCode()))
+                        return false;
+                    break;
+                case "IntegratedProgramme":
+                    if (school.isIp() && !((ArrayList<String>) filter).contains("Yes"))
+                        return false;
+
+                    else if (!school.isIp() && !((ArrayList<String>) filter).contains("No"))
+                        return false;
+                    break;
+            }
+
+
         }
+        return true;
+    }
+
+
+    private HashMap<String, School> onAdvancedSearch(HashMap<String, School> basicResults) {
         HashMap<String, School> advancedResults = new HashMap<String, School>();
         Iterator dbIterator = basicResults.entrySet().iterator();
         while (dbIterator.hasNext()) {
@@ -81,7 +138,7 @@ public class SearchController extends ViewModel {
             School school = (School) schoolEntry.getValue();
             if (school.getClusterCode().equals(getTextFilterRegion().getValue())
                     && school.getTypeCode().equals(getTextFilterSchoolType().getValue())
-                    && hasOverlap(school.getCcas(), getTextFilterCCAs().getValue())) {
+                    && hasOverlap(school.getCcas(), getTextFilterIP().getValue())) {
                 advancedResults.put(school.getSchoolName(), school);
             }
         }
@@ -94,26 +151,6 @@ public class SearchController extends ViewModel {
         if (set.size() > 0)
             return true;
         return false;
-    }
-
-    public HashMap<String, Object> retrieveAdvancedFilterSettings() {
-        DataStoreInterface dataStore = DataStoreFactory.getDatastore("Filter");
-        JSONObject jsonFilter = (JSONObject) dataStore.retrieveData();
-        if (jsonFilter == null) {
-            jsonFilter = new JSONObject();
-        }
-        HashMap<String, Object> map = new HashMap<String, Object>();
-        Iterator<String> keys = jsonFilter.keys();
-        while (keys.hasNext()) {
-            String key = keys.next();
-            try {
-                Object value = jsonFilter.get(key);
-                map.put(key, value);
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }
-        return map;
     }
 
     public HashMap<String, String> retrieveFilterSettings() {
@@ -147,12 +184,10 @@ public class SearchController extends ViewModel {
 //        Log.d("PRINT ARRAYLIST RESULTS", results.get(0));
         if (results == null) {
             results = new ArrayList<>(db.keySet());
-
+            storeResults(results);
         }
         if (results.isEmpty()){
-            Log.d("FDfd","DFDS");
-            results = new ArrayList<>(db.keySet());
-            //return null;
+            return null;
         }
         return results;
     }
@@ -196,63 +231,16 @@ public class SearchController extends ViewModel {
         return textFilterGradeCutOff;
     }
 
-    public MutableLiveData<String> getTextFilterPrefStream() {
+    public MutableLiveData<String> getTextFilterNature() {
         HashMap<String, String> filterSettings = retrieveFilterSettings();
-        String s = filterSettings.get("PrefStream");
-        if (textFilterPrefStream == null) {
-            textFilterPrefStream = new MutableLiveData<String>();
+        String s = filterSettings.get("Nature");
+        if (textFilterNature == null) {
+            textFilterNature = new MutableLiveData<String>();
         }
         if (s != null) {
-            textFilterPrefStream.setValue(s);
+            textFilterNature.setValue(s);
         }
-        return textFilterPrefStream;
-    }
-
-    public MutableLiveData<String> getTextFilterRegion() {
-        HashMap<String, String> filterSettings = retrieveFilterSettings();
-        String s = filterSettings.get("Region");
-        if (textFilterRegion == null) {
-            textFilterRegion = new MutableLiveData<String>();
-        }
-        if (s != null) {
-            textFilterRegion.setValue(s);
-        }
-        return textFilterRegion;
-    }
-
-    public MutableLiveData<String> getTextFilterSchoolType() {
-        HashMap<String, String> filterSettings = retrieveFilterSettings();
-        String s = filterSettings.get("School Type");
-        if (textFilterSchoolType == null) {
-            textFilterSchoolType = new MutableLiveData<String>();
-        }
-        if (s != null) {
-            textFilterSchoolType.setValue(s);
-        }
-        return textFilterSchoolType;
-    }
-
-    public MutableLiveData<String> getTextFilterSpecialNeeds() {
-        HashMap<String, String> filterSettings = retrieveFilterSettings();
-        String s = filterSettings.get("Special Needs");
-        if (textFilterSpecialNeeds == null) {
-            textFilterSpecialNeeds = new MutableLiveData<String>();
-        }
-        if (s != null) {
-            textFilterSpecialNeeds.setValue(s);
-        }
-        return textFilterSpecialNeeds;
-    }
-    public MutableLiveData<ArrayList<String>> getTextFilterCCAs() {
-        HashMap<String, Object> advfilterSettings = retrieveAdvancedFilterSettings();
-        ArrayList<String> ccas = (ArrayList) advfilterSettings.get("CCAs");
-        if (textFilterCCAs == null) {
-            textFilterCCAs = new MutableLiveData<>();
-        }
-        if (ccas.size() != 0) {
-            textFilterCCAs.setValue(ccas);
-        }
-        return textFilterCCAs;
+        return textFilterNature;
     }
 
     public MutableLiveData<String> getTextFilterLocation() {
@@ -267,14 +255,36 @@ public class SearchController extends ViewModel {
         return textFilterLocation;
     }
 
+    public MutableLiveData<ArrayList<String>> getTextFilterRegion() {
+        if (textFilterRegion == null) {
+            textFilterRegion = new MutableLiveData<ArrayList<String>>();
+        }
+        return textFilterRegion;
+    }
+
+    public MutableLiveData<ArrayList<String>> getTextFilterSchoolType() {
+        if (textFilterSchoolType == null) {
+            textFilterSchoolType = new MutableLiveData<ArrayList<String>>();
+        }
+        return textFilterSchoolType;
+    }
+
+    public MutableLiveData<ArrayList<String>> getTextFilterIP() {
+        if (textFilterIP == null) {
+            textFilterIP = new MutableLiveData<ArrayList<String>>();
+        }
+        return textFilterIP;
+    }
+
+
 
     public void setTextFilterEdLevel(String s) {
         MutableLiveData<String> liveData = this.getTextFilterEdLevel();
         liveData.setValue(s);
     }
 
-    public void setTextFilterPrefStream(String s) {
-        MutableLiveData<String> liveData = this.getTextFilterPrefStream();
+    public void setTextFilterNature(String s) {
+        MutableLiveData<String> liveData = this.getTextFilterNature();
         liveData.setValue(s);
     }
 
@@ -287,21 +297,17 @@ public class SearchController extends ViewModel {
         MutableLiveData<String> liveData = this.getTextFilterLocation();
         liveData.setValue(s);
     }
-    public void setTextFilterRegion(String s) {
-        MutableLiveData<String> liveData = this.getTextFilterRegion();
-        liveData.postValue(s);
-    }
-    public void setTextFilterSchoolType(String s) {
-        MutableLiveData<String> liveData = this.getTextFilterSchoolType();
-        liveData.postValue(s);
-    }
-    public void setTextFilterSpecialNeeds(String s) {
-        MutableLiveData<String> liveData = this.getTextFilterSpecialNeeds();
+    public void setTextFilterRegion(ArrayList<String> s) {
+        MutableLiveData<ArrayList<String>> liveData = this.getTextFilterRegion();
         liveData.setValue(s);
     }
-    public void setTextFilterCCAs(ArrayList<String> list) {
-        MutableLiveData<ArrayList<String>> liveData = this.getTextFilterCCAs();
-        liveData.postValue(list);
+    public void setTextFilterSchoolType(ArrayList<String> s) {
+        MutableLiveData<ArrayList<String>> liveData = this.getTextFilterSchoolType();
+        liveData.setValue(s);
+    }
+    public void setTextFilterIP(ArrayList<String> s) {
+        MutableLiveData<ArrayList<String>> liveData = this.getTextFilterIP();
+        liveData.setValue(s);
     }
 }
 
