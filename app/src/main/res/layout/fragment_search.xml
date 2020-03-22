@@ -76,7 +76,7 @@
         android:textColor="@color/blackText" />
 
     <TextView
-        android:id="@+id/preferredStream"
+        android:id="@+id/subOffered"
         android:layout_width="142dp"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
@@ -85,11 +85,11 @@
         android:layout_marginEnd="246dp"
         android:layout_marginRight="246dp"
         android:layout_marginBottom="216dp"
-        android:text="Preferred Stream"
+        android:text="Subjects Offered"
         android:textColor="@color/blackText" />
 
     <Spinner
-        android:id="@+id/preferred_Stream"
+        android:id="@+id/subOfferedSpinner"
         android:layout_width="220dp"
         android:layout_height="36dp"
         android:layout_alignParentEnd="true"
@@ -98,7 +98,7 @@
         android:layout_marginEnd="18dp"
         android:layout_marginRight="18dp"
         android:layout_marginBottom="210dp"
-        android:entries="@array/preferredStream"
+        android:entries="@array/subOffered"
         android:outlineSpotShadowColor="@color/blackText" />
 
     <Button

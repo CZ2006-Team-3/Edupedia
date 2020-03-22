@@ -45,6 +45,7 @@
                 android:layout_alignParentStart="true"
                 android:layout_alignParentBottom="true"
                 android:text="North"
+                android:checked="true"
                 android:layout_marginLeft="50dp"/>
 
             <CheckBox
@@ -54,6 +55,7 @@
                 android:layout_alignParentStart="true"
                 android:layout_alignParentBottom="true"
                 android:text="East"
+                android:checked="true"
                 android:layout_marginLeft="50dp"/>
 
             <CheckBox
@@ -63,6 +65,7 @@
                 android:layout_alignParentStart="true"
                 android:layout_alignParentBottom="true"
                 android:text="North East"
+                android:checked="true"
                 android:layout_marginLeft="50dp"/>
 
             <CheckBox
@@ -73,6 +76,7 @@
                 android:layout_alignParentBottom="true"
                 android:layout_centerHorizontal="true"
                 android:text="Central"
+                android:checked="true"
                 android:layout_marginLeft="50dp"/>
 
             <CheckBox
@@ -82,15 +86,16 @@
                 android:layout_alignParentStart="true"
                 android:layout_alignParentBottom="true"
                 android:text="West"
+                android:checked="true"
                 android:layout_marginLeft="50dp"/>
 
             <TextView
-                android:id="@+id/specialNeeds"
+                android:id="@+id/IPProgram"
                 android:layout_width="242dp"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentBottom="true"
-                android:text="Special Needs Facility:"
+                android:text="IP Program:"
                 android:textSize="20dp"
                 android:textStyle="bold"
                 android:layout_marginLeft="50dp"
@@ -98,42 +103,23 @@
                 android:layout_marginBottom="10dp"/>
 
             <CheckBox
-                android:id="@+id/checkBoxPhysicalAid"
+                android:id="@+id/checkBoxIPYes"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentBottom="true"
-                android:text="Physical Aid"
+                android:text="Yes"
+                android:checked="true"
                 android:layout_marginLeft="50dp"/>
 
             <CheckBox
-                android:id="@+id/checkBoxHearingLoss"
+                android:id="@+id/checkBoxIPNo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentBottom="true"
-                android:text="Hearing Loss"
-                android:layout_marginLeft="50dp"/>
-
-            <CheckBox
-                android:id="@+id/checkBoxMentalDisorder"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentBottom="true"
-                android:layout_centerHorizontal="true"
-                android:text="Mental Disorder"
-                android:layout_marginLeft="50dp"/>
-
-            <CheckBox
-                android:id="@+id/checkBoxVisualImpairment"
-                android:layout_width="wrap_content"
-                android:layout_height="24dp"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentBottom="true"
-                android:text="Visual Impairment"
+                android:text="No"
+                android:checked="true"
                 android:layout_marginLeft="50dp"/>
 
             <TextView
@@ -156,6 +142,7 @@
                 android:layout_alignParentStart="true"
                 android:layout_alignParentBottom="true"
                 android:text="Independent"
+                android:checked="true"
                 android:layout_marginLeft="50dp"/>
 
             <CheckBox
@@ -166,6 +153,7 @@
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentBottom="true"
                 android:text="Girls only"
+                android:checked="true"
                 android:layout_marginLeft="50dp"/>
 
             <CheckBox
@@ -175,6 +163,7 @@
                 android:layout_alignParentStart="true"
                 android:layout_alignParentBottom="true"
                 android:text="Boys only"
+                android:checked="true"
                 android:layout_marginLeft="50dp"/>
 
             <CheckBox
@@ -184,6 +173,7 @@
                 android:layout_alignParentStart="true"
                 android:layout_alignParentBottom="true"
                 android:text="Specialised "
+                android:checked="true"
                 android:layout_marginLeft="50dp"/>
 
             <CheckBox
@@ -194,6 +184,7 @@
                 android:layout_alignParentBottom="true"
                 android:layout_centerHorizontal="true"
                 android:text="Co-ed"
+                android:checked="true"
                 android:layout_marginLeft="50dp"/>
 
             <CheckBox
@@ -203,6 +194,7 @@
                 android:layout_alignParentStart="true"
                 android:layout_alignParentBottom="true"
                 android:text="Government "
+                android:checked="true"
                 android:layout_marginLeft="50dp"/>
 
         </LinearLayout>
