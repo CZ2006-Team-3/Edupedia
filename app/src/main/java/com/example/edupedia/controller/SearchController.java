@@ -3,8 +3,11 @@ package com.example.edupedia.controller;
 import com.example.edupedia.model.DataStoreInterface;
 import com.example.edupedia.model.School;
 
+import android.os.Build;
 import android.util.Log;
 import android.widget.EditText;
+
+import androidx.annotation.RequiresApi;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
@@ -23,6 +26,7 @@ public class SearchController extends ViewModel {
             textFilterLocation, textFilterRegion, textFilterSchoolType, textFilterSpecialNeeds;
     private EditText editLocation;
     private MutableLiveData<ArrayList<String>> textFilterCCAs;
+    private SortController sortController = SortController.getInstance();
 
     public void storeFilterSettings() {
             //1. Save Filter Settings to Internal Storage
@@ -152,11 +156,13 @@ public class SearchController extends ViewModel {
         dataStore.storeToMap(results);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     public ArrayList<School> generateSchools(HashMap<String, School> db, ArrayList<String> results) {
         ArrayList<School> schoolList = new ArrayList<>();
         for (String name : results){
             schoolList.add(db.get(name));
         }
+        schoolList = sortController.sortBy(SortController.NAME,true, schoolList);
         return schoolList;
     }
 
