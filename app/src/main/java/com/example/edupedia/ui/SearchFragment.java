@@ -19,8 +19,6 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.edupedia.R;
@@ -29,7 +27,6 @@ import com.example.edupedia.controller.SortController;
 import com.example.edupedia.model.School;
 import com.example.edupedia.model.SchoolDB;
 import com.example.edupedia.controller.SearchController;
-import com.example.edupedia.ui.home.HomeFragment;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -42,8 +39,7 @@ public class SearchFragment extends Fragment implements
     private static final String TAG = "SearchFragment";
 
     private SearchController viewModel;
-    private TextView textFilterEdLevel, textFilterGradeCutOff, textFilterNature;
-    private EditText textFilterLocation;
+    private TextView textFilterEdLevel, textFilterGradeCutOff, textFilterNature, textFilterLocation;
     private Spinner dropdown_gradeCut_Off;
     private SortController sortController;
     private HashMap<String, School> schools;
@@ -181,8 +177,8 @@ public class SearchFragment extends Fragment implements
                                 new ArrayAdapter<CharSequence>(getActivity().getApplicationContext(),
                                         android.R.layout.simple_spinner_dropdown_item, new CharSequence[] {""}) {
 
-                                        @Override
-                                        public View getView(int position, View convertView, ViewGroup parent) {
+                                    @Override
+                                    public View getView(int position, View convertView, ViewGroup parent) {
 
                                         View v = super.getView(position, convertView, parent);
                                         if (position == 0) {
@@ -194,7 +190,7 @@ public class SearchFragment extends Fragment implements
                                         Log.d(TAG, "at spinner 2 primary " + textFilterGradeCutOff.getText().toString());
                                         return v;
                                     }
-                        };
+                                };
                         dropdown_gradeCut_Off.setAdapter(emptyAdapter);
                         dropdown_gradeCut_Off.setSelection(0);
                         break;
@@ -210,7 +206,7 @@ public class SearchFragment extends Fragment implements
         textFilterGradeCutOff = (TextView) dropdown_gradeCut_Off.getSelectedView();
 
         ///Spinner 3 ////////////////////////////////
-        Spinner dropdown_preffered_stream = (Spinner) rootview.findViewById(R.id.preferred_Stream);
+        Spinner dropdown_preffered_stream = (Spinner) rootview.findViewById(R.id.nature);
         ArrayAdapter<CharSequence> adapter3 = new ArrayAdapter<CharSequence>(getActivity().getApplicationContext(), android.R.layout.simple_spinner_dropdown_item) {
             @Override
             public View getView(int position, View convertView, ViewGroup parent) {
@@ -251,17 +247,11 @@ public class SearchFragment extends Fragment implements
             }
         });
 
-        ImageButton findInstitution = (ImageButton) rootview.findViewById(R.id.findInstitute);
-        findInstitution.setOnClickListener(new View.OnClickListener() {
+
+        ImageButton searchButton = (ImageButton) rootview.findViewById(R.id.findInstitute);
+        searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-
-                Fragment fragment = new HomeFragment();
-                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.fragment_container, fragment);
-                fragmentTransaction.commit();
-
+            public void onClick(View v) {
                 Log.d(TAG, "searchButton is clicked!");
                 Log.d(TAG, "textFilterEdLevel " + textFilterEdLevel.getText().toString());
                 Log.d(TAG, "textFilterGradeCutOff " + textFilterGradeCutOff.getText().toString());
@@ -280,7 +270,7 @@ public class SearchFragment extends Fragment implements
         });
 
         return rootview;
-     }
+    }
 
 
     @Override
@@ -316,4 +306,3 @@ public class SearchFragment extends Fragment implements
 
     }
 }
-
