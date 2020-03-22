@@ -61,7 +61,7 @@ public class schoolInfoUI extends Activity implements View.OnClickListener {
         public void setData(Bundle extras){
             schoolName.setText(extras.getString("schoolName"));
             course.setText(extras.getString("course"));
-            if (Integer.toString(extras.getInt("grade")) == "-1"){
+            if (Integer.toString(extras.getInt("grade")) == "0"){
                 grade.setText("Not Applicable");
             }
             else {

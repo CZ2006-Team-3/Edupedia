@@ -6,34 +6,8 @@
     android:layout_height="match_parent"
     android:animateLayoutChanges="true"
     android:animationCache="true"
-    android:background="@drawable/group90">
+    android:background="@drawable/group00">
 
-    <TextView
-        android:id="@+id/heading"
-        android:layout_width="match_parent"
-        android:layout_height="161dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:gravity="center"
-        android:padding="8dp"
-        android:text="Sort Options"
-        android:textAlignment="center"
-        android:textSize="30dp"
-        android:textStyle="bold"
-        tools:layout_editor_absoluteX="36dp"
-        tools:layout_editor_absoluteY="184dp" />
-
-    <TextView
-        android:id="@+id/sortOrderBy"
-        android:layout_width="242dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="14dp"
-        android:layout_marginEnd="0dp"
-        android:layout_marginRight="198dp"
-        android:layout_marginBottom="124dp"
-        android:text="Order By:" />
 
     <RadioGroup
         android:id="@+id/sortBy"
@@ -41,66 +15,104 @@
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginEnd="92dp"
-        android:layout_marginBottom="173dp">
+        android:layout_marginEnd="172dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/sortOrderBy">
 
         <RadioButton
             android:id="@+id/radioName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:checked="true"
-            android:text="Name" />
+            android:text="Name"
+            tools:layout_editor_absoluteX="80dp"
+            tools:layout_editor_absoluteY="462dp" />
 
         <RadioButton
             android:id="@+id/radioDist"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Distance" />
+            android:text="Distance"
+            tools:layout_editor_absoluteX="80dp"
+            tools:layout_editor_absoluteY="494dp" />
 
         <RadioButton
             android:id="@+id/radioDrivingTime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Driving Time" />
+            android:text="Driving Time"
+            tools:layout_editor_absoluteX="80dp"
+            tools:layout_editor_absoluteY="526dp" />
 
         <RadioButton
             android:id="@+id/radioPT"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Public Transport" />
+            android:text="Public Transport"
+            tools:layout_editor_absoluteX="80dp"
+            tools:layout_editor_absoluteY="558dp" />
 
     </RadioGroup>
+
+    <TextView
+        android:id="@+id/sortOrderBy"
+        android:layout_width="242dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="156dp"
+        android:text="Order By:"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.213"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <RadioGroup
         android:id="@+id/radioOrder"
-        android:layout_width="wrap_content"
+        android:layout_width="203dp"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginEnd="123dp"
-        android:layout_marginBottom="36dp">
+        android:layout_marginTop="80dp"
+        android:layout_marginEnd="172dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
+        <RadioButton
+            android:id="@+id/radioscending"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:text="Ascending"
+            tools:layout_editor_absoluteX="80dp"
+            tools:layout_editor_absoluteY="462dp" />
 
-
-    <RadioButton
-        android:id="@+id/radioAsc"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="428dp"
-        android:checked="true"
-        android:text="Ascending"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/radioOrder" />
-
-    <RadioButton
-        android:id="@+id/radioDesc"
-        android:layout_width="167dp"
-        android:layout_height="wrap_content"
-        android:text="Descending"
-        app:layout_constraintTop_toBottomOf="@+id/radioDesc"
-        tools:layout_editor_absoluteX="31dp" />
+        <RadioButton
+            android:id="@+id/radioDescending"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Descending"
+            tools:layout_editor_absoluteX="80dp"
+            tools:layout_editor_absoluteY="494dp" />
 
     </RadioGroup>
+
+    <TextView
+        android:id="@+id/heading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="16dp"
+        android:gravity="center"
+        android:padding="8dp"
+        android:text="Sort Options"
+        android:textAlignment="center"
+        android:textSize="30dp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

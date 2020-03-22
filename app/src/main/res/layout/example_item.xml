@@ -32,13 +32,13 @@
 
         <TextView
             android:id="@+id/grade_cutOff"
-            android:layout_width="127dp"
-            android:layout_height="27dp"
+            android:layout_width="218dp"
+            android:layout_height="30dp"
             android:layout_below="@+id/school_name"
             android:layout_alignParentBottom="true"
             android:layout_marginStart="6dp"
             android:layout_marginTop="8dp"
-            android:layout_marginBottom="57dp"
+            android:layout_marginBottom="59dp"
             android:layout_toEndOf="@+id/school_img"
             android:paddingBottom="3dp"
             android:text="Grade Cut-Off"
@@ -71,9 +71,8 @@
             android:layout_marginEnd="9dp"
             android:layout_marginRight="10dp"
             android:layout_marginBottom="72dp"
-            android:src="@drawable/star"
-            android:background="@drawable/star"
-            android:onClick="onToggleStar"/>
+            android:text=" "
+            android:background="@drawable/star" />
 
         <ImageView
             android:id="@+id/compareClick"

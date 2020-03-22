@@ -21,7 +21,7 @@ import java.util.Locale;
 public class CompareFragment extends Fragment {
 
     private CompareViewModel compareViewModel;
-    private School[] compareList = new School[2];
+    private static School[] compareList = new School[2];
     private TextView school1Name;
     private TextView school2Name;
     private TextView grade1;
@@ -36,31 +36,51 @@ public class CompareFragment extends Fragment {
     private TextView drive2;
     private HashMap<String, School> schools;
     private SchoolDB schoolDB;
+    private static int i = 0;
 
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState){
-       Bundle bundle = this.getArguments();
-       if (bundle!=null) {
-           String value = bundle.getString("SchoolName");
-           if (value != null) {
-               schoolDB = new SchoolDB(getContext());
-               schools = schoolDB.getValue();
-               School toBeCompare = schools.get(value);
-               if (toBeCompare != null) {
-                   if (compareList[0] == null) {
-                       compareList[0] = toBeCompare;
-                   } else
-                       compareList[1] = toBeCompare;
-               }
-           }
-       }
-        View layout =  inflater.inflate(R.layout.fragment_compare, container, false);
-       if (compareList[0] == null & compareList[1] == null) {
-                Toast toast = Toast.makeText(getActivity(), "No schools have been added to compare", Toast.LENGTH_LONG);
-                toast.show();
+        Bundle bundle = this.getArguments();
+        if (bundle!=null) {
+            String value = bundle.getString("SchoolName");
+            if (value != null) {
+                schoolDB = new SchoolDB(getContext());
+                schools = schoolDB.getValue();
+                School toBeCompare = schools.get(value);
+                if (toBeCompare != null) {
+                    i++;
+                    if (i%2==1) {
+                        compareList[0] = toBeCompare;
+                    }
+                    else if (i%2==0) {
+                        compareList[1] = toBeCompare;
+
+                    /*if (compareList[0] == null && compareList[1] == null) {
+                        compareList[0] = toBeCompare;
+                        i++;
+                    }
+                    else if (compareList[0] != null && compareList[1] == null){
+                        compareList[1] = toBeCompare;
+                        i++;
+                    }
+                    else if (compareList[0] != null && compareList[1] != null){
+                        if (i%2==1) {
+                            compareList[0] = toBeCompare;
+                        }
+                        else if (i%2==0){
+                            compareList[1] = toBeCompare;
+                        }*/
+                    }
+                }
             }
+        }
+        View layout =  inflater.inflate(R.layout.fragment_compare, container, false);
+        if (compareList[0] == null & compareList[1] == null) {
+            Toast toast = Toast.makeText(getActivity(), "No schools have been added to compare", Toast.LENGTH_LONG);
+            toast.show();
+        }
 
         //For School 1
         if (compareList[0] != null) {
@@ -68,24 +88,37 @@ public class CompareFragment extends Fragment {
             school1Name.setText(compareList[0].getSchoolName());
 
             grade1 = layout.findViewById(R.id.school1Grade);
-//            grade1.setText(compareList[0].getGradeCutOff());
-            grade1.setText("A");
+            int grade;
+            String gradeCut;
+            if (compareList[0].getMainCode().equals("SECONDARY")) {
+                grade = compareList[0].getGradePSLE();
+                gradeCut = Integer.toString(grade);
+            }
+            else if (compareList[0].getMainCode().equals("JUNIOR COLLEGE")){
+                grade = compareList[0].getGradeO();
+                gradeCut = Integer.toString(grade);
+            }
+            else{
+                gradeCut = "Not Applicable";
+            }
+            grade1.setText(gradeCut);
+
 
             course1 = layout.findViewById(R.id.school1Course);
             course1.setText(compareList[0].getMainCode());
 
             public1 = layout.findViewById(R.id.school1Public);
-//            public1.setText(Double.toString(compareList[0].getPublicTime()));
-            public1.setText(Double.toString(0));
+            public1.setText(Double.toString(compareList[0].getPublicTime()));
+            //public1.setText(Double.toString(0));
 
             dist1 = layout.findViewById(R.id.school1Dist);
-//            dist1.setText(Double.toString(compareList[0].getDistance()));
-            dist1.setText(Double.toString(0));
+            dist1.setText(Double.toString(compareList[0].getDistance()));
+            //dist1.setText(Double.toString(0));
 
 
             drive1 = layout.findViewById(R.id.school1Driving);
-//            drive1.setText(Double.toString(compareList[0].getDrivingTime()));
-            drive1.setText(Double.toString(0));
+            drive1.setText(Double.toString(compareList[0].getDrivingTime()));
+            //drive1.setText(Double.toString(0));
 
         }
 
@@ -95,7 +128,21 @@ public class CompareFragment extends Fragment {
             school2Name.setText(compareList[1].getSchoolName());
 
             grade2 = layout.findViewById(R.id.school2Grade);
-            grade2.setText(compareList[1].getGradeCutOff());
+            int grade;
+            String gradeCut;
+            if (compareList[1].getMainCode().equals("SECONDARY")) {
+                grade = compareList[1].getGradePSLE();
+                gradeCut = Integer.toString(grade);
+            }
+            else if (compareList[1].getMainCode().equals("JUNIOR COLLEGE")){
+                grade = compareList[1].getGradeO();
+                gradeCut = Integer.toString(grade);
+            }
+            else{
+                gradeCut = "Not Applicable";
+            }
+            grade2.setText(gradeCut);
+
 
             course2 = layout.findViewById(R.id.school2Course);
             course2.setText(compareList[1].getMainCode());

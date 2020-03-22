@@ -132,6 +132,7 @@ public class AdapterClass extends RecyclerView.Adapter<AdapterClass.ExampleViewH
                     }
                 }
             });
+
             mWatchListSelect.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -139,6 +140,8 @@ public class AdapterClass extends RecyclerView.Adapter<AdapterClass.ExampleViewH
                         int position = getAdapterPosition();
                         if (position != RecyclerView.NO_POSITION){
                             listener.onWatchListSelect(position);
+                            mWatchListSelect.setBackgroundResource(R.drawable.icon_awesome_star_yello);
+
                         }
 
                     }
@@ -153,6 +156,7 @@ public class AdapterClass extends RecyclerView.Adapter<AdapterClass.ExampleViewH
                         int position = getAdapterPosition();
                         if (position != RecyclerView.NO_POSITION){
                             listener.onCompareSelect(position);
+                            mCompareSelect.setBackgroundResource(R.drawable.material_compare_blue);
                         }
                     }
                 }
