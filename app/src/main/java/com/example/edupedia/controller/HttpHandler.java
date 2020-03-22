@@ -24,21 +24,15 @@ public class HttpHandler extends AsyncTask<String, Void, String> {
         String response = null;
         try {
             URL url = new URL(params[0]);
+            Log.d("URL", params[0]);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("GET");
-            Log.e("platessuck", conn.getResponseMessage());
             conn.connect();
             int responseCode = conn.getResponseCode();
-            if (responseCode == 200) {
-                Log.e("Adidas", "50%");
+            if (responseCode == HttpURLConnection.HTTP_OK) {
+                InputStream in = new BufferedInputStream(conn.getInputStream());
+                response = convertStreamToString(in);
             }
-            Log.e("i wanna buy boost", String.valueOf(responseCode));
-            if (responseCode == HttpURLConnection.HTTP_OK)
-                Log.e("RESPONSE_OK?", String.valueOf(responseCode));
-            InputStream in = new BufferedInputStream(conn.getInputStream());
-            Log.e("gugle", "YAY");
-            response = convertStreamToString(in);
-            Log.e("coolies", response);
         } catch (MalformedURLException e) {
             Log.e(TAG, "MalformedURLException: " + e.getMessage());
         } catch (ProtocolException e) {

@@ -274,7 +274,6 @@ public class SearchFragment extends Fragment implements
                 //Toast.makeText()
                 Log.d("Address:", result);
                 textFilterLocation.setText(result);
-
             }
             if (resultCode == RESULT_CANCELED) {
                 //Write your code if there's no result
