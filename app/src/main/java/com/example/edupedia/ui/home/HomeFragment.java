@@ -1,5 +1,6 @@
 package com.example.edupedia.ui.home;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -7,13 +8,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.RadioGroup;
 import android.widget.Toast;
 import android.widget.SearchView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
+import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -37,6 +42,7 @@ import com.example.edupedia.ui.SchoolItem;
 import com.example.edupedia.ui.SearchFragment;
 import com.example.edupedia.ui.SettingsFragment;
 import com.example.edupedia.ui.SortBy;
+import com.example.edupedia.ui.SortByDialogFragment;
 import com.example.edupedia.ui.StartUI;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -66,6 +72,7 @@ public class HomeFragment extends Fragment {
 
     private SearchController searchController;
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -84,13 +91,17 @@ public class HomeFragment extends Fragment {
         ArrayList<String> results = searchController.retrieveResults(schools);
         schoolArrayList = searchController.generateSchools(schools, results);
 
-        toSort.setOnClickListener(new View.OnClickListener(){
-                @Override
-                public void onClick(View v) {
-                    Intent myIntent2 = new Intent(v.getContext(), SortBy.class);
-                    startActivityForResult(myIntent2, RESULT_SUCCESS);
-                }
-            });
+        toSort.setOnClickListener(new View.OnClickListener() {
+              @Override
+              public void onClick(View v) {
+//                    Intent myIntent2 = new Intent(v.getContext(), SortBy.class);
+//                    startActivityForResult(myIntent2, RESULT_SUCCESS);
+                 FragmentTransaction ft = getChildFragmentManager().beginTransaction();
+                  DialogFragment sortBy = new SortByDialogFragment();
+                  sortBy.show(ft, "dialog");
+
+                                      }
+                                  });
         filter.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
@@ -98,6 +109,7 @@ public class HomeFragment extends Fragment {
                 startActivityForResult(myIntent2, RESULT_SUCCESS);
             }
         });
+
         searchButton.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String s) {
@@ -221,10 +233,11 @@ public class HomeFragment extends Fragment {
             if(sortController==null) {
                 sortController = SortController.getInstance();
             }
-//            sortController.sortBy(SORT_VARIABLE, SORT_ASCENDING, );
+//            schoolArrayList = sortController.sortBy(SORT_VARIABLE, SORT_ASCENDING, )
+            schools = schoolDB.getValue();
+            schoolArrayList = sortController.sortBy(SORT_VARIABLE, SORT_ASCENDING, new ArrayList<>(schools.values()));
+            createSchoolList();
+            buildRecyclerView(getView());
         }
-
     }
-
-
 }

@@ -70,17 +70,5 @@ public class SortBy extends Activity {
         });
     }
 
-    @Override
-    /**
-     * Once the pop up window is exited, the HomeFragment is sorted accordingly using setResult
-     */
-    protected void onDestroy() {
-        super.onDestroy();
-        Intent returnIntent = new Intent();
-        returnIntent.putExtra(HomeFragment.SORT_VARIABLE_NAME, sort_variable);
-        returnIntent.putExtra(HomeFragment.ASCENDING_SORT, sort_ascending);
-        setResult(HomeFragment.RESULT_SUCCESS, returnIntent);
-        finish();
-    }
 
 }
