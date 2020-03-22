@@ -39,7 +39,7 @@ public class SearchFragment extends Fragment implements
     private static final String TAG = "SearchFragment";
 
     private SearchController viewModel;
-    private TextView textFilterEdLevel, textFilterGradeCutOff, textFilterPrefStream, textFilterLocation;
+    private TextView textFilterEdLevel, textFilterGradeCutOff, textFilterNature, textFilterLocation;
     private Spinner dropdown_gradeCut_Off;
     private SortController sortController;
     private HashMap<String, School> schools;
@@ -92,6 +92,7 @@ public class SearchFragment extends Fragment implements
         dropdown_education.setSelection((s!=null)? adapter.getPosition(s): adapter.getCount());
         textFilterEdLevel = (TextView) dropdown_education.getSelectedView();
 
+
         ///Spinner 2 ////////////////////////////////
         dropdown_gradeCut_Off = (Spinner) rootview.findViewById(R.id.gradeCut_Off);
         //ArrayAdapter for Olvl grade
@@ -115,7 +116,7 @@ public class SearchFragment extends Fragment implements
             }
         };
         adapter2_olvl.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        for (int grade = 0; grade <= 20; grade++) {
+        for(int grade=0; grade<=20; grade++) {
             adapter2_olvl.add(String.valueOf(grade));
         }
         adapter2_olvl.add("");
@@ -175,8 +176,9 @@ public class SearchFragment extends Fragment implements
                         ArrayAdapter<CharSequence> emptyAdapter =
                                 new ArrayAdapter<CharSequence>(getActivity().getApplicationContext(),
                                         android.R.layout.simple_spinner_dropdown_item, new CharSequence[] {""}) {
-                                        @Override
-                                        public View getView(int position, View convertView, ViewGroup parent) {
+
+                                    @Override
+                                    public View getView(int position, View convertView, ViewGroup parent) {
 
                                         View v = super.getView(position, convertView, parent);
                                         if (position == 0) {
@@ -188,13 +190,14 @@ public class SearchFragment extends Fragment implements
                                         Log.d(TAG, "at spinner 2 primary " + textFilterGradeCutOff.getText().toString());
                                         return v;
                                     }
-                        };
+                                };
                         dropdown_gradeCut_Off.setAdapter(emptyAdapter);
                         dropdown_gradeCut_Off.setSelection(0);
                         break;
 
                 }
             }
+
             @Override
             public void onNothingSelected(AdapterView<?> parentView) {
 
@@ -203,7 +206,7 @@ public class SearchFragment extends Fragment implements
         textFilterGradeCutOff = (TextView) dropdown_gradeCut_Off.getSelectedView();
 
         ///Spinner 3 ////////////////////////////////
-        Spinner dropdown_preferred_stream = (Spinner) rootview.findViewById(R.id.preferred_Stream);
+        Spinner dropdown_preffered_stream = (Spinner) rootview.findViewById(R.id.nature);
         ArrayAdapter<CharSequence> adapter3 = new ArrayAdapter<CharSequence>(getActivity().getApplicationContext(), android.R.layout.simple_spinner_dropdown_item) {
             @Override
             public View getView(int position, View convertView, ViewGroup parent) {
@@ -213,7 +216,7 @@ public class SearchFragment extends Fragment implements
                     ((TextView)v.findViewById(android.R.id.text1)).setText("");//set default value as null
                 }
                 ((TextView)v.findViewById(android.R.id.text1)).setTextColor(Color.BLACK);
-                textFilterPrefStream = v.findViewById(android.R.id.text1);
+                textFilterNature = v.findViewById(android.R.id.text1);
                 return v;
             }
             @Override
@@ -222,26 +225,28 @@ public class SearchFragment extends Fragment implements
             }
         };
         adapter3.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        adapter3.add("Not Applicable");
-        adapter3.add("Science Stream");
-        adapter3.add("Art Stream");
+        adapter3.add("BOYS' SCHOOL");
+        adapter3.add("GIRLS' SCHOOL");
+        adapter3.add("CO-ED SCHOOL");
         adapter3.add("");
-        dropdown_preferred_stream.setAdapter(adapter3);
-        s = viewModel.getTextFilterPrefStream().getValue(); //retrieve from filter.json
-        dropdown_preferred_stream.setSelection((s!=null)? adapter3.getPosition(s):adapter3.getCount());
-        textFilterPrefStream = (TextView) dropdown_preferred_stream.getSelectedView();
+        dropdown_preffered_stream.setAdapter(adapter3);
+        s = viewModel.getTextFilterNature().getValue(); //retrieve from filter.json
+        dropdown_preffered_stream.setSelection((s!=null)? adapter3.getPosition(s):adapter3.getCount());
+        textFilterNature = (TextView) dropdown_preffered_stream.getSelectedView();
+
 
         textFilterLocation = (TextView) rootview.findViewById(R.id.locationEnter);
         ///Click on Location button brings you to map view
-        //Starts GoogleMapsActivity-> GoogleMapsActivity returns a result to be displayed in text view
-        Button locationButton = rootview.findViewById(R.id.locationButton);
-        locationButton.setOnClickListener(new View.OnClickListener() {
+        //Starts GoogleMapsActivity-> GoogleMapsActivity returns a result to be displayed in text views
+        Button button = rootview.findViewById(R.id.locationButton);
+        button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(view.getContext(), GoogleMapsActivity.class);
                 startActivityForResult(i, REQUEST_CODE);
             }
         });
+
 
         ImageButton searchButton = (ImageButton) rootview.findViewById(R.id.findInstitute);
         searchButton.setOnClickListener(new View.OnClickListener() {
@@ -250,10 +255,10 @@ public class SearchFragment extends Fragment implements
                 Log.d(TAG, "searchButton is clicked!");
                 Log.d(TAG, "textFilterEdLevel " + textFilterEdLevel.getText().toString());
                 Log.d(TAG, "textFilterGradeCutOff " + textFilterGradeCutOff.getText().toString());
-                Log.d(TAG, "textFilterPrefStream " + textFilterPrefStream.getText().toString());
+                Log.d(TAG, "textFilterNature " + textFilterNature.getText().toString());
                 viewModel.setTextFilterEdLevel(textFilterEdLevel.getText().toString());
                 viewModel.setTextFilterGradeCutOff(textFilterGradeCutOff.getText().toString());
-                viewModel.setTextFilterPrefStream(textFilterPrefStream.getText().toString());
+                viewModel.setTextFilterNature(textFilterNature.getText().toString());
                 viewModel.setTextFilterLocation(textFilterLocation.getText().toString());
                 viewModel.storeFilterSettings();
                 //Filters applied and School Names are returned
@@ -263,8 +268,11 @@ public class SearchFragment extends Fragment implements
                 //shift Fragment here
             }
         });
+
         return rootview;
     }
+
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -274,13 +282,14 @@ public class SearchFragment extends Fragment implements
                 //Toast.makeText()
                 Log.d("Address:", result);
                 textFilterLocation.setText(result);
+
             }
             if (resultCode == RESULT_CANCELED) {
                 //Write your code if there's no result
                 Log.d("There is nothing!", "NOTHING");
             }
         }
-    }
+    }//onActivityResult
 
     public void onItemSelected(AdapterView<?> parent, View view,
                                int pos, long id) {
@@ -297,4 +306,3 @@ public class SearchFragment extends Fragment implements
 
     }
 }
-

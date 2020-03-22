@@ -89,7 +89,7 @@ public class SortByDialogFragment extends DialogFragment {
              */
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 // checkedId is the RadioButton selected
-                SORT_ASCENDING = checkedId == R.id.radioAsc;
+                SORT_ASCENDING = checkedId == R.id.radioscending;
                 listener.onChangeDialog(SORT_VARIABLE, SORT_ASCENDING);
                 Log.d(TAG, Boolean.toString(SORT_ASCENDING));
             }

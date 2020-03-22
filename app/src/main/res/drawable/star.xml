@@ -11,4 +11,12 @@
         <item android:state_hovered="true"
             android:drawable="@drawable/icon_feather_star_borderyello" /> <!-- hovered -->
         <item android:drawable="@drawable/icon_feather_star_borderblack" /> <!-- default -->
+        <item android:state_pressed="true"
+            android:drawable="@android:drawable/btn_star_big_on" /> <!-- pressed -->
+        <item android:state_focused="true"
+            android:drawable="@android:drawable/btn_star_big_on" /> <!-- focused -->
+        <item android:state_hovered="true"
+            android:drawable="@android:drawable/btn_star_big_off" /> <!-- hovered -->
+        <item android:drawable="@android:drawable/btn_star" /> <!-- default -->
+
 </selector>
