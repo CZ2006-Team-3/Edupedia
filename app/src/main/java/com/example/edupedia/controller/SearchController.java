@@ -143,6 +143,7 @@ public class SearchController extends ViewModel {
 //        Log.d("PRINT ARRAYLIST RESULTS", results.get(0));
         if (results == null) {
             results = new ArrayList<>(db.keySet());
+
         }
         if (results.isEmpty()){
             Log.d("FDfd","DFDS");
@@ -172,7 +173,7 @@ public class SearchController extends ViewModel {
             textFilterEdLevel = new MutableLiveData<String>();
         }
         if (s != null) {
-            textFilterEdLevel.postValue(s);
+            textFilterEdLevel.setValue(s);
         }
         return textFilterEdLevel;
     }
@@ -196,7 +197,7 @@ public class SearchController extends ViewModel {
             textFilterPrefStream = new MutableLiveData<String>();
         }
         if (s != null) {
-            textFilterPrefStream.postValue(s);
+            textFilterPrefStream.setValue(s);
         }
         return textFilterPrefStream;
     }
@@ -255,7 +256,7 @@ public class SearchController extends ViewModel {
             textFilterLocation = new MutableLiveData<String>();
         }
         if (s != null) {
-            textFilterLocation.postValue(s);
+            textFilterLocation.setValue(s);
         }
         return textFilterLocation;
     }
@@ -263,22 +264,22 @@ public class SearchController extends ViewModel {
 
     public void setTextFilterEdLevel(String s) {
         MutableLiveData<String> liveData = this.getTextFilterEdLevel();
-        liveData.postValue(s);
+        liveData.setValue(s);
     }
 
     public void setTextFilterPrefStream(String s) {
         MutableLiveData<String> liveData = this.getTextFilterPrefStream();
-        liveData.postValue(s);
+        liveData.setValue(s);
     }
 
     public void setTextFilterGradeCutOff(String s) {
         MutableLiveData<String> liveData = this.getTextFilterGradeCutOff();
-        liveData.postValue(s);
+        liveData.setValue(s);
     }
 
     public void setTextFilterLocation(String s) {
         MutableLiveData<String> liveData = this.getTextFilterLocation();
-        liveData.postValue(s);
+        liveData.setValue(s);
     }
     public void setTextFilterRegion(String s) {
         MutableLiveData<String> liveData = this.getTextFilterRegion();

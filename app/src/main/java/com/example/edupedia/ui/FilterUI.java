@@ -14,10 +14,19 @@ import android.widget.Toast;
 
 import com.example.edupedia.R;
 
+/**
+ * Class FilterUI is a pop up activity which can be called by Home fragment
+ */
 public class FilterUI extends Activity implements View.OnClickListener {
     @Override
+    /**
+     * onCreate method creates the pop up window and instantiates all the check boxes in filter.xml
+     */
     protected void onCreate(Bundle savedInstanceState) {
 
+        /**
+         * Setting the dimensions for the pop up
+         */
         super.onCreate(savedInstanceState);
         setContentView(R.layout.sort_by);
         DisplayMetrics dm = new DisplayMetrics();
@@ -27,6 +36,9 @@ public class FilterUI extends Activity implements View.OnClickListener {
         getWindow().setLayout((int) (width*0.8), (int) (height*0.6));
 
 
+        /**
+         * instatiates all the check boxes
+         */
         super.onCreate(savedInstanceState);
         setContentView(R.layout.filter);
         // initiate views
