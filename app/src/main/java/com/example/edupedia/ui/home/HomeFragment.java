@@ -98,6 +98,20 @@ public class HomeFragment extends Fragment implements SortByDialogFragment.SortB
         //retrieving results from background files
         ArrayList<String> results = searchController.retrieveResults(schools);
         schoolArrayList = searchController.generateSchools(schools, results);
+        //idk why this is called twice tbh.
+        schoolArrayList = searchController.getDistances(schoolArrayList);
+        toSort.setOnClickListener(this);
+/*
+        toSort.setOnClickListener(new View.OnClickListener() {
+              @Override
+              public void onClick(View v) {
+//                    Intent myIntent2 = new Intent(v.getContext(), SortBy.class);
+//                    startActivityForResult(myIntent2, RESULT_SUCCESS);
+                 FragmentTransaction ft = getChildFragmentManager().beginTransaction();
+                  DialogFragment sortBy = new SortByDialogFragment();
+                  sortBy.show(ft, "dialog");
+              }
+        });*/
         toSort.setOnClickListener(this);
 //        toSort.setOnClickListener(new View.OnClickListener() {
 //              @Override
@@ -256,6 +270,8 @@ public class HomeFragment extends Fragment implements SortByDialogFragment.SortB
 
     }
 
+    // to do
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public void onChangeDialog(int sort_variable, boolean sort_ascending) {
         SORT_VARIABLE = sort_variable;
