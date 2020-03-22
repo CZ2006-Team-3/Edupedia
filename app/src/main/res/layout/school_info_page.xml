@@ -1,149 +1,164 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/school_info_bg">
 
-
-    <ImageView
-    android:id="@+id/schoolIcon"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_alignParentEnd="true"
-    android:layout_alignParentBottom="true"
-    android:layout_marginEnd="318dp"
-    android:layout_marginBottom="476dp"
-    app:srcCompat="@drawable/school" />
-
-    <TextView
-        android:id="@+id/schoolName"
-        android:layout_width="102dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="111dp"
-        android:layout_marginEnd="198dp"
-        android:layout_marginRight="198dp"
-        android:layout_marginBottom="506dp"
-        android:text="School Name" />
-
-    <ImageView
-        android:id="@+id/courseIcon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginEnd="318dp"
-        android:layout_marginBottom="386dp"
-        app:srcCompat="@drawable/course" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
 
-    <TextView
-        android:id="@+id/courseName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginEnd="213dp"
-        android:layout_marginRight="198dp"
-        android:layout_marginBottom="416dp"
-        android:text="Course Name" />
+        <ImageView
+            android:id="@+id/schoolIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="152dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/school" />
 
-    <ImageView
-        android:id="@+id/gradeIcon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginEnd="318dp"
-        android:layout_marginBottom="296dp"
-        app:srcCompat="@drawable/grade" />
+        <TextView
+            android:id="@+id/schoolName"
+            android:layout_width="237dp"
+            android:layout_height="39dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="36dp"
+            android:layout_marginTop="164dp"
+            android:text="School Name"
+            app:layout_constraintStart_toEndOf="@+id/schoolIcon"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/gradeCut"
-        android:layout_width="102dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="111dp"
-        android:layout_marginEnd="198dp"
-        android:layout_marginRight="198dp"
-        android:layout_marginBottom="326dp"
-        android:text="Grade CutOff" />
+        <ImageView
+            android:id="@+id/courseIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="4dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/schoolIcon"
+            app:srcCompat="@drawable/course" />
 
-    <ImageView
-        android:id="@+id/drivingIcon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginEnd="318dp"
-        android:layout_marginBottom="206dp"
-        app:srcCompat="@drawable/driving_time" />
+        <TextView
+            android:id="@+id/courseName"
+            android:layout_width="237dp"
+            android:layout_height="39dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="36dp"
+            android:layout_marginTop="44dp"
+            android:text="Course Name"
+            app:layout_constraintStart_toEndOf="@+id/courseIcon"
+            app:layout_constraintTop_toBottomOf="@+id/schoolName" />
 
-    <TextView
-        android:id="@+id/drivingTime"
-        android:layout_width="102dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="111dp"
-        android:layout_marginEnd="198dp"
-        android:layout_marginRight="198dp"
-        android:layout_marginBottom="236dp"
-        android:text="Driving Time" />
+        <ImageView
+            android:id="@+id/gradeIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="4dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/courseIcon"
+            app:srcCompat="@drawable/grade" />
 
-    <ImageView
-        android:id="@+id/distanceIcon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginEnd="318dp"
-        android:layout_marginBottom="116dp"
-        app:srcCompat="@drawable/distance" />
+        <TextView
+            android:id="@+id/gradeCut"
+            android:layout_width="237dp"
+            android:layout_height="39dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="36dp"
+            android:layout_marginTop="44dp"
+            android:text="Grade CutOff"
+            app:layout_constraintStart_toEndOf="@+id/gradeIcon"
+            app:layout_constraintTop_toBottomOf="@+id/courseName" />
 
-    <TextView
-        android:id="@+id/distance"
-        android:layout_width="102dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="111dp"
-        android:layout_marginEnd="198dp"
-        android:layout_marginRight="198dp"
-        android:layout_marginBottom="146dp"
-        android:text="Distance" />
+        <ImageView
+            android:id="@+id/drivingIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="4dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/gradeIcon"
+            app:srcCompat="@drawable/driving_time" />
 
-    <ImageView
-        android:id="@+id/trainIcon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginEnd="318dp"
-        android:layout_marginBottom="26dp"
-        app:srcCompat="@drawable/public_transport" />
+        <TextView
+            android:id="@+id/drivingTime"
+            android:layout_width="237dp"
+            android:layout_height="39dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="36dp"
+            android:layout_marginTop="40dp"
+            android:text="Driving Time"
+            app:layout_constraintStart_toEndOf="@+id/drivingIcon"
+            app:layout_constraintTop_toBottomOf="@+id/gradeCut" />
 
-    <TextView
-        android:id="@+id/publicTransportTiming"
-        android:layout_width="231dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="111dp"
-        android:layout_marginEnd="69dp"
-        android:layout_marginRight="198dp"
-        android:layout_marginBottom="56dp"
-        android:text="Public Transport Timing" />
+        <ImageView
+            android:id="@+id/distanceIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="4dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/drivingIcon"
+            app:srcCompat="@drawable/distance" />
 
+        <TextView
+            android:id="@+id/distance"
+            android:layout_width="237dp"
+            android:layout_height="39dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="36dp"
+            android:layout_marginTop="40dp"
+            android:text="Distance"
+            app:layout_constraintStart_toEndOf="@+id/distanceIcon"
+            app:layout_constraintTop_toBottomOf="@+id/drivingTime" />
 
+        <ImageView
+            android:id="@+id/trainIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="4dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/distanceIcon"
+            app:srcCompat="@drawable/public_transport" />
 
+        <TextView
+            android:id="@+id/publicTransportTiming"
+            android:layout_width="237dp"
+            android:layout_height="39dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="36dp"
+            android:layout_marginTop="40dp"
+            android:text="Public Transport Timing"
+            app:layout_constraintStart_toEndOf="@+id/trainIcon"
+            app:layout_constraintTop_toBottomOf="@+id/distance" />
 
-</RelativeLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

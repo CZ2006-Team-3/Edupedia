@@ -66,6 +66,8 @@ public class School {
         private ArrayList<String> moeProgramme;
         private ArrayList<String> sdp;
 
+        private int gradeCutOff;
+
         // Optional Attributes
         private double drivingTime;
         private double publicTime;
@@ -212,7 +214,7 @@ public class School {
         this.publicTime = publicTime;
     }
 
-    public void setDistance(double distance) {this.distance = distance;}
+    public void setDistance(double distance) {this.distance = distance; }
 
     public void setSubjectsOffered(ArrayList<String> subjectsOffered) {
         this.subjectsOffered = subjectsOffered;

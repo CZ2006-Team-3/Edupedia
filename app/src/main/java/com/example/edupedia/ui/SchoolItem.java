@@ -11,6 +11,8 @@ import com.example.edupedia.ui.home.HomeFragment;
 import com.example.edupedia.model.School;
 import com.google.firebase.auth.FirebaseAuth;
 
+import java.util.Comparator;
+
 import static android.content.Context.MODE_PRIVATE;
 
 public class SchoolItem {
@@ -68,7 +70,35 @@ public class SchoolItem {
         return gradeCutOff;
     }
 
-    public String getDistaceInfo() {
+    public String getDistanceInfo() {
         return distaceInfo;
     }
+
+//    public static Comparator<SchoolItem> DrivingTimeComparator = new Comparator<SchoolItem>() {
+//        @Override
+//        public int compare(SchoolItem schoolItem, SchoolItem schoolItem2) {
+//            return Double.compare(schoolItem.getDrivingTime(), school2.getDrivingTime());
+//        }
+//    };
+//
+//    public static Comparator<School> PublicTransportTimeComparator = new Comparator<School>() {
+//        @Override
+//        public int compare(School school, School school2) {
+//            return Double.compare(school.getPublicTime(), school2.getPublicTime());
+//        }
+//    };
+
+    public static Comparator<SchoolItem> DistanceComparator = new Comparator<SchoolItem>() {
+        @Override
+        public int compare(SchoolItem school, SchoolItem school2) {
+            return Double.compare(Double.parseDouble(school.getDistanceInfo()), Double.parseDouble(school2.getDistanceInfo()));
+        }
+    };
+
+    public static Comparator<SchoolItem> NameComparator = new Comparator<SchoolItem>() {
+        @Override
+        public int compare(SchoolItem school, SchoolItem t2) {
+            return school.getSchoolName().compareTo(t2.getSchoolName());
+        }
+    };
 }

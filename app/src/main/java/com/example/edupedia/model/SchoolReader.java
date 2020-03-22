@@ -11,6 +11,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.stream.StreamSupport;
 
 public class SchoolReader {
     public static final String CCA = "ccas";
@@ -55,8 +56,8 @@ public class SchoolReader {
                         .autonomousSchool(data[29].equals("Yes"))
                         .giftedProgram(data[30].equals("Yes"))
                         .schoolIp(data[31].equals("Yes"))
-                        .schoolCutOffO(Integer.parseInt(data[36]))
-                        .schoolCutOffPSLE(Integer.parseInt(data[37]))
+                        //.schoolCutOffO(Integer.parseInt(data[36]))
+                        //.schoolCutOffPSLE(Integer.parseInt(data[37]))
                         .build();
                 schools.put(school.getSchoolName(),school);
             }
