@@ -250,9 +250,11 @@ public class HomeFragment extends Fragment implements SortByDialogFragment.SortB
                 while ((i < 10) && !added) {
                     if (watchlist[i] == null) {
                         watchlistController.addSchool(schoolToAdd, i);
+                        mAdapter.notifyItemChanged(position);
                         Toast toast = Toast.makeText(getActivity(), "School has been added", Toast.LENGTH_SHORT);
                         toast.show();
                         added = true;
+
                     }
                     i++;
                     if ((i == 10) && !added) {
@@ -262,9 +264,7 @@ public class HomeFragment extends Fragment implements SortByDialogFragment.SortB
                         toast.show();
                     }
                 }
-
-                    mAdapter.notifyItemChanged(position);
-                    //mSchoolList.get(position).addToWatchList();
+                 //mSchoolList.get(position).addToWatchList();
             }
 
             @Override

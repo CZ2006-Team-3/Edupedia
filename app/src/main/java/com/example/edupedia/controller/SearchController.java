@@ -26,7 +26,6 @@ public class SearchController extends ViewModel {
             textFilterLocation;
     private MutableLiveData<ArrayList<String>> textFilterRegion, textFilterSchoolType, textFilterIP;
     private EditText editLocation;
-    private MutableLiveData<ArrayList<String>> textFilterCCAs;
     private SortController sortController = SortController.getInstance();
 
     public void storeFilterSettings() {
@@ -130,16 +129,20 @@ public class SearchController extends ViewModel {
     }
 
 
-    private HashMap<String, School> onAdvancedSearch(HashMap<String, School> basicResults) {
-        HashMap<String, School> advancedResults = new HashMap<String, School>();
+    private ArrayList<School> onAdvancedSearch(HashMap<String, School> basicResults) {
+        ArrayList<School> advancedResults = new ArrayList<School>();
         Iterator dbIterator = basicResults.entrySet().iterator();
         while (dbIterator.hasNext()) {
             Map.Entry schoolEntry = (Map.Entry) dbIterator.next();
             School school = (School) schoolEntry.getValue();
-            if (school.getClusterCode().equals(getTextFilterRegion().getValue())
-                    && school.getTypeCode().equals(getTextFilterSchoolType().getValue())
-                    && hasOverlap(school.getCcas(), getTextFilterIP().getValue())) {
-                advancedResults.put(school.getSchoolName(), school);
+            if (applyFilter(school,
+                    null,
+                    null,
+                    null,
+                    textFilterRegion.getValue(),
+                    textFilterSchoolType.getValue(),
+                    textFilterIP.getValue())){
+                advancedResults.add(school);
             }
         }
         return advancedResults;
