@@ -125,8 +125,6 @@
         android:layout_marginEnd="17dp"
         android:layout_marginRight="17dp"
         android:layout_marginBottom="149dp"
-        android:hint="Enter Location Manually"
-        android:textColorHint="@color/blackText"
         android:background="@drawable/edit_text_round_box"
         android:text="" />
 
