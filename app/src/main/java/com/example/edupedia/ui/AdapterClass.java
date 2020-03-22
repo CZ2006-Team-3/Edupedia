@@ -162,7 +162,7 @@ public class AdapterClass extends RecyclerView.Adapter<AdapterClass.ExampleViewH
 
 
     }
-    @SuppressLint("StaticFieldLeak")
+
     private void sortBy(int sort_variable, boolean ascending) {
         Comparator<SchoolItem> comp;
         switch(sort_variable) {
