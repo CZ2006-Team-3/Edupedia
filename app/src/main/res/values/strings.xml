@@ -41,4 +41,6 @@
     <string name="title_activity_home">HomeActivity</string>
     <string name="search_title">Search</string>
     <string name="search_hint">Enter Text To Search</string>
+
+
 </resources>

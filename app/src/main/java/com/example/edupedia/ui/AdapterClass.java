@@ -21,7 +21,9 @@ public class AdapterClass extends RecyclerView.Adapter<AdapterClass.ExampleViewH
 
     public AdapterClass(ArrayList <SchoolItem> schoolList){
         schoolItemList = schoolList;
-        schoolItemListFull = new ArrayList<>(schoolItemList);
+        if(schoolList!=null)
+            schoolItemListFull = new ArrayList<>(schoolItemList);
+        else schoolItemListFull = new ArrayList<>();
     }
 
     public interface OnItemClickListener {

@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:animateLayoutChanges="true"
@@ -12,14 +14,14 @@
         android:layout_height="161dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="-2dp"
-        android:layout_marginTop="-29dp"
         android:gravity="center"
         android:padding="8dp"
         android:text="Sort Options"
         android:textAlignment="center"
         android:textSize="30dp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        tools:layout_editor_absoluteX="36dp"
+        tools:layout_editor_absoluteY="184dp" />
 
     <TextView
         android:id="@+id/sortOrderBy"
@@ -79,19 +81,24 @@
         android:layout_marginEnd="123dp"
         android:layout_marginBottom="36dp">
 
-        <RadioButton
-            android:id="@+id/radioDesc"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:checked="true"
-            android:text="Ascending" />
-
-        <RadioButton
-            android:id="@+id/radioAss"
-            android:layout_width="167dp"
-            android:layout_height="wrap_content"
-            android:text="Descending" />
-
     </RadioGroup>
 
-</RelativeLayout>
+    <RadioButton
+        android:id="@+id/radioDesc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="428dp"
+        android:checked="true"
+        android:text="Ascending"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/radioOrder" />
+
+    <RadioButton
+        android:id="@+id/radioAsc"
+        android:layout_width="167dp"
+        android:layout_height="wrap_content"
+        android:text="Descending"
+        app:layout_constraintTop_toBottomOf="@+id/radioDesc"
+        tools:layout_editor_absoluteX="31dp" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

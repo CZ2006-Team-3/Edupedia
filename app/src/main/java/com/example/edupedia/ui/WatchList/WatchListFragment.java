@@ -126,8 +126,8 @@ public class WatchListFragment extends Fragment {
                     if(watchlist[i]!=null) {
                         if (watchlist[i].equals(schoolToremove)) {
                             watchlistController.removeSchool(i);
-                            if(i<wSchoolList.size())
-                                wSchoolList.remove(i);
+                            wSchoolList.remove(position);
+                            wAdapter.notifyItemChanged(position);
                             Toast toast = Toast.makeText(getActivity(), "School has been removed", Toast.LENGTH_SHORT);
                             toast.show();
                             break;
@@ -136,7 +136,7 @@ public class WatchListFragment extends Fragment {
                     i++;
                 }
                 watchlistController.pushWatchlist();
-                wAdapter.notifyItemChanged(position);
+                //wAdapter.notifyItemChanged(position);
                 //mSchoolList.get(position).addToWatchList();
             }
 
