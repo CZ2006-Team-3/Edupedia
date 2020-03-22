@@ -19,6 +19,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
 
 public class AdapterClass extends RecyclerView.Adapter<AdapterClass.ExampleViewHolder>
@@ -101,6 +102,84 @@ public class AdapterClass extends RecyclerView.Adapter<AdapterClass.ExampleViewH
             notifyDataSetChanged();
         }
     };
+
+    public Filter getAdvancedFilter() { return advancedFilter; }
+
+    private Filter advancedFilter = new Filter() {
+        @Override
+        protected FilterResults performFiltering(CharSequence charSequence) {
+            List<SchoolItem> filteredList = new ArrayList<>();
+            if (charSequence.toString().isEmpty()) {
+                filteredList.addAll(schoolItemListFull);
+            } else {
+                filteredList.addAll(applyAdvancedFilter(schoolItemListFull, charSequence));
+            }
+            FilterResults results = new FilterResults();
+            results.values = filteredList;
+            return results;
+        }
+        @Override
+        protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
+            schoolItemList.clear();
+            schoolItemList.addAll((List)filterResults.values);
+            //THIS LINE IS DAMN IMPORTANT COS WITHOUT IT IT WONT AUTO CHANGE
+            notifyDataSetChanged();
+        }
+    };
+
+    public List<SchoolItem> applyAdvancedFilter(ArrayList<SchoolItem> SchoolItemListFull, CharSequence message){
+        ArrayList<String> regions = new ArrayList<>();
+        HashMap<String, String> decodeRegion = new HashMap<>();
+        decodeRegion.put("N", "NORTH");decodeRegion.put("S", "SOUTH");decodeRegion.put("E", "EAST");decodeRegion.put("W", "WEST");
+        ArrayList<String> types = new ArrayList<>();
+        HashMap<String, String> decodeTypes = new HashMap<>();
+        decodeTypes.put("G", "GOVERNMENT SCHOOL");decodeTypes.put("A", "GOVERNMENT-AIDED SCH");
+        decodeTypes.put("I", "INDEPENDENT SCHOOL");decodeTypes.put("I", "SPECIALISED SCHOOL");
+        decodeTypes.put("Z", "SPECIALISED INDEPENDENT SCHOOL");
+        ArrayList<String> ips = new ArrayList<>();
+        HashMap<String, String> decodeIPs = new HashMap<>();
+        decodeIPs.put("Y", "Yes");decodeIPs.put("N", "No");
+        String[] breakUpMsg = message.toString().split("\\s+");
+        for(int i=0; i<breakUpMsg.length-1; i++){
+            switch(breakUpMsg[i]){
+                case "REGION":
+                    if(breakUpMsg[i+1]!="TYPE"|breakUpMsg[i+1]!="IP"){
+                        char[] chars = breakUpMsg[i+1].toCharArray();
+                        for (char ch : chars){
+                            regions.add(decodeRegion.get(String.valueOf(ch)));
+                        }
+                    }
+                    break;
+                case "TYPE":
+                    if(breakUpMsg[i+1]!="REGION"|breakUpMsg[i+1]!="IP"){
+                        char[] chars = breakUpMsg[i+1].toCharArray();
+                        for (char ch : chars){
+                            types.add(decodeTypes.get(String.valueOf(ch)));
+                        }
+                    }
+                    break;
+                case "IP":
+                    if(breakUpMsg[i+1]!="REGION"|breakUpMsg[i+1]!="IP"){
+                        char[] chars = breakUpMsg[i+1].toCharArray();
+                        for (char ch : chars){
+                            ips.add(decodeIPs.get(String.valueOf(ch)));
+                        }
+                    }
+                    break;
+            }
+        }
+        List<SchoolItem> results = new ArrayList<SchoolItem>();
+        for (SchoolItem item : SchoolItemListFull){
+            if(!regions.contains(item.getRegion()))
+                continue;
+            if(!types.contains(item.getType()))
+                continue;
+            if(!ips.contains(item.getIp()))
+                continue;
+            results.add(item);
+        }
+        return results;
+    }
 
     public static class ExampleViewHolder extends RecyclerView.ViewHolder{
 

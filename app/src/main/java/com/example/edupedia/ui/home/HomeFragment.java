@@ -82,7 +82,7 @@ public class HomeFragment extends Fragment implements SortByDialogFragment.SortB
     private ArrayList<School> schoolArrayList;
     private SchoolDB schoolDB;
     private WatchlistController watchlistController = WatchlistController.getInstance();
-
+    private AdvFilterDialogFragment advFilter = new AdvFilterDialogFragment();
     private SearchController searchController;
 
     @RequiresApi(api = Build.VERSION_CODES.N)
@@ -96,6 +96,8 @@ public class HomeFragment extends Fragment implements SortByDialogFragment.SortB
         ImageButton toSort = (ImageButton) layout.findViewById(R.id.sortButton);
         ImageButton filter = (ImageButton) layout.findViewById(R.id.filterButton);
         SearchView searchButton = (SearchView) layout.findViewById(R.id.searchButton);
+
+
 
         schoolDB = new SchoolDB(getContext());
         schools = schoolDB.getValue();
@@ -130,13 +132,14 @@ public class HomeFragment extends Fragment implements SortByDialogFragment.SortB
 //
 //                                      }
 //                                  });
-        filter.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                Intent myIntent2 = new Intent(v.getContext(), FilterUI.class);
-                startActivityForResult(myIntent2, RESULT_SUCCESS);
-            }
-        });
+//        filter.setOnClickListener(new View.OnClickListener(){
+//            @Override
+//            public void onClick(View v) {
+//                Intent myIntent2 = new Intent(v.getContext(), FilterUI.class);
+//                startActivityForResult(myIntent2, RESULT_SUCCESS);
+//            }
+//        });
+        filter.setOnClickListener(this);
 
         searchButton.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -164,7 +167,10 @@ public class HomeFragment extends Fragment implements SortByDialogFragment.SortB
                             "Grade Cut-Off: " + school.getGradePSLE(),
                             "Distance: " + school.getDistance(),
                             Double.toString(school.getPublicTime()),
-                            Double.toString(school.getDrivingTime())));
+                            Double.toString(school.getDrivingTime()),
+                            school.getZoneCode(),
+                            school.getTypeCode(),
+                            (school.isIp())? "Yes" : "No"));
                     break;
 
                 case "JUNIOR COLLEGE":
@@ -172,7 +178,10 @@ public class HomeFragment extends Fragment implements SortByDialogFragment.SortB
                             "Grade Cut-Off: " + school.getGradeO(),
                             "Distance: " + school.getDistance(),
                             Double.toString(school.getPublicTime()),
-                            Double.toString(school.getDrivingTime())));
+                            Double.toString(school.getDrivingTime()),
+                            school.getZoneCode(),
+                            school.getTypeCode(),
+                            (school.isIp())? "Yes" : "No"));
                     break;
 
                 case "MIXED LEVEL":
@@ -180,7 +189,10 @@ public class HomeFragment extends Fragment implements SortByDialogFragment.SortB
                             "Grade Cut-Off for A-level: " + school.getGradePSLE() + " Grade Cut-Off for O-level: " + Integer.toString(school.getGradeO()),
                             "Distance: " + school.getDistance(),
                             Double.toString(school.getPublicTime()),
-                            Double.toString(school.getDrivingTime())));
+                            Double.toString(school.getDrivingTime()),
+                            school.getZoneCode(),
+                            school.getTypeCode(),
+                            (school.isIp())? "Yes" : "No"));
                     break;
 
                 default:
@@ -188,7 +200,10 @@ public class HomeFragment extends Fragment implements SortByDialogFragment.SortB
                             "Grade Cut-Off: Not Applicable ",
                             "Distance: " + Double.toString(school.getDistance()),
                             Double.toString(school.getPublicTime()),
-                            Double.toString(school.getDrivingTime())));
+                            Double.toString(school.getDrivingTime()),
+                            school.getZoneCode(),
+                            school.getTypeCode(),
+                            (school.isIp())? "Yes" : "No"));
                     break;
             }
 
@@ -306,6 +321,59 @@ public class HomeFragment extends Fragment implements SortByDialogFragment.SortB
         this.region = region;
         this.IP = IP;
         this.type = IP;
+        String message = "REGION";
+        String encodedRegion = new String();
+        for (String s : region){
+            switch(s){
+                case "NORTH":
+                    encodedRegion = encodedRegion.concat("N");
+                    break;
+                case "SOUTH":
+                    encodedRegion = encodedRegion.concat("S");
+                    break;
+                case "EAST":
+                    encodedRegion = encodedRegion.concat("E");
+                    break;
+                case "WEST":
+                    encodedRegion = encodedRegion.concat("W");
+                    break;
+            }
+        }
+        message = message.concat(" "+encodedRegion + " TYPE");
+        String encodedType =  new String();
+        for (String s : type){
+            switch(s){
+                case "GOVERNMENT SCHOOL":
+                    encodedType=encodedType.concat("G");
+                    break;
+                case "GOVERNMENT-AIDED SCH":
+                    encodedType=encodedType.concat("A");
+                    break;
+                case "INDEPENDENT SCHOOL":
+                    encodedType=encodedType.concat("I");
+                    break;
+                case "SPECIALISED SCHOOL":
+                    encodedType=encodedType.concat("S");
+                    break;
+                case "SPECIALISED INDEPENDENT SCHOOL":
+                    encodedType=encodedType.concat("Z");
+                    break;
+            }
+        }
+        message = message.concat(" "+encodedType + " IP");
+        String encodedIP = new String();
+        for (String s : IP) {
+            switch (s) {
+                case "Yes":
+                    encodedIP=encodedIP.concat("Y");
+                    break;
+                case "No":
+                    encodedIP=encodedIP.concat("N");
+                    break;
+            }
+        }
+        message = message.concat(" "+encodedIP);
+        mAdapter.getAdvancedFilter().filter(message);
     }
 
 
@@ -313,18 +381,19 @@ public class HomeFragment extends Fragment implements SortByDialogFragment.SortB
 
     @Override
     public void onClick(View view) {
-        FragmentTransaction ft = getChildFragmentManager().beginTransaction();
+
         switch(view.getId()) {
             case R.id.sortButton:
+                FragmentTransaction ft = getChildFragmentManager().beginTransaction();
                 SortByDialogFragment sortBy = new SortByDialogFragment();
                 sortBy.setDialogFragmentListener(this);
                 sortBy.show(ft, "Sort By");
                 break;
 
             case R.id.filterButton:
-                AdvFilterDialogFragment advFilter = new AdvFilterDialogFragment();
+                FragmentTransaction ft1 = getChildFragmentManager().beginTransaction();
                 advFilter.setListener(this);
-                advFilter.show(ft, "Sort By");
+                advFilter.show(ft1, "Filter");
                 break;
 
             case R.id.searchButton:

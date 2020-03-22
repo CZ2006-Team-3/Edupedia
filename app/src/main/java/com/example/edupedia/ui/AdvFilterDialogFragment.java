@@ -21,14 +21,23 @@ import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class AdvFilterDialogFragment extends DialogFragment {
-    private ArrayList<String> region = new ArrayList<>();
-    private ArrayList<String> IP = new ArrayList<>();
-    private ArrayList<String> type = new ArrayList<>();
+    private ArrayList<String> region = new ArrayList<>(
+            Arrays.asList("NORTH",
+                    "SOUTH", "EAST", "WEST")
+    );
+    private ArrayList<String> IP = new ArrayList<>(
+            Arrays.asList("Yes","No")
+    );
+    private ArrayList<String> type = new ArrayList<>(
+            Arrays.asList("GOVERNMENT-AIDED SCH","SPECIALISED INDEPENDENT SCHOOL","GOVERNMENT SCHOOL","SPECIALISED SCHOOL","INDEPENDENT SCHOOL")
+    );
 
     private String TAG = "SortByDialogFragment";
     private int SORT_VARIABLE = SortController.NAME;
@@ -64,7 +73,7 @@ public class AdvFilterDialogFragment extends DialogFragment {
             @Override
             public void onClick(View v) {
                 boolean checked = ((CheckBox) v).isChecked();
-                if (checked)
+                if (checked && !region.contains("NORTH"))
                     region.add("NORTH");
                 else if (region.contains("NORTH"))
                     region.remove("NORTH");
@@ -76,7 +85,7 @@ public class AdvFilterDialogFragment extends DialogFragment {
             @Override
             public void onClick(View v) {
                 boolean checked = ((CheckBox) v).isChecked();
-                if (checked)
+                if (checked && !region.contains("EAST"))
                     region.remove("EAST");
                 else if (region.contains("EAST"))
                     region.remove("EAST");
@@ -88,7 +97,7 @@ public class AdvFilterDialogFragment extends DialogFragment {
             @Override
             public void onClick(View v) {
                 boolean checked = ((CheckBox) v).isChecked();
-                if (checked)
+                if (checked && !region.contains("WEST"))
                     region.remove("WEST");
                 else if (region.contains("WEST"))
                     region.remove("WEST");
@@ -100,7 +109,7 @@ public class AdvFilterDialogFragment extends DialogFragment {
             @Override
             public void onClick(View v) {
                 boolean checked = ((CheckBox) v).isChecked();
-                if (checked)
+                if (checked && !region.contains("SOUTH"))
                     region.remove("SOUTH");
                 else if (region.contains("SOUTH"))
                     region.remove("SOUTH");
@@ -113,7 +122,7 @@ public class AdvFilterDialogFragment extends DialogFragment {
             @Override
             public void onClick(View v) {
                 boolean checked = ((CheckBox) v).isChecked();
-                if (checked)
+                if (checked && !IP.contains("Yes"))
                     IP.add("Yes");
                 else if (IP.contains("Yes")){
                     IP.remove("Yes");
@@ -126,7 +135,7 @@ public class AdvFilterDialogFragment extends DialogFragment {
             @Override
             public void onClick(View v) {
                 boolean checked = ((CheckBox) v).isChecked();
-                if (checked)
+                if (checked && !IP.contains("No"))
                     IP.add("No");
                 else if (IP.contains("No")){
                     IP.remove("No");
@@ -140,7 +149,7 @@ public class AdvFilterDialogFragment extends DialogFragment {
             @Override
             public void onClick(View v) {
                 boolean checked = ((CheckBox) v).isChecked();
-                if (checked)
+                if (checked && !type.contains("GOVERNMENT-AIDED SCH"))
                     type.add("GOVERNMENT-AIDED SCH");
                 else if (type.contains("GOVERNMENT-AIDED SCH")){
                     type.remove("GOVERNMENT-AIDED SCH");
@@ -153,7 +162,7 @@ public class AdvFilterDialogFragment extends DialogFragment {
             @Override
             public void onClick(View v) {
                 boolean checked = ((CheckBox) v).isChecked();
-                if (checked)
+                if (checked && !type.contains("SPECIALISED INDEPENDENT SCHOOL"))
                     type.add("SPECIALISED INDEPENDENT SCHOOL");
                 else if (type.contains("SPECIALISED INDEPENDENT SCHOOL")){
                     type.remove("SPECIALISED INDEPENDENT SCHOOL");
@@ -167,7 +176,7 @@ public class AdvFilterDialogFragment extends DialogFragment {
             @Override
             public void onClick(View v) {
                 boolean checked = ((CheckBox) v).isChecked();
-                if (checked)
+                if (checked && !type.contains("GOVERNMENT SCHOOL"))
                     type.add("GOVERNMENT SCHOOL");
                 else if (type.contains("GOVERNMENT SCHOOL")){
                     type.remove("GOVERNMENT SCHOOL");
@@ -180,7 +189,7 @@ public class AdvFilterDialogFragment extends DialogFragment {
             @Override
             public void onClick(View v) {
                 boolean checked = ((CheckBox) v).isChecked();
-                if (checked)
+                if (checked && !type.add("SPECIALISED SCHOOL"))
                     type.add("SPECIALISED SCHOOL");
                 else if (type.contains("SPECIALISED SCHOOL")){
                     type.remove("SPECIALISED SCHOOL");
@@ -193,7 +202,7 @@ public class AdvFilterDialogFragment extends DialogFragment {
             @Override
             public void onClick(View v) {
                 boolean checked = ((CheckBox) v).isChecked();
-                if (checked)
+                if (checked && !type.add("INDEPENDENT SCHOOL"))
                     type.add("INDEPENDENT SCHOOL");
                 else if (type.contains("INDEPENDENT SCHOOL")){
                     type.remove("INDEPENDENT SCHOOL");

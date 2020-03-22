@@ -22,26 +22,57 @@ public class SchoolItem {
     private String gradeCutOff;
     private String publicTransport;
     private String drivingTime;
+    private String region;
+    private String type;
+    private String ip;
+
 //    private SharedPreferences sharedPref = this.getActivity().getPreferences(MODE_PRIVATE);
 //    private String uid = sharedPref.getString(StartUI.firebase_key,"");
 //
     private WatchlistController watchlistController = WatchlistController.getInstance();
+
+    public SchoolItem(int ImageResource, String SchoolName, String GradecutOff, String Distance_Calculated,
+                      String region, String type, String ip){
+        mImageResource = ImageResource;
+        schoolName = SchoolName;
+        distaceInfo = Distance_Calculated;
+        gradeCutOff = GradecutOff;
+        this.region = region;
+        this.type = type;
+        this.ip = ip;
+
+    }
 
     public SchoolItem(int ImageResource, String SchoolName, String GradecutOff, String Distance_Calculated){
         mImageResource = ImageResource;
         schoolName = SchoolName;
         distaceInfo = Distance_Calculated;
         gradeCutOff = GradecutOff;
-
     }
 
-    public SchoolItem(int ImageResource, String SchoolName, String gradecutOff, String Distance_Calculated, String publicTiming, String driving_time ){
+    public String getRegion() {
+        return region;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public String getIp() {
+        return ip;
+    }
+
+    public SchoolItem(int ImageResource, String SchoolName, String gradecutOff, String Distance_Calculated, String publicTiming, String driving_time,
+                      String region, String type, String ip){
         mImageResource = ImageResource;
         schoolName = SchoolName;
         distaceInfo = Distance_Calculated;
         gradeCutOff = gradecutOff;
         publicTransport = publicTiming;
         drivingTime = driving_time;
+        this.region = region;
+        this.type = type;
+        this.ip = ip;
     }
 
 
