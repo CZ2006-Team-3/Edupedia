@@ -53,17 +53,22 @@ import com.google.firebase.auth.FirebaseUser;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class HomeFragment extends Fragment {
+public class HomeFragment extends Fragment implements SortByDialogFragment.SortByDialogListener,
+                                                        View.OnClickListener{
     public static final String SORT_VARIABLE_NAME = "sort";
     public static final String ASCENDING_SORT = "ascending_sort";
     public static final int RESULT_SUCCESS = 1;
     private String TAG = "HomeFragment";
 
 
+    public interface SortEventListener{
+        public void onRequestSort(int sort_variable, boolean sort_ascending);
+    }
+
     private int SORT_VARIABLE = SortController.NAME;
     private boolean SORT_ASCENDING = true;
 
-    private ArrayList <SchoolItem> mSchoolList;
+    private ArrayList<SchoolItem> mSchoolList;
     private RecyclerView mRecyclerView;
     private AdapterClass mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
@@ -93,18 +98,19 @@ public class HomeFragment extends Fragment {
         //retrieving results from background files
         ArrayList<String> results = searchController.retrieveResults(schools);
         schoolArrayList = searchController.generateSchools(schools, results);
-
-        toSort.setOnClickListener(new View.OnClickListener() {
-              @Override
-              public void onClick(View v) {
-//                    Intent myIntent2 = new Intent(v.getContext(), SortBy.class);
-//                    startActivityForResult(myIntent2, RESULT_SUCCESS);
-                 FragmentTransaction ft = getChildFragmentManager().beginTransaction();
-                  DialogFragment sortBy = new SortByDialogFragment();
-                  sortBy.show(ft, "dialog");
-
-                                      }
-                                  });
+        toSort.setOnClickListener(this);
+//        toSort.setOnClickListener(new View.OnClickListener() {
+//              @Override
+//              public void onClick(View v) {
+////                    Intent myIntent2 = new Intent(v.getContext(), SortBy.class);
+////                    startActivityForResult(myIntent2, RESULT_SUCCESS);
+//                 FragmentTransaction ft = getChildFragmentManager().beginTransaction();
+//                  SortByDialogFragment sortBy = new SortByDialogFragment();
+//                  sortBy.setDialogFragmentListener(this);
+//                  sortBy.show(ft, "Sort By");
+//
+//                                      }
+//                                  });
         filter.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
@@ -244,23 +250,31 @@ public class HomeFragment extends Fragment {
 
     }
 
-    // to do
-    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if(resultCode==RESULT_SUCCESS) {
-            Bundle extras = data.getExtras();
-            SORT_VARIABLE = extras.getInt(SORT_VARIABLE_NAME);
-            SORT_ASCENDING = extras.getBoolean(ASCENDING_SORT);
-            if(sortController==null) {
-                sortController = SortController.getInstance();
-            }
-//            schoolArrayList = sortController.sortBy(SORT_VARIABLE, SORT_ASCENDING, )
-            schools = schoolDB.getValue();
-            schoolArrayList = sortController.sortBy(SORT_VARIABLE, SORT_ASCENDING, new ArrayList<>(schools.values()));
-            createSchoolList();
-            buildRecyclerView(getView());
+    public void onChangeDialog(int sort_variable, boolean sort_ascending) {
+        SORT_VARIABLE = sort_variable;
+        SORT_ASCENDING = sort_ascending;
+        createSchoolList();
+        mAdapter.onRequestSort(sort_variable,sort_ascending);
+    }
+
+
+
+
+    @Override
+    public void onClick(View view) {
+        switch(view.getId()) {
+            case R.id.sortButton:
+                FragmentTransaction ft = getChildFragmentManager().beginTransaction();
+                SortByDialogFragment sortBy = new SortByDialogFragment();
+                sortBy.setDialogFragmentListener(this);
+                sortBy.show(ft, "Sort By");
+                break;
+
+            case R.id.filterButton:
+
+
+            case R.id.searchButton:
         }
     }
 }

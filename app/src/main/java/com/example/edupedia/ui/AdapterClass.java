@@ -1,6 +1,8 @@
 package com.example.edupedia.ui;
 
+import android.annotation.SuppressLint;
 import android.content.DialogInterface;
+import android.os.AsyncTask;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,12 +11,18 @@ import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.example.edupedia.R;
+import com.example.edupedia.controller.SortController;
+import com.example.edupedia.ui.home.HomeFragment;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
-public class AdapterClass extends RecyclerView.Adapter<AdapterClass.ExampleViewHolder> implements Filterable {
+public class AdapterClass extends RecyclerView.Adapter<AdapterClass.ExampleViewHolder>
+        implements Filterable, HomeFragment.SortEventListener {
     private ArrayList<SchoolItem> schoolItemList;
     private ArrayList<SchoolItem> schoolItemListFull;
     private OnItemClickListener mListener;
@@ -24,6 +32,13 @@ public class AdapterClass extends RecyclerView.Adapter<AdapterClass.ExampleViewH
         if(schoolList!=null)
             schoolItemListFull = new ArrayList<>(schoolItemList);
         else schoolItemListFull = new ArrayList<>();
+    }
+
+    @Override
+    public void onRequestSort(int sort_variable, boolean sort_ascending) {
+        synchronized (schoolItemList) {
+            sortBy(sort_variable, sort_ascending);
+        }
     }
 
     public interface OnItemClickListener {
@@ -51,7 +66,7 @@ public class AdapterClass extends RecyclerView.Adapter<AdapterClass.ExampleViewH
         holder.mImageView.setImageResource(currentItem.getmImageResource());
         holder.schoolName.setText(currentItem.getSchoolName());
         holder.gradeCutOff.setText(currentItem.getGradeCutOff());
-        holder.distance.setText(currentItem.getDistaceInfo());
+        holder.distance.setText(currentItem.getDistanceInfo());
     }
 
     @Override
@@ -147,4 +162,24 @@ public class AdapterClass extends RecyclerView.Adapter<AdapterClass.ExampleViewH
 
 
     }
+    @SuppressLint("StaticFieldLeak")
+    private void sortBy(int sort_variable, boolean ascending) {
+        Comparator<SchoolItem> comp;
+        switch(sort_variable) {
+
+            case SortController.DIST:
+                comp = SchoolItem.DistanceComparator;
+                break;
+
+            default:
+                comp = SchoolItem.NameComparator;
+                break;
+        }
+        Collections.sort(schoolItemList, comp);
+        if(!ascending) {
+            Collections.reverse(schoolItemList);
+        }
+        notifyDataSetChanged();
+    }
+
 }
