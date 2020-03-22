@@ -81,7 +81,7 @@ public class UserController {
                 if (dataSnapshot.child("name").getValue() != null) {
                     String key = dataSnapshot.getKey();
                     Log.d("FireBase REAADDD", key);
-                     name = (String) dataSnapshot.child("name").getValue();
+                    name = (String) dataSnapshot.child("name").getValue();
                 } else {
                     name = "NOT FOUND";
                 }

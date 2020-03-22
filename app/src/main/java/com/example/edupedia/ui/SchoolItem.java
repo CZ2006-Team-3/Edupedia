@@ -20,6 +20,8 @@ public class SchoolItem {
     private String schoolName;
     private String distaceInfo;
     private String gradeCutOff;
+    private String publicTransport;
+    private String drivingTime;
 //    private SharedPreferences sharedPref = this.getActivity().getPreferences(MODE_PRIVATE);
 //    private String uid = sharedPref.getString(StartUI.firebase_key,"");
 //
@@ -32,31 +34,16 @@ public class SchoolItem {
         gradeCutOff = GradecutOff;
 
     }
-    public void openSchoolInfo(){
-        //technically should open up the schoolInformation Page;
 
-        //search through school hashmap based on the schoolName.
-        //pass that school into the schoolInfoUIClass
-        //creates layout dynamically and goes to that activity
+    public SchoolItem(int ImageResource, String SchoolName, String gradecutOff, String Distance_Calculated, String publicTiming, String driving_time ){
+        mImageResource = ImageResource;
+        schoolName = SchoolName;
+        distaceInfo = Distance_Calculated;
+        gradeCutOff = gradecutOff;
+        publicTransport = publicTiming;
+        drivingTime = driving_time;
     }
 
-
-
-
-
-    public void removeWatchList(){
-        //watchlistController.removeSchool(0);
-        //school should be removed from watchList
-        //search through school hashmap based on schoolName
-        //call the watchlist add method by passing that school into the class
-    }
-
-    public void addToCompare(){
-        gradeCutOff = "added to compare";
-        //school should be added to compare class
-        //search through school hashmap based on schoolName
-        //add to the compare array and write a toast if compare array is full!
-    }
 
     public int getmImageResource() {
         return mImageResource;
@@ -94,6 +81,14 @@ public class SchoolItem {
             return Double.compare(Double.parseDouble(school.getDistanceInfo()), Double.parseDouble(school2.getDistanceInfo()));
         }
     };
+
+    public void openSchoolInfo(){
+        //
+        //
+        //
+        //
+        //
+    }
 
     public static Comparator<SchoolItem> NameComparator = new Comparator<SchoolItem>() {
         @Override
