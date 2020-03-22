@@ -92,7 +92,6 @@ public class SearchFragment extends Fragment implements
         dropdown_education.setSelection((s!=null)? adapter.getPosition(s): adapter.getCount());
         textFilterEdLevel = (TextView) dropdown_education.getSelectedView();
 
-
         ///Spinner 2 ////////////////////////////////
         dropdown_gradeCut_Off = (Spinner) rootview.findViewById(R.id.gradeCut_Off);
         //ArrayAdapter for Olvl grade
@@ -116,7 +115,7 @@ public class SearchFragment extends Fragment implements
             }
         };
         adapter2_olvl.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        for(int grade=0; grade<=20; grade++) {
+        for (int grade = 0; grade <= 20; grade++) {
             adapter2_olvl.add(String.valueOf(grade));
         }
         adapter2_olvl.add("");
@@ -176,7 +175,6 @@ public class SearchFragment extends Fragment implements
                         ArrayAdapter<CharSequence> emptyAdapter =
                                 new ArrayAdapter<CharSequence>(getActivity().getApplicationContext(),
                                         android.R.layout.simple_spinner_dropdown_item, new CharSequence[] {""}) {
-
                                         @Override
                                         public View getView(int position, View convertView, ViewGroup parent) {
 
@@ -197,7 +195,6 @@ public class SearchFragment extends Fragment implements
 
                 }
             }
-
             @Override
             public void onNothingSelected(AdapterView<?> parentView) {
 
@@ -236,16 +233,15 @@ public class SearchFragment extends Fragment implements
 
         textFilterLocation = (TextView) rootview.findViewById(R.id.locationEnter);
         ///Click on Location button brings you to map view
-        //Starts GoogleMapsActivity-> GoogleMapsActivity returns a result to be displayed in text views
-        Button button = rootview.findViewById(R.id.locationButton);
-        button.setOnClickListener(new View.OnClickListener() {
+        //Starts GoogleMapsActivity-> GoogleMapsActivity returns a result to be displayed in text view
+        Button locationButton = rootview.findViewById(R.id.locationButton);
+        locationButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(view.getContext(), GoogleMapsActivity.class);
                 startActivityForResult(i, REQUEST_CODE);
             }
         });
-
 
         ImageButton searchButton = (ImageButton) rootview.findViewById(R.id.findInstitute);
         searchButton.setOnClickListener(new View.OnClickListener() {
@@ -267,11 +263,8 @@ public class SearchFragment extends Fragment implements
                 //shift Fragment here
             }
         });
-
         return rootview;
     }
-
-
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -288,7 +281,7 @@ public class SearchFragment extends Fragment implements
                 Log.d("There is nothing!", "NOTHING");
             }
         }
-    }//onActivityResult
+    }
 
     public void onItemSelected(AdapterView<?> parent, View view,
                                int pos, long id) {

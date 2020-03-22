@@ -135,10 +135,11 @@ public class SearchController extends ViewModel {
         }
         return map;
     }
-    public void getDistances(ArrayList<School> schools) {
+    public ArrayList<School> getDistances(ArrayList<School> schools) {
         for (School school: schools) {
             school = GoogleMapsDistance.googleMapsDistance(school, getTextFilterLocation().getValue());
         }
+        return schools;
     }
 
     public ArrayList<String> retrieveResults(HashMap<String, School> db) {
@@ -150,7 +151,6 @@ public class SearchController extends ViewModel {
 
         }
         if (results.isEmpty()){
-            Log.d("FDfd","DFDS");
             results = new ArrayList<>(db.keySet());
             //return null;
         }
