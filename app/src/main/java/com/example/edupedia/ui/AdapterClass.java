@@ -4,21 +4,24 @@ import android.content.DialogInterface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.example.edupedia.R;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
+import java.util.List;
 
-public class AdapterClass extends RecyclerView.Adapter<AdapterClass.ExampleViewHolder> {
+public class AdapterClass extends RecyclerView.Adapter<AdapterClass.ExampleViewHolder> implements Filterable {
     private ArrayList<SchoolItem> schoolItemList;
+    private ArrayList<SchoolItem> schoolItemListFull;
     private OnItemClickListener mListener;
-
 
     public AdapterClass(ArrayList <SchoolItem> schoolList){
         schoolItemList = schoolList;
-
+        schoolItemListFull = new ArrayList<>(schoolItemList);
     }
 
     public interface OnItemClickListener {
@@ -30,7 +33,6 @@ public class AdapterClass extends RecyclerView.Adapter<AdapterClass.ExampleViewH
 
     public void setOnItemClickListener(OnItemClickListener listener){
         mListener = listener;
-
     }
 
     @NonNull
@@ -52,8 +54,36 @@ public class AdapterClass extends RecyclerView.Adapter<AdapterClass.ExampleViewH
 
     @Override
     public int getItemCount() {
-        return schoolItemList.size();
+        return schoolItemList==null? 0 : schoolItemList.size();
     }
+
+    public Filter getFilter() { return schoolFilter; }
+
+    private Filter schoolFilter = new Filter() {
+        @Override
+        protected FilterResults performFiltering(CharSequence charSequence) {
+            List<SchoolItem> filteredList = new ArrayList<>();
+            if (charSequence.toString().isEmpty()) {
+                filteredList.addAll(schoolItemListFull);
+            } else {
+                for (SchoolItem item: schoolItemListFull) {
+                    if (item.getSchoolName().toLowerCase().contains(charSequence.toString().toLowerCase())) {
+                        filteredList.add(item);
+                    }
+                }
+            }
+            FilterResults results = new FilterResults();
+            results.values = filteredList;
+            return results;
+        }
+        @Override
+        protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
+            schoolItemList.clear();
+            schoolItemList.addAll((List)filterResults.values);
+            //THIS LINE IS DAMN IMPORTANT COS WITHOUT IT IT WONT AUTO CHANGE
+            notifyDataSetChanged();
+        }
+    };
 
     public static class ExampleViewHolder extends RecyclerView.ViewHolder{
 
@@ -86,7 +116,6 @@ public class AdapterClass extends RecyclerView.Adapter<AdapterClass.ExampleViewH
                     }
                 }
             });
-
             mWatchListSelect.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -109,10 +138,8 @@ public class AdapterClass extends RecyclerView.Adapter<AdapterClass.ExampleViewH
                         if (position != RecyclerView.NO_POSITION){
                             listener.onCompareSelect(position);
                         }
-
                     }
                 }
-
             });
 
         }

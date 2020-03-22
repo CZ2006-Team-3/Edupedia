@@ -24,6 +24,7 @@
         <activity android:name=".ui.StartUI"></activity>
         <activity android:name=".ui.RegisterUI"></activity>
         <activity android:name=".ui.MainNavigationUI"></activity>
+        <activity android:name=".ui.home.schoolInfoUI"></activity>
         <activity android:name=".ui.ChangePassword"
             android:theme="@style/AppTheme.CustomTheme"
             ></activity>
@@ -36,14 +37,12 @@
         <activity android:name=".ui.FilterUI"
             android:theme="@style/AppTheme.CustomTheme"
             ></activity>
-
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
             android:value="AIzaSyCUaalvzVnKZLKDtGCAp1hmU9pIrov4EMM"/>
->>>>>>> Stashed changes
     </application>
 
 </manifest>

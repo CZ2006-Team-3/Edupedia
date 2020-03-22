@@ -2,19 +2,26 @@ package com.example.edupedia.ui;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.widget.Toast;
 
 import com.example.edupedia.controller.WatchlistController;
 import com.example.edupedia.ui.StartUI;
 import com.example.edupedia.ui.home.HomeFragment;
 import com.example.edupedia.model.School;
+import com.google.firebase.auth.FirebaseAuth;
+
+import static android.content.Context.MODE_PRIVATE;
+
 public class SchoolItem {
     private int mImageResource;
     private String schoolName;
     private String distaceInfo;
     private String gradeCutOff;
+//    private SharedPreferences sharedPref = this.getActivity().getPreferences(MODE_PRIVATE);
+//    private String uid = sharedPref.getString(StartUI.firebase_key,"");
+//
     private WatchlistController watchlistController = WatchlistController.getInstance();
-
 
     public SchoolItem(int ImageResource, String SchoolName, String GradecutOff, String Distance_Calculated){
         mImageResource = ImageResource;
@@ -25,7 +32,7 @@ public class SchoolItem {
     }
     public void openSchoolInfo(){
         //technically should open up the schoolInformation Page;
-        schoolName = "clicked";
+
         //search through school hashmap based on the schoolName.
         //pass that school into the schoolInfoUIClass
         //creates layout dynamically and goes to that activity

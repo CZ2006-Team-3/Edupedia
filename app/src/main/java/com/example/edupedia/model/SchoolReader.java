@@ -110,7 +110,6 @@ public class SchoolReader {
                 addArrayToSchool(schools, array, schoolName, arrayType);
                 array = new ArrayList<>();
                 schoolName = nextSchoolName;
-
             }
         } catch (IOException e) {
             e.printStackTrace();

@@ -83,5 +83,4 @@ public class SortBy extends Activity {
         finish();
     }
 
-
 }

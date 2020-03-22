@@ -37,10 +37,12 @@ public class SearchFragment extends Fragment implements
     private SearchController viewModel;
     private TextView textFilterEdLevel, textFilterGradeCutOff, textFilterPrefStream;
     private EditText textFilterLocation;
+    private Spinner dropdown_gradeCut_Off;
     private SortController sortController;
     private HashMap<String, School> schools;
     private ArrayList<School> schoolArrayList;
     private SchoolDB schoolDB;
+
 
     @Nullable
     @Override
@@ -64,6 +66,7 @@ public class SearchFragment extends Fragment implements
                 }
                 ((TextView)v.findViewById(android.R.id.text1)).setTextColor(Color.BLACK);
                 textFilterEdLevel = v.findViewById(android.R.id.text1);
+                Log.d(TAG,  "at spinner 1 " + textFilterEdLevel.getText().toString());
                 return v;
             }
             @Override
@@ -80,12 +83,12 @@ public class SearchFragment extends Fragment implements
 
         dropdown_education.setAdapter(adapter);
         String s = viewModel.getTextFilterEdLevel().getValue();  //retrieve from filter.json
-        dropdown_education.setSelection((s!=null)? adapter.getPosition(s):adapter.getCount());
+        dropdown_education.setSelection((s!=null)? adapter.getPosition(s): adapter.getCount());
         textFilterEdLevel = (TextView) dropdown_education.getSelectedView();
 
 
         ///Spinner 2 ////////////////////////////////
-        final Spinner dropdown_gradeCut_Off = (Spinner) rootview.findViewById(R.id.gradeCut_Off);
+        dropdown_gradeCut_Off = (Spinner) rootview.findViewById(R.id.gradeCut_Off);
         //ArrayAdapter for Olvl grade
         final ArrayAdapter<CharSequence> adapter2_olvl = new ArrayAdapter<CharSequence>(getActivity().getApplicationContext(), android.R.layout.simple_spinner_dropdown_item) {
             @Override
@@ -97,6 +100,7 @@ public class SearchFragment extends Fragment implements
                 }
                 ((TextView)v.findViewById(android.R.id.text1)).setTextColor(Color.BLACK);
                 textFilterGradeCutOff = v.findViewById(android.R.id.text1);
+                Log.d(TAG, " at spinner 2 olvl " + textFilterGradeCutOff.getText().toString());
                 return v;
             }
 
@@ -122,6 +126,7 @@ public class SearchFragment extends Fragment implements
                 }
                 ((TextView)v.findViewById(android.R.id.text1)).setTextColor(Color.BLACK);
                 textFilterGradeCutOff = v.findViewById(android.R.id.text1);
+                Log.d(TAG, "at spinner 2 psle " + textFilterGradeCutOff.getText().toString());
                 return v;
             }
 
@@ -163,8 +168,24 @@ public class SearchFragment extends Fragment implements
                     default:
                         dropdown_gradeCut_Off.setClickable(false);
                         ArrayAdapter<CharSequence> emptyAdapter =
-                                new ArrayAdapter<>(getActivity().getApplicationContext(),
-                                        android.R.layout.simple_spinner_dropdown_item, new CharSequence[] {""});
+                                new ArrayAdapter<CharSequence>(getActivity().getApplicationContext(),
+                                        android.R.layout.simple_spinner_dropdown_item, new CharSequence[] {""}) {
+
+                                        @Override
+                                        public View getView(int position, View convertView, ViewGroup parent) {
+
+                                        View v = super.getView(position, convertView, parent);
+                                        if (position == 0) {
+                                            ((TextView)v.findViewById(android.R.id.text1)).setText("");//set default value as null
+                                            ((TextView)v.findViewById(android.R.id.text1)).setHint("Not Applicable");
+                                        }
+                                        ((TextView)v.findViewById(android.R.id.text1)).setTextColor(Color.BLACK);
+                                        textFilterGradeCutOff = v.findViewById(android.R.id.text1);
+                                        Log.d(TAG, "at spinner 2 primary " + textFilterGradeCutOff.getText().toString());
+                                        return v;
+                                    }
+                        };
+                        dropdown_gradeCut_Off.setAdapter(emptyAdapter);
                         dropdown_gradeCut_Off.setSelection(0);
                         break;
 
@@ -173,33 +194,7 @@ public class SearchFragment extends Fragment implements
 
             @Override
             public void onNothingSelected(AdapterView<?> parentView) {
-                //if Education Level is changed
-                int pos;
-                String s;
-                switch(textFilterEdLevel.toString()){
-                    case "Secondary Level":
-                        dropdown_gradeCut_Off.setClickable(true);
-                        dropdown_gradeCut_Off.setAdapter(adapter2_psle);
-                        s = viewModel.getTextFilterGradeCutOff().getValue(); //retrieve from filter.json
-                        pos = adapter2_psle.getPosition(s);
-                        dropdown_gradeCut_Off.setSelection((s!=null && pos!=-1)? adapter2_psle.getPosition(s):adapter2_psle.getCount());
-                        break;
-                    case "Tertiary Level":
-                        dropdown_gradeCut_Off.setClickable(true);
-                        dropdown_gradeCut_Off.setAdapter(adapter2_olvl);
-                        s = viewModel.getTextFilterGradeCutOff().getValue(); //retrieve from filter.json
-                        pos = adapter2_psle.getPosition(s);
-                        dropdown_gradeCut_Off.setSelection((s!=null&&pos!=-1)? adapter2_olvl.getPosition(s):adapter2_olvl.getCount());
-                        break;
-                    default:
-                        dropdown_gradeCut_Off.setClickable(false);
-                        ArrayAdapter<CharSequence> emptyAdapter =
-                                new ArrayAdapter<>(getActivity().getApplicationContext(),
-                                        android.R.layout.simple_spinner_dropdown_item, new CharSequence[] {""});
-                        dropdown_gradeCut_Off.setSelection(0);
-                        break;
 
-                }
             }
         });
         textFilterGradeCutOff = (TextView) dropdown_gradeCut_Off.getSelectedView();
@@ -239,12 +234,16 @@ public class SearchFragment extends Fragment implements
         textFilterLocation.setText(viewModel.getTextFilterLocation().getValue());
 
 
+
         ImageButton searchButton = (ImageButton) rootview.findViewById(R.id.findInstitute);
         searchButton.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
                 Log.d(TAG, "searchButton is clicked!");
+                Log.d(TAG, "textFilterEdLevel " + textFilterEdLevel.getText().toString());
+                Log.d(TAG, "textFilterGradeCutOff " + textFilterGradeCutOff.getText().toString());
+                Log.d(TAG, "textFilterPrefStream " + textFilterPrefStream.getText().toString());
                 viewModel.setTextFilterEdLevel(textFilterEdLevel.getText().toString());
                 viewModel.setTextFilterGradeCutOff(textFilterGradeCutOff.getText().toString());
                 viewModel.setTextFilterPrefStream(textFilterPrefStream.getText().toString());

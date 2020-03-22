@@ -222,14 +222,11 @@ public class GoogleMapsActivity extends AppCompatActivity implements OnMapReadyC
                     }))
                     .setCancelable(false)
                     .show();
-
         }
-
         return false;
     }
 
     private boolean checkLocationPermission() {
-
         return ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
                 == PackageManager.PERMISSION_GRANTED;
     }
