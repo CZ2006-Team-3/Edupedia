@@ -25,14 +25,15 @@ public class School {
     private boolean autonomous;         // [30]
     private boolean gifted;             // [31]
     private boolean ip;                 // [32]
-    private int gradeA;                 // [37]
-    private int gradeO;                 // [38]
+    private int gradeO;                 // [37]
+    private int gradePSLE;              // [38]
 
     private ArrayList<String> subjectsOffered;
     private ArrayList<String> ccas;
     private ArrayList<String> moeProgramme;
 
     // Optional Attributes
+    private int gradeCutOff;
     private double drivingTime;
     private double publicTime;
     private double distance;
@@ -57,8 +58,8 @@ public class School {
         private boolean autonomous;         // [30]
         private boolean gifted;             // [31]
         private boolean ip;                 // [32]
-        private int gradeA;                 // [37]
-        private int gradeO;                 // [38]
+        private int gradeO;                 // [37]
+        private int gradePSLE;              // [38]
 
         private ArrayList<String> subjectsOffered;
         private ArrayList<String> ccas;
@@ -163,13 +164,13 @@ public class School {
             return this;
         }
 
-        public SchoolBuilder schoolCutOffA(int gradeA) {
-            this.gradeA = gradeA;
+        public SchoolBuilder schoolCutOffO(int gradeO) {
+            this.gradeO = gradeO;
             return this;
         }
 
-        public SchoolBuilder schoolCutOffO(int gradeO) {
-            this.gradeO = gradeO;
+        public SchoolBuilder schoolCutOffPSLE(int gradePSLE) {
+            this.gradePSLE = gradePSLE;
             return this;
         }
 
@@ -199,8 +200,8 @@ public class School {
         this.autonomous = schoolBuilder.autonomous;
         this.gifted = schoolBuilder.gifted;
         this.ip = schoolBuilder.ip;
-        this.gradeA = schoolBuilder.gradeA;
         this.gradeO = schoolBuilder.gradeO;
+        this.gradePSLE = schoolBuilder.gradePSLE;
     }
 
     public void setDrivingTime(double drivingTime) {
@@ -211,7 +212,7 @@ public class School {
         this.publicTime = publicTime;
     }
 
-    public void setDistance(double distance) {this.distance = distance; }
+    public void setDistance(double distance) {this.distance = distance;}
 
     public void setSubjectsOffered(ArrayList<String> subjectsOffered) {
         this.subjectsOffered = subjectsOffered;
@@ -323,12 +324,16 @@ public class School {
         return publicTime;
     }
 
-    public int getGradeA() {
-        return gradeA;
-    }
-
     public int getGradeO() {
         return gradeO;
+    }
+
+    public int getGradePSLE() {
+        return gradePSLE;
+    }
+
+    public int getGradeCutOff() {
+        return gradeCutOff;
     }
 
     public static Comparator<School> DrivingTimeComparator = new Comparator<School>() {
