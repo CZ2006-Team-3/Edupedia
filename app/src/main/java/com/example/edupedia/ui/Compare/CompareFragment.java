@@ -21,7 +21,7 @@ import java.util.Locale;
 public class CompareFragment extends Fragment {
 
     private CompareViewModel compareViewModel;
-    private School[] compareList = new School[2];
+    private static School[] compareList = new School[2];
     private TextView school1Name;
     private TextView school2Name;
     private TextView grade1;
