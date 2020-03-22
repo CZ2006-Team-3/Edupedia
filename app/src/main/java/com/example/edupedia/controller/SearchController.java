@@ -35,7 +35,7 @@ public class SearchController extends ViewModel {
         try {
             jsonFilter.put("EdLevel", textFilterEdLevel.getValue());
             jsonFilter.put("GradeCutOff", textFilterGradeCutOff.getValue());
-            jsonFilter.put("Nature", textFilterNature);
+            jsonFilter.put("Nature", textFilterNature.getValue());
             jsonFilter.put("Location", textFilterLocation.getValue());
         } catch (JSONException e) {
             e.printStackTrace();
@@ -172,10 +172,12 @@ public class SearchController extends ViewModel {
         }
         return map;
     }
-    public void getDistances(ArrayList<School> schools) {
+    public ArrayList<School> getDistances(ArrayList<School> schools) {
         for (School school: schools) {
             school = GoogleMapsDistance.googleMapsDistance(school, getTextFilterLocation().getValue());
+            Log.e("School location:", school.getAddress());
         }
+        return schools;
     }
 
     public ArrayList<String> retrieveResults(HashMap<String, School> db) {

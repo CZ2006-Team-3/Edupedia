@@ -12,12 +12,14 @@ import android.view.SearchEvent;
 import android.widget.SearchView;
 
 import com.example.edupedia.R;
+import com.example.edupedia.controller.UserController;
 import com.example.edupedia.controller.WatchlistController;
 import com.example.edupedia.model.UserID;
 import com.example.edupedia.ui.WatchList.WatchListFragment;
 import com.example.edupedia.ui.home.HomeFragment;
 import com.example.edupedia.ui.Compare.CompareFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.auth.FirebaseAuth;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -35,6 +37,7 @@ public class MainNavigationUI extends AppCompatActivity {
 //        uid = intent.getStringExtra(StartUI.firebase_key);
         uid = UserID.getInstance().getID();
         WatchlistController.init(uid);
+        UserController.init(FirebaseAuth.getInstance().getCurrentUser());
         BottomNavigationView bottomMenu = findViewById(R.id.bottom_menu);
         bottomMenu.setOnNavigationItemSelectedListener(navListener);
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
