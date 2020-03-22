@@ -101,21 +101,22 @@
         android:entries="@array/preferredStream"
         android:outlineSpotShadowColor="@color/blackText" />
 
-    <TextView
-        android:id="@+id/location"
+    <Button
+        android:id="@+id/locationButton"
         android:layout_width="142dp"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginEnd="244dp"
-        android:layout_marginRight="244dp"
-        android:layout_marginBottom="165dp"
+        android:layout_marginEnd="253dp"
+        android:layout_marginRight="253dp"
+        android:layout_marginBottom="138dp"
         android:text="Location"
         android:textColor="@color/blackText" />
 
-    <EditText
+    <TextView
         android:id="@+id/locationEnter"
+        android:text=""
         android:layout_width="220dp"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"

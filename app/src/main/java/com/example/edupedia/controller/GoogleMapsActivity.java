@@ -18,6 +18,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
@@ -60,6 +61,8 @@ public class GoogleMapsActivity extends AppCompatActivity implements OnMapReadyC
     private ImageButton mBtnLocate;
     private GoogleMap mGoogleMap;
     private EditText mSearchAddress;
+    private Button confirmButton;
+    private Address address = null;
     private FusedLocationProviderClient mFusedLocationProviderClient;
 
     public void onCreate(Bundle savedInstanceState) {
@@ -70,30 +73,49 @@ public class GoogleMapsActivity extends AppCompatActivity implements OnMapReadyC
 
         mSearchAddress = findViewById(R.id.et_address);
         mBtnLocate = findViewById(R.id.btn_locate);
-        mBtnLocate.setOnClickListener(this::geoLocate);
-
+        confirmButton = findViewById(R.id.confirmButton);
+        //mBtnLocate.setOnClickListener(this::geoLocate);
         initGoogleMap();
+        mBtnLocate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                geoLocate(view);
+            }
+        });
+        confirmButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent();
+                if (address != null) {
+                    String addressStr = "Latitude: " + address.getLatitude() + ", Longitude: " +
+                            address.getLongitude();
+                    intent.putExtra("Address", addressStr);
+                    Log.d("Address:", addressStr);
+                    setResult(RESULT_OK, intent);
+                    finish();
+                }
+            }
+        });
     }
     public Address geoLocate2(String locationName) {
         Geocoder geocoder = new Geocoder(this, Locale.getDefault());
         try {
             List<Address> addressList = geocoder.getFromLocationName(locationName, 1);
             if (addressList.size() == 1) {
-                Address address = addressList.get(0);
-                return address;
+                this.address = addressList.get(0);
             }
             else {
                 for (Address address : addressList) {
                     Log.d(TAG, "geoLocate: Address: " + address.getAddressLine(address.getMaxAddressLineIndex()));
                 }
-                return addressList.get(0);
+                this.address = addressList.get(0);
             }
         } catch (IOException e) {
 
         }
-        return null;
+        return address;
     }
-
+/*
     public Address geoLocate(View view) {
         hideSoftKeyboard(view);
         String locationName = mSearchAddress.getText().toString();
@@ -114,6 +136,33 @@ public class GoogleMapsActivity extends AppCompatActivity implements OnMapReadyC
         }
         return null;
     }
+
+ */
+    private void geoLocate(View view) {
+        hideSoftKeyboard(view);
+        String locationName = mSearchAddress.getText().toString();
+        Geocoder geocoder = new Geocoder(this, Locale.getDefault());
+
+        try {
+            List<Address> addressList = geocoder.getFromLocationName(locationName, 1);
+            if (addressList.size() > 0) {
+                this.address = addressList.get(0);
+                gotoLocation(this.mGoogleMap, address.getLatitude(), address.getLongitude());
+                showMarker(address.getLatitude(), address.getLongitude());
+                Toast.makeText(this, address.getLocality(), Toast.LENGTH_SHORT).show();
+                Log.d(TAG, "geoLocate: Locality: " + address.getLocality());
+            }
+
+            for (Address address : addressList) {
+                Log.d(TAG, "geoLocate: Address: " + address.getAddressLine(address.getMaxAddressLineIndex()));
+            }
+
+        } catch (IOException e) {
+
+
+        }
+
+}
     private void displayGeolocate(Address address) {
         gotoLocation(this.mGoogleMap, address.getLatitude(), address.getLongitude());
         showMarker(address.getLatitude(), address.getLongitude());

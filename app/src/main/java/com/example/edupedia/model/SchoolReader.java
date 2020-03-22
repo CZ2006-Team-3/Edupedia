@@ -55,6 +55,8 @@ public class SchoolReader {
                         .autonomousSchool(data[29].equals("Yes"))
                         .giftedProgram(data[30].equals("Yes"))
                         .schoolIp(data[31].equals("Yes"))
+                        .schoolCutOffO(Integer.parseInt(data[36]))
+                        .schoolCutOffPSLE(Integer.parseInt(data[37]))
                         .build();
                 schools.put(school.getSchoolName(),school);
             }
