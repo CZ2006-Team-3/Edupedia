@@ -85,7 +85,7 @@ public class WatchlistController {
 
     // Retrieve watchlist from database
     public void pullWatchlist() {
-        current_user_db.addListenerForSingleValueEvent(new ValueEventListener() {
+        current_user_db.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.child("watchlist").getValue() != null) {

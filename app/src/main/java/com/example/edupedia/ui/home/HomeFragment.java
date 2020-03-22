@@ -32,6 +32,7 @@ import com.example.edupedia.model.DataStoreInterface;
 import com.example.edupedia.model.Filter;
 import com.example.edupedia.ui.AdapterClass;
 import com.example.edupedia.R;
+import com.example.edupedia.ui.AdvFilterDialogFragment;
 import com.example.edupedia.ui.Compare.CompareFragment;
 import com.example.edupedia.ui.FilterUI;
 import com.example.edupedia.ui.SchoolItem;
@@ -54,7 +55,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class HomeFragment extends Fragment implements SortByDialogFragment.SortByDialogListener,
-                                                        View.OnClickListener{
+                                                        View.OnClickListener, AdvFilterDialogFragment.AdvFilterDialogListener{
     public static final String SORT_VARIABLE_NAME = "sort";
     public static final String ASCENDING_SORT = "ascending_sort";
     public static final int RESULT_SUCCESS = 1;
@@ -67,6 +68,10 @@ public class HomeFragment extends Fragment implements SortByDialogFragment.SortB
 
     private int SORT_VARIABLE = SortController.NAME;
     private boolean SORT_ASCENDING = true;
+
+    private ArrayList<String> region;
+    private ArrayList<String> IP;
+    private ArrayList<String> type;
 
     private ArrayList<SchoolItem> mSchoolList;
     private RecyclerView mRecyclerView;
@@ -295,21 +300,32 @@ public class HomeFragment extends Fragment implements SortByDialogFragment.SortB
         mAdapter.onRequestSort(sort_variable,sort_ascending);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    @Override
+    public void onChangeCheckbox(ArrayList<String> region,  ArrayList<String> IP, ArrayList<String> type){
+        this.region = region;
+        this.IP = IP;
+        this.type = IP;
+    }
+
 
 
 
     @Override
     public void onClick(View view) {
+        FragmentTransaction ft = getChildFragmentManager().beginTransaction();
         switch(view.getId()) {
             case R.id.sortButton:
-                FragmentTransaction ft = getChildFragmentManager().beginTransaction();
                 SortByDialogFragment sortBy = new SortByDialogFragment();
                 sortBy.setDialogFragmentListener(this);
                 sortBy.show(ft, "Sort By");
                 break;
 
             case R.id.filterButton:
-
+                AdvFilterDialogFragment advFilter = new AdvFilterDialogFragment();
+                advFilter.setListener(this);
+                advFilter.show(ft, "Sort By");
+                break;
 
             case R.id.searchButton:
         }

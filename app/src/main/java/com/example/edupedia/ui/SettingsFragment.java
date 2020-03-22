@@ -32,6 +32,15 @@ public class SettingsFragment extends Fragment {
 
     @Nullable
     @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        name = userController.getName();
+        edlevel = userController.getEdLevel();
+
+    }
+
+    @Nullable
+    @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState){
         View rootview = inflater.inflate(R.layout.fragment_settings, container, false);
 
