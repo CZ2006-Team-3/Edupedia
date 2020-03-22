@@ -171,6 +171,14 @@ public class AdapterClass extends RecyclerView.Adapter<AdapterClass.ExampleViewH
                 comp = SchoolItem.DistanceComparator;
                 break;
 
+            case SortController.DRIVING_TIME:
+                comp = SchoolItem.DrivingTimeComparator;
+                break;
+
+            case SortController.TRANSPORT_TIME:
+                comp = SchoolItem.PublicTransportTimeComparator;
+                break;
+
             default:
                 comp = SchoolItem.NameComparator;
                 break;

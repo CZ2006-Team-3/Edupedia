@@ -61,7 +61,11 @@ public class SchoolItem {
         return distaceInfo;
     }
 
-//    public static Comparator<SchoolItem> DrivingTimeComparator = new Comparator<SchoolItem>() {
+    public String getPublicTransport() { return publicTransport; }
+
+    public String getDrivingTime() { return drivingTime; }
+
+    //    public static Comparator<SchoolItem> DrivingTimeComparator = new Comparator<SchoolItem>() {
 //        @Override
 //        public int compare(SchoolItem schoolItem, SchoolItem schoolItem2) {
 //            return Double.compare(schoolItem.getDrivingTime(), school2.getDrivingTime());
@@ -78,7 +82,17 @@ public class SchoolItem {
     public static Comparator<SchoolItem> DistanceComparator = new Comparator<SchoolItem>() {
         @Override
         public int compare(SchoolItem school, SchoolItem school2) {
-            return Double.compare(Double.parseDouble(school.getDistanceInfo()), Double.parseDouble(school2.getDistanceInfo()));
+            float schoolDistance = Float.parseFloat(school.distaceInfo.split(" ")[1]);
+            float schoolDistance2 = Float.parseFloat(school2.distaceInfo.split(" ")[1]);
+
+            return Float.compare(schoolDistance, schoolDistance2);
+        }
+    };
+
+    public static Comparator<SchoolItem> DrivingTimeComparator = new Comparator<SchoolItem>() {
+        @Override
+        public int compare(SchoolItem school, SchoolItem school2) {
+            return Float.compare(Float.parseFloat(school.getDrivingTime()), Float.parseFloat(school2.getDrivingTime()));
         }
     };
 
@@ -94,6 +108,13 @@ public class SchoolItem {
         @Override
         public int compare(SchoolItem school, SchoolItem t2) {
             return school.getSchoolName().compareTo(t2.getSchoolName());
+        }
+    };
+
+    public static Comparator<SchoolItem> PublicTransportTimeComparator = new Comparator<SchoolItem>() {
+        @Override
+        public int compare(SchoolItem schoolItem, SchoolItem t1) {
+            return Float.compare(Float.parseFloat(schoolItem.getPublicTransport()), Float.parseFloat(t1.getPublicTransport()));
         }
     };
 }

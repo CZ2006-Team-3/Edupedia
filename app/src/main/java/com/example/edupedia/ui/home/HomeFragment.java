@@ -152,32 +152,47 @@ public class HomeFragment extends Fragment implements SortByDialogFragment.SortB
 
     public void createSchoolList() {
         mSchoolList = new ArrayList<>();
-        for(School school : schoolArrayList) {
-            if (school.getMainCode().equals("SECONDARY")) {
-                mSchoolList.add(new SchoolItem(R.drawable.school_icon, school.getSchoolName(),
-                        "Grade Cut-Off: " + Integer.toString(school.getGradePSLE()),
-                        "Distance: " + Double.toString(school.getDistance())));
+        for (School school : schoolArrayList) {
+            switch (school.getMainCode()) {
+                case "SECONDARY":
+                    mSchoolList.add(new SchoolItem(R.drawable.school_icon, school.getSchoolName(),
+                            "Grade Cut-Off: " + school.getGradePSLE(),
+                            "Distance: " + school.getDistance(),
+                            Double.toString(school.getPublicTime()),
+                            Double.toString(school.getDrivingTime())));
+                    break;
+
+                case "JUNIOR COLLEGE":
+                    mSchoolList.add(new SchoolItem(R.drawable.school_icon, school.getSchoolName(),
+                            "Grade Cut-Off: " + school.getGradeO(),
+                            "Distance: " + school.getDistance(),
+                            Double.toString(school.getPublicTime()),
+                            Double.toString(school.getDrivingTime())));
+                    break;
+
+                case "MIXED LEVEL":
+                    mSchoolList.add(new SchoolItem(R.drawable.school_icon, school.getSchoolName(),
+                            "Grade Cut-Off for A-level: " + school.getGradePSLE() + " Grade Cut-Off for O-level: " + Integer.toString(school.getGradeO()),
+                            "Distance: " + school.getDistance(),
+                            Double.toString(school.getPublicTime()),
+                            Double.toString(school.getDrivingTime())));
+                    break;
+
+                default:
+                    mSchoolList.add(new SchoolItem(R.drawable.school_icon, school.getSchoolName(),
+                            "Grade Cut-Off: Not Applicable ",
+                            "Distance: " + Double.toString(school.getDistance()),
+                            Double.toString(school.getPublicTime()),
+                            Double.toString(school.getDrivingTime())));
+                    break;
             }
-            else if (school.getMainCode().equals("JUNIOR COLLEGE")){
-                mSchoolList.add(new SchoolItem(R.drawable.school_icon, school.getSchoolName(),
-                        "Grade Cut-Off: " + Integer.toString(school.getGradeO()),
-                        "Distance: " + Double.toString(school.getDistance())));
-            }
-            else if (school.getMainCode().equals("MIXED LEVEL")){
-                mSchoolList.add(new SchoolItem(R.drawable.school_icon, school.getSchoolName(),
-                        "Grade Cut-Off for A-level: " + Integer.toString(school.getGradePSLE()) + " Grade Cut-Off for O-level: " + Integer.toString(school.getGradeO()) ,
-                        "Distance: " + Double.toString(school.getDistance())));
-            }
-            else
-                mSchoolList.add(new SchoolItem(R.drawable.school_icon, school.getSchoolName(),
-                        "Grade Cut-Off: Not Applicable " ,
-                        "Distance: " + Double.toString(school.getDistance())));
-            }
+
 
             //mSchoolList.add(new SchoolItem(R.drawable.school_icon, "RI", "4 Points", "2 km"));
             //mSchoolList.add(new SchoolItem(R.drawable.school_icon, "AJC", "6 Points", "3 km"));
             //mSchoolList.add(new SchoolItem(R.drawable.school_icon, "AGS", "8 Points", "5 km"));
         }
+    }
 
 
     public void buildRecyclerView(View layout){

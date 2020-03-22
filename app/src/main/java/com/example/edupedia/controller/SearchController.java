@@ -201,6 +201,7 @@ public class SearchController extends ViewModel {
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     public ArrayList<School> generateSchools(HashMap<String, School> db, ArrayList<String> results) {
+       if(results==null) return new ArrayList<>(db.values());
         ArrayList<School> schoolList = new ArrayList<>();
         for (String name : results){
             schoolList.add(db.get(name));
