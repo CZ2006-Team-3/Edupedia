@@ -27,13 +27,7 @@ public class SettingsFragment extends Fragment {
     private TextView EducationLevel;
     private TextView Email;
     private FirebaseUser user;
-    private static UserController userController = null;
-
-    public static UserController getInstance() {
-        if (userController == null)
-            userController = new UserController();
-        return userController;
-    }
+    private UserController userController = UserController.getInstance();
 
     @Nullable
     @Override

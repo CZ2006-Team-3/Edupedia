@@ -28,6 +28,25 @@ public class UserController {
 
     private FirebaseUser user;
 
+    // static variable watchlistController of type WatchlistController
+    private static UserController userController = null;
+
+    // private constructor restricted to this class itself
+    private UserController(FirebaseUser usr) {
+        this.user = usr;
+    }
+
+
+    // Static method to create instance of Singleton class
+    public static void init(FirebaseUser usr) {
+        if (userController == null)
+            userController = new UserController(usr);
+    }
+
+    public static UserController getInstance() {
+        return userController;
+    }
+
     // Prompt the user to re-provide their sign-in credentials. Returns true if it is correct.
     public void reAuthenticateUser(String email, String password){
         // Prompt the user to re-provide their sign-in credentials
