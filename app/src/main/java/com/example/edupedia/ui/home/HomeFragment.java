@@ -98,6 +98,20 @@ public class HomeFragment extends Fragment implements SortByDialogFragment.SortB
         //retrieving results from background files
         ArrayList<String> results = searchController.retrieveResults(schools);
         schoolArrayList = searchController.generateSchools(schools, results);
+        //idk why this is called twice tbh.
+        schoolArrayList = searchController.getDistances(schoolArrayList);
+        toSort.setOnClickListener(this);
+/*
+        toSort.setOnClickListener(new View.OnClickListener() {
+              @Override
+              public void onClick(View v) {
+//                    Intent myIntent2 = new Intent(v.getContext(), SortBy.class);
+//                    startActivityForResult(myIntent2, RESULT_SUCCESS);
+                 FragmentTransaction ft = getChildFragmentManager().beginTransaction();
+                  DialogFragment sortBy = new SortByDialogFragment();
+                  sortBy.show(ft, "dialog");
+              }
+        });*/
         toSort.setOnClickListener(this);
 //        toSort.setOnClickListener(new View.OnClickListener() {
 //              @Override
@@ -130,6 +144,7 @@ public class HomeFragment extends Fragment implements SortByDialogFragment.SortB
                 return false;
             }
         });
+
         createSchoolList();
         buildRecyclerView(layout);
         return layout;
@@ -138,15 +153,32 @@ public class HomeFragment extends Fragment implements SortByDialogFragment.SortB
     public void createSchoolList() {
         mSchoolList = new ArrayList<>();
         for(School school : schoolArrayList) {
-            mSchoolList.add(new SchoolItem(R.drawable.school_icon, school.getSchoolName(),
-                                Integer.toString(school.getGradeCutOff()),
-                                Double.toString(school.getDistance())));
+            if (school.getMainCode().equals("SECONDARY")) {
+                mSchoolList.add(new SchoolItem(R.drawable.school_icon, school.getSchoolName(),
+                        "Grade Cut-Off: " + Integer.toString(school.getGradePSLE()),
+                        "Distance: " + Double.toString(school.getDistance())));
+            }
+            else if (school.getMainCode().equals("JUNIOR COLLEGE")){
+                mSchoolList.add(new SchoolItem(R.drawable.school_icon, school.getSchoolName(),
+                        "Grade Cut-Off: " + Integer.toString(school.getGradeO()),
+                        "Distance: " + Double.toString(school.getDistance())));
+            }
+            else if (school.getMainCode().equals("MIXED LEVEL")){
+                mSchoolList.add(new SchoolItem(R.drawable.school_icon, school.getSchoolName(),
+                        "Grade Cut-Off for A-level: " + Integer.toString(school.getGradePSLE()) + " Grade Cut-Off for O-level: " + Integer.toString(school.getGradeO()) ,
+                        "Distance: " + Double.toString(school.getDistance())));
+            }
+            else
+                mSchoolList.add(new SchoolItem(R.drawable.school_icon, school.getSchoolName(),
+                        "Grade Cut-Off: Not Applicable " ,
+                        "Distance: " + Double.toString(school.getDistance())));
+            }
 
             //mSchoolList.add(new SchoolItem(R.drawable.school_icon, "RI", "4 Points", "2 km"));
             //mSchoolList.add(new SchoolItem(R.drawable.school_icon, "AJC", "6 Points", "3 km"));
             //mSchoolList.add(new SchoolItem(R.drawable.school_icon, "AGS", "8 Points", "5 km"));
         }
-    }
+
 
     public void buildRecyclerView(View layout){
         mRecyclerView = layout.findViewById(R.id.recycler_view);
@@ -168,7 +200,16 @@ public class HomeFragment extends Fragment implements SortByDialogFragment.SortB
 
                 String schoolName = school.getSchoolName();
                 String course = school.getMainCode();
-                Integer grade = school.getGradeCutOff();
+                Integer grade;
+                if (school.getMainCode().equals("SECONDARY")) {
+                    grade = school.getGradePSLE();
+                }
+                else if (school.getMainCode().equals("JUNIOR COLLEGE")){
+                    grade = school.getGradeO();
+                }
+                else{
+                    grade = school.getGradeCutOff();
+                }
                 Double drive = school.getDrivingTime();
                 Double dist = school.getDistance();
                 Double publicTime = school.getPublicTime();
@@ -200,10 +241,9 @@ public class HomeFragment extends Fragment implements SortByDialogFragment.SortB
                     }
                     i++;
                     if ((i == 10) && !added) {
-                        String text = Integer.toString(i);
-                        //String text = "The watchlist already contains a maximum of 10 schools!";
+                        String text = "The watchlist already contains a maximum of 10 schools!";
                         int duration = Toast.LENGTH_SHORT;
-                        Toast toast = Toast.makeText(getActivity(), text, duration);
+                        Toast toast = Toast.makeText(getActivity(), text + i, duration);
                         toast.show();
                     }
                 }
@@ -230,6 +270,8 @@ public class HomeFragment extends Fragment implements SortByDialogFragment.SortB
 
     }
 
+    // to do
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public void onChangeDialog(int sort_variable, boolean sort_ascending) {
         SORT_VARIABLE = sort_variable;

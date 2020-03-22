@@ -44,36 +44,30 @@ public class FilterUI extends Activity implements View.OnClickListener {
         // initiate views
         CheckBox checkNorth = (CheckBox) findViewById(R.id.checkBoxNorth);
         checkNorth.setOnClickListener(this);
-        CheckBox checkCentral = (CheckBox) findViewById(R.id.checkBoxCentral);
-        checkCentral.setOnClickListener(this);
         CheckBox checkEast = (CheckBox) findViewById(R.id.checkBoxEast);
         checkEast.setOnClickListener(this);
-        CheckBox checkNorthEast = (CheckBox) findViewById(R.id.checkBoxNorthEast);
-        checkNorthEast.setOnClickListener(this);
         CheckBox checkWest = (CheckBox) findViewById(R.id.checkBoxWest);
         checkWest.setOnClickListener(this);
+        CheckBox checkSouth = (CheckBox) findViewById(R.id.checkBoxSouth);
+        checkWest.setOnClickListener(this);
 
-        CheckBox checkPhysicalAid = (CheckBox) findViewById(R.id.checkBoxPhysicalAid);
-        checkPhysicalAid.setOnClickListener(this);
-        CheckBox checkBoysOnly = (CheckBox) findViewById(R.id.checkBoxBoysOnly);
-        checkBoysOnly.setOnClickListener(this);
-        CheckBox checkGirlsOnly = (CheckBox) findViewById(R.id.checkBoxGirlsOnly);
-        checkGirlsOnly.setOnClickListener(this);
-        CheckBox checkCoed = (CheckBox) findViewById(R.id.checkBoxCoed);
-        checkCoed.setOnClickListener(this);
+        CheckBox checkIpNo = (CheckBox) findViewById(R.id.checkBoxIPNo);
+        checkIpNo.setOnClickListener(this);
+        CheckBox checkIpYes = (CheckBox) findViewById(R.id.checkBoxIPYes);
+        checkIpYes.setOnClickListener(this);
+
+        CheckBox checkGovtAid = (CheckBox) findViewById(R.id.checkBoxGovtAid);
+        checkGovtAid.setOnClickListener(this);
+        CheckBox checkSpecInd = (CheckBox) findViewById(R.id.checkBoxSpecInd);
+        checkSpecInd.setOnClickListener(this);
         CheckBox checkGovernment = (CheckBox) findViewById(R.id.checkBoxGovernment);
         checkGovernment.setOnClickListener(this);
-
-        CheckBox checkHearingLoss = (CheckBox) findViewById(R.id.checkBoxHearingLoss);
-        checkHearingLoss.setOnClickListener(this);
-        CheckBox checkIndependent = (CheckBox) findViewById(R.id.checkBoxIndependent);
-        checkIndependent.setOnClickListener(this);
-        CheckBox checkMentalDisorder = (CheckBox) findViewById(R.id.checkBoxMentalDisorder);
-        checkMentalDisorder.setOnClickListener(this);
         CheckBox checkSpecialised = (CheckBox) findViewById(R.id.checkBoxSpecialised);
         checkSpecialised.setOnClickListener(this);
-        CheckBox checkVisualImpairment = (CheckBox) findViewById(R.id.checkBoxVisualImpairment);
-        checkVisualImpairment.setOnClickListener(this);
+        CheckBox checkIndependent = (CheckBox) findViewById(R.id.checkBoxIndependent);
+        checkIndependent.setOnClickListener(this);
+
+
     }
 
     @Override

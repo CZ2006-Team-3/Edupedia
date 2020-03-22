@@ -34,7 +34,6 @@ public class WatchListFragment extends Fragment {
 
     private WatchListViewModel WatchListViewModel;
 
-    //
     private ArrayList<SchoolItem> wSchoolList;
     private RecyclerView wRecyclerView;
     private AdapterClass wAdapter;
@@ -79,7 +78,7 @@ public class WatchListFragment extends Fragment {
                 wSchoolList = new ArrayList<>();
                 for (School school : schoolList) {
                     if(school!=null)
-                        wSchoolList.add(new SchoolItem(R.drawable.school_icon, school.getSchoolName(), Integer.toString(school.getGradeCutOff()), Double.toString(school.getDistance())));
+                        wSchoolList.add(new SchoolItem(R.drawable.school_icon,  school.getSchoolName(), "Grade Cut-Off: " + Integer.toString(school.getGradeCutOff()), "Distance: " + Double.toString(school.getDistance())));
                 }
             }
         }
@@ -101,12 +100,12 @@ public class WatchListFragment extends Fragment {
 
     public void buildRecyclerView(View layout) {
         wRecyclerView = layout.findViewById(R.id.recycler_watchList_view);
-        wRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        wRecyclerView.setHasFixedSize(true);
-        wLayoutManager = new LinearLayoutManager(getActivity());
+        wRecyclerView.setLayoutManager(new WrapContentLinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
+        wRecyclerView.setHasFixedSize(false);
+        //wLayoutManager = new LinearLayoutManager(getActivity());
+        //wRecyclerView.setLayoutManager(wLayoutManager);
         wAdapter = new AdapterClass(wSchoolList);
-
-        wRecyclerView.setLayoutManager(wLayoutManager);
+        //wRecyclerView.setLayoutManager(wLayoutManager);
         wRecyclerView.setAdapter(wAdapter);
 
         wAdapter.setOnItemClickListener(new AdapterClass.OnItemClickListener() {
@@ -128,7 +127,7 @@ public class WatchListFragment extends Fragment {
                             watchlistController.removeSchool(i);
                             wSchoolList.remove(position);
                             wAdapter.notifyItemChanged(position);
-                            Toast toast = Toast.makeText(getActivity(), "School has been removed", Toast.LENGTH_SHORT);
+                            Toast toast = Toast.makeText(getActivity(), "School has been removed", Toast.LENGTH_LONG);
                             toast.show();
                             break;
                         }
@@ -159,4 +158,6 @@ public class WatchListFragment extends Fragment {
 
 
     }
+
+
 }

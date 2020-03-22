@@ -4,67 +4,66 @@
     android:background="@drawable/compare_bg"
     android:id="@+id/compare_fragment">
 
-    <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <TableLayout
         android:layout_marginTop="180dp"
-        android:layout_width="match_parent"
+        android:layout_width="400dp"
         android:layout_height="wrap_content"
         android:stretchColumns="0,1,2"
+        android:layout_centerHorizontal="true"
         android:gravity="center">
 
         <TableRow
             android:background="#FFFFFF"
-            android:layout_width="fill_parent"
-            android:layout_height="0dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_margin="1dp"
             android:layout_weight="1">
             <TableRow
                 android:background="#000000"
-                android:layout_width="fill_parent"
+                android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_margin="1dp"
                 android:layout_weight="1">
 
             </TableRow>
         </TableRow>
+
         <TableRow
-            android:background="#000000"
-            android:layout_width="fill_parent"
-            android:layout_height="0dp"
+            android:layout_width="227dp"
+            android:layout_height="49dp"
             android:layout_margin="1dp"
-            android:layout_weight="1">
+            android:layout_weight="1"
+            android:background="#000000">
 
             <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text=" Attribute "
-                android:layout_margin="1dp"
+                android:layout_width="20dp"
+                android:layout_height="wrap_content"
                 android:layout_column="0"
+                android:layout_margin="1dp"
                 android:background="#FFFFFF"
-                android:textStyle="bold"
-                android:gravity="center" />
+                android:gravity="center"
+                android:text=" Attribute "
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/school1Name"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:layout_margin="1dp"
+                android:layout_width="20dp"
+                android:layout_height="wrap_content"
                 android:layout_column="1"
+                android:layout_margin="1dp"
                 android:background="#FFFFFF"
                 android:gravity="center"
                 android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/school2Name"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:layout_width="20dp"
+                android:layout_height="wrap_content"
+                android:layout_column="2"
                 android:layout_margin="1dp"
                 android:background="#FFFFFF"
                 android:gravity="center"
-                android:textStyle="bold"
-                android:layout_column="2" />
+                android:textStyle="bold" />
         </TableRow>
 
         <TableRow
@@ -75,20 +74,21 @@
             android:layout_weight="1">
 
             <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="Course Level"
-                android:layout_margin="1dp"
+                android:layout_width="20dp"
+                android:layout_height="wrap_content"
                 android:layout_column="0"
+                android:layout_margin="1dp"
                 android:background="#FFFFFF"
-                android:gravity="center" />
+                android:gravity="center"
+                android:text="Course Level" />
+                android:gravity="center"
+                android:text="Course Level"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
 
             <TextView
                 android:id="@+id/school1Course"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:layout_width="20dp"
+                android:layout_height="wrap_content"
                 android:layout_margin="1dp"
                 android:layout_column="1"
                 android:background="#FFFFFF"
@@ -96,9 +96,8 @@
 
             <TextView
                 android:id="@+id/school2Course"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:layout_width="20dp"
+                android:layout_height="wrap_content"
                 android:layout_margin="1dp"
                 android:background="#FFFFFF"
                 android:gravity="center"
@@ -113,20 +112,18 @@
             android:layout_weight="1">
 
             <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="Grade-CutOff"
-                android:layout_margin="1dp"
+                android:layout_width="20dp"
+                android:layout_height="wrap_content"
                 android:layout_column="0"
+                android:layout_margin="1dp"
                 android:background="#FFFFFF"
-                android:gravity="center" />
+                android:gravity="center"
+                android:text="Grade-CutOff" />
 
             <TextView
                 android:id="@+id/school1Grade"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:layout_width="20dp"
+                android:layout_height="wrap_content"
                 android:layout_margin="1dp"
                 android:layout_column="1"
                 android:background="#FFFFFF"
@@ -134,9 +131,8 @@
 
             <TextView
                 android:id="@+id/school2Grade"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:layout_width="20dp"
+                android:layout_height="wrap_content"
                 android:layout_margin="1dp"
                 android:background="#FFFFFF"
                 android:gravity="center"
@@ -150,21 +146,19 @@
         android:layout_margin="1dp"
         android:layout_weight="1">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Distance"
-            android:layout_margin="1dp"
-            android:layout_column="0"
-            android:background="#FFFFFF"
-            android:gravity="center" />
+            <TextView
+                android:layout_width="20dp"
+                android:layout_height="wrap_content"
+                android:layout_column="0"
+                android:layout_margin="1dp"
+                android:background="#FFFFFF"
+                android:gravity="center"
+                android:text="Distance" />
 
         <TextView
             android:id="@+id/school1Dist"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:layout_width="20dp"
+            android:layout_height="wrap_content"
             android:layout_margin="1dp"
             android:layout_column="1"
             android:background="#FFFFFF"
@@ -172,9 +166,8 @@
 
         <TextView
             android:id="@+id/school2Dist"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:layout_width="20dp"
+            android:layout_height="wrap_content"
             android:layout_margin="1dp"
             android:background="#FFFFFF"
             android:gravity="center"
@@ -189,20 +182,18 @@
             android:layout_weight="1">
 
             <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="Public Transport Time"
-                android:layout_margin="1dp"
+                android:layout_width="20dp"
+                android:layout_height="wrap_content"
                 android:layout_column="0"
+                android:layout_margin="1dp"
                 android:background="#FFFFFF"
-                android:gravity="center" />
+                android:gravity="center"
+                android:text="Transportation Time" />
 
             <TextView
                 android:id="@+id/school1Public"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:layout_width="20dp"
+                android:layout_height="wrap_content"
                 android:layout_margin="1dp"
                 android:layout_column="1"
                 android:background="#FFFFFF"
@@ -210,9 +201,8 @@
 
             <TextView
                 android:id="@+id/school2Public"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:layout_width="20dp"
+                android:layout_height="wrap_content"
                 android:layout_margin="1dp"
                 android:background="#FFFFFF"
                 android:gravity="center"
@@ -226,20 +216,18 @@
             android:layout_weight="1">
 
             <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="Driving Time"
-                android:layout_margin="1dp"
+                android:layout_width="20dp"
+                android:layout_height="wrap_content"
                 android:layout_column="0"
+                android:layout_margin="1dp"
                 android:background="#FFFFFF"
-                android:gravity="center" />
+                android:gravity="center"
+                android:text="Driving Time" />
 
             <TextView
                 android:id="@+id/school1Driving"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:layout_width="20dp"
+                android:layout_height="wrap_content"
                 android:layout_margin="1dp"
                 android:layout_column="1"
                 android:background="#FFFFFF"
@@ -247,9 +235,8 @@
 
             <TextView
                 android:id="@+id/school2Driving"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:layout_width="20dp"
+                android:layout_height="wrap_content"
                 android:layout_margin="1dp"
                 android:background="#FFFFFF"
                 android:gravity="center"
