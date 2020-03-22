@@ -328,8 +328,6 @@ public class School {
     public int getGradeCutOff() {
         return gradeCutOff;
     }
-
-
     public static Comparator<School> DrivingTimeComparator = new Comparator<School>() {
         @Override
         public int compare(School school, School school2) {
