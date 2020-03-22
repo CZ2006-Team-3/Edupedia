@@ -23,11 +23,17 @@ import com.example.edupedia.ui.home.HomeFragment;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
+/**
+ * Class SortBy is a pop up activity which can be called by Home fragment
+ */
 public class SortBy extends Activity {
     private int sort_variable = SortController.NAME;
     private boolean sort_ascending = true;
 
     @Override
+    /**
+     * onCreate method creates the pop up window and instantiates all the radio buttons in sort_by.xml
+     */
     protected void onCreate(Bundle savedInstanceState){
         //to show the pop up:
         super.onCreate(savedInstanceState);
@@ -43,6 +49,9 @@ public class SortBy extends Activity {
         sortBy.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener()
         {
             @Override
+            /**
+             * onCheckedChanged returns the checkedId of the radio button that the user selects
+             */
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 // checkedId is the RadioButton selected
             }
@@ -52,6 +61,9 @@ public class SortBy extends Activity {
         sortBy.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener()
         {
             @Override
+            /**
+             * onCheckedChanged returns the checkedId of the radio button that the user selects
+             */
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 // checkedId is the RadioButton selected
             }
@@ -59,6 +71,9 @@ public class SortBy extends Activity {
     }
 
     @Override
+    /**
+     * Once the pop up window is exited, the HomeFragment is sorted accordingly using setResult
+     */
     protected void onDestroy() {
         super.onDestroy();
         Intent returnIntent = new Intent();

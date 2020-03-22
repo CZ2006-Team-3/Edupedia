@@ -14,28 +14,11 @@
         android:layout_alignParentBottom="true"
         android:layout_marginEnd="3dp"
         android:layout_marginRight="3dp"
-        android:layout_marginBottom="57dp"
+        android:layout_marginBottom="74dp"
         android:adjustViewBounds="true"
         android:background="#00000000"
         android:scaleType="fitCenter"
         android:src="@drawable/group58" />
-
-    <ImageButton
-        android:id="@+id/LogOutButton"
-        android:layout_width="259dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginEnd="74dp"
-        android:layout_marginRight="74dp"
-        android:layout_marginBottom="14dp"
-        android:adjustViewBounds="true"
-        android:background="#00000000"
-        android:padding="1dp"
-        android:scaleType="fitCenter"
-        android:src="@drawable/group60" />
 
     <ImageButton
         android:id="@+id/ChangeUsernameButton"
@@ -48,60 +31,11 @@
         android:layout_marginStart="3dp"
         android:layout_marginEnd="208dp"
         android:layout_marginRight="208dp"
-        android:layout_marginBottom="48dp"
+        android:layout_marginBottom="65dp"
         android:adjustViewBounds="true"
         android:background="#00000000"
         android:scaleType="fitCenter"
         android:src="@drawable/group57" />
-
-    <TextView
-        android:id="@+id/email"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginEnd="312dp"
-        android:layout_marginBottom="228dp"
-        android:text="Last Name"
-        android:textColor="@color/blackText"
-        android:textSize="16sp" />
-
-    <RadioGroup
-        android:id="@+id/radioGender"
-        android:layout_width="203dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginEnd="91dp"
-        android:layout_marginBottom="155dp"
-        android:orientation="horizontal">
-
-        <RadioButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Male" />
-
-        <RadioButton
-            android:id="@+id/radio_female"
-            android:layout_width="134dp"
-            android:layout_height="wrap_content"
-            android:text="Female" />
-
-    </RadioGroup>
-
-    <TextView
-        android:id="@+id/Gender"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginEnd="336dp"
-        android:layout_marginRight="336dp"
-        android:layout_marginBottom="165dp"
-        android:text="Gender"
-        android:textColor="@color/blackText"
-        android:textSize="16sp" />
 
     <Switch
         android:id="@+id/switch1"
@@ -109,8 +43,18 @@
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginStart="167dp"
-        android:layout_marginBottom="116dp" />
+        android:layout_marginStart="162dp"
+        android:layout_marginBottom="149dp" />
+
+    <RadioGroup
+        android:id="@+id/radioGender"
+        android:layout_width="203dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="96dp"
+        android:layout_marginBottom="188dp"
+        android:orientation="horizontal" />
 
     <TextView
         android:id="@+id/LocationAccess"
@@ -120,16 +64,47 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginStart="25dp"
-        android:layout_marginEnd="228dp"
-        android:layout_marginRight="228dp"
-        android:layout_marginBottom="122dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="245dp"
+        android:layout_marginRight="245dp"
+        android:layout_marginBottom="155dp"
         android:text="Location Access"
         android:textColor="@color/blackText"
         android:textSize="16sp" />
 
+    <ImageButton
+        android:id="@+id/LogOutButton"
+        android:layout_width="259dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginEnd="74dp"
+        android:layout_marginRight="74dp"
+        android:layout_marginBottom="31dp"
+        android:adjustViewBounds="true"
+        android:background="#00000000"
+        android:padding="1dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/group60" />
+
     <TextView
-        android:id="@+id/last_Name"
+        android:id="@+id/email"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="2dp"
+        android:layout_marginEnd="296dp"
+        android:layout_marginBottom="219dp"
+        android:text="Education Level"
+        android:textColor="@color/blackText"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/SettingEmail"
         android:layout_width="280dp"
         android:layout_height="55dp"
         android:layout_alignParentEnd="true"
@@ -141,10 +116,10 @@
         android:background="@drawable/edit_text_round_box"
         android:ems="10"
         android:gravity="center"
-        android:hint="Last Name" />
+        android:hint="Email" />
 
     <TextView
-        android:id="@+id/first_Name"
+        android:id="@+id/SettingName"
         android:layout_width="280dp"
         android:layout_height="55dp"
         android:layout_alignParentEnd="true"
@@ -157,7 +132,7 @@
         android:background="@drawable/edit_text_round_box"
         android:ems="10"
         android:gravity="center"
-        android:hint="First Name" />
+        android:hint="Name" />
 
     <TextView
         android:id="@+id/firstName"
@@ -166,29 +141,30 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginEnd="266dp"
-        android:layout_marginRight="266dp"
-        android:layout_marginBottom="341dp"
-        android:text="First Name"
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="264dp"
+        android:layout_marginRight="264dp"
+        android:layout_marginBottom="338dp"
+        android:text="Name"
         android:textColor="@color/blackText"
         android:textSize="16sp" />
 
     <TextView
-        android:id="@+id/lastName"
+        android:id="@+id/emailSettings"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginEnd="313dp"
-        android:layout_marginRight="313dp"
-        android:layout_marginBottom="290dp"
-        android:text="Last Name"
+        android:layout_marginEnd="344dp"
+        android:layout_marginRight="344dp"
+        android:layout_marginBottom="287dp"
+        android:text="E-mail"
         android:textColor="@color/blackText"
         android:textSize="16sp" />
 
     <TextView
-        android:id="@+id/email_entry"
+        android:id="@+id/SettingEdu"
         android:layout_width="280dp"
         android:layout_height="55dp"
         android:layout_alignParentEnd="true"
@@ -200,6 +176,6 @@
         android:background="@drawable/edit_text_round_box"
         android:ems="10"
         android:gravity="center"
-        android:hint="Email" />
+        android:hint="Education Level" />
 
 </RelativeLayout>
