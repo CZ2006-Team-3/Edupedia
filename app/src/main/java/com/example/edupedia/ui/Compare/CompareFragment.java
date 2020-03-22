@@ -36,6 +36,7 @@ public class CompareFragment extends Fragment {
     private TextView drive2;
     private HashMap<String, School> schools;
     private SchoolDB schoolDB;
+    private static int i = 0;
 
 
     @Nullable
@@ -49,14 +50,28 @@ public class CompareFragment extends Fragment {
                 schools = schoolDB.getValue();
                 School toBeCompare = schools.get(value);
                 if (toBeCompare != null) {
-                    if (compareList[0] == null && compareList[1] == null) {
+                    i++;
+                    if (i%2==1) {
                         compareList[0] = toBeCompare;
+                    }
+                    else if (i%2==0) {
+                        compareList[1] = toBeCompare;
+
+                    /*if (compareList[0] == null && compareList[1] == null) {
+                        compareList[0] = toBeCompare;
+                        i++;
                     }
                     else if (compareList[0] != null && compareList[1] == null){
                         compareList[1] = toBeCompare;
+                        i++;
                     }
                     else if (compareList[0] != null && compareList[1] != null){
-                        compareList[0] = toBeCompare;
+                        if (i%2==1) {
+                            compareList[0] = toBeCompare;
+                        }
+                        else if (i%2==0){
+                            compareList[1] = toBeCompare;
+                        }*/
                     }
                 }
             }

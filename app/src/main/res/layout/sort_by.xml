@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:animateLayoutChanges="true"
     android:animationCache="true"
-    android:background="@drawable/group90">
+    android:background="@drawable/group00">
 
 
     <RadioGroup

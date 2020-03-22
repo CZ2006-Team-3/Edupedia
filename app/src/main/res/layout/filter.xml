@@ -4,23 +4,31 @@
     xmlns:fab="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/group90">
+    android:background="@drawable/group00">
 
     <TextView
         android:id="@+id/heading2"
-        android:layout_width="match_parent"
-        android:layout_height="161dp"
-        android:padding="8dp"
-        android:textAlignment="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="35dp"
+        android:layout_marginTop="26dp"
         android:gravity="center"
+        android:padding="8dp"
         android:text="Advanced Filter Options"
+        android:textAlignment="center"
         android:textSize="20dp"
-        android:textStyle="bold"/>
+        android:textStyle="bold" />
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="115dp">
+        android:layout_height="640dp"
+        android:layout_alignTop="@+id/heading2"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="69dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -31,12 +39,12 @@
                 android:id="@+id/locationFilter"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="50dp"
+                android:layout_marginBottom="10dp"
                 android:padding="8dp"
                 android:text="Location"
                 android:textSize="20dp"
-                android:textStyle="bold"
-                android:layout_marginLeft="50dp"
-                android:layout_marginBottom="10dp"/>
+                android:textStyle="bold" />
 
             <CheckBox
                 android:id="@+id/checkBoxNorth"
@@ -44,9 +52,9 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentBottom="true"
-                android:text="North"
+                android:layout_marginLeft="50dp"
                 android:checked="true"
-                android:layout_marginLeft="50dp"/>
+                android:text="North" />
 
             <CheckBox
                 android:id="@+id/checkBoxEast"
@@ -54,9 +62,9 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentBottom="true"
-                android:text="East"
+                android:layout_marginLeft="50dp"
                 android:checked="true"
-                android:layout_marginLeft="50dp"/>
+                android:text="East" />
 
             <CheckBox
                 android:id="@+id/checkBoxSouth"
@@ -64,9 +72,9 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentBottom="true"
-                android:text="South"
+                android:layout_marginLeft="50dp"
                 android:checked="true"
-                android:layout_marginLeft="50dp"/>
+                android:text="South" />
 
             <CheckBox
                 android:id="@+id/checkBoxWest"
@@ -74,9 +82,9 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentBottom="true"
-                android:text="West"
+                android:layout_marginLeft="50dp"
                 android:checked="true"
-                android:layout_marginLeft="50dp"/>
+                android:text="West" />
 
             <TextView
                 android:id="@+id/IPProgram"
@@ -84,12 +92,12 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentBottom="true"
-                android:text="IP Program:"
-                android:textSize="20dp"
-                android:textStyle="bold"
                 android:layout_marginLeft="50dp"
                 android:layout_marginTop="30dp"
-                android:layout_marginBottom="10dp"/>
+                android:layout_marginBottom="10dp"
+                android:text="IP Program:"
+                android:textSize="20dp"
+                android:textStyle="bold" />
 
             <CheckBox
                 android:id="@+id/checkBoxIPYes"
@@ -97,9 +105,9 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentBottom="true"
-                android:text="Yes"
+                android:layout_marginLeft="50dp"
                 android:checked="true"
-                android:layout_marginLeft="50dp"/>
+                android:text="Yes" />
 
             <CheckBox
                 android:id="@+id/checkBoxIPNo"
@@ -107,9 +115,9 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentBottom="true"
-                android:text="No"
+                android:layout_marginLeft="50dp"
                 android:checked="true"
-                android:layout_marginLeft="50dp"/>
+                android:text="No" />
 
             <TextView
                 android:id="@+id/TypeOfSchool"
@@ -117,12 +125,12 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentBottom="true"
-                android:text="Type of School:"
-                android:textSize="20dp"
-                android:textStyle="bold"
                 android:layout_marginLeft="50dp"
                 android:layout_marginTop="30dp"
-                android:layout_marginBottom="10dp"/>
+                android:layout_marginBottom="10dp"
+                android:text="Type of School:"
+                android:textSize="20dp"
+                android:textStyle="bold" />
 
             <CheckBox
                 android:id="@+id/checkBoxIndependent"
@@ -130,9 +138,9 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentBottom="true"
-                android:text="Independent"
+                android:layout_marginLeft="50dp"
                 android:checked="true"
-                android:layout_marginLeft="50dp"/>
+                android:text="Independent" />
 
             <CheckBox
                 android:id="@+id/checkBoxSpecialised"
@@ -140,9 +148,9 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentBottom="true"
-                android:text="Specialised "
+                android:layout_marginLeft="50dp"
                 android:checked="true"
-                android:layout_marginLeft="50dp"/>
+                android:text="Specialised " />
 
             <CheckBox
                 android:id="@+id/checkBoxGovernment"
@@ -150,27 +158,29 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentBottom="true"
-                android:text="Government "
+                android:layout_marginLeft="50dp"
                 android:checked="true"
-                android:layout_marginLeft="50dp"/>
+                android:text="Government " />
+
             <CheckBox
                 android:id="@+id/checkBoxGovtAid"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentBottom="true"
-                android:text="Government-Aided School"
+                android:layout_marginLeft="50dp"
                 android:checked="true"
-                android:layout_marginLeft="50dp"/>
+                android:text="Government-Aided School" />
+
             <CheckBox
                 android:id="@+id/checkBoxSpecInd"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentBottom="true"
-                android:text="Specialised Independent School"
+                android:layout_marginLeft="50dp"
                 android:checked="true"
-                android:layout_marginLeft="50dp"/>
+                android:text="Specialised Independent School" />
 
         </LinearLayout>
     </ScrollView>
