@@ -209,7 +209,7 @@ public class SearchFragment extends Fragment implements
         textFilterGradeCutOff = (TextView) dropdown_gradeCut_Off.getSelectedView();
 
         ///Spinner 3 ////////////////////////////////
-        Spinner dropdown_preffered_stream = (Spinner) rootview.findViewById(R.id.preferred_Stream);
+        Spinner dropdown_preffered_stream = (Spinner) rootview.findViewById(R.id.nature);
         ArrayAdapter<CharSequence> adapter3 = new ArrayAdapter<CharSequence>(getActivity().getApplicationContext(), android.R.layout.simple_spinner_dropdown_item) {
             @Override
             public View getView(int position, View convertView, ViewGroup parent) {
@@ -232,10 +232,10 @@ public class SearchFragment extends Fragment implements
         adapter3.add("Science Stream");
         adapter3.add("Art Stream");
         adapter3.add("");
-        dropdown_preferred_stream.setAdapter(adapter3);
+        dropdown_preffered_stream.setAdapter(adapter3);
         s = viewModel.getTextFilterPrefStream().getValue(); //retrieve from filter.json
-        dropdown_preferred_stream.setSelection((s!=null)? adapter3.getPosition(s):adapter3.getCount());
-        textFilterPrefStream = (TextView) dropdown_preferred_stream.getSelectedView();
+        dropdown_preffered_stream.setSelection((s!=null)? adapter3.getPosition(s):adapter3.getCount());
+        textFilterPrefStream = (TextView) dropdown_preffered_stream.getSelectedView();
 
         textFilterLocation = (TextView) rootview.findViewById(R.id.locationEnter);
         ///Click on Location button brings you to map view
@@ -249,13 +249,10 @@ public class SearchFragment extends Fragment implements
             }
         });
 
-
-        ImageButton searchButton = (ImageButton) rootview.findViewById(R.id.findInstitute);
-        searchButton.setOnClickListener(new View.OnClickListener() {
         ImageButton findInstitution = (ImageButton) rootview.findViewById(R.id.findInstitute);
         findInstitution.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View view) {
 
                 Fragment fragment = new HomeFragment();
                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
@@ -281,7 +278,8 @@ public class SearchFragment extends Fragment implements
         });
 
         return rootview;
-    }
+     }
+
 
 
     @Override

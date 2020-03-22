@@ -59,23 +59,12 @@
                 android:layout_marginLeft="50dp"/>
 
             <CheckBox
-                android:id="@+id/checkBoxNorthEast"
+                android:id="@+id/checkBoxSouth"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentBottom="true"
-                android:text="North East"
-                android:checked="true"
-                android:layout_marginLeft="50dp"/>
-
-            <CheckBox
-                android:id="@+id/checkBoxCentral"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentBottom="true"
-                android:layout_centerHorizontal="true"
-                android:text="Central"
+                android:text="South"
                 android:checked="true"
                 android:layout_marginLeft="50dp"/>
 
@@ -146,27 +135,6 @@
                 android:layout_marginLeft="50dp"/>
 
             <CheckBox
-                android:id="@+id/checkBoxGirlsOnly"
-                android:layout_width="wrap_content"
-                android:layout_height="24dp"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentBottom="true"
-                android:text="Girls only"
-                android:checked="true"
-                android:layout_marginLeft="50dp"/>
-
-            <CheckBox
-                android:id="@+id/checkBoxBoysOnly"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentBottom="true"
-                android:text="Boys only"
-                android:checked="true"
-                android:layout_marginLeft="50dp"/>
-
-            <CheckBox
                 android:id="@+id/checkBoxSpecialised"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -177,23 +145,30 @@
                 android:layout_marginLeft="50dp"/>
 
             <CheckBox
-                android:id="@+id/checkBoxCoed"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentBottom="true"
-                android:layout_centerHorizontal="true"
-                android:text="Co-ed"
-                android:checked="true"
-                android:layout_marginLeft="50dp"/>
-
-            <CheckBox
                 android:id="@+id/checkBoxGovernment"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentBottom="true"
                 android:text="Government "
+                android:checked="true"
+                android:layout_marginLeft="50dp"/>
+            <CheckBox
+                android:id="@+id/checkBoxGovtAid"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentBottom="true"
+                android:text="Government-Aided School"
+                android:checked="true"
+                android:layout_marginLeft="50dp"/>
+            <CheckBox
+                android:id="@+id/checkBoxSpecInd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentBottom="true"
+                android:text="Specialised Independent School"
                 android:checked="true"
                 android:layout_marginLeft="50dp"/>
 
