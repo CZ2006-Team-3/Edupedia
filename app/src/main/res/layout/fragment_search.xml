@@ -110,21 +110,25 @@
         android:layout_alignParentBottom="true"
         android:layout_marginEnd="253dp"
         android:layout_marginRight="253dp"
-        android:layout_marginBottom="138dp"
+        android:layout_marginBottom="140dp"
         android:text="Location"
+        android:background="@color/bgTint"
         android:textColor="@color/blackText" />
 
     <TextView
         android:id="@+id/locationEnter"
-        android:text=""
         android:layout_width="220dp"
-        android:layout_height="wrap_content"
+        android:layout_height="37dp"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginEnd="18dp"
-        android:layout_marginRight="18dp"
-        android:layout_marginBottom="155dp" />
+        android:layout_marginEnd="17dp"
+        android:layout_marginRight="17dp"
+        android:layout_marginBottom="149dp"
+        android:hint="Enter Location Manually"
+        android:textColorHint="@color/blackText"
+        android:background="@drawable/edit_text_round_box"
+        android:text="" />
 
     <TextView
         android:id="@+id/education"

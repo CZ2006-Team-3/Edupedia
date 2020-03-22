@@ -39,8 +39,7 @@ public class SearchFragment extends Fragment implements
     private static final String TAG = "SearchFragment";
 
     private SearchController viewModel;
-    private TextView textFilterEdLevel, textFilterGradeCutOff, textFilterNature;
-    private EditText textFilterLocation;
+    private TextView textFilterEdLevel, textFilterGradeCutOff, textFilterNature, textFilterLocation;
     private Spinner dropdown_gradeCut_Off;
     private SortController sortController;
     private HashMap<String, School> schools;
