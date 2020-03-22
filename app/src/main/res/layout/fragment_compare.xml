@@ -80,6 +80,9 @@
                 android:background="#FFFFFF"
                 android:gravity="center"
                 android:text="Course Level" />
+                android:gravity="center"
+                android:text="Course Level"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
 
             <TextView
                 android:id="@+id/school1Course"

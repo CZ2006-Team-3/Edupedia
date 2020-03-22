@@ -177,8 +177,8 @@ public class SearchFragment extends Fragment implements
                                 new ArrayAdapter<CharSequence>(getActivity().getApplicationContext(),
                                         android.R.layout.simple_spinner_dropdown_item, new CharSequence[] {""}) {
 
-                                        @Override
-                                        public View getView(int position, View convertView, ViewGroup parent) {
+                                    @Override
+                                    public View getView(int position, View convertView, ViewGroup parent) {
 
                                         View v = super.getView(position, convertView, parent);
                                         if (position == 0) {
@@ -190,7 +190,7 @@ public class SearchFragment extends Fragment implements
                                         Log.d(TAG, "at spinner 2 primary " + textFilterGradeCutOff.getText().toString());
                                         return v;
                                     }
-                        };
+                                };
                         dropdown_gradeCut_Off.setAdapter(emptyAdapter);
                         dropdown_gradeCut_Off.setSelection(0);
                         break;
@@ -206,7 +206,7 @@ public class SearchFragment extends Fragment implements
         textFilterGradeCutOff = (TextView) dropdown_gradeCut_Off.getSelectedView();
 
         ///Spinner 3 ////////////////////////////////
-        Spinner dropdown_preffered_stream = (Spinner) rootview.findViewById(R.id.preferred_Stream);
+        Spinner dropdown_preffered_stream = (Spinner) rootview.findViewById(R.id.nature);
         ArrayAdapter<CharSequence> adapter3 = new ArrayAdapter<CharSequence>(getActivity().getApplicationContext(), android.R.layout.simple_spinner_dropdown_item) {
             @Override
             public View getView(int position, View convertView, ViewGroup parent) {
@@ -306,4 +306,3 @@ public class SearchFragment extends Fragment implements
 
     }
 }
-

@@ -33,7 +33,7 @@
         <item>10</item>
         <item>15</item>
     </string-array>
-    <string-array name="preferredStream">
+    <string-array name="subOffered">
         <item>Not Applicable</item>
         <item>Art Stream</item>
         <item>Science Stream</item>
