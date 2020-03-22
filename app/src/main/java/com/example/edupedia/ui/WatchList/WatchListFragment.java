@@ -34,7 +34,6 @@ public class WatchListFragment extends Fragment {
 
     private WatchListViewModel WatchListViewModel;
 
-    //
     private ArrayList<SchoolItem> wSchoolList;
     private RecyclerView wRecyclerView;
     private AdapterClass wAdapter;
