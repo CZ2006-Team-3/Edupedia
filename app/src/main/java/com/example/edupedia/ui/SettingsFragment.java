@@ -27,6 +27,7 @@ public class SettingsFragment extends Fragment {
     private TextView EducationLevel;
     private TextView Email;
     private FirebaseUser user;
+    private String name, edlevel;
     private UserController userController = UserController.getInstance();
 
     @Nullable
@@ -35,10 +36,10 @@ public class SettingsFragment extends Fragment {
         View rootview = inflater.inflate(R.layout.fragment_settings, container, false);
 
         Name = rootview.findViewById(R.id.SettingName);
-        Name.setText(userController.getName());
+        name = userController.getName();
 
         EducationLevel = rootview.findViewById(R.id.SettingEdu);
-        EducationLevel.setText(userController.getEdLevel());
+        edlevel = userController.getEdLevel();
 
         Email = rootview.findViewById(R.id.SettingEmail);
         Email.setText(userController.getEmail());
@@ -80,6 +81,9 @@ public class SettingsFragment extends Fragment {
             }
         });
 
+
+        Name.setText(name);
+        EducationLevel.setText(edlevel);
         return rootview;
     }
 
