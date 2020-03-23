@@ -18,6 +18,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Locale;
 
+/**
+ * Fragment that allows 2 different schools to be added to allow comparison
+ */
+
 public class CompareFragment extends Fragment {
 
     private CompareViewModel compareViewModel;
@@ -42,6 +46,10 @@ public class CompareFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState){
+        /**
+         * The functions and buttons etc created upon the loading of this fragment
+         */
+
         Bundle bundle = this.getArguments();
         if (bundle!=null) {
             String value = bundle.getString("SchoolName");
