@@ -60,21 +60,6 @@
         android:hint="Enter your name here"
         android:textSize="14sp"/>
 
-    <TextView
-        android:id="@+id/DOB"
-        android:layout_width="wrap_content"
-        android:layout_height="24dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="51dp"
-        android:layout_marginLeft="51dp"
-        android:layout_marginEnd="257dp"
-        android:layout_marginRight="257dp"
-        android:layout_marginBottom="440dp"
-        android:text="Date Of Birth" />
 
     <TextView
         android:id="@+id/textDateOfBirth"
@@ -84,26 +69,26 @@
         android:layout_alignParentBottom="true"
         android:layout_marginStart="174dp"
         android:layout_marginLeft="174dp"
-        android:layout_marginEnd="100dp"
+        android:layout_marginEnd="101dp"
         android:layout_marginRight="29dp"
-        android:layout_marginBottom="445dp"
+        android:layout_marginBottom="418dp"
         android:hint="Select Date" />
 
     <TextView
-        android:id="@+id/email"
+        android:id="@+id/DOB"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="24dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginStart="51dp"
-        android:layout_marginLeft="51dp"
-        android:layout_marginEnd="257dp"
-        android:layout_marginRight="257dp"
-        android:layout_marginBottom="400dp"
-        android:text="Email" />
+        android:layout_marginStart="50dp"
+        android:layout_marginLeft="50dp"
+        android:layout_marginEnd="258dp"
+        android:layout_marginRight="258dp"
+        android:layout_marginBottom="413dp"
+        android:text="Date Of Birth" />
 
     <EditText
         android:id="@+id/editTextEmail"
@@ -118,12 +103,12 @@
         android:layout_marginLeft="174dp"
         android:layout_marginEnd="22dp"
         android:layout_marginRight="22dp"
-        android:layout_marginBottom="390dp"
+        android:layout_marginBottom="351dp"
         android:ems="10"
         android:inputType="textEmailAddress" />
 
     <TextView
-        android:id="@+id/locationEntry"
+        android:id="@+id/email"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
@@ -133,27 +118,10 @@
         android:layout_alignParentBottom="true"
         android:layout_marginStart="51dp"
         android:layout_marginLeft="51dp"
-        android:layout_marginEnd="254dp"
-        android:layout_marginRight="254dp"
-        android:layout_marginBottom="350dp"
-        android:text="Location" />
-
-    <EditText
-        android:id="@+id/editTextLocation"
-        android:layout_width="202dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="174dp"
-        android:layout_marginLeft="174dp"
-        android:layout_marginEnd="36dp"
-        android:layout_marginRight="36dp"
-        android:layout_marginBottom="340dp"
-        android:ems="10"
-        android:inputType="textPassword" />
+        android:layout_marginEnd="257dp"
+        android:layout_marginRight="257dp"
+        android:layout_marginBottom="361dp"
+        android:text="Email" />
 
     <TextView
         android:id="@+id/edLevel"
