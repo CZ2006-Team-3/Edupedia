@@ -43,6 +43,7 @@ public class GoogleMapsDistance extends AppCompatActivity implements Serializabl
     private AdapterClass adapterClass;
     private GoogleMapsActivity googleMaps;
 //    private ProgressDialog dialog;
+    //private static GoogleMapsActivity googleMaps;
 
     /*protected void onPreExecute() {
         this.googleMaps = new GoogleMapsActivity();
@@ -203,4 +204,8 @@ public class GoogleMapsDistance extends AppCompatActivity implements Serializabl
          */
 
     }
+
+   /* public static void setGoogleMapsActivity(GoogleMapsActivity googleMapsActivity) {
+        googleMaps = googleMapsActivity;
+    }*/
 }

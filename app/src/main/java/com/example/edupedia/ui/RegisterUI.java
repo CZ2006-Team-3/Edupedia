@@ -45,7 +45,7 @@ public class RegisterUI extends AppCompatActivity implements View.OnClickListene
     TextView textEdLevel, mDisplayDate;
     DatePickerDialog.OnDateSetListener mDateSetListener;
     EditText editTextEmail, editTextPassword, editTextUsername, editTextDateOfBirth,
-            editTextName, editTextLocation, editTextRetypePassword;
+            editTextName, editTextRetypePassword;
     String dateOfBirth;
 
     private FirebaseAuth mAuth = null;
@@ -58,7 +58,6 @@ public class RegisterUI extends AppCompatActivity implements View.OnClickListene
         editTextEmail = (EditText) findViewById(R.id.editTextEmail);
         editTextPassword = (EditText) findViewById(R.id.editTextPassword);
         editTextName = (EditText) findViewById(R.id.editTextName);
-        editTextLocation = (EditText) findViewById(R.id.editTextLocation);
         editTextUsername = (EditText) findViewById(R.id.editTextUsername);
         editTextPassword = (EditText) findViewById(R.id.editTextPassword);
         editTextRetypePassword = (EditText) findViewById(R.id.editTextRetypePassword);
@@ -152,7 +151,6 @@ public class RegisterUI extends AppCompatActivity implements View.OnClickListene
         String email = editTextEmail.getText().toString().trim();
         String password = editTextPassword.getText().toString().trim();
         String retypePassword = editTextRetypePassword.getText().toString().trim();
-        final String location = editTextLocation.getText().toString().trim();
         final String edLevel = textEdLevel.getText().toString();
 
 
@@ -213,7 +211,6 @@ public class RegisterUI extends AppCompatActivity implements View.OnClickListene
                     HashMap newPost = new HashMap();
                     newPost.put("name", name);
                     newPost.put("date_of_birth", dateOfBirth);
-                    newPost.put("location", location);
                     newPost.put("ed_level", edLevel);
 
                     //Write data into Firebase Realtime Database

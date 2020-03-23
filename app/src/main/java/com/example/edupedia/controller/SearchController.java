@@ -2,6 +2,7 @@ package com.example.edupedia.controller;
 
 import com.example.edupedia.model.DataStoreInterface;
 import com.example.edupedia.model.School;
+import com.example.edupedia.ui.SchoolItem;
 
 import android.os.Build;
 import android.util.Log;
@@ -19,6 +20,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
@@ -28,7 +30,6 @@ public class SearchController extends ViewModel {
             textFilterLocation;
     private MutableLiveData<ArrayList<String>> textFilterRegion, textFilterSchoolType, textFilterIP;
     private EditText editLocation;
-    private MutableLiveData<ArrayList<String>> textFilterCCAs;
     private SortController sortController = SortController.getInstance();
 /*
     public ArrayList<School> getDistances(ArrayList<School> schools) {
@@ -73,7 +74,7 @@ public class SearchController extends ViewModel {
             School school = (School) schoolEntry.getValue();
             if (applyFilter(school, textFilterEdLevel.getValue(),
                     textFilterGradeCutOff.getValue(),
-                    null,
+                    textFilterNature.getValue(),
                     null,
                     null,
                     null
@@ -125,7 +126,8 @@ public class SearchController extends ViewModel {
                     }
                     break;
                 case "Nature":
-                    if (!school.getNatureCode().equals(((String) filter)))
+                    String natureCode = school.getNatureCode();
+                    if (!natureCode.equals(((String) filter)))
                         return false;
                     break;
                 case "Region":
@@ -151,16 +153,20 @@ public class SearchController extends ViewModel {
     }
 
 
-    private HashMap<String, School> onAdvancedSearch(HashMap<String, School> basicResults) {
-        HashMap<String, School> advancedResults = new HashMap<String, School>();
+    private ArrayList<School> onAdvancedSearch(HashMap<String, School> basicResults) {
+        ArrayList<School> advancedResults = new ArrayList<School>();
         Iterator dbIterator = basicResults.entrySet().iterator();
         while (dbIterator.hasNext()) {
             Map.Entry schoolEntry = (Map.Entry) dbIterator.next();
             School school = (School) schoolEntry.getValue();
-            if (school.getClusterCode().equals(getTextFilterRegion().getValue())
-                    && school.getTypeCode().equals(getTextFilterSchoolType().getValue())
-                    && hasOverlap(school.getCcas(), getTextFilterIP().getValue())) {
-                advancedResults.put(school.getSchoolName(), school);
+            if (applyFilter(school,
+                    null,
+                    null,
+                    null,
+                    textFilterRegion.getValue(),
+                    textFilterSchoolType.getValue(),
+                    textFilterIP.getValue())){
+                advancedResults.add(school);
             }
         }
         return advancedResults;
@@ -193,6 +199,16 @@ public class SearchController extends ViewModel {
         }
         return map;
     }
+    /*
+    public ArrayList<School> getDistances(ArrayList<School> schools) {
+        for (School school: schools) {
+            String loc = getTextFilterLocation().getValue();
+            school = GoogleMapsDistance.googleMapsDistance(school, loc);
+            Log.e("School location:", school.getAddress());
+        }
+        return schools;
+    }*/
+
     public ArrayList<String> retrieveResults(HashMap<String, School> db) {
         DataStoreInterface dataStore = DataStoreFactory.getDatastore("Results");
         ArrayList<String> results = (ArrayList<String>) dataStore.retrieveData();
@@ -214,6 +230,7 @@ public class SearchController extends ViewModel {
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     public ArrayList<School> generateSchools(HashMap<String, School> db, ArrayList<String> results) {
+       if(results==null) return new ArrayList<>(db.values());
         ArrayList<School> schoolList = new ArrayList<>();
         for (String name : results){
             schoolList.add(db.get(name));

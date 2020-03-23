@@ -22,6 +22,8 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.edupedia.R;
@@ -46,7 +48,6 @@ public class SearchFragment extends Fragment implements
     private SearchController viewModel;
     private TextView textFilterEdLevel, textFilterGradeCutOff, textFilterNature, textFilterLocation;
     private Spinner dropdown_gradeCut_Off;
-    private SortController sortController;
     private HashMap<String, School> schools;
     private ArrayList<School> schoolArrayList;
     private SchoolDB schoolDB;
@@ -257,6 +258,7 @@ public class SearchFragment extends Fragment implements
                 Log.d(TAG, "textFilterEdLevel " + textFilterEdLevel.getText().toString());
                 Log.d(TAG, "textFilterGradeCutOff " + textFilterGradeCutOff.getText().toString());
                 Log.d(TAG, "textFilterNature " + textFilterNature.getText().toString());
+                Log.d(TAG, "textFilterLocation " + textFilterLocation.getText().toString());
                 viewModel.setTextFilterEdLevel(textFilterEdLevel.getText().toString());
                 viewModel.setTextFilterGradeCutOff(textFilterGradeCutOff.getText().toString());
                 viewModel.setTextFilterNature(textFilterNature.getText().toString());
@@ -291,6 +293,9 @@ public class SearchFragment extends Fragment implements
                 //Toast.makeText(this, school.getAddress(),Toast.LENGTH_SHORT);
                 //Log.e("School location:", school.getAddress());
                 //}
+                HomeFragment homeFragment = new HomeFragment();
+                FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+                ft.replace(R.id.fragment_container, homeFragment).commit();
             }
         });
         return rootview;
