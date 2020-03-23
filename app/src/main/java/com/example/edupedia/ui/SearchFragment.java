@@ -34,26 +34,57 @@ import com.example.edupedia.ui.home.HomeFragment;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-
+/**
+ * Search Fragment class
+ */
 public class SearchFragment extends Fragment implements
         View.OnClickListener, AdapterView.OnItemSelectedListener {
 
     //for debugging purpose
     private static final String TAG = "SearchFragment";
 
+    /**
+     * view model is an instantiation of the Search Controller
+     */
     private SearchController viewModel;
+    /**
+     * textFilterEdLevel is the text view for education level filter
+     * textFilterGradeCutOff is the text view for the grade cut off filter
+     * textFilterNature is the text view for the nature of the school filter
+     * textFilterLocation is the text view for the location filter
+     */
     private TextView textFilterEdLevel, textFilterGradeCutOff, textFilterNature, textFilterLocation;
+    /**
+     *spinner for the user to select their grade cut off
+     */
     private Spinner dropdown_gradeCut_Off;
+    /**
+     * hashmap for all the schools
+     */
     private HashMap<String, School> schools;
-    private ArrayList<School> schoolArrayList;
+    /**
+     * School database is instantiated as schools
+     */
     private SchoolDB schoolDB;
+    /**
+     * request code is set to 0
+     */
     private static final int REQUEST_CODE = 0;
+    /**
+     * result ok is set to -1
+     */
     public static final int RESULT_OK = -1;
+    /**
+     * results cancelled is set to 0
+     */
     public static final int RESULT_CANCELED = 0;
 
 
     @Nullable
     @Override
+    /**
+     * default method that occurs upon the creation of the activity
+     */
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         viewModel = new ViewModelProvider(this).get(SearchController.class);

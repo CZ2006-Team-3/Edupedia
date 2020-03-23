@@ -39,6 +39,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.Calendar;
 import java.util.HashMap;
 
+/**
+ * class to register new user details
+ */
 public class RegisterUI extends AppCompatActivity implements View.OnClickListener{
 
     ProgressBar progressBar;
@@ -50,24 +53,53 @@ public class RegisterUI extends AppCompatActivity implements View.OnClickListene
 
     private FirebaseAuth mAuth = null;
 
+    /**
+     * default method that occurs upon the creation of the activity
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_ui);
-
+        /**
+         * edit text to allow for user input of email
+         */
         editTextEmail = (EditText) findViewById(R.id.editTextEmail);
+        /**
+         * edit text to allow for user input of their password
+         */
         editTextPassword = (EditText) findViewById(R.id.editTextPassword);
+        /**
+         * edit text to allow for user input of name
+         */
         editTextName = (EditText) findViewById(R.id.editTextName);
+
+        /**
+         * edit text to allow for user input of their username
+         */
         editTextUsername = (EditText) findViewById(R.id.editTextUsername);
-        editTextPassword = (EditText) findViewById(R.id.editTextPassword);
+        /**
+         * edit text to allow for user input of their retyped password for authentication
+         */
         editTextRetypePassword = (EditText) findViewById(R.id.editTextRetypePassword);
 
+        /**
+         * progress bar
+         */
         progressBar = (ProgressBar) findViewById(R.id.progressbar);
 
+        /**
+         * instantiation of firebase
+         */
         mAuth = FirebaseAuth.getInstance();
 
+        /**
+         * spinner to allow for user input of their edculation level
+         */
         Spinner spinner = (Spinner) findViewById(R.id.textEdLevel);
+
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(RegisterUI.this, android.R.layout.simple_spinner_dropdown_item) {
+
             @Override
             public View getView(int position, View convertView, ViewGroup parent) {
 
@@ -106,9 +138,14 @@ public class RegisterUI extends AppCompatActivity implements View.OnClickListene
             }
         });
 
-
+        /**
+         * text view to display the user's date of birth
+         */
         mDisplayDate = (TextView) findViewById(R.id.textDateOfBirth);
 
+        /**
+         * calls date picker to get the date picker dialogue
+         */
         mDisplayDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -126,6 +163,9 @@ public class RegisterUI extends AppCompatActivity implements View.OnClickListene
             }
         });
 
+        /**
+         * sets the date that the user selected using the  date picker
+         */
         mDateSetListener = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker datePicker, int year, int month, int day) {
@@ -144,6 +184,10 @@ public class RegisterUI extends AppCompatActivity implements View.OnClickListene
 
     }
 
+    /**
+     * constructor for register user class
+     * it implements basic error handling
+     */
     private void registerUser() {
 
         String username = editTextUsername.getText().toString().trim();
@@ -217,7 +261,7 @@ public class RegisterUI extends AppCompatActivity implements View.OnClickListene
                     current_user_db.setValue(newPost);
 
 
-                    startActivity(new Intent(RegisterUI.this, MainNavigationUI.class));
+                    startActivity(new Intent(RegisterUI.this, StartUI.class));
                 } else {
 
                     if (task.getException() instanceof FirebaseAuthUserCollisionException) {
@@ -233,6 +277,10 @@ public class RegisterUI extends AppCompatActivity implements View.OnClickListene
 
     }
 
+    /**
+     * method for clicking the Sign Up button or if the user choses to go back and clicks on the View Login button
+     * @param view
+     */
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
