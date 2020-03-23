@@ -132,7 +132,7 @@ public class SearchController extends ViewModel {
     }
 
 
-    private ArrayList<School> onAdvancedSearch(HashMap<String, School> basicResults) {
+    public ArrayList<School> onAdvancedSearch(HashMap<String, School> basicResults) {
         ArrayList<School> advancedResults = new ArrayList<School>();
         Iterator dbIterator = basicResults.entrySet().iterator();
         while (dbIterator.hasNext()) {
@@ -192,8 +192,7 @@ public class SearchController extends ViewModel {
         ArrayList<String> results = (ArrayList<String>) dataStore.retrieveData();
 //        Log.d("PRINT ARRAYLIST RESULTS", results.get(0));
         if (results == null) {
-            results = new ArrayList<>(db.keySet());
-            storeResults(results);
+            return null;
         }
         if (results.isEmpty()){
             return null;
@@ -208,7 +207,7 @@ public class SearchController extends ViewModel {
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     public ArrayList<School> generateSchools(HashMap<String, School> db, ArrayList<String> results) {
-       if(results==null) return new ArrayList<>(db.values());
+       if(results==null) return new ArrayList<>();
         ArrayList<School> schoolList = new ArrayList<>();
         for (String name : results){
             schoolList.add(db.get(name));
