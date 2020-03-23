@@ -44,7 +44,6 @@ public class SearchFragment extends Fragment implements
     private SearchController viewModel;
     private TextView textFilterEdLevel, textFilterGradeCutOff, textFilterNature, textFilterLocation;
     private Spinner dropdown_gradeCut_Off;
-    private SortController sortController;
     private HashMap<String, School> schools;
     private ArrayList<School> schoolArrayList;
     private SchoolDB schoolDB;
