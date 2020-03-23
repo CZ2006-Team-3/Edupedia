@@ -2,6 +2,7 @@ package com.example.edupedia.controller;
 
 import com.example.edupedia.model.DataStoreInterface;
 import com.example.edupedia.model.School;
+import com.example.edupedia.ui.SchoolItem;
 
 import android.os.Build;
 import android.util.Log;
@@ -18,6 +19,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 public class SearchController extends ViewModel {
@@ -51,7 +53,7 @@ public class SearchController extends ViewModel {
             School school = (School) schoolEntry.getValue();
             if (applyFilter(school, textFilterEdLevel.getValue(),
                     textFilterGradeCutOff.getValue(),
-                    null,
+                    textFilterNature.getValue(),
                     null,
                     null,
                     null
@@ -103,7 +105,8 @@ public class SearchController extends ViewModel {
                     }
                     break;
                 case "Nature":
-                    if (!school.getNatureCode().equals(((String) filter)))
+                    String natureCode = school.getNatureCode();
+                    if (!natureCode.equals(((String) filter)))
                         return false;
                     break;
                 case "Region":
@@ -204,6 +207,7 @@ public class SearchController extends ViewModel {
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     public ArrayList<School> generateSchools(HashMap<String, School> db, ArrayList<String> results) {
+       if(results==null) return new ArrayList<>(db.values());
         ArrayList<School> schoolList = new ArrayList<>();
         for (String name : results){
             schoolList.add(db.get(name));

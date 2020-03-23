@@ -21,20 +21,36 @@ import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class AdvFilterDialogFragment extends DialogFragment {
-    private ArrayList<String> region;
+    private ArrayList<String> region = new ArrayList<>(
+            Arrays.asList("NORTH",
+                    "SOUTH", "EAST", "WEST")
+    );
+    private ArrayList<String> IP = new ArrayList<>(
+            Arrays.asList("Yes","No")
+    );
+    private ArrayList<String> type = new ArrayList<>(
+            Arrays.asList("GOVERNMENT-AIDED SCH","SPECIALISED INDEPENDENT SCHOOL","GOVERNMENT SCHOOL","SPECIALISED SCHOOL","INDEPENDENT SCHOOL")
+    );
 
     private String TAG = "SortByDialogFragment";
     private int SORT_VARIABLE = SortController.NAME;
     private boolean SORT_ASCENDING = true;
-    private SortByDialogListener listener;
 
-    public interface SortByDialogListener {
-        void onChangeDialog(int sort_variable, boolean sort_ascending);
+    public void setListener(AdvFilterDialogListener listener) {
+        this.listener = listener;
+    }
+
+    private AdvFilterDialogListener listener;
+
+    public interface AdvFilterDialogListener {
+        void onChangeCheckbox(ArrayList<String> region,  ArrayList<String> IP, ArrayList<String> type);
     }
 
     public AdvFilterDialogFragment() {
@@ -57,31 +73,47 @@ public class AdvFilterDialogFragment extends DialogFragment {
             @Override
             public void onClick(View v) {
                 boolean checked = ((CheckBox) v).isChecked();
-                if (checked)
+                if (checked && !region.contains("NORTH"))
                     region.add("NORTH");
                 else if (region.contains("NORTH"))
-                    region.remove()
+                    region.remove("NORTH");
+                listener.onChangeCheckbox(region, IP, type);
             }
         });
         CheckBox checkEast = (CheckBox) layout.findViewById(R.id.checkBoxEast);
         checkEast.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                region = "EAST";
+                boolean checked = ((CheckBox) v).isChecked();
+                if (checked && !region.contains("EAST"))
+                    region.remove("EAST");
+                else if (region.contains("EAST"))
+                    region.remove("EAST");
+                listener.onChangeCheckbox(region, IP, type);
             }
         });
         CheckBox checkWest = (CheckBox) layout.findViewById(R.id.checkBoxWest);
         checkWest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                region = "WEST";
+                boolean checked = ((CheckBox) v).isChecked();
+                if (checked && !region.contains("WEST"))
+                    region.remove("WEST");
+                else if (region.contains("WEST"))
+                    region.remove("WEST");
+                listener.onChangeCheckbox(region, IP, type);
             }
         });
         CheckBox checkSouth = (CheckBox) layout.findViewById(R.id.checkBoxSouth);
         checkSouth.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                region = "SOUTH";
+                boolean checked = ((CheckBox) v).isChecked();
+                if (checked && !region.contains("SOUTH"))
+                    region.remove("SOUTH");
+                else if (region.contains("SOUTH"))
+                    region.remove("SOUTH");
+                listener.onChangeCheckbox(region, IP, type);
             }
         });
 
@@ -89,14 +121,26 @@ public class AdvFilterDialogFragment extends DialogFragment {
         checkIpNo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                boolean checked = ((CheckBox) v).isChecked();
+                if (checked && !IP.contains("Yes"))
+                    IP.add("Yes");
+                else if (IP.contains("Yes")){
+                    IP.remove("Yes");
+                    listener.onChangeCheckbox(region, IP, type);
+                }
             }
         });
         CheckBox checkIpYes = (CheckBox) layout.findViewById(R.id.checkBoxIPYes);
         checkIpYes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                boolean checked = ((CheckBox) v).isChecked();
+                if (checked && !IP.contains("No"))
+                    IP.add("No");
+                else if (IP.contains("No")){
+                    IP.remove("No");
+                }
+                listener.onChangeCheckbox(region, IP, type);
             }
         });
 
@@ -104,13 +148,26 @@ public class AdvFilterDialogFragment extends DialogFragment {
         checkGovtAid.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                boolean checked = ((CheckBox) v).isChecked();
+                if (checked && !type.contains("GOVERNMENT-AIDED SCH"))
+                    type.add("GOVERNMENT-AIDED SCH");
+                else if (type.contains("GOVERNMENT-AIDED SCH")){
+                    type.remove("GOVERNMENT-AIDED SCH");
+                }
+                listener.onChangeCheckbox(region, IP, type);
             }
         });
         CheckBox checkSpecInd = (CheckBox) layout.findViewById(R.id.checkBoxSpecInd);
         checkSpecInd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                boolean checked = ((CheckBox) v).isChecked();
+                if (checked && !type.contains("SPECIALISED INDEPENDENT SCHOOL"))
+                    type.add("SPECIALISED INDEPENDENT SCHOOL");
+                else if (type.contains("SPECIALISED INDEPENDENT SCHOOL")){
+                    type.remove("SPECIALISED INDEPENDENT SCHOOL");
+                }
+                listener.onChangeCheckbox(region, IP, type);
 
             }
         });
@@ -118,23 +175,42 @@ public class AdvFilterDialogFragment extends DialogFragment {
         checkGovernment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                boolean checked = ((CheckBox) v).isChecked();
+                if (checked && !type.contains("GOVERNMENT SCHOOL"))
+                    type.add("GOVERNMENT SCHOOL");
+                else if (type.contains("GOVERNMENT SCHOOL")){
+                    type.remove("GOVERNMENT SCHOOL");
+                }
+                listener.onChangeCheckbox(region, IP, type);
             }
         });
         CheckBox checkSpecialised = (CheckBox) layout.findViewById(R.id.checkBoxSpecialised);
         checkSpecialised.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                boolean checked = ((CheckBox) v).isChecked();
+                if (checked && !type.add("SPECIALISED SCHOOL"))
+                    type.add("SPECIALISED SCHOOL");
+                else if (type.contains("SPECIALISED SCHOOL")){
+                    type.remove("SPECIALISED SCHOOL");
+                }
+                listener.onChangeCheckbox(region, IP, type);
             }
         });
         CheckBox checkIndependent = (CheckBox) layout.findViewById(R.id.checkBoxIndependent);
         checkIndependent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                boolean checked = ((CheckBox) v).isChecked();
+                if (checked && !type.add("INDEPENDENT SCHOOL"))
+                    type.add("INDEPENDENT SCHOOL");
+                else if (type.contains("INDEPENDENT SCHOOL")){
+                    type.remove("INDEPENDENT SCHOOL");
+                }
+                listener.onChangeCheckbox(region, IP, type);
             }
         });
+
 
         return layout;
 
