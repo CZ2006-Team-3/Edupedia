@@ -256,6 +256,7 @@ public class SearchFragment extends Fragment implements
                 Log.d(TAG, "textFilterEdLevel " + textFilterEdLevel.getText().toString());
                 Log.d(TAG, "textFilterGradeCutOff " + textFilterGradeCutOff.getText().toString());
                 Log.d(TAG, "textFilterNature " + textFilterNature.getText().toString());
+                Log.d(TAG, "textFilterLocation " + textFilterLocation.getText().toString());
                 viewModel.setTextFilterEdLevel(textFilterEdLevel.getText().toString());
                 viewModel.setTextFilterGradeCutOff(textFilterGradeCutOff.getText().toString());
                 viewModel.setTextFilterNature(textFilterNature.getText().toString());
