@@ -78,7 +78,7 @@ public class WatchListFragment extends Fragment {
                 wSchoolList = new ArrayList<>();
                 for (School school : schoolList) {
                     if(school!=null)
-                        wSchoolList.add(new SchoolItem(R.drawable.school_icon,  school.getSchoolName(), "Grade Cut-Off: " + Integer.toString(school.getGradeCutOff()), "Distance: " + Double.toString(school.getDistance())));
+                        wSchoolList.add(new SchoolItem(R.drawable.school_icon,  school.getSchoolName(),  "Grade Cut-Off: " + Integer.toString(school.getGradeCutOff()), "Distance: " + Double.toString(school.getDistance())));
                 }
             }
         }

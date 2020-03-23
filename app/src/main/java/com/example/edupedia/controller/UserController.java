@@ -24,6 +24,7 @@ public class UserController {
     private final String TAG = "UserController";
     private String name, edLevel;
     private boolean locationAccess;
+    private DatabaseReference current_user_db;
 
 
     private FirebaseUser user;
@@ -34,6 +35,7 @@ public class UserController {
     // private constructor restricted to this class itself
     private UserController(FirebaseUser usr) {
         this.user = usr;
+        this.current_user_db = FirebaseDatabase.getInstance().getReference().child("User_DB").child(user.getUid());
     }
 
 
@@ -93,8 +95,7 @@ public class UserController {
 
     public String getName(){
         String user_id = user.getUid();
-        DatabaseReference current_user_db = FirebaseDatabase.getInstance().getReference().child("User_DB").child(user_id);
-        current_user_db.addListenerForSingleValueEvent(new ValueEventListener() {
+        current_user_db.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.child("name").getValue() != null) {
@@ -116,8 +117,7 @@ public class UserController {
 
     public String getEdLevel(){
         String user_id = user.getUid();
-        DatabaseReference current_user_db = FirebaseDatabase.getInstance().getReference().child("User_DB").child(user_id);
-        current_user_db.addListenerForSingleValueEvent(new ValueEventListener() {
+        current_user_db.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.child("ed_level").getValue() != null) {
@@ -147,7 +147,6 @@ public class UserController {
 
     public boolean getLocationAccess(){
         String user_id = user.getUid();
-        DatabaseReference current_user_db = FirebaseDatabase.getInstance().getReference().child("User_DB").child(user_id);
         current_user_db.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
