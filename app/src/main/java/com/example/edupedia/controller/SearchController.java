@@ -6,6 +6,7 @@ import com.example.edupedia.model.School;
 import android.os.Build;
 import android.util.Log;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 import androidx.lifecycle.MutableLiveData;
@@ -19,6 +20,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.concurrent.ExecutionException;
 
 public class SearchController extends ViewModel {
 
@@ -28,8 +30,27 @@ public class SearchController extends ViewModel {
     private EditText editLocation;
     private MutableLiveData<ArrayList<String>> textFilterCCAs;
     private SortController sortController = SortController.getInstance();
+/*
+    public ArrayList<School> getDistances(ArrayList<School> schools) {
+        try {
+           // for (School school : schools) {
+                GoogleMapsDistance googleMapsDistance = new GoogleMapsDistance();
+                //ArrayList<School>, String passed in
+                schools = googleMapsDistance.execute(schools, getTextFilterLocation().getValue()).get();
+                //Toast.makeText(this, school.getAddress(),Toast.LENGTH_SHORT);
+                //Log.e("School location:", school.getAddress());
+            //}
+        }
+        catch (ExecutionException e) {
 
-    public void storeFilterSettings() {
+        }
+        catch (InterruptedException e) {
+
+        }
+        return schools;
+    }*/
+
+        public void storeFilterSettings() {
         //1. Save Filter Settings to Internal Storage
         JSONObject jsonFilter = new JSONObject();
         try {
@@ -172,14 +193,6 @@ public class SearchController extends ViewModel {
         }
         return map;
     }
-    public ArrayList<School> getDistances(ArrayList<School> schools) {
-        for (School school: schools) {
-            school = GoogleMapsDistance.googleMapsDistance(school, getTextFilterLocation().getValue());
-            Log.e("School location:", school.getAddress());
-        }
-        return schools;
-    }
-
     public ArrayList<String> retrieveResults(HashMap<String, School> db) {
         DataStoreInterface dataStore = DataStoreFactory.getDatastore("Results");
         ArrayList<String> results = (ArrayList<String>) dataStore.retrieveData();

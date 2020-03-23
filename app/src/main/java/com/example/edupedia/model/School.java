@@ -1,10 +1,11 @@
 package com.example.edupedia.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
-public class School {
+public class School implements Serializable {
     // Compulsory attributes
     private String schoolName;          // [1]
     private String urlAddress;          // [2]

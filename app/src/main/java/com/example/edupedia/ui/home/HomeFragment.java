@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -32,6 +33,7 @@ import com.example.edupedia.model.DataStoreInterface;
 import com.example.edupedia.model.Filter;
 import com.example.edupedia.ui.AdapterClass;
 import com.example.edupedia.R;
+//import com.example.edupedia.ui.AdvFilterDialogFragment;
 import com.example.edupedia.ui.Compare.CompareFragment;
 import com.example.edupedia.ui.FilterUI;
 import com.example.edupedia.ui.SchoolItem;
@@ -54,7 +56,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class HomeFragment extends Fragment implements SortByDialogFragment.SortByDialogListener,
-                                                        View.OnClickListener{
+        View.OnClickListener {//, AdvFilterDialogFragment.AdvFilterDialogListener{
     public static final String SORT_VARIABLE_NAME = "sort";
     public static final String ASCENDING_SORT = "ascending_sort";
     public static final int RESULT_SUCCESS = 1;
@@ -67,6 +69,10 @@ public class HomeFragment extends Fragment implements SortByDialogFragment.SortB
 
     private int SORT_VARIABLE = SortController.NAME;
     private boolean SORT_ASCENDING = true;
+
+    private ArrayList<String> region;
+    private ArrayList<String> IP;
+    private ArrayList<String> type;
 
     private ArrayList<SchoolItem> mSchoolList;
     private RecyclerView mRecyclerView;
@@ -97,9 +103,9 @@ public class HomeFragment extends Fragment implements SortByDialogFragment.SortB
 
         //retrieving results from background files
         ArrayList<String> results = searchController.retrieveResults(schools);
+        Log.d("HomeFragment", String.valueOf(results));
         schoolArrayList = searchController.generateSchools(schools, results);
-        //idk why this is called twice tbh.
-        schoolArrayList = searchController.getDistances(schoolArrayList);
+        //schoolArrayList = searchController.getDistances(schoolArrayList);
         toSort.setOnClickListener(this);
 /*
         toSort.setOnClickListener(new View.OnClickListener() {
@@ -152,32 +158,47 @@ public class HomeFragment extends Fragment implements SortByDialogFragment.SortB
 
     public void createSchoolList() {
         mSchoolList = new ArrayList<>();
-        for(School school : schoolArrayList) {
-            if (school.getMainCode().equals("SECONDARY")) {
-                mSchoolList.add(new SchoolItem(R.drawable.school_icon, school.getSchoolName(),
-                        "Grade Cut-Off: " + Integer.toString(school.getGradePSLE()),
-                        "Distance: " + Double.toString(school.getDistance())));
+        for (School school : schoolArrayList) {
+            switch (school.getMainCode()) {
+                case "SECONDARY":
+                    mSchoolList.add(new SchoolItem(R.drawable.school_icon, school.getSchoolName(),
+                            "Grade Cut-Off: " + school.getGradePSLE(),
+                            "Distance: " + school.getDistance(),
+                            Double.toString(school.getPublicTime()),
+                            Double.toString(school.getDrivingTime())));
+                    break;
+
+                case "JUNIOR COLLEGE":
+                    mSchoolList.add(new SchoolItem(R.drawable.school_icon, school.getSchoolName(),
+                            "Grade Cut-Off: " + school.getGradeO(),
+                            "Distance: " + school.getDistance(),
+                            Double.toString(school.getPublicTime()),
+                            Double.toString(school.getDrivingTime())));
+                    break;
+
+                case "MIXED LEVEL":
+                    mSchoolList.add(new SchoolItem(R.drawable.school_icon, school.getSchoolName(),
+                            "Grade Cut-Off for A-level: " + school.getGradePSLE() + " Grade Cut-Off for O-level: " + Integer.toString(school.getGradeO()),
+                            "Distance: " + school.getDistance(),
+                            Double.toString(school.getPublicTime()),
+                            Double.toString(school.getDrivingTime())));
+                    break;
+
+                default:
+                    mSchoolList.add(new SchoolItem(R.drawable.school_icon, school.getSchoolName(),
+                            "Grade Cut-Off: Not Applicable ",
+                            "Distance: " + Double.toString(school.getDistance()),
+                            Double.toString(school.getPublicTime()),
+                            Double.toString(school.getDrivingTime())));
+                    break;
             }
-            else if (school.getMainCode().equals("JUNIOR COLLEGE")){
-                mSchoolList.add(new SchoolItem(R.drawable.school_icon, school.getSchoolName(),
-                        "Grade Cut-Off: " + Integer.toString(school.getGradeO()),
-                        "Distance: " + Double.toString(school.getDistance())));
-            }
-            else if (school.getMainCode().equals("MIXED LEVEL")){
-                mSchoolList.add(new SchoolItem(R.drawable.school_icon, school.getSchoolName(),
-                        "Grade Cut-Off for A-level: " + Integer.toString(school.getGradePSLE()) + " Grade Cut-Off for O-level: " + Integer.toString(school.getGradeO()) ,
-                        "Distance: " + Double.toString(school.getDistance())));
-            }
-            else
-                mSchoolList.add(new SchoolItem(R.drawable.school_icon, school.getSchoolName(),
-                        "Grade Cut-Off: Not Applicable " ,
-                        "Distance: " + Double.toString(school.getDistance())));
-            }
+
 
             //mSchoolList.add(new SchoolItem(R.drawable.school_icon, "RI", "4 Points", "2 km"));
             //mSchoolList.add(new SchoolItem(R.drawable.school_icon, "AJC", "6 Points", "3 km"));
             //mSchoolList.add(new SchoolItem(R.drawable.school_icon, "AGS", "8 Points", "5 km"));
         }
+    }
 
 
     public void buildRecyclerView(View layout){
@@ -249,7 +270,7 @@ public class HomeFragment extends Fragment implements SortByDialogFragment.SortB
                         toast.show();
                     }
                 }
-                 //mSchoolList.get(position).addToWatchList();
+                //mSchoolList.get(position).addToWatchList();
             }
 
             @Override
@@ -280,21 +301,32 @@ public class HomeFragment extends Fragment implements SortByDialogFragment.SortB
         mAdapter.onRequestSort(sort_variable,sort_ascending);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    //@Override
+    public void onChangeCheckbox(ArrayList<String> region,  ArrayList<String> IP, ArrayList<String> type){
+        this.region = region;
+        this.IP = IP;
+        this.type = IP;
+    }
+
 
 
 
     @Override
     public void onClick(View view) {
+        FragmentTransaction ft = getChildFragmentManager().beginTransaction();
         switch(view.getId()) {
             case R.id.sortButton:
-                FragmentTransaction ft = getChildFragmentManager().beginTransaction();
                 SortByDialogFragment sortBy = new SortByDialogFragment();
                 sortBy.setDialogFragmentListener(this);
                 sortBy.show(ft, "Sort By");
                 break;
 
             case R.id.filterButton:
-
+                //AdvFilterDialogFragment advFilter = new AdvFilterDialogFragment();
+                //advFilter.setListener(this);
+                //advFilter.show(ft, "Sort By");
+                break;
 
             case R.id.searchButton:
         }

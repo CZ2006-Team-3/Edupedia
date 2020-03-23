@@ -67,10 +67,21 @@ public class schoolInfoUI extends Activity implements View.OnClickListener {
             else {
                 grade.setText(Integer.toString(extras.getInt("grade")));
             }
-            drive.setText(Double.toString(extras.getDouble("drive")));
-            dist.setText(Double.toString(extras.getDouble("dist")));
-            publicTime.setText(Double.toString(extras.getDouble("publicTime")));
+            //drive.setText(Double.toString(extras.getDouble("drive")));
+            //dist.setText(Double.toString(extras.getDouble("dist")));
+            //publicTime.setText(Double.toString(extras.getDouble("publicTime")));
         }
+        public void setLiveDistance(double distance) {
+            dist.setText(Double.toString(distance));
+        }
+        public void setLiveDrivingTime(double drivingTime) {
+                drive.setText(Double.toString(drivingTime));
+        }
+        public void setLiveTransitTime(double publicTransportTime) {
+            publicTime.setText(Double.toString(publicTransportTime));
+        }
+
+
 
     @Override
     public void onClick(View v) {

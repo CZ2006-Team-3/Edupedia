@@ -33,6 +33,9 @@ public class AdapterClass extends RecyclerView.Adapter<AdapterClass.ExampleViewH
             schoolItemListFull = new ArrayList<>(schoolItemList);
         else schoolItemListFull = new ArrayList<>();
     }
+    public AdapterClass() {
+
+    }
 
     @Override
     public void onRequestSort(int sort_variable, boolean sort_ascending) {
@@ -76,6 +79,7 @@ public class AdapterClass extends RecyclerView.Adapter<AdapterClass.ExampleViewH
 
     public Filter getFilter() { return schoolFilter; }
 
+    //the dynamic search for filter
     private Filter schoolFilter = new Filter() {
         @Override
         protected FilterResults performFiltering(CharSequence charSequence) {
@@ -128,7 +132,6 @@ public class AdapterClass extends RecyclerView.Adapter<AdapterClass.ExampleViewH
                         if (position != RecyclerView.NO_POSITION){
                             listener.onItemClick(position);
                         }
-
                     }
                 }
             });
@@ -141,7 +144,6 @@ public class AdapterClass extends RecyclerView.Adapter<AdapterClass.ExampleViewH
                         if (position != RecyclerView.NO_POSITION){
                             listener.onWatchListSelect(position);
                             mWatchListSelect.setBackgroundResource(R.drawable.icon_awesome_star_yello);
-
                         }
 
                     }
@@ -161,10 +163,7 @@ public class AdapterClass extends RecyclerView.Adapter<AdapterClass.ExampleViewH
                     }
                 }
             });
-
         }
-
-
     }
     @SuppressLint("StaticFieldLeak")
     private void sortBy(int sort_variable, boolean ascending) {

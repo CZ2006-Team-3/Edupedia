@@ -2,6 +2,7 @@ package com.example.edupedia.ui;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -18,15 +19,19 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.edupedia.R;
 import com.example.edupedia.controller.GoogleMapsActivity;
+import com.example.edupedia.controller.GoogleMapsDistance;
 import com.example.edupedia.controller.SortController;
 import com.example.edupedia.model.School;
 import com.example.edupedia.model.SchoolDB;
 import com.example.edupedia.controller.SearchController;
+import com.example.edupedia.ui.home.HomeFragment;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -48,7 +53,6 @@ public class SearchFragment extends Fragment implements
     private static final int REQUEST_CODE = 0;
     public static final int RESULT_OK = -1;
     public static final int RESULT_CANCELED = 0;
-
 
     @Nullable
     @Override
@@ -132,7 +136,7 @@ public class SearchFragment extends Fragment implements
                 }
                 ((TextView)v.findViewById(android.R.id.text1)).setTextColor(Color.BLACK);
                 textFilterGradeCutOff = v.findViewById(android.R.id.text1);
-                Log.d(TAG, "at spinner 2 psle " + textFilterGradeCutOff.getText().toString());
+                Log.d(TAG, "At Spinner 2 PSLE " + textFilterGradeCutOff.getText().toString());
                 return v;
             }
 
@@ -194,7 +198,6 @@ public class SearchFragment extends Fragment implements
                         dropdown_gradeCut_Off.setAdapter(emptyAdapter);
                         dropdown_gradeCut_Off.setSelection(0);
                         break;
-
                 }
             }
 
@@ -233,8 +236,6 @@ public class SearchFragment extends Fragment implements
         s = viewModel.getTextFilterNature().getValue(); //retrieve from filter.json
         dropdown_preffered_stream.setSelection((s!=null)? adapter3.getPosition(s):adapter3.getCount());
         textFilterNature = (TextView) dropdown_preffered_stream.getSelectedView();
-
-
         textFilterLocation = (TextView) rootview.findViewById(R.id.locationEnter);
         ///Click on Location button brings you to map view
         //Starts GoogleMapsActivity-> GoogleMapsActivity returns a result to be displayed in text views
@@ -247,9 +248,9 @@ public class SearchFragment extends Fragment implements
             }
         });
 
-
         ImageButton searchButton = (ImageButton) rootview.findViewById(R.id.findInstitute);
         searchButton.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onClick(View v) {
                 Log.d(TAG, "searchButton is clicked!");
@@ -266,12 +267,34 @@ public class SearchFragment extends Fragment implements
                 //Store List of School Names
                 viewModel.storeResults(results);
                 //shift Fragment here
+                // SchoolDB schoolDB = new SchoolDB(getContext());
+                // HashMap<String, School>  schools = schoolDB.getValue();
+                ArrayList<School> schoolList = new ArrayList<>();
+                //gets list of schools based on hashmap of schools and names from basic search
+                schoolList = viewModel.generateSchools(schools, results);
+                //viewModel.getDistances(schoolList);
+                // for (School school : schools) {
+                Intent intent = new Intent(v.getContext(), GoogleMapsDistance.class);
+                intent.putExtra("School List", schoolList);
+                intent.putExtra("User Location", textFilterLocation.getText().toString());
+                startActivityForResult(intent, REQUEST_CODE);
+                //go to home view
+                Fragment fragment = new HomeFragment();
+// Insert the fragment by replacing any existing fragment
+                FragmentManager fragmentManager = getParentFragmentManager();
+                fragmentManager.beginTransaction()
+                        .replace(R.id.fragment_home, fragment)
+                        .commit();
+                //GoogleMapsDistance googleMapsDistance = new GoogleMapsDistance();
+                //ArrayList<School>, String passed in
+                //schools = googleMapsDistance.execute(schools, getTextFilterLocation().getValue()).get();
+                //Toast.makeText(this, school.getAddress(),Toast.LENGTH_SHORT);
+                //Log.e("School location:", school.getAddress());
+                //}
             }
         });
-
         return rootview;
     }
-
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -282,11 +305,10 @@ public class SearchFragment extends Fragment implements
                 //Toast.makeText()
                 Log.d("Address:", result);
                 textFilterLocation.setText(result);
-
             }
             if (resultCode == RESULT_CANCELED) {
                 //Write your code if there's no result
-                Log.d("There is nothing!", "NOTHING");
+
             }
         }
     }//onActivityResult
