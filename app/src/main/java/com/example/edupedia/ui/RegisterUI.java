@@ -217,7 +217,7 @@ public class RegisterUI extends AppCompatActivity implements View.OnClickListene
                     current_user_db.setValue(newPost);
 
 
-                    startActivity(new Intent(RegisterUI.this, MainNavigationUI.class));
+                    startActivity(new Intent(RegisterUI.this, StartUI.class));
                 } else {
 
                     if (task.getException() instanceof FirebaseAuthUserCollisionException) {
