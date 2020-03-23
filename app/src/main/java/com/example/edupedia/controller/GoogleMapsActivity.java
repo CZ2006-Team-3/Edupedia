@@ -116,6 +116,7 @@ public class GoogleMapsActivity extends AppCompatActivity implements OnMapReadyC
                 }
             }
         });
+        GoogleMapsDistance.setGoogleMapsActivity(this);
     }
 
     private void geoLocate(View view) {
@@ -141,8 +142,9 @@ public class GoogleMapsActivity extends AppCompatActivity implements OnMapReadyC
         }
     }
     public Address geoLocate2(String locationName) {
-        Geocoder geocoder = new Geocoder(this, Locale.getDefault());
+
         try {
+            Geocoder geocoder = new Geocoder(this, Locale.getDefault());
             List<Address> addressList = geocoder.getFromLocationName(locationName, 1);
             if (addressList.size() == 1) {
                 this.address = addressList.get(0);
@@ -153,9 +155,7 @@ public class GoogleMapsActivity extends AppCompatActivity implements OnMapReadyC
                 }
                 this.address = addressList.get(0);
             }
-        } catch (IOException e) {
-
-        }
+        } catch (IOException e) { }
         return address;
     }
     private String reverseGeolocate(double latitude, double longitude) throws IOException {

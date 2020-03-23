@@ -21,9 +21,10 @@ public class GoogleMapsDistance {
 
     private static final String TAG = "Google Maps Distance";
     private static final String KEY = "AIzaSyCUaalvzVnKZLKDtGCAp1hmU9pIrov4EMM";
+    private static GoogleMapsActivity googleMaps;
 
     public static School googleMapsDistance(School school, String userLocation) {
-        GoogleMapsActivity googleMaps = new GoogleMapsActivity();
+//        GoogleMapsActivity googleMaps = new GoogleMapsActivity();
         Address schAddress = googleMaps.geoLocate2("Singapore " + school.getPostalCode());
         Log.e(TAG, school.getPostalCode());
         Log.e(TAG, school.getSchoolName());
@@ -89,5 +90,9 @@ public class GoogleMapsDistance {
         //school.setTravelTimes(durList);
         //school.setDistances(distList);
         return school;
+    }
+
+    public static void setGoogleMapsActivity(GoogleMapsActivity googleMapsActivity) {
+        googleMaps = googleMapsActivity;
     }
 }

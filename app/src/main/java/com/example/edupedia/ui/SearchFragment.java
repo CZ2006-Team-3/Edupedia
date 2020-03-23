@@ -19,6 +19,8 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.edupedia.R;
@@ -27,6 +29,7 @@ import com.example.edupedia.controller.SortController;
 import com.example.edupedia.model.School;
 import com.example.edupedia.model.SchoolDB;
 import com.example.edupedia.controller.SearchController;
+import com.example.edupedia.ui.home.HomeFragment;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -256,6 +259,7 @@ public class SearchFragment extends Fragment implements
                 Log.d(TAG, "textFilterEdLevel " + textFilterEdLevel.getText().toString());
                 Log.d(TAG, "textFilterGradeCutOff " + textFilterGradeCutOff.getText().toString());
                 Log.d(TAG, "textFilterNature " + textFilterNature.getText().toString());
+                Log.d(TAG, "textFilterLocation " + textFilterLocation.getText().toString());
                 viewModel.setTextFilterEdLevel(textFilterEdLevel.getText().toString());
                 viewModel.setTextFilterGradeCutOff(textFilterGradeCutOff.getText().toString());
                 viewModel.setTextFilterNature(textFilterNature.getText().toString());
@@ -266,6 +270,9 @@ public class SearchFragment extends Fragment implements
                 //Store List of School Names
                 viewModel.storeResults(results);
                 //shift Fragment here
+                HomeFragment homeFragment = new HomeFragment();
+                FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+                ft.replace(R.id.fragment_container, homeFragment).commit();
             }
         });
 

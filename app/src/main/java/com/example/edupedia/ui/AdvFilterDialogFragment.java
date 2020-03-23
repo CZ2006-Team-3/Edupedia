@@ -86,7 +86,7 @@ public class AdvFilterDialogFragment extends DialogFragment {
             public void onClick(View v) {
                 boolean checked = ((CheckBox) v).isChecked();
                 if (checked && !region.contains("EAST"))
-                    region.remove("EAST");
+                    region.add("EAST");
                 else if (region.contains("EAST"))
                     region.remove("EAST");
                 listener.onChangeCheckbox(region, IP, type);
@@ -98,7 +98,7 @@ public class AdvFilterDialogFragment extends DialogFragment {
             public void onClick(View v) {
                 boolean checked = ((CheckBox) v).isChecked();
                 if (checked && !region.contains("WEST"))
-                    region.remove("WEST");
+                    region.add("WEST");
                 else if (region.contains("WEST"))
                     region.remove("WEST");
                 listener.onChangeCheckbox(region, IP, type);
@@ -110,7 +110,7 @@ public class AdvFilterDialogFragment extends DialogFragment {
             public void onClick(View v) {
                 boolean checked = ((CheckBox) v).isChecked();
                 if (checked && !region.contains("SOUTH"))
-                    region.remove("SOUTH");
+                    region.add("SOUTH");
                 else if (region.contains("SOUTH"))
                     region.remove("SOUTH");
                 listener.onChangeCheckbox(region, IP, type);

@@ -180,7 +180,8 @@ public class SearchController extends ViewModel {
     }
     public ArrayList<School> getDistances(ArrayList<School> schools) {
         for (School school: schools) {
-            school = GoogleMapsDistance.googleMapsDistance(school, getTextFilterLocation().getValue());
+            String loc = getTextFilterLocation().getValue();
+            school = GoogleMapsDistance.googleMapsDistance(school, loc);
             Log.e("School location:", school.getAddress());
         }
         return schools;
