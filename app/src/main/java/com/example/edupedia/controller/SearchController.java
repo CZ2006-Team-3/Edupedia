@@ -87,7 +87,7 @@ public class SearchController extends ViewModel {
                     String maincode = school.getMainCode();
                     String filterLevel = ((String) filter).substring(0, ((String) filter).length()-6).toUpperCase();
                     if (!maincode.equals(filterLevel)) {
-                        if ((maincode.equals("JUNIOR COLLEGE") |maincode.equals("MIXED LEVEL") )
+                        if ((maincode.equals("JUNIOR COLLEGE") |maincode.equals("MIXED LEVEL"))
                                 && ((String) filter).equals("Tertiary Level"))
                             break;
                         return false;
