@@ -22,7 +22,6 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.ExecutionException;
 
 public class SearchController extends ViewModel {
 
@@ -81,7 +80,6 @@ public class SearchController extends ViewModel {
                     ))
                 results.add(school.getSchoolName());
         }
-        //somehow when location is clicked
         return results;
     }
 
@@ -231,6 +229,7 @@ public class SearchController extends ViewModel {
     public ArrayList<School> generateSchools(HashMap<String, School> db, ArrayList<String> results) {
        if(results==null) return new ArrayList<>();
         ArrayList<School> schoolList = new ArrayList<>();
+        ArrayList<SchoolItem> schoolItemList = new ArrayList<>();
         for (String name : results){
             schoolList.add(db.get(name));
         }
