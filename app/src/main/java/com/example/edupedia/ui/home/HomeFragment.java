@@ -59,12 +59,11 @@ import java.util.HashMap;
 import java.util.List;
 
 public class HomeFragment extends Fragment implements SortByDialogFragment.SortByDialogListener,
-                                                        View.OnClickListener, AdvFilterDialogFragment.AdvFilterDialogListener{
+        View.OnClickListener, AdvFilterDialogFragment.AdvFilterDialogListener{
     public static final String SORT_VARIABLE_NAME = "sort";
     public static final String ASCENDING_SORT = "ascending_sort";
     public static final int RESULT_SUCCESS = 1;
     private String TAG = "HomeFragment";
-
 
     public interface SortEventListener{
         public void onRequestSort(int sort_variable, boolean sort_ascending);
@@ -255,10 +254,10 @@ public class HomeFragment extends Fragment implements SortByDialogFragment.SortB
         mAdapter.setOnItemClickListener(new AdapterClass.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
-                mSchoolList.get(position).openSchoolInfo();
-                mAdapter.notifyItemChanged(position);
+                mSchoolList = mAdapter.getSchoolItemList();
+                SchoolItem schoolItem = mSchoolList.get(position);
                 Intent intent = new Intent(HomeFragment.super.getContext(), schoolInfoUI.class);
-                School school = schoolArrayList.get(position);
+                School school = schools.get(schoolItem.getSchoolName());
 
                 String schoolName = school.getSchoolName();
                 String course = school.getMainCode();
@@ -423,6 +422,9 @@ public class HomeFragment extends Fragment implements SortByDialogFragment.SortB
             case R.id.searchButton:
         }
     }
+
+
+
 
     public RecyclerView getmRecyclerView() {
         return mRecyclerView;

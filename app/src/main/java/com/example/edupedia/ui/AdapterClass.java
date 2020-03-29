@@ -28,11 +28,12 @@ import java.util.List;
 
 public class AdapterClass extends RecyclerView.Adapter<AdapterClass.ExampleViewHolder>
         implements Filterable, HomeFragment.SortEventListener {
-    private final ArrayList<SchoolItem> schoolItemList;
+    private ArrayList<SchoolItem> schoolItemList;
     private ArrayList<SchoolItem> schoolItemListFull;
     private OnItemClickListener mListener;
     private HashMap<String, School> schoolHashMap;
     private ArrayList<School> schoolList;
+
 
     public AdapterClass(ArrayList <SchoolItem> schoolList){
         schoolItemList = schoolList;
@@ -223,7 +224,7 @@ public class AdapterClass extends RecyclerView.Adapter<AdapterClass.ExampleViewH
         public ImageView mWatchListSelect;
         public ImageView mCompareSelect;
 
-        public ExampleViewHolder(View itemView, final OnItemClickListener listener) {
+        public ExampleViewHolder(View itemView, OnItemClickListener listener) {
             super(itemView);
             mImageView = itemView.findViewById(R.id.school_img);
             schoolName = itemView.findViewById(R.id.school_name);
@@ -298,7 +299,11 @@ public class AdapterClass extends RecyclerView.Adapter<AdapterClass.ExampleViewH
         if(!ascending) {
             Collections.reverse(schoolItemList);
         }
+
         notifyDataSetChanged();
     }
 
+    public ArrayList<SchoolItem> getSchoolItemList() {
+        return schoolItemList;
+    }
 }
