@@ -116,7 +116,7 @@ public class GoogleMapsActivity extends AppCompatActivity implements OnMapReadyC
                 }
             }
         });
-        GoogleMapsDistance.setGoogleMapsActivity(this);
+        //GoogleMapsDistance.setGoogleMapsActivity(this);
     }
 
     private void geoLocate(View view) {
@@ -148,6 +148,7 @@ public class GoogleMapsActivity extends AppCompatActivity implements OnMapReadyC
             List<Address> addressList = geocoder.getFromLocationName(locationName, 1);
             if (addressList.size() == 1) {
                 this.address = addressList.get(0);
+                Log.d(TAG, "geoLocate: Address: " + address.getMaxAddressLineIndex());
             }
             else {
                 for (Address address : addressList) {
@@ -160,7 +161,7 @@ public class GoogleMapsActivity extends AppCompatActivity implements OnMapReadyC
     }
     private String reverseGeolocate(double latitude, double longitude) throws IOException {
         Geocoder geocoder = new Geocoder(this, Locale.getDefault());
-        geocoder = new Geocoder(this, Locale.getDefault());
+        //geocoder = new Geocoder(this, Locale.getDefault());
         String addressStr = null;
         try {
             List<Address> addresses = geocoder.getFromLocation(latitude, longitude, 1); // Here 1 represent max location result to returned, by documents it recommended 1 to 5

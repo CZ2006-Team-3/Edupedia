@@ -3,6 +3,7 @@ package com.example.edupedia.ui;
 import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.os.AsyncTask;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,7 +12,10 @@ import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.example.edupedia.R;
+import com.example.edupedia.controller.SearchController;
 import com.example.edupedia.controller.SortController;
+import com.example.edupedia.model.School;
+import com.example.edupedia.model.SchoolReader;
 import com.example.edupedia.ui.home.HomeFragment;
 
 import androidx.annotation.NonNull;
@@ -27,6 +31,8 @@ public class AdapterClass extends RecyclerView.Adapter<AdapterClass.ExampleViewH
     private ArrayList<SchoolItem> schoolItemList;
     private ArrayList<SchoolItem> schoolItemListFull;
     private OnItemClickListener mListener;
+    private HashMap<String, School> schoolHashMap;
+    private ArrayList<School> schoolList;
 
     public AdapterClass(ArrayList <SchoolItem> schoolList){
         schoolItemList = schoolList;
@@ -34,6 +40,13 @@ public class AdapterClass extends RecyclerView.Adapter<AdapterClass.ExampleViewH
             schoolItemListFull = new ArrayList<>(schoolItemList);
         else schoolItemListFull = new ArrayList<>();
     }
+    /*
+    public AdapterClass(HashMap<String, School> schools) {
+        schoolHashMap = schools;
+    }*/
+    /*public AdapterClass(ArrayList<School> schoolList) {
+        this.schoolList = schoolList;
+    }*/
 
     @Override
     public void onRequestSort(int sort_variable, boolean sort_ascending) {
@@ -77,6 +90,7 @@ public class AdapterClass extends RecyclerView.Adapter<AdapterClass.ExampleViewH
 
     public Filter getFilter() { return schoolFilter; }
 
+    //the dynamic search for filter
     private Filter schoolFilter = new Filter() {
         @Override
         protected FilterResults performFiltering(CharSequence charSequence) {
@@ -103,6 +117,7 @@ public class AdapterClass extends RecyclerView.Adapter<AdapterClass.ExampleViewH
         }
     };
 
+
     public Filter getAdvancedFilter() { return advancedFilter; }
 
     private Filter advancedFilter = new Filter() {
@@ -126,6 +141,24 @@ public class AdapterClass extends RecyclerView.Adapter<AdapterClass.ExampleViewH
             notifyDataSetChanged();
         }
     };
+    public void updateDistance(String schoolName, double distance) {
+       // Log.d("UIStuff", "Distance Updated" + schoolItemListFull.size());
+
+        for (int i = 0; i < schoolItemListFull.size(); i++) {
+            //Log.d("UIStuff", "SchoolItem: " + schoolItem.getSchoolName());
+            //Log.d("UIStuff", "SchoolName: " + schoolName);
+            if (schoolItemListFull.get(i).getSchoolName().equals(schoolName)) {
+                schoolItemListFull.get(i).setDistance(distance);
+                Log.d("UIStuff", "Distance Updated: " + distance + ", School: " + schoolName);
+                notifyItemChanged(i);
+                break;
+            }
+        }
+        /*SchoolItem schoolItem = schoolItemHashMap.get(schoolName);
+        schoolItem.setDistance(distance);
+        notifyDataSetChanged();*/
+    }
+
 
     public List<SchoolItem> applyAdvancedFilter(ArrayList<SchoolItem> SchoolItemListFull, CharSequence message){
         ArrayList<String> regions = new ArrayList<>();
@@ -207,7 +240,6 @@ public class AdapterClass extends RecyclerView.Adapter<AdapterClass.ExampleViewH
                         if (position != RecyclerView.NO_POSITION){
                             listener.onItemClick(position);
                         }
-
                     }
                 }
             });
@@ -220,7 +252,6 @@ public class AdapterClass extends RecyclerView.Adapter<AdapterClass.ExampleViewH
                         if (position != RecyclerView.NO_POSITION){
                             listener.onWatchListSelect(position);
                             mWatchListSelect.setBackgroundResource(R.drawable.icon_awesome_star_yello);
-
                         }
 
                     }
@@ -240,10 +271,7 @@ public class AdapterClass extends RecyclerView.Adapter<AdapterClass.ExampleViewH
                     }
                 }
             });
-
         }
-
-
     }
 
     private void sortBy(int sort_variable, boolean ascending) {

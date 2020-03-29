@@ -1,15 +1,6 @@
 package com.example.edupedia.ui;
 
-import android.content.Context;
-import android.content.Intent;
-import android.content.SharedPreferences;
-import android.widget.Toast;
-
 import com.example.edupedia.controller.WatchlistController;
-import com.example.edupedia.ui.StartUI;
-import com.example.edupedia.ui.home.HomeFragment;
-import com.example.edupedia.model.School;
-import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.Comparator;
 
@@ -21,7 +12,7 @@ import static android.content.Context.MODE_PRIVATE;
 public class SchoolItem {
     private int mImageResource;
     private String schoolName;
-    private String distaceInfo;
+    private String distanceInfo;
     private String gradeCutOff;
     private String publicTransport;
     private String drivingTime;
@@ -48,7 +39,7 @@ public class SchoolItem {
                       String region, String type, String ip){
         mImageResource = ImageResource;
         schoolName = SchoolName;
-        distaceInfo = Distance_Calculated;
+        distanceInfo = Distance_Calculated;
         gradeCutOff = GradecutOff;
         this.region = region;
         this.type = type;
@@ -66,7 +57,7 @@ public class SchoolItem {
     public SchoolItem(int ImageResource, String SchoolName, String GradecutOff, String Distance_Calculated){
         mImageResource = ImageResource;
         schoolName = SchoolName;
-        distaceInfo = Distance_Calculated;
+        distanceInfo = Distance_Calculated;
         gradeCutOff = GradecutOff;
     }
 
@@ -110,7 +101,7 @@ public class SchoolItem {
                       String region, String type, String ip){
         mImageResource = ImageResource;
         schoolName = SchoolName;
-        distaceInfo = Distance_Calculated;
+        distanceInfo = Distance_Calculated;
         gradeCutOff = gradecutOff;
         publicTransport = publicTiming;
         drivingTime = driving_time;
@@ -148,7 +139,7 @@ public class SchoolItem {
      * @return distance info
      */
     public String getDistanceInfo() {
-        return distaceInfo;
+        return distanceInfo;
     }
 
     /**
@@ -162,6 +153,10 @@ public class SchoolItem {
      * @return
      */
     public String getDrivingTime() { return drivingTime; }
+
+    public void setDistance(double distance) {
+        distanceInfo = String.valueOf(distance);
+    }
 
     //    public static Comparator<SchoolItem> DrivingTimeComparator = new Comparator<SchoolItem>() {
 //        @Override
@@ -183,8 +178,8 @@ public class SchoolItem {
     public static Comparator<SchoolItem> DistanceComparator = new Comparator<SchoolItem>() {
         @Override
         public int compare(SchoolItem school, SchoolItem school2) {
-            float schoolDistance = Float.parseFloat(school.distaceInfo.split(" ")[1]);
-            float schoolDistance2 = Float.parseFloat(school2.distaceInfo.split(" ")[1]);
+            float schoolDistance = Float.parseFloat(school.distanceInfo.split(" ")[1]);
+            float schoolDistance2 = Float.parseFloat(school2.distanceInfo.split(" ")[1]);
 
             return Float.compare(schoolDistance, schoolDistance2);
         }

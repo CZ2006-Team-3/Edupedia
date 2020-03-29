@@ -7,6 +7,7 @@ import com.example.edupedia.ui.SchoolItem;
 import android.os.Build;
 import android.util.Log;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 import androidx.lifecycle.MutableLiveData;
@@ -29,8 +30,27 @@ public class SearchController extends ViewModel {
     private MutableLiveData<ArrayList<String>> textFilterRegion, textFilterSchoolType, textFilterIP;
     private EditText editLocation;
     private SortController sortController = SortController.getInstance();
+/*
+    public ArrayList<School> getDistances(ArrayList<School> schools) {
+        try {
+           // for (School school : schools) {
+                GoogleMapsDistance googleMapsDistance = new GoogleMapsDistance();
+                //ArrayList<School>, String passed in
+                schools = googleMapsDistance.execute(schools, getTextFilterLocation().getValue()).get();
+                //Toast.makeText(this, school.getAddress(),Toast.LENGTH_SHORT);
+                //Log.e("School location:", school.getAddress());
+            //}
+        }
+        catch (ExecutionException e) {
 
-    public void storeFilterSettings() {
+        }
+        catch (InterruptedException e) {
+
+        }
+        return schools;
+    }*/
+
+        public void storeFilterSettings() {
         //1. Save Filter Settings to Internal Storage
         JSONObject jsonFilter = new JSONObject();
         try {
@@ -60,7 +80,6 @@ public class SearchController extends ViewModel {
                     ))
                 results.add(school.getSchoolName());
         }
-        //somehow when location is clicked
         return results;
     }
 
@@ -178,6 +197,7 @@ public class SearchController extends ViewModel {
         }
         return map;
     }
+    /*
     public ArrayList<School> getDistances(ArrayList<School> schools) {
         for (School school: schools) {
             String loc = getTextFilterLocation().getValue();
@@ -185,7 +205,7 @@ public class SearchController extends ViewModel {
             Log.e("School location:", school.getAddress());
         }
         return schools;
-    }
+    }*/
 
     public ArrayList<String> retrieveResults(HashMap<String, School> db) {
         DataStoreInterface dataStore = DataStoreFactory.getDatastore("Results");
@@ -209,6 +229,7 @@ public class SearchController extends ViewModel {
     public ArrayList<School> generateSchools(HashMap<String, School> db, ArrayList<String> results) {
        if(results==null) return new ArrayList<>();
         ArrayList<School> schoolList = new ArrayList<>();
+        ArrayList<SchoolItem> schoolItemList = new ArrayList<>();
         for (String name : results){
             schoolList.add(db.get(name));
         }

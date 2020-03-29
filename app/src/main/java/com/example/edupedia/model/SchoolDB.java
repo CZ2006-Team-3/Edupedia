@@ -29,7 +29,13 @@ public class SchoolDB {
     }
 
     public HashMap<String, School> getValue() {
-        if(db==null) loadDB();
+        if(db==null) {
+            Log.d("SchDB", "Is null");
+            loadDB();
+        }
+        else {
+            Log.d("SchDB", "Is Not NULL");
+        }
         return db;
     }
 

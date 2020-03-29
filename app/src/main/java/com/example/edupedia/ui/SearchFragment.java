@@ -1,8 +1,11 @@
 package com.example.edupedia.ui;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Looper;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,13 +21,17 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.edupedia.R;
 import com.example.edupedia.controller.GoogleMapsActivity;
+import com.example.edupedia.controller.GoogleMapsDistance;
 import com.example.edupedia.controller.SortController;
 import com.example.edupedia.model.School;
 import com.example.edupedia.model.SchoolDB;
@@ -79,7 +86,6 @@ public class SearchFragment extends Fragment implements
      */
     public static final int RESULT_CANCELED = 0;
 
-
     @Nullable
     @Override
     /**
@@ -89,7 +95,18 @@ public class SearchFragment extends Fragment implements
 
         viewModel = new ViewModelProvider(this).get(SearchController.class);
         View rootview = inflater.inflate(R.layout.fragment_search, container, false);
-
+        /*if (getFragmentManager().findFragmentById(R.id.fragment_container) != null) {
+            Fragment currentFragment = getFragmentManager().findFragmentById(R.id.fragment_container);
+            if (currentFragment instanceof SearchFragment) {
+                Log.e("UIStuff", "Is Instance of Search");
+            }
+            if (currentFragment instanceof HomeFragment) {
+                Log.e("UIStuff", "Is Instance of Home");
+            }
+            if (currentFragment.isVisible()) {
+                Log.e("UIStuff", "Is Vis");
+            }
+        }*/
         schoolDB = new SchoolDB(getContext());
         schools = schoolDB.getValue();
 
@@ -124,7 +141,6 @@ public class SearchFragment extends Fragment implements
         String s = viewModel.getTextFilterEdLevel().getValue();  //retrieve from filter.json
         dropdown_education.setSelection((s!=null)? adapter.getPosition(s): adapter.getCount());
         textFilterEdLevel = (TextView) dropdown_education.getSelectedView();
-
 
         ///Spinner 2 ////////////////////////////////
         dropdown_gradeCut_Off = (Spinner) rootview.findViewById(R.id.gradeCut_Off);
@@ -165,7 +181,7 @@ public class SearchFragment extends Fragment implements
                 }
                 ((TextView)v.findViewById(android.R.id.text1)).setTextColor(Color.BLACK);
                 textFilterGradeCutOff = v.findViewById(android.R.id.text1);
-                Log.d(TAG, "at spinner 2 psle " + textFilterGradeCutOff.getText().toString());
+                Log.d(TAG, "At Spinner 2 PSLE " + textFilterGradeCutOff.getText().toString());
                 return v;
             }
 
@@ -227,7 +243,6 @@ public class SearchFragment extends Fragment implements
                         dropdown_gradeCut_Off.setAdapter(emptyAdapter);
                         dropdown_gradeCut_Off.setSelection(0);
                         break;
-
                 }
             }
 
@@ -266,8 +281,6 @@ public class SearchFragment extends Fragment implements
         s = viewModel.getTextFilterNature().getValue(); //retrieve from filter.json
         dropdown_preffered_stream.setSelection((s!=null)? adapter3.getPosition(s):adapter3.getCount());
         textFilterNature = (TextView) dropdown_preffered_stream.getSelectedView();
-
-
         textFilterLocation = (TextView) rootview.findViewById(R.id.locationEnter);
         ///Click on Location button brings you to map view
         //Starts GoogleMapsActivity-> GoogleMapsActivity returns a result to be displayed in text views
@@ -280,9 +293,9 @@ public class SearchFragment extends Fragment implements
             }
         });
 
-
         ImageButton searchButton = (ImageButton) rootview.findViewById(R.id.findInstitute);
         searchButton.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onClick(View v) {
                 Log.d(TAG, "searchButton is clicked!");
@@ -300,15 +313,52 @@ public class SearchFragment extends Fragment implements
                 //Store List of School Names
                 viewModel.storeResults(results);
                 //shift Fragment here
+                //gets list of schools based on hashmap of schools and names from basic search
+                ArrayList<School> schoolList = viewModel.generateSchools(schools, results);
+                //this should be here instead of home fragment because it doesnt make sense for the home f ragment to get distances everytime u press home button
+               // Caused by: java.lang.NullPointerException: Attempt to invoke virtual method 'android.location.Address com.example.edupedia.controller.GoogleMapsActivity.geoLocate2(java.lang.String)' on a null object reference
                 HomeFragment homeFragment = new HomeFragment();
-                FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
-                ft.replace(R.id.fragment_container, homeFragment).commit();
+                homeFragment.setSchoolList(schoolList);
+                homeFragment.createSchoolList();
+                ArrayList<SchoolItem> schoolItemList = homeFragment.getSchoolItemList();
+                //SchoolDB schoolDB = homeFragment.getSchoolDB();
+                FragmentTransaction ft = getFragmentManager().beginTransaction();
+                ft.replace(R.id.fragment_container, homeFragment, "Home Fragment").commit();
+                //RecyclerView recyclerView = homeFragment.getmRecyclerView(); this is null.
+                /*if (recyclerView == null) {
+                    Log.d("UIStuff", "recycler view null");
+                }*/
+                new GoogleMapsDistance(homeFragment, getContext(), schoolItemList, schoolList, textFilterLocation.getText().toString()).execute();
+
+                /*Intent intent = new Intent(v.getContext(), GoogleMapsDistance.class);
+                intent.putExtra("School List", schoolList);
+                intent.putExtra("User Location", textFilterLocation.getText().toString());
+                startActivity(intent);*/
+
+                if (Looper.getMainLooper().getThread() == Thread.currentThread()) {
+                    //ok this runs while the background gets the google maps
+                    Log.e("UIStuff", "Search Frag On UI Thread");
+                } else {
+                    Log.e("UIStuff", "Search Frag Not on UI Thread");
+                }
+                if (getFragmentManager().findFragmentById(R.id.fragment_container) != null) {
+                    Fragment currentFragment = getFragmentManager().findFragmentById(R.id.fragment_container);
+                    if (currentFragment instanceof SearchFragment) {
+                        Log.e("UIStuff", "Is Instance of Search");
+                    }
+                    if (currentFragment instanceof HomeFragment) {
+                        Log.e("UIStuff", "Is Instance of Home");
+                    }
+                    if (currentFragment.isVisible()) {
+                        Log.e("UIStuff", "Is Vis");
+                    }
+                }
+                Log.e("UIStuff", "Called1");
             }
         });
-
+        Log.e("UIStuff", "Called3");
         return rootview;
     }
-
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -319,11 +369,10 @@ public class SearchFragment extends Fragment implements
                 //Toast.makeText()
                 Log.d("Address:", result);
                 textFilterLocation.setText(result);
-
             }
             if (resultCode == RESULT_CANCELED) {
                 //Write your code if there's no result
-                Log.d("There is nothing!", "NOTHING");
+
             }
         }
     }//onActivityResult

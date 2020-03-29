@@ -27,6 +27,7 @@
         <activity android:name=".ui.MainNavigationUI"></activity>
         <activity android:name=".ui.home.schoolInfoUI"></activity>
         <activity android:name=".controller.GoogleMapsActivity"></activity>
+        <activity android:name=".controller.GoogleMapsDistance"></activity>
         <activity android:name=".ui.ChangePassword"
             android:theme="@style/AppTheme.CustomTheme"
             ></activity>

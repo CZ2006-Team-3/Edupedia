@@ -13,18 +13,18 @@ import java.net.ProtocolException;
 import java.net.URL;
 
 
-public class HttpHandler extends AsyncTask<String, Void, String> {
+public class HttpHandler {//extends AsyncTask<String, Void, String> {
     private static final String TAG = HttpHandler.class.getSimpleName();
-    @Override
-    protected void onPostExecute(String result){
+    //@Override
+    /*protected void onPostExecute(String result){
         super.onPostExecute(result);
-    }
-    @Override
-    protected String doInBackground(String... params) {
+    }*/
+    //@Override
+    public String makeServiceCall(String reqURL) {
         String response = null;
         try {
-            URL url = new URL(params[0]);
-            Log.d("URL", params[0]);
+            URL url = new URL(reqURL);
+            Log.d("URL", reqURL);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("GET");
             conn.connect();

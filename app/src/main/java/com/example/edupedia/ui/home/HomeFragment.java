@@ -4,12 +4,15 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Looper;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
@@ -53,6 +56,7 @@ import com.google.firebase.auth.FirebaseUser;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class HomeFragment extends Fragment implements SortByDialogFragment.SortByDialogListener,
                                                         View.OnClickListener, AdvFilterDialogFragment.AdvFilterDialogListener{
@@ -90,23 +94,44 @@ public class HomeFragment extends Fragment implements SortByDialogFragment.SortB
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View layout = inflater.inflate(R.layout.fragment_home, container, false);
-        searchController = new ViewModelProvider(this).get(SearchController.class);
+       /* if (Looper.getMainLooper().getThread() == Thread.currentThread()) {
+            //ok this runs while the background gets the google maps
+            Log.e("UIStuff", "Home Fragment On UI Thread");
+        } else {
+            Log.e("UIStuff", "Home Fragment Not on UI Thread");
+        }*/
 
+        View layout = inflater.inflate(R.layout.fragment_home, container, false);
+      /*  if (getFragmentManager().findFragmentById(R.id.fragment_container) != null) {
+            Fragment currentFragment = getFragmentManager().findFragmentById(R.id.fragment_container);
+            if (currentFragment instanceof SearchFragment) {
+                Log.e("UIStuff", "Is Instance of Search");
+            }
+            if (currentFragment instanceof HomeFragment) {
+                Log.e("UIStuff", "Is Instance of Home");
+            }
+            if (currentFragment.isVisible()) {
+                Log.e("UIStuff", "Is Vis");
+            }
+        }*/
+        searchController = new ViewModelProvider(this).get(SearchController.class);
         ImageButton toSort = (ImageButton) layout.findViewById(R.id.sortButton);
         ImageButton filter = (ImageButton) layout.findViewById(R.id.filterButton);
         SearchView searchButton = (SearchView) layout.findViewById(R.id.searchButton);
 
-
-
         schoolDB = new SchoolDB(getContext());
         schools = schoolDB.getValue();
+        Log.d("SchDB", "Loaded");
 
         //retrieving results from background files
+        //whenever home is called the distance is not updated in these schools
         ArrayList<String> results = searchController.retrieveResults(schools);
+        Log.d("HomeFragment", String.valueOf(results));
+        //gets a list of schools based on a string of school names
         schoolArrayList = searchController.generateSchools(schools, results);
-        //idk why this is called twice tbh.
-        schoolArrayList = searchController.getDistances(schoolArrayList);
+        Toast.makeText(getContext(), "Home Fragment", Toast.LENGTH_SHORT);
+        Log.d("UIStuff", "here");
+        //schoolArrayList = searchController.getDistances(schoolArrayList);
         toSort.setOnClickListener(this);
 /*
         toSort.setOnClickListener(new View.OnClickListener() {
@@ -119,7 +144,7 @@ public class HomeFragment extends Fragment implements SortByDialogFragment.SortB
                   sortBy.show(ft, "dialog");
               }
         });*/
-        toSort.setOnClickListener(this);
+        //toSort.setOnClickListener(this);
 //        toSort.setOnClickListener(new View.OnClickListener() {
 //              @Override
 //              public void onClick(View v) {
@@ -155,6 +180,7 @@ public class HomeFragment extends Fragment implements SortByDialogFragment.SortB
 
         createSchoolList();
         buildRecyclerView(layout);
+        Log.d("UIStuff", "Built Here");
         return layout;
     }
 
@@ -376,12 +402,9 @@ public class HomeFragment extends Fragment implements SortByDialogFragment.SortB
         mAdapter.getAdvancedFilter().filter(message);
     }
 
-
-
-
     @Override
     public void onClick(View view) {
-
+        //FragmentTransaction ft = getChildFragmentManager().beginTransaction();
         switch(view.getId()) {
             case R.id.sortButton:
                 FragmentTransaction ft = getChildFragmentManager().beginTransaction();
@@ -399,4 +422,21 @@ public class HomeFragment extends Fragment implements SortByDialogFragment.SortB
             case R.id.searchButton:
         }
     }
+
+    public RecyclerView getmRecyclerView() {
+        return mRecyclerView;
+    }
+    public ArrayList<SchoolItem> getSchoolItemList() {
+        return this.mSchoolList;
+    }
+    public HashMap<String, School> getSchoolDB() {
+        return this.schools;
+    }
+    public AdapterClass getAdapter() {
+        return this.mAdapter;
+    }
+    public void setSchoolList(ArrayList<School> schoolList) {
+        this.schoolArrayList = schoolList;
+    }
+    public void setSchoolDB(HashMap<String, School> schools) {this.schools = schools;}
 }
