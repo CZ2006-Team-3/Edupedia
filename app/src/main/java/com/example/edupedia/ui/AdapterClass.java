@@ -28,7 +28,7 @@ import java.util.List;
 
 public class AdapterClass extends RecyclerView.Adapter<AdapterClass.ExampleViewHolder>
         implements Filterable, HomeFragment.SortEventListener {
-    private ArrayList<SchoolItem> schoolItemList;
+    private final ArrayList<SchoolItem> schoolItemList;
     private ArrayList<SchoolItem> schoolItemListFull;
     private OnItemClickListener mListener;
     private HashMap<String, School> schoolHashMap;

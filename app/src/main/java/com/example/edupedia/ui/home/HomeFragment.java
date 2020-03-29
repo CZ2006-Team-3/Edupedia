@@ -82,9 +82,10 @@ public class HomeFragment extends Fragment implements SortByDialogFragment.SortB
     private AdapterClass mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
     private SortController sortController;
+    private SchoolDB schoolDB;
     private HashMap<String, School> schools;
     private ArrayList<School> schoolArrayList;
-    private SchoolDB schoolDB;
+
     private WatchlistController watchlistController = WatchlistController.getInstance();
     private AdvFilterDialogFragment advFilter = new AdvFilterDialogFragment();
     private SearchController searchController;
@@ -430,7 +431,7 @@ public class HomeFragment extends Fragment implements SortByDialogFragment.SortB
         return this.mSchoolList;
     }
     public HashMap<String, School> getSchoolDB() {
-        return this.schools;
+        return schools;
     }
     public AdapterClass getAdapter() {
         return this.mAdapter;
