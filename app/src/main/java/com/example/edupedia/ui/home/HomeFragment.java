@@ -263,6 +263,7 @@ public class HomeFragment extends Fragment implements SortByDialogFragment.SortB
                 String schoolName = school.getSchoolName();
                 String course = school.getMainCode();
                 Integer grade;
+                String url = school.getUrlAddress();
                 if (school.getMainCode().equals("SECONDARY")) {
                     grade = school.getGradePSLE();
                 }
@@ -281,6 +282,7 @@ public class HomeFragment extends Fragment implements SortByDialogFragment.SortB
                 intent.putExtra("drive", drive);
                 intent.putExtra("dist", dist);
                 intent.putExtra("publicTime", publicTime);
+                intent.putExtra("url", url);
                 startActivity(intent);
             }
             @Override

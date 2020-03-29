@@ -20,13 +20,14 @@ public class schoolInfoUI extends Activity{
     private TextView publicTime;
     private TextView dist;
     private TextView drive;
+    private TextView url;
     private ImageView schoolLogo;
     private ImageView courseLogo;
     private ImageView gradeLogo;
     private ImageView drivingLogo;
     private ImageView distanceLogo;
     private ImageView trainLogo;
-
+    private ImageView urlLogo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,20 +41,21 @@ public class schoolInfoUI extends Activity{
         drive = findViewById(R.id.drivingTime);
         dist = findViewById(R.id.distance);
         publicTime = findViewById(R.id.publicTransportTiming);
+        url = findViewById(R.id.url_display);
         schoolLogo = findViewById(R.id.schoolIcon);
         courseLogo = findViewById(R.id.courseIcon);
         gradeLogo = findViewById(R.id.gradeIcon);
         drivingLogo = findViewById(R.id.drivingIcon);
         distanceLogo = findViewById(R.id.distanceIcon);
         trainLogo = findViewById(R.id.trainIcon);
-
+        urlLogo = findViewById(R.id.web);
         schoolLogo.setImageResource(R.drawable.school);
         courseLogo.setImageResource(R.drawable.course);
         gradeLogo.setImageResource(R.drawable.grade);
         drivingLogo.setImageResource(R.drawable.driving_time);
         distanceLogo.setImageResource(R.drawable.distance);
         trainLogo.setImageResource(R.drawable.public_transport);
-
+        urlLogo.setImageResource(R.drawable.web);
 
         setData(extras);
     }
@@ -69,6 +71,7 @@ public class schoolInfoUI extends Activity{
         drive.setText(String.format("%.2f", extras.getDouble("drive")));
         dist.setText(String.format("%.2f", extras.getDouble("dist")));
         publicTime.setText(String.format("%.2f", extras.getDouble("publicTime")));
+        url.setText(extras.getString("url"));
     }
 
 }
