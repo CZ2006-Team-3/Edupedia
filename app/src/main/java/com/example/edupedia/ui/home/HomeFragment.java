@@ -259,6 +259,7 @@ public class HomeFragment extends Fragment implements SortByDialogFragment.SortB
                 Intent intent = new Intent(HomeFragment.super.getContext(), schoolInfoUI.class);
                 School school = schools.get(schoolItem.getSchoolName());
 
+                assert school != null;
                 String schoolName = school.getSchoolName();
                 String course = school.getMainCode();
                 Integer grade;
