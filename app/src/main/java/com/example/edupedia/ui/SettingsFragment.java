@@ -1,7 +1,6 @@
 package com.example.edupedia.ui;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,12 +14,7 @@ import androidx.fragment.app.Fragment;
 
 import com.example.edupedia.R;
 import com.example.edupedia.controller.UserController;
-import com.example.edupedia.controller.WatchlistController;
-import com.example.edupedia.model.School;
-import com.example.edupedia.ui.Compare.CompareViewModel;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 
 public class SettingsFragment extends Fragment {
     private TextView Name;
@@ -53,7 +47,7 @@ public class SettingsFragment extends Fragment {
         Email.setText(userController.getEmail());
 
         ImageButton changePassword=(ImageButton) rootview.findViewById(R.id.ChangePasswordButton);
-        ImageButton changeUsername=(ImageButton) rootview.findViewById(R.id.ChangeUsernameButton);
+        ImageButton changeUsername=(ImageButton) rootview.findViewById(R.id.ChangeEmailButtonSettings);
         ImageButton logOut=(ImageButton) rootview.findViewById(R.id.LogOutButton);
 
         changeUsername.setOnClickListener(new View.OnClickListener(){

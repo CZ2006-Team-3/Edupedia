@@ -26,6 +26,9 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 
+/**
+ * adapter class for implementing recycler view
+ */
 public class AdapterClass extends RecyclerView.Adapter<AdapterClass.ExampleViewHolder>
         implements Filterable, HomeFragment.SortEventListener {
     private ArrayList<SchoolItem> schoolItemList;
@@ -34,6 +37,10 @@ public class AdapterClass extends RecyclerView.Adapter<AdapterClass.ExampleViewH
     private HashMap<String, School> schoolHashMap;
     private ArrayList<School> schoolList;
 
+    /**
+     * adapter class constructor
+     * @param schoolList
+     */
 
     public AdapterClass(ArrayList <SchoolItem> schoolList){
         schoolItemList = schoolList;

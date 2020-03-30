@@ -13,8 +13,8 @@
 
         <ImageView
             android:id="@+id/schoolIcon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="58dp"
+            android:layout_height="46dp"
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
             android:layout_marginStart="24dp"
@@ -31,15 +31,16 @@
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
             android:layout_marginStart="36dp"
-            android:layout_marginTop="164dp"
+            android:layout_marginTop="156dp"
             android:text="School Name"
+            android:gravity="left|center"
             app:layout_constraintStart_toEndOf="@+id/schoolIcon"
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
             android:id="@+id/courseIcon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="58dp"
+            android:layout_height="46dp"
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
             android:layout_marginStart="24dp"
@@ -55,15 +56,16 @@
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
             android:layout_marginStart="36dp"
-            android:layout_marginTop="44dp"
+            android:layout_marginTop="12dp"
+            android:gravity="left|center"
             android:text="Course Name"
             app:layout_constraintStart_toEndOf="@+id/courseIcon"
             app:layout_constraintTop_toBottomOf="@+id/schoolName" />
 
         <ImageView
             android:id="@+id/gradeIcon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="58dp"
+            android:layout_height="46dp"
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
             android:layout_marginStart="24dp"
@@ -80,15 +82,16 @@
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
             android:layout_marginStart="36dp"
-            android:layout_marginTop="44dp"
+            android:layout_marginTop="8dp"
             android:text="Grade CutOff"
+            android:gravity="left|center"
             app:layout_constraintStart_toEndOf="@+id/gradeIcon"
             app:layout_constraintTop_toBottomOf="@+id/courseName" />
 
         <ImageView
             android:id="@+id/drivingIcon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="58dp"
+            android:layout_height="46dp"
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
             android:layout_marginStart="24dp"
@@ -105,15 +108,16 @@
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
             android:layout_marginStart="36dp"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="16dp"
+            android:gravity="left|center"
             android:text="Driving Time"
             app:layout_constraintStart_toEndOf="@+id/drivingIcon"
             app:layout_constraintTop_toBottomOf="@+id/gradeCut" />
 
         <ImageView
             android:id="@+id/distanceIcon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="58dp"
+            android:layout_height="46dp"
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
             android:layout_marginStart="24dp"
@@ -130,15 +134,16 @@
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
             android:layout_marginStart="36dp"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="12dp"
+            android:gravity="left|center"
             android:text="Distance"
             app:layout_constraintStart_toEndOf="@+id/distanceIcon"
             app:layout_constraintTop_toBottomOf="@+id/drivingTime" />
 
         <ImageView
             android:id="@+id/trainIcon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="58dp"
+            android:layout_height="46dp"
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
             android:layout_marginStart="24dp"
@@ -155,22 +160,23 @@
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
             android:layout_marginStart="36dp"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="8dp"
+            android:gravity="left|center"
             android:text="Public Transport Timing"
             app:layout_constraintStart_toEndOf="@+id/trainIcon"
             app:layout_constraintTop_toBottomOf="@+id/distance" />
 
         <ImageView
             android:id="@+id/web"
-            android:layout_width="74dp"
-            android:layout_height="118dp"
+            android:layout_width="58dp"
+            android:layout_height="46dp"
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
             android:layout_marginStart="24dp"
             android:layout_marginTop="4dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/trainIcon"
-            app:srcCompat="@drawable/web" />
+            app:srcCompat="@drawable/group007" />
 
         <TextView
             android:id="@+id/url_display"
@@ -180,8 +186,10 @@
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
             android:layout_marginStart="36dp"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="12dp"
             android:autoLink="web"
+            android:gravity="left|center"
+            android:text="url link"
             app:layout_constraintStart_toEndOf="@+id/web"
             app:layout_constraintTop_toBottomOf="@+id/publicTransportTiming" />
 
@@ -195,8 +203,19 @@
             android:layout_marginStart="36dp"
             android:layout_marginTop="16dp"
             android:text="Not found"
+            android:gravity="left|center"
             app:layout_constraintStart_toEndOf="@+id/web"
             app:layout_constraintTop_toBottomOf="@+id/url_display" />
 
+        <ImageView
+            android:id="@+id/banner"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:srcCompat="@drawable/group008" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

@@ -137,7 +137,7 @@
         android:layout_marginBottom="303dp" />
 
     <ImageButton
-        android:id="@+id/ChangeUsernameButton"
+        android:id="@+id/ChangeEmailButtonSettings"
         android:layout_width="wrap_content"
         android:layout_height="64dp"
         android:layout_alignParentStart="true"
@@ -151,7 +151,7 @@
         android:adjustViewBounds="true"
         android:background="#00000000"
         android:scaleType="fitCenter"
-        android:src="@drawable/group57" />
+        android:src="@drawable/group401" />
 
     <ImageButton
         android:id="@+id/ChangePasswordButton"
