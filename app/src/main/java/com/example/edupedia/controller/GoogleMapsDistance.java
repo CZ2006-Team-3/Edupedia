@@ -15,6 +15,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Serializable;
+import java.lang.ref.WeakReference;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
@@ -76,29 +77,33 @@ public class GoogleMapsDistance //extends AppCompatActivity
     }*/
 
     //protected class distanceTask extends AsyncTask<Object, Void, ArrayList<School>> {
-        private AdapterClass adapterClass;
-        private GoogleMapsActivity googleMaps;
-        private Context mContext;
-        private HashMap<String, School> schoolHashMap;
-        private ArrayList<School> schoolList;
-        private ArrayList<SchoolItem> schoolItemList;
-        private RecyclerView recyclerView;
-        private String userLocation;
-        private HomeFragment homeFragment;
-        private HashMap<String, School> schoolDB;
+    private AdapterClass adapterClass;
+    private static GoogleMapsActivity googleMaps;
+    private Context mContext;
+    private HashMap<String, School> schoolHashMap;
+    private ArrayList<School> schoolList;
+    private ArrayList<SchoolItem> schoolItemList;
+    private RecyclerView recyclerView;
+    private String userLocation;
+    private HomeFragment homeFragment;
+    private HashMap<String, School> schoolDB;
 
-        public GoogleMapsDistance(HomeFragment homeFragment, Context context, ArrayList<SchoolItem> schoolItemList, ArrayList<School> schoolList,
-                                  String userLocation) {
-            this.mContext = context;
-            this.schoolList = schoolList;
-            this.schoolItemList = schoolItemList;
-            //this.recyclerView = recyclerView;
-            this.userLocation = userLocation;
-            this.homeFragment = homeFragment;
-        }
 
-        protected void onPreExecute() {
-            googleMaps = new GoogleMapsActivity();
+    public GoogleMapsDistance(HomeFragment homeFragment, Context context, ArrayList<SchoolItem> schoolItemList, ArrayList<School> schoolList,
+                              String userLocation) {
+        this.mContext = context;
+        this.schoolList = schoolList;
+        this.schoolItemList = schoolItemList;
+        //this.recyclerView = recyclerView;
+        this.userLocation = userLocation;
+        this.homeFragment = homeFragment;
+    }
+
+
+
+    protected void onPreExecute() {
+//            googleMaps;
+
             //recyclerView.setAdapter(adapterClass);
 
             //adapterClass = new AdapterClass(schools);
@@ -261,10 +266,9 @@ public class GoogleMapsDistance //extends AppCompatActivity
             }
             adapterClass.updateDistance(schoolName, distance); //include a write to csv function maybe
         }
-    }
 
-
-   /* public static void setGoogleMapsActivity(GoogleMapsActivity googleMapsActivity) {
+        public static void setGoogleMapsActivity(GoogleMapsActivity googleMapsActivity) {
         googleMaps = googleMapsActivity;
-    }*/
+    }
+}
 

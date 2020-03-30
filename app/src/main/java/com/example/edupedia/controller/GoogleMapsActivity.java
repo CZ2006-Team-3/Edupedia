@@ -116,7 +116,7 @@ public class GoogleMapsActivity extends AppCompatActivity implements OnMapReadyC
                 }
             }
         });
-        //GoogleMapsDistance.setGoogleMapsActivity(this);
+        GoogleMapsDistance.setGoogleMapsActivity(this);
     }
 
     private void geoLocate(View view) {
@@ -142,7 +142,6 @@ public class GoogleMapsActivity extends AppCompatActivity implements OnMapReadyC
         }
     }
     public Address geoLocate2(String locationName) {
-
         try {
             Geocoder geocoder = new Geocoder(this, Locale.getDefault());
             List<Address> addressList = geocoder.getFromLocationName(locationName, 1);

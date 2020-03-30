@@ -2,6 +2,7 @@ package com.example.edupedia;
 
 import android.content.Context;
 
+import com.example.edupedia.controller.StatisticsController;
 import com.example.edupedia.model.School;
 import com.example.edupedia.model.SchoolReader;
 
@@ -70,7 +71,13 @@ public class ExampleInstrumentedTest {
         assertEquals("LANGUAGE ELECTIVE PROGRAMME (ENGLISH)", schools.get("RAFFLES INSTITUTION").getMoeProgramme().get(0));
     }
 
-
-
+    @Test
+    public void watchlistcount() {
+        StatisticsController sc = new StatisticsController();
+        sc.subscribeUserDB("CLEMENTI PRIMARY SCHOOL");
+        int watchcount = sc.getWatchCount().getValue();
+        System.out.println("getWatchCount : " + watchcount);
+        assertEquals(2, watchcount);
+    }
 
 }

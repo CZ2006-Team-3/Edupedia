@@ -178,8 +178,8 @@ public class SchoolItem {
     public static Comparator<SchoolItem> DistanceComparator = new Comparator<SchoolItem>() {
         @Override
         public int compare(SchoolItem school, SchoolItem school2) {
-            float schoolDistance = Float.parseFloat(school.distanceInfo.split(" ")[1]);
-            float schoolDistance2 = Float.parseFloat(school2.distanceInfo.split(" ")[1]);
+            float schoolDistance = Float.parseFloat(school.distanceInfo);
+            float schoolDistance2 = Float.parseFloat(school2.distanceInfo);
 
             return Float.compare(schoolDistance, schoolDistance2);
         }

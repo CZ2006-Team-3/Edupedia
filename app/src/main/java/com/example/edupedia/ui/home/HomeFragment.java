@@ -59,12 +59,11 @@ import java.util.HashMap;
 import java.util.List;
 
 public class HomeFragment extends Fragment implements SortByDialogFragment.SortByDialogListener,
-                                                        View.OnClickListener, AdvFilterDialogFragment.AdvFilterDialogListener{
+        View.OnClickListener, AdvFilterDialogFragment.AdvFilterDialogListener{
     public static final String SORT_VARIABLE_NAME = "sort";
     public static final String ASCENDING_SORT = "ascending_sort";
     public static final int RESULT_SUCCESS = 1;
     private String TAG = "HomeFragment";
-
 
     public interface SortEventListener{
         public void onRequestSort(int sort_variable, boolean sort_ascending);
@@ -82,9 +81,10 @@ public class HomeFragment extends Fragment implements SortByDialogFragment.SortB
     private AdapterClass mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
     private SortController sortController;
+    private SchoolDB schoolDB;
     private HashMap<String, School> schools;
     private ArrayList<School> schoolArrayList;
-    private SchoolDB schoolDB;
+
     private WatchlistController watchlistController = WatchlistController.getInstance();
     private AdvFilterDialogFragment advFilter = new AdvFilterDialogFragment();
     private SearchController searchController;
@@ -254,14 +254,16 @@ public class HomeFragment extends Fragment implements SortByDialogFragment.SortB
         mAdapter.setOnItemClickListener(new AdapterClass.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
-                mSchoolList.get(position).openSchoolInfo();
-                mAdapter.notifyItemChanged(position);
+                mSchoolList = mAdapter.getSchoolItemList();
+                SchoolItem schoolItem = mSchoolList.get(position);
                 Intent intent = new Intent(HomeFragment.super.getContext(), schoolInfoUI.class);
-                School school = schoolArrayList.get(position);
+                School school = schools.get(schoolItem.getSchoolName());
 
+                assert school != null;
                 String schoolName = school.getSchoolName();
                 String course = school.getMainCode();
                 Integer grade;
+                String url = school.getUrlAddress();
                 if (school.getMainCode().equals("SECONDARY")) {
                     grade = school.getGradePSLE();
                 }
@@ -280,6 +282,7 @@ public class HomeFragment extends Fragment implements SortByDialogFragment.SortB
                 intent.putExtra("drive", drive);
                 intent.putExtra("dist", dist);
                 intent.putExtra("publicTime", publicTime);
+                intent.putExtra("url", url);
                 startActivity(intent);
             }
             @Override
@@ -423,6 +426,9 @@ public class HomeFragment extends Fragment implements SortByDialogFragment.SortB
         }
     }
 
+
+
+
     public RecyclerView getmRecyclerView() {
         return mRecyclerView;
     }
@@ -430,7 +436,7 @@ public class HomeFragment extends Fragment implements SortByDialogFragment.SortB
         return this.mSchoolList;
     }
     public HashMap<String, School> getSchoolDB() {
-        return this.schools;
+        return schools;
     }
     public AdapterClass getAdapter() {
         return this.mAdapter;
