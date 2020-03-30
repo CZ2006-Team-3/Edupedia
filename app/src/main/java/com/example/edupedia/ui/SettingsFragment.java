@@ -36,7 +36,6 @@ public class SettingsFragment extends Fragment {
         super.onCreate(savedInstanceState);
         name = userController.getName();
         edlevel = userController.getEdLevel();
-
     }
 
     @Nullable
