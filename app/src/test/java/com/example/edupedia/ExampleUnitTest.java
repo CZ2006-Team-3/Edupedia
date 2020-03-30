@@ -2,6 +2,7 @@ package com.example.edupedia;
 
 import android.content.Context;
 
+import com.example.edupedia.controller.StatisticsController;
 import com.example.edupedia.controller.WatchlistController;
 import com.example.edupedia.model.School;
 import com.example.edupedia.model.SchoolReader;

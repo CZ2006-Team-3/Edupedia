@@ -9,11 +9,18 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelProviders;
 
 import com.example.edupedia.R;
+import com.example.edupedia.controller.SearchController;
+import com.example.edupedia.controller.StatisticsController;
 import com.example.edupedia.model.School;
 
-public class schoolInfoUI extends Activity{
+public class schoolInfoUI extends AppCompatActivity {
     private TextView schoolName;
     private TextView grade;
     private TextView course;
@@ -21,6 +28,7 @@ public class schoolInfoUI extends Activity{
     private TextView dist;
     private TextView drive;
     private TextView url;
+    private TextView watchCount;
     private ImageView schoolLogo;
     private ImageView courseLogo;
     private ImageView gradeLogo;
@@ -33,7 +41,10 @@ public class schoolInfoUI extends Activity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.school_info_page);
+        StatisticsController viewmodel = new ViewModelProvider(this).get(StatisticsController.class);
         Bundle extras = getIntent().getExtras();
+        viewmodel.subscribeUserDB(extras.getString("schoolName"));
+
 
         schoolName = findViewById(R.id.schoolName);
         course = findViewById(R.id.courseName);
@@ -42,6 +53,7 @@ public class schoolInfoUI extends Activity{
         dist = findViewById(R.id.distance);
         publicTime = findViewById(R.id.publicTransportTiming);
         url = findViewById(R.id.url_display);
+        watchCount = findViewById(R.id.watchCount);
         schoolLogo = findViewById(R.id.schoolIcon);
         courseLogo = findViewById(R.id.courseIcon);
         gradeLogo = findViewById(R.id.gradeIcon);
@@ -56,6 +68,15 @@ public class schoolInfoUI extends Activity{
         distanceLogo.setImageResource(R.drawable.distance);
         trainLogo.setImageResource(R.drawable.public_transport);
         urlLogo.setImageResource(R.drawable.web);
+        LiveData<Integer> watchcount = viewmodel.getWatchCount();
+        watchcount.observe(this, new Observer<Integer>(){
+
+            @Override
+            public void onChanged(Integer i) {
+                watchCount.setText(String.valueOf(i));
+            }
+
+        });
 
         setData(extras);
     }
