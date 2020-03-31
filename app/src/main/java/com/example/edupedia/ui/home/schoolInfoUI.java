@@ -67,7 +67,7 @@ public class schoolInfoUI extends AppCompatActivity {
         drivingLogo.setImageResource(R.drawable.driving_time);
         distanceLogo.setImageResource(R.drawable.distance);
         trainLogo.setImageResource(R.drawable.public_transport);
-        urlLogo.setImageResource(R.drawable.web);
+        urlLogo.setImageResource(R.drawable.link);
         LiveData<Integer> watchcount = viewmodel.getWatchCount();
         watchcount.observe(this, new Observer<Integer>(){
 

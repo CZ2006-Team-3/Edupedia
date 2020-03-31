@@ -34,6 +34,7 @@
             android:layout_marginTop="156dp"
             android:text="School Name"
             android:gravity="left|center"
+            android:textColor="@color/blackText"
             app:layout_constraintStart_toEndOf="@+id/schoolIcon"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -58,6 +59,7 @@
             android:layout_marginStart="36dp"
             android:layout_marginTop="12dp"
             android:gravity="left|center"
+            android:textColor="@color/blackText"
             android:text="Course Name"
             app:layout_constraintStart_toEndOf="@+id/courseIcon"
             app:layout_constraintTop_toBottomOf="@+id/schoolName" />
@@ -83,6 +85,7 @@
             android:layout_alignParentBottom="true"
             android:layout_marginStart="36dp"
             android:layout_marginTop="8dp"
+            android:textColor="@color/blackText"
             android:text="Grade CutOff"
             android:gravity="left|center"
             app:layout_constraintStart_toEndOf="@+id/gradeIcon"
@@ -111,6 +114,7 @@
             android:layout_marginTop="16dp"
             android:gravity="left|center"
             android:text="Driving Time"
+            android:textColor="@color/blackText"
             app:layout_constraintStart_toEndOf="@+id/drivingIcon"
             app:layout_constraintTop_toBottomOf="@+id/gradeCut" />
 
@@ -136,6 +140,7 @@
             android:layout_marginStart="36dp"
             android:layout_marginTop="12dp"
             android:gravity="left|center"
+            android:textColor="@color/blackText"
             android:text="Distance"
             app:layout_constraintStart_toEndOf="@+id/distanceIcon"
             app:layout_constraintTop_toBottomOf="@+id/drivingTime" />
@@ -148,6 +153,7 @@
             android:layout_alignParentBottom="true"
             android:layout_marginStart="24dp"
             android:layout_marginTop="4dp"
+            android:textColor="@color/blackText"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/distanceIcon"
             app:srcCompat="@drawable/public_transport" />
@@ -162,6 +168,7 @@
             android:layout_marginStart="36dp"
             android:layout_marginTop="8dp"
             android:gravity="left|center"
+            android:textColor="@color/blackText"
             android:text="Public Transport Timing"
             app:layout_constraintStart_toEndOf="@+id/trainIcon"
             app:layout_constraintTop_toBottomOf="@+id/distance" />
@@ -176,7 +183,7 @@
             android:layout_marginTop="4dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/trainIcon"
-            app:srcCompat="@drawable/group007" />
+            app:srcCompat="@drawable/link" />
 
         <TextView
             android:id="@+id/url_display"
@@ -202,6 +209,7 @@
             android:layout_alignParentBottom="true"
             android:layout_marginStart="36dp"
             android:layout_marginTop="16dp"
+            android:textColor="@color/blackText"
             android:text="Not found"
             android:gravity="left|center"
             app:layout_constraintStart_toEndOf="@+id/web"

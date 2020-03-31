@@ -304,6 +304,13 @@ public class AdapterClass extends RecyclerView.Adapter<AdapterClass.ExampleViewH
         }
         Collections.sort(schoolItemList, comp);
         if(!ascending) {
+            /*
+            ArrayList <SchoolItem> schoolSortedList = new ArrayList<SchoolItem>();
+            for (int i=schoolItemList.size()-1;i>=0;i++){
+                schoolSortedList.add(schoolItemList.get(i));
+            }
+            Collections.copy(schoolItemList,schoolSortedList);
+             */
             Collections.reverse(schoolItemList);
         }
 
