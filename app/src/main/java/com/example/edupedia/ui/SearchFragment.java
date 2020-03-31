@@ -328,7 +328,9 @@ public class SearchFragment extends Fragment implements
                 /*if (recyclerView == null) {
                     Log.d("UIStuff", "recycler view null");
                 }*/
-                new GoogleMapsDistance(homeFragment, getContext(), schoolItemList, schoolList, textFilterLocation.getText().toString()).execute();
+                if (!textFilterLocation.getText().toString().equals("")) {
+                    new GoogleMapsDistance(homeFragment, getContext(), schoolItemList, schoolList, textFilterLocation.getText().toString()).execute();
+                }
 
                 /*Intent intent = new Intent(v.getContext(), GoogleMapsDistance.class);
                 intent.putExtra("School List", schoolList);
@@ -372,7 +374,6 @@ public class SearchFragment extends Fragment implements
             }
             if (resultCode == RESULT_CANCELED) {
                 //Write your code if there's no result
-
             }
         }
     }//onActivityResult
