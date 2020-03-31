@@ -81,7 +81,7 @@ public class WatchListFragment extends Fragment {
                         int gradePSLE = school.getGradePSLE();
                         int gradeO = school.getGradeO();
                         if ((gradeO!= -1) && (gradePSLE != -1)) {
-                            printGrade = "\nPSLE: " + gradePSLE + "\nO-Level: " + gradeO;
+                            printGrade = "\nPSLE: " + gradePSLE + "  /  O-Level: " + gradeO;
                         } else if ((gradeO == -1) && (gradePSLE != -1)) {
                             printGrade = "\nCut-Off Score: " + gradePSLE + " (PSLE)";
                         } else if (gradeO != -1) {
@@ -136,12 +136,12 @@ public class WatchListFragment extends Fragment {
 
             @Override
             public void onWatchListSelect(int position) {
-                String schoolToremove = wSchoolList.get(position).getSchoolName();
+                String schoolToRemove = wSchoolList.get(position).getSchoolName();
                 String[] watchlist = watchlistController.getWatchlist();
                 int i = 0;
                 while (i < 10) {
                     if (watchlist[i] != null) {
-                        if (watchlist[i].equals(schoolToremove)) {
+                        if (watchlist[i].equals(schoolToRemove)) {
                             watchlistController.removeSchool(i);
                             wSchoolList.remove(position);
                             wAdapter.notifyItemChanged(position);
