@@ -50,7 +50,7 @@ public class GoogleMapsDistance //extends AppCompatActivity
     }
 */  private static final String TAG = "GoogleMapsDistance";
     private static final String KEY = "AIzaSyCUaalvzVnKZLKDtGCAp1hmU9pIrov4EMM";
-    private AdapterClass mAdapter;
+    //private AdapterClass mAdapter;
 
     /*protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,7 +61,7 @@ public class GoogleMapsDistance //extends AppCompatActivity
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             ArrayList<School> schools = (ArrayList) extras.get("School List");
-            Log.d(TAG, "Goittee");
+            Log.d(TAG, "Gg");
             String userLocation = extras.getString("User Location");
             RecyclerView mRecyclerView = findViewById(R.id.recycler_view);
             mRecyclerView = findViewById(R.id.recycler_view);
@@ -97,6 +97,9 @@ public class GoogleMapsDistance //extends AppCompatActivity
         //this.recyclerView = recyclerView;
         this.userLocation = userLocation;
         this.homeFragment = homeFragment;
+    }
+    public GoogleMapsDistance() {
+
     }
 
 
@@ -232,7 +235,7 @@ public class GoogleMapsDistance //extends AppCompatActivity
         protected void onPostExecute(ArrayList<School> schools) {
             Log.d(TAG, "Post Execute");
             //Toast.makeText(getContext(), "HI", Toast.LENGTH_SHORT).show();
-            adapterClass.notifyDataSetChanged();
+            //adapterClass.notifyDataSetChanged();
         }
 
         @RequiresApi(api = Build.VERSION_CODES.N)
