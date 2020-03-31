@@ -96,17 +96,16 @@ public class CompareFragment extends Fragment {
             school1Name.setText(compareList[0].getSchoolName());
 
             grade1 = layout.findViewById(R.id.school1Grade);
-            int grade;
             String gradeCut;
-            if (compareList[0].getMainCode().equals("SECONDARY")) {
-                grade = compareList[0].getGradePSLE();
-                gradeCut = Integer.toString(grade);
-            }
-            else if (compareList[0].getMainCode().equals("JUNIOR COLLEGE")){
-                grade = compareList[0].getGradeO();
-                gradeCut = Integer.toString(grade);
-            }
-            else{
+            int gradePSLE = compareList[0].getGradePSLE();
+            int gradeO = compareList[0].getGradeO();
+            if ((gradeO!= -1) && (gradePSLE != -1)) {
+                gradeCut = "PSLE: " + gradePSLE + " / O-Level: " + gradeO;
+            } else if ((gradeO == -1) && (gradePSLE != -1)) {
+                gradeCut = "PSLE: " + gradePSLE;
+            } else if (gradeO != -1) {
+                gradeCut = "O-Level: " + gradeO;
+            } else {
                 gradeCut = "Not Applicable";
             }
             grade1.setText(gradeCut);
@@ -136,17 +135,16 @@ public class CompareFragment extends Fragment {
             school2Name.setText(compareList[1].getSchoolName());
 
             grade2 = layout.findViewById(R.id.school2Grade);
-            int grade;
             String gradeCut;
-            if (compareList[1].getMainCode().equals("SECONDARY")) {
-                grade = compareList[1].getGradePSLE();
-                gradeCut = Integer.toString(grade);
-            }
-            else if (compareList[1].getMainCode().equals("JUNIOR COLLEGE")){
-                grade = compareList[1].getGradeO();
-                gradeCut = Integer.toString(grade);
-            }
-            else{
+            int gradePSLE = compareList[1].getGradePSLE();
+            int gradeO = compareList[1].getGradeO();
+            if ((gradeO!= -1) && (gradePSLE != -1)) {
+                gradeCut = "PSLE: " + gradePSLE + " / O-Level: " + gradeO;
+            } else if ((gradeO == -1) && (gradePSLE != -1)) {
+                gradeCut = "PSLE: " + gradePSLE;
+            } else if (gradeO != -1) {
+                gradeCut = "O-Level: " + gradeO;
+            } else {
                 gradeCut = "Not Applicable";
             }
             grade2.setText(gradeCut);

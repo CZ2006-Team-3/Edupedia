@@ -69,16 +69,34 @@ public class WatchListFragment extends Fragment {
         if (empty) {
             Toast toast = Toast.makeText(getActivity(), "None of the schools have been added to the WatchList", Toast.LENGTH_SHORT);
             toast.show();
-        }
-        else {
+        } else {
             schoolDB = new SchoolDB(getContext());
             schools = schoolDB.getValue();
             schoolList = generateSchools(schools, watchList);
             if (schoolList.size() != 0) {
                 wSchoolList = new ArrayList<>();
                 for (School school : schoolList) {
-                    if(school!=null)
-                        wSchoolList.add(new SchoolItem(R.drawable.school_icon,  school.getSchoolName(),  "Grade Cut-Off: " + Integer.toString(school.getGradeCutOff()), "Distance: " + Double.toString(school.getDistance())));
+                    if (school != null) {
+                        String printGrade;
+                        int gradePSLE = school.getGradePSLE();
+                        int gradeO = school.getGradeO();
+                        if ((gradeO!= -1) && (gradePSLE != -1)) {
+                            printGrade = "\nPSLE: " + gradePSLE + "\nO-Level: " + gradeO;
+                        } else if ((gradeO == -1) && (gradePSLE != -1)) {
+                            printGrade = "\nCut-Off Score: " + gradePSLE + " (PSLE)";
+                        } else if (gradeO != -1) {
+                            printGrade = "\nCut-Off Score: " + gradeO + " (O-Level)";
+                        } else {
+                            printGrade = "Cut-Off Score: Not Applicable";
+                        }
+                        wSchoolList.add(new SchoolItem(
+                                R.drawable.school_icon,
+                                school.getSchoolName(),
+                                printGrade,
+                                "Distance: " + Double.toString(school.getDistance())
+                                )
+                        );
+                    }
                 }
             }
         }
@@ -121,8 +139,8 @@ public class WatchListFragment extends Fragment {
                 String schoolToremove = wSchoolList.get(position).getSchoolName();
                 String[] watchlist = watchlistController.getWatchlist();
                 int i = 0;
-                while (i<10){
-                    if(watchlist[i]!=null) {
+                while (i < 10) {
+                    if (watchlist[i] != null) {
                         if (watchlist[i].equals(schoolToremove)) {
                             watchlistController.removeSchool(i);
                             wSchoolList.remove(position);

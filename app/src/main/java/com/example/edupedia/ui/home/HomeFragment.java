@@ -59,13 +59,13 @@ import java.util.HashMap;
 import java.util.List;
 
 public class HomeFragment extends Fragment implements SortByDialogFragment.SortByDialogListener,
-        View.OnClickListener, AdvFilterDialogFragment.AdvFilterDialogListener{
+        View.OnClickListener, AdvFilterDialogFragment.AdvFilterDialogListener {
     public static final String SORT_VARIABLE_NAME = "sort";
     public static final String ASCENDING_SORT = "ascending_sort";
     public static final int RESULT_SUCCESS = 1;
     private String TAG = "HomeFragment";
 
-    public interface SortEventListener{
+    public interface SortEventListener {
         public void onRequestSort(int sort_variable, boolean sort_ascending);
     }
 
@@ -171,6 +171,7 @@ public class HomeFragment extends Fragment implements SortByDialogFragment.SortB
             public boolean onQueryTextSubmit(String s) {
                 return false;
             }
+
             @Override
             public boolean onQueryTextChange(String s) {
                 mAdapter.getFilter().filter(s);
@@ -190,46 +191,48 @@ public class HomeFragment extends Fragment implements SortByDialogFragment.SortB
             switch (school.getMainCode()) {
                 case "SECONDARY":
                     mSchoolList.add(new SchoolItem(R.drawable.school_icon, school.getSchoolName(),
-                            "Grade Cut-Off: " + school.getGradePSLE(),
-                            "Distance: " + school.getDistance(),
+                            "Cut-Off Grade Score: " + school.getGradePSLE() + " (PSLE)",
+                            "Distance: " + school.getDistance() + " km",
                             Double.toString(school.getPublicTime()),
                             Double.toString(school.getDrivingTime()),
                             school.getZoneCode(),
                             school.getTypeCode(),
-                            (school.isIp())? "Yes" : "No"));
+                            (school.isIp()) ? "Yes" : "No"));
                     break;
 
                 case "JUNIOR COLLEGE":
                     mSchoolList.add(new SchoolItem(R.drawable.school_icon, school.getSchoolName(),
-                            "Grade Cut-Off: " + school.getGradeO(),
-                            "Distance: " + school.getDistance(),
+                            "Cut-Off Score: " + school.getGradeO() + " (O-Level)",
+                            "Distance: " + school.getDistance() + " km",
                             Double.toString(school.getPublicTime()),
                             Double.toString(school.getDrivingTime()),
                             school.getZoneCode(),
                             school.getTypeCode(),
-                            (school.isIp())? "Yes" : "No"));
+                            (school.isIp()) ? "Yes" : "No"));
                     break;
 
                 case "MIXED LEVEL":
+                    int gradeCheckPSLE = school.getGradePSLE();
+                    int gradeCheckO = school.getGradeO();
                     mSchoolList.add(new SchoolItem(R.drawable.school_icon, school.getSchoolName(),
-                            "Grade Cut-Off for A-level: " + school.getGradePSLE() + " Grade Cut-Off for O-level: " + Integer.toString(school.getGradeO()),
-                            "Distance: " + school.getDistance(),
+                            "PSLE: " + (gradeCheckPSLE == -1 ? "Not Applicable" : gradeCheckPSLE)  + "\nO-Level: " + (gradeCheckO == -1 ? "Not Applicable" : gradeCheckO),
+                            "Distance: " + school.getDistance() + " km",
                             Double.toString(school.getPublicTime()),
                             Double.toString(school.getDrivingTime()),
                             school.getZoneCode(),
                             school.getTypeCode(),
-                            (school.isIp())? "Yes" : "No"));
+                            (school.isIp()) ? "Yes" : "No"));
                     break;
 
                 default:
                     mSchoolList.add(new SchoolItem(R.drawable.school_icon, school.getSchoolName(),
-                            "Grade Cut-Off: Not Applicable ",
-                            "Distance: " + Double.toString(school.getDistance()),
+                            "Cut-Off Score: Not Applicable",
+                            "Distance: " + Double.toString(school.getDistance()) + " km",
                             Double.toString(school.getPublicTime()),
                             Double.toString(school.getDrivingTime()),
                             school.getZoneCode(),
                             school.getTypeCode(),
-                            (school.isIp())? "Yes" : "No"));
+                            (school.isIp()) ? "Yes" : "No"));
                     break;
             }
 
@@ -241,7 +244,7 @@ public class HomeFragment extends Fragment implements SortByDialogFragment.SortB
     }
 
 
-    public void buildRecyclerView(View layout){
+    public void buildRecyclerView(View layout) {
         mRecyclerView = layout.findViewById(R.id.recycler_view);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mRecyclerView.setHasFixedSize(true);
@@ -262,33 +265,38 @@ public class HomeFragment extends Fragment implements SortByDialogFragment.SortB
                 assert school != null;
                 String schoolName = school.getSchoolName();
                 String course = school.getMainCode();
-                Integer grade;
+                String printGrade;
                 String url = school.getUrlAddress();
-                if (school.getMainCode().equals("SECONDARY")) {
-                    grade = school.getGradePSLE();
+
+                int gradePSLE = school.getGradePSLE();
+                int gradeO = school.getGradeO();
+                if ((gradeO!= -1) && (gradePSLE != -1)) {
+                    printGrade = "PSLE: " + gradePSLE + "\nO-Level: " + gradeO;
+                } else if ((gradeO == -1) && (gradePSLE != -1)) {
+                    printGrade = "PSLE: " + gradePSLE;
+                } else if (gradeO != -1) {
+                    printGrade = "O-Level: " + gradeO;
+                } else {
+                    printGrade = "Not Applicable";
                 }
-                else if (school.getMainCode().equals("JUNIOR COLLEGE")){
-                    grade = school.getGradeO();
-                }
-                else{
-                    grade = school.getGradeCutOff();
-                }
+
                 Double drive = school.getDrivingTime();
                 Double dist = school.getDistance();
                 Double publicTime = school.getPublicTime();
                 intent.putExtra("schoolName", schoolName);
                 intent.putExtra("course", course);
-                intent.putExtra("grade", grade);
+                intent.putExtra("grade", printGrade);
                 intent.putExtra("drive", drive);
                 intent.putExtra("dist", dist);
                 intent.putExtra("publicTime", publicTime);
                 intent.putExtra("url", url);
                 startActivity(intent);
             }
+
             @Override
             public void onWatchListSelect(int position) {
                 String schoolToAdd = mSchoolList.get(position).getSchoolName();
-                if(watchlistController.exists(schoolToAdd)){
+                if (watchlistController.exists(schoolToAdd)) {
                     Toast toast = Toast.makeText(getActivity(), "School already exists!", Toast.LENGTH_SHORT);
                     toast.show();
                     return;
@@ -313,7 +321,7 @@ public class HomeFragment extends Fragment implements SortByDialogFragment.SortB
                         toast.show();
                     }
                 }
-                 //mSchoolList.get(position).addToWatchList();
+                //mSchoolList.get(position).addToWatchList();
             }
 
             @Override
@@ -341,19 +349,19 @@ public class HomeFragment extends Fragment implements SortByDialogFragment.SortB
         SORT_VARIABLE = sort_variable;
         SORT_ASCENDING = sort_ascending;
         createSchoolList();
-        mAdapter.onRequestSort(sort_variable,sort_ascending);
+        mAdapter.onRequestSort(sort_variable, sort_ascending);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
-    public void onChangeCheckbox(ArrayList<String> region,  ArrayList<String> IP, ArrayList<String> type){
+    public void onChangeCheckbox(ArrayList<String> region, ArrayList<String> IP, ArrayList<String> type) {
         this.region = region;
         this.IP = IP;
         this.type = IP;
         String message = "REGION";
         String encodedRegion = new String();
-        for (String s : region){
-            switch(s){
+        for (String s : region) {
+            switch (s) {
                 case "NORTH":
                     encodedRegion = encodedRegion.concat("N");
                     break;
@@ -368,47 +376,47 @@ public class HomeFragment extends Fragment implements SortByDialogFragment.SortB
                     break;
             }
         }
-        message = message.concat(" "+encodedRegion + " TYPE");
-        String encodedType =  new String();
-        for (String s : type){
-            switch(s){
+        message = message.concat(" " + encodedRegion + " TYPE");
+        String encodedType = new String();
+        for (String s : type) {
+            switch (s) {
                 case "GOVERNMENT SCHOOL":
-                    encodedType=encodedType.concat("G");
+                    encodedType = encodedType.concat("G");
                     break;
                 case "GOVERNMENT-AIDED SCH":
-                    encodedType=encodedType.concat("A");
+                    encodedType = encodedType.concat("A");
                     break;
                 case "INDEPENDENT SCHOOL":
-                    encodedType=encodedType.concat("I");
+                    encodedType = encodedType.concat("I");
                     break;
                 case "SPECIALISED SCHOOL":
-                    encodedType=encodedType.concat("S");
+                    encodedType = encodedType.concat("S");
                     break;
                 case "SPECIALISED INDEPENDENT SCHOOL":
-                    encodedType=encodedType.concat("Z");
+                    encodedType = encodedType.concat("Z");
                     break;
             }
         }
-        message = message.concat(" "+encodedType + " IP");
+        message = message.concat(" " + encodedType + " IP");
         String encodedIP = new String();
         for (String s : IP) {
             switch (s) {
                 case "Yes":
-                    encodedIP=encodedIP.concat("Y");
+                    encodedIP = encodedIP.concat("Y");
                     break;
                 case "No":
-                    encodedIP=encodedIP.concat("N");
+                    encodedIP = encodedIP.concat("N");
                     break;
             }
         }
-        message = message.concat(" "+encodedIP);
+        message = message.concat(" " + encodedIP);
         mAdapter.getAdvancedFilter().filter(message);
     }
 
     @Override
     public void onClick(View view) {
         //FragmentTransaction ft = getChildFragmentManager().beginTransaction();
-        switch(view.getId()) {
+        switch (view.getId()) {
             case R.id.sortButton:
                 FragmentTransaction ft = getChildFragmentManager().beginTransaction();
                 SortByDialogFragment sortBy = new SortByDialogFragment();
@@ -427,22 +435,27 @@ public class HomeFragment extends Fragment implements SortByDialogFragment.SortB
     }
 
 
-
-
     public RecyclerView getmRecyclerView() {
         return mRecyclerView;
     }
+
     public ArrayList<SchoolItem> getSchoolItemList() {
         return this.mSchoolList;
     }
+
     public HashMap<String, School> getSchoolDB() {
         return schools;
     }
+
     public AdapterClass getAdapter() {
         return this.mAdapter;
     }
+
     public void setSchoolList(ArrayList<School> schoolList) {
         this.schoolArrayList = schoolList;
     }
-    public void setSchoolDB(HashMap<String, School> schools) {this.schools = schools;}
+
+    public void setSchoolDB(HashMap<String, School> schools) {
+        this.schools = schools;
+    }
 }

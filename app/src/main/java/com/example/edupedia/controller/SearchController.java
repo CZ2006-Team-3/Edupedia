@@ -50,7 +50,7 @@ public class SearchController extends ViewModel {
         return schools;
     }*/
 
-        public void storeFilterSettings() {
+    public void storeFilterSettings() {
         //1. Save Filter Settings to Internal Storage
         JSONObject jsonFilter = new JSONObject();
         try {
@@ -77,7 +77,7 @@ public class SearchController extends ViewModel {
                     null,
                     null,
                     null
-                    ))
+            ))
                 results.add(school.getSchoolName());
         }
         return results;
@@ -100,26 +100,25 @@ public class SearchController extends ViewModel {
         Iterator iterator = filters.entrySet().iterator();
         while (iterator.hasNext()) {
             Map.Entry filterEntry = (Map.Entry) iterator.next();
-            Object filter =  filterEntry.getValue();
+            Object filter = filterEntry.getValue();
             switch ((String) filterEntry.getKey()) {
                 case "EdLevel":
                     String maincode = school.getMainCode();
-                    String filterLevel = ((String) filter).substring(0, ((String) filter).length()-6).toUpperCase();
+                    String filterLevel = ((String) filter).substring(0, ((String) filter).length() - 6).toUpperCase();
                     if (!maincode.equals(filterLevel)) {
-                        if ((maincode.equals("JUNIOR COLLEGE") |maincode.equals("MIXED LEVEL"))
+                        if ((maincode.equals("JUNIOR COLLEGE") | maincode.equals("MIXED LEVEL"))
                                 && ((String) filter).equals("Tertiary Level"))
                             break;
                         return false;
                     }
                     break;
-                case "GradeCutOff" :
-                    if (edLevel.equals("Secondary Level")){
-
-                        if (school.getGradePSLE()<Integer.parseInt((String) filter))
+                case "GradeCutOff":
+                    if (edLevel.equals("Secondary Level")) {
+                        if (school.getGradePSLE() < Integer.parseInt((String) filter))
                             return false;
                     }
-                    if (edLevel.equals("Tertiary Level")){
-                        if (school.getGradeO()>Integer.parseInt((String) filter))
+                    if (edLevel.equals("Tertiary Level")) {
+                        if (school.getGradeO() > Integer.parseInt((String) filter))
                             return false;
                     }
                     break;
@@ -163,12 +162,13 @@ public class SearchController extends ViewModel {
                     null,
                     textFilterRegion.getValue(),
                     textFilterSchoolType.getValue(),
-                    textFilterIP.getValue())){
+                    textFilterIP.getValue())) {
                 advancedResults.add(school);
             }
         }
         return advancedResults;
     }
+
     private boolean hasOverlap(ArrayList<String> list1, ArrayList<String> list2) {
         HashSet<String> set = new HashSet<>();
         set.addAll(list1);
@@ -214,7 +214,7 @@ public class SearchController extends ViewModel {
         if (results == null) {
             return null;
         }
-        if (results.isEmpty()){
+        if (results.isEmpty()) {
             return null;
         }
         return results;
@@ -227,13 +227,13 @@ public class SearchController extends ViewModel {
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     public ArrayList<School> generateSchools(HashMap<String, School> db, ArrayList<String> results) {
-       if(results==null) return new ArrayList<>();
+        if (results == null) return new ArrayList<>();
         ArrayList<School> schoolList = new ArrayList<>();
         ArrayList<SchoolItem> schoolItemList = new ArrayList<>();
-        for (String name : results){
+        for (String name : results) {
             schoolList.add(db.get(name));
         }
-        schoolList = sortController.sortBy(SortController.NAME,true, schoolList);
+        schoolList = sortController.sortBy(SortController.NAME, true, schoolList);
         return schoolList;
     }
 
@@ -307,7 +307,6 @@ public class SearchController extends ViewModel {
     }
 
 
-
     public void setTextFilterEdLevel(String s) {
         MutableLiveData<String> liveData = this.getTextFilterEdLevel();
         liveData.setValue(s);
@@ -327,14 +326,17 @@ public class SearchController extends ViewModel {
         MutableLiveData<String> liveData = this.getTextFilterLocation();
         liveData.setValue(s);
     }
+
     public void setTextFilterRegion(ArrayList<String> s) {
         MutableLiveData<ArrayList<String>> liveData = this.getTextFilterRegion();
         liveData.setValue(s);
     }
+
     public void setTextFilterSchoolType(ArrayList<String> s) {
         MutableLiveData<ArrayList<String>> liveData = this.getTextFilterSchoolType();
         liveData.setValue(s);
     }
+
     public void setTextFilterIP(ArrayList<String> s) {
         MutableLiveData<ArrayList<String>> liveData = this.getTextFilterIP();
         liveData.setValue(s);

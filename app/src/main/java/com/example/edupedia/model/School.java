@@ -34,7 +34,6 @@ public class School implements Serializable {
     private ArrayList<String> moeProgramme;
 
     // Optional Attributes
-    private int gradeCutOff;
     private double drivingTime;
     private double publicTime;
     private double distance;
@@ -335,9 +334,6 @@ public class School implements Serializable {
         return gradePSLE;
     }
 
-    public int getGradeCutOff() {
-        return gradeCutOff;
-    }
 
     public static Comparator<School> DrivingTimeComparator = new Comparator<School>() {
         @Override

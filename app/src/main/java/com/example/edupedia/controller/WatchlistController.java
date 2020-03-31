@@ -92,15 +92,15 @@ public class WatchlistController {
                     String key = dataSnapshot.getKey();
                     Log.d("FireBase REAADDD", key);
                     try {
-                         ArrayList<String> arrayList = (ArrayList<String>) dataSnapshot.child("watchlist").getValue();
+                        ArrayList<String> arrayList = (ArrayList<String>) dataSnapshot.child("watchlist").getValue();
                         watchlist = arrayList.toArray(new String[10]);
                     }
                     catch (ClassCastException e) {
                         //watchlist
                     }
-//                    Log.d("FireBase REAADDD", watchlist[0]);
+//                        Log.d("FireBase REAADDD", watchlist[0]);
                 } else {
-                    watchlist = new String[10];
+                        watchlist = new String[10];
                 }
             }
 
@@ -115,7 +115,7 @@ public class WatchlistController {
 
     public boolean exists(String schoolName) {
         for(String schoolNameCompare : watchlist) {
-            if(schoolNameCompare!=null && schoolName.equals(schoolNameCompare))
+            if(schoolName.equals(schoolNameCompare))
                 return true;
         }
         return false;

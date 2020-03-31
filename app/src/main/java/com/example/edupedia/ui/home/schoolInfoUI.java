@@ -84,11 +84,10 @@ public class schoolInfoUI extends AppCompatActivity {
     public void setData(Bundle extras) {
         schoolName.setText(extras.getString("schoolName"));
         course.setText(extras.getString("course"));
-        if (Integer.toString(extras.getInt("grade")).equals("0")) {
-            grade.setText("Not Applicable");
-        } else {
-            grade.setText(Integer.toString(extras.getInt("grade")));
-        }
+//        if (Integer.toString(extras.getInt("grade")).equals("0")) {
+//            grade.setText("Not Applicable");
+//        } else {
+        grade.setText(extras.getString("grade"));
         drive.setText(String.format("%.2f", extras.getDouble("drive")));
         dist.setText(String.format("%.2f", extras.getDouble("dist")));
         publicTime.setText(String.format("%.2f", extras.getDouble("publicTime")));
