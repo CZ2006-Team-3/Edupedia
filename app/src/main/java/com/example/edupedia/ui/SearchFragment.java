@@ -26,7 +26,6 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
@@ -346,7 +345,7 @@ public class SearchFragment extends Fragment implements
                 intent.putExtra("User Location", textFilterLocation.getText().toString());
                 startActivity(intent);*/
 
-                if (Looper.getMainLooper().getThread() == Thread.currentThread()) {
+                /*if (Looper.getMainLooper().getThread() == Thread.currentThread()) {
                     //ok this runs while the background gets the google maps
                     Log.e("UIStuff", "Search Frag On UI Thread");
                 } else {
@@ -364,10 +363,10 @@ public class SearchFragment extends Fragment implements
                         Log.e("UIStuff", "Is Vis");
                     }
                 }
-                Log.e("UIStuff", "Called1");
+                Log.e("UIStuff", "Called1");*/
             }
         });
-        Log.e("UIStuff", "Called3");
+        //Log.e("UIStuff", "Called3");
         return rootview;
     }
 

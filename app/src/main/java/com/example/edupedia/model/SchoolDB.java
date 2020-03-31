@@ -30,7 +30,7 @@ public class SchoolDB {
 
     public HashMap<String, School> getValue() {
         if(db==null) {
-            Log.d("SchDB", "Is null");
+            //Log.d("SchDB", "Is null");
             loadDB();
         }
         else {

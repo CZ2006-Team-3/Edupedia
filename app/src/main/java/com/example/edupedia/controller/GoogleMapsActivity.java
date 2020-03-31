@@ -236,6 +236,13 @@ public class GoogleMapsActivity extends AppCompatActivity implements OnMapReadyC
                     supportMapFragment.getMapAsync(this);
                 } else {
                     requestLocationPermission();
+                    if (this.mLocationPermissionGranted) {
+                        Toast.makeText(this, "Ready to Map", Toast.LENGTH_SHORT).show();
+                        SupportMapFragment supportMapFragment = (SupportMapFragment) getSupportFragmentManager()
+                                .findFragmentById(R.id.map_fragment_container);
+
+                        supportMapFragment.getMapAsync(this);
+                    }
                 }
             }
         }

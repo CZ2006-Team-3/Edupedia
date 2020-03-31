@@ -129,11 +129,11 @@ public class HomeFragment extends Fragment implements SortByDialogFragment.SortB
         //retrieving results from background files
         //whenever home is called the distance is not updated in these schools
         ArrayList<String> results = searchController.retrieveResults(schools);
-        Log.d("HomeFragment", String.valueOf(results));
+        //Log.d("HomeFragment", String.valueOf(results));
         //gets a list of schools based on a string of school names
         schoolArrayList = searchController.generateSchools(schools, results);
         Toast.makeText(getContext(), "Home Fragment", Toast.LENGTH_SHORT);
-        Log.d("UIStuff", "here");
+        //Log.d("UIStuff", "here");
         //schoolArrayList = searchController.getDistances(schoolArrayList);
         toSort.setOnClickListener(this);
 /*
@@ -184,7 +184,7 @@ public class HomeFragment extends Fragment implements SortByDialogFragment.SortB
 
         createSchoolList();
         buildRecyclerView(layout);
-        Log.d("UIStuff", "Built Here");
+        //Log.d("UIStuff", "Built Here");
         return layout;
     }
 
