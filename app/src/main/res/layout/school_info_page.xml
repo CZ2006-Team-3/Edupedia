@@ -200,6 +200,16 @@
             app:layout_constraintStart_toEndOf="@+id/web"
             app:layout_constraintTop_toBottomOf="@+id/publicTransportTiming" />
 
+        <ImageView
+            android:id="@+id/banner"
+            android:layout_width="381dp"
+            android:layout_height="39dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:srcCompat="@drawable/group008" />
+
         <TextView
             android:id="@+id/watchCount"
             android:layout_width="237dp"
@@ -212,18 +222,9 @@
             android:textColor="@color/blackText"
             android:text="Not found"
             android:gravity="left|center"
+            android:text="Not found"
             app:layout_constraintStart_toEndOf="@+id/web"
             app:layout_constraintTop_toBottomOf="@+id/url_display" />
 
-        <ImageView
-            android:id="@+id/banner"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginBottom="8dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:srcCompat="@drawable/group008" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
