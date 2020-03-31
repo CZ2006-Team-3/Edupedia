@@ -1,5 +1,6 @@
 package com.example.edupedia.ui;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -20,6 +21,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
@@ -85,6 +87,8 @@ public class SearchFragment extends Fragment implements
      * results cancelled is set to 0
      */
     public static final int RESULT_CANCELED = 0;
+
+    private MainNavigationUI mainNavigationUI;
 
     @Nullable
     @Override
@@ -317,13 +321,18 @@ public class SearchFragment extends Fragment implements
                 ArrayList<School> schoolList = viewModel.generateSchools(schools, results);
                 //this should be here instead of home fragment because it doesnt make sense for the home f ragment to get distances everytime u press home button
                // Caused by: java.lang.NullPointerException: Attempt to invoke virtual method 'android.location.Address com.example.edupedia.controller.GoogleMapsActivity.geoLocate2(java.lang.String)' on a null object reference
-                HomeFragment homeFragment = new HomeFragment();
+
+                HomeFragment homeFragment = (HomeFragment) mainNavigationUI.homeFragment;
                 homeFragment.setSchoolList(schoolList);
                 homeFragment.createSchoolList();
                 ArrayList<SchoolItem> schoolItemList = homeFragment.getSchoolItemList();
                 //SchoolDB schoolDB = homeFragment.getSchoolDB();
-                FragmentTransaction ft = getFragmentManager().beginTransaction();
-                ft.replace(R.id.fragment_container, homeFragment, "Home Fragment").commit();
+
+                FragmentTransaction ft = mainNavigationUI.fm.beginTransaction();
+
+                ft = ft.hide(mainNavigationUI.currentFragment).show(homeFragment);
+                mainNavigationUI.currentFragment = homeFragment;
+                ft.commit();
                 //RecyclerView recyclerView = homeFragment.getmRecyclerView(); this is null.
                 /*if (recyclerView == null) {
                     Log.d("UIStuff", "recycler view null");
@@ -391,5 +400,13 @@ public class SearchFragment extends Fragment implements
     @Override
     public void onClick(View view) {
 
+    }
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        if(context instanceof MainNavigationUI) {
+            mainNavigationUI = (MainNavigationUI) context;
+        }
     }
 }

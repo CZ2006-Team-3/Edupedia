@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -24,10 +25,19 @@ import com.google.firebase.auth.FirebaseAuth;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 public class MainNavigationUI extends AppCompatActivity {
     private SharedPreferences sharedPref;
-    private String uid;
+
+    public final HomeFragment homeFragment = new HomeFragment();
+    public final SearchFragment searchFragment = new SearchFragment();
+    public final SettingsFragment settingsFragment = new SettingsFragment();
+    public final WatchListFragment watchlistFragment = new WatchListFragment();
+    public final CompareFragment compareFragment = new CompareFragment();
+    public final FragmentManager fm = getSupportFragmentManager();
+    public Fragment currentFragment = searchFragment;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,48 +45,61 @@ public class MainNavigationUI extends AppCompatActivity {
         setContentView(R.layout.activity_main_navigation_ui);
         Intent intent = getIntent();
 //        uid = intent.getStringExtra(StartUI.firebase_key);
-        uid = UserID.getInstance().getID();
-        WatchlistController.init(uid);
-        UserController.init(FirebaseAuth.getInstance().getCurrentUser());
+
+//        UserController.init(FirebaseAuth.getInstance().getCurrentUser());
         BottomNavigationView bottomMenu = findViewById(R.id.bottom_menu);
         bottomMenu.setOnNavigationItemSelectedListener(navListener);
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                new SearchFragment()).commit();
+
+
+        fm.beginTransaction().add(R.id.fragment_container,
+                homeFragment).hide(homeFragment).commit();
+        fm.beginTransaction().add(R.id.fragment_container,
+                watchlistFragment).hide(watchlistFragment).commit();
+        fm.beginTransaction().add(R.id.fragment_container,
+                settingsFragment).hide(settingsFragment).commit();
+        fm.beginTransaction().add(R.id.fragment_container,
+                compareFragment).hide(compareFragment).commit();
+        fm.beginTransaction().add(R.id.fragment_container,
+                currentFragment).commit();
+
 
     }
 
     private BottomNavigationView.OnNavigationItemSelectedListener navListener =
-            new BottomNavigationView.OnNavigationItemSelectedListener() {
-                @Override
-                public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                    Fragment selectedFragment = null;
+            item -> {
 
-                    switch (item.getItemId()){
-                        case R.id.searchIcon:
-                            selectedFragment = new SearchFragment();
-                            break;
+                switch (item.getItemId()){
+                    case R.id.searchIcon:
+                        fm.beginTransaction().hide(currentFragment).show(searchFragment).commit();
+                        currentFragment = searchFragment;
+                        break;
 
-                        case R.id.watchListIcon:
-                            selectedFragment = new WatchListFragment();
-                            break;
-                        case R.id.homeIcon:
-                            selectedFragment = new HomeFragment();
-                            break;
-                        case R.id.compareIcon:
-                            selectedFragment = new CompareFragment();
-                            break;
-                        case R.id.settingsIcon:
-                            selectedFragment = new SettingsFragment();
-                            break;
-                    }
-                    getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                            selectedFragment).commit();
+                    case R.id.watchListIcon:
+                        watchlistFragment.updateInfo();
+                        fm.beginTransaction().hide(currentFragment).show(watchlistFragment).commit();
+                        currentFragment = watchlistFragment;
+                        break;
 
-                    return true;
+                    case R.id.homeIcon:
+                        fm.beginTransaction().hide(currentFragment).show(homeFragment).commit();
+                        currentFragment = homeFragment;
+                        break;
+                    case R.id.compareIcon:
+                        fm.beginTransaction().hide(currentFragment).show(compareFragment).commit();
+                        currentFragment = compareFragment;
+                        break;
+                    case R.id.settingsIcon:
+                        settingsFragment.updateInfo();
+                        fm.beginTransaction().hide(currentFragment).show(settingsFragment).commit();
+                        currentFragment = settingsFragment;
+                        break;
                 }
+                return true;
             };
 
-
+    public FragmentManager getFm() {
+        return fm;
+    }
 }
 
 

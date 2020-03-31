@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.example.edupedia.model.School;
 import com.example.edupedia.model.SchoolDB;
+import com.example.edupedia.model.UserID;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -43,12 +44,15 @@ public class WatchlistController {
 
 
     // Static method to create instance of Singleton class
-    public static void init(String uid) {
+    public static void init() {
+        String uid = UserID.getInstance().getID();
         if (watchlistController == null)
             watchlistController = new WatchlistController(uid);
     }
 
     public static WatchlistController getInstance() {
+        if(watchlistController==null) init();
+
         return watchlistController;
     }
 

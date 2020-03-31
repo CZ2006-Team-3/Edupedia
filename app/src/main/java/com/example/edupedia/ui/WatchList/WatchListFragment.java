@@ -59,6 +59,8 @@ public class WatchListFragment extends Fragment {
 //        watchlistController.pullWatchlist();
 //         */
         watchList = watchlistController.getWatchlist();
+        schoolDB = new SchoolDB(getContext());
+        schools = schoolDB.getValue();
         boolean empty = true;
         for (String schoolName : watchList) {
             if (schoolName != null) {
@@ -67,36 +69,16 @@ public class WatchListFragment extends Fragment {
             }
         }
         if (empty) {
+            wSchoolList = new ArrayList<>();
             Toast toast = Toast.makeText(getActivity(), "None of the schools have been added to the WatchList", Toast.LENGTH_SHORT);
             toast.show();
         } else {
-            schoolDB = new SchoolDB(getContext());
-            schools = schoolDB.getValue();
             schoolList = generateSchools(schools, watchList);
             if (schoolList.size() != 0) {
                 wSchoolList = new ArrayList<>();
                 for (School school : schoolList) {
-                    if (school != null) {
-                        String printGrade;
-                        int gradePSLE = school.getGradePSLE();
-                        int gradeO = school.getGradeO();
-                        if ((gradeO!= -1) && (gradePSLE != -1)) {
-                            printGrade = "\nPSLE: " + gradePSLE + "  /  O-Level: " + gradeO;
-                        } else if ((gradeO == -1) && (gradePSLE != -1)) {
-                            printGrade = "\nCut-Off Score: " + gradePSLE + " (PSLE)";
-                        } else if (gradeO != -1) {
-                            printGrade = "\nCut-Off Score: " + gradeO + " (O-Level)";
-                        } else {
-                            printGrade = "Cut-Off Score: Not Applicable";
-                        }
-                        wSchoolList.add(new SchoolItem(
-                                R.drawable.school_icon,
-                                school.getSchoolName(),
-                                printGrade,
-                                "Distance: " + Double.toString(school.getDistance())
-                                )
-                        );
-                    }
+                    if(school!=null)
+                        wSchoolList.add(createSchoolItem(school));
                 }
             }
         }
@@ -107,7 +89,7 @@ public class WatchListFragment extends Fragment {
 
     }
 
-    public ArrayList<School> generateSchools(HashMap<String, School> db, String[] results) {
+    private ArrayList<School> generateSchools(HashMap<String, School> db, String[] results) {
         ArrayList<School> schoolList = new ArrayList<>();
         for (String name : results) {
             schoolList.add(db.get(name));
@@ -116,7 +98,7 @@ public class WatchListFragment extends Fragment {
         return schoolList;
     }
 
-    public void buildRecyclerView(View layout) {
+    private void buildRecyclerView(View layout) {
         wRecyclerView = layout.findViewById(R.id.recycler_watchList_view);
         wRecyclerView.setLayoutManager(new WrapContentLinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
         wRecyclerView.setHasFixedSize(false);
@@ -177,5 +159,44 @@ public class WatchListFragment extends Fragment {
 
     }
 
+    public void updateInfo() {
+        ArrayList<SchoolItem> schoolItemList = wAdapter.getSchoolItemList();
+        watchList = watchlistController.getWatchlist();
+        ArrayList<String> schoolNames = new ArrayList<>();
+        for(SchoolItem schoolItem : schoolItemList) {
+            if(schoolItem!=null)
+                schoolNames.add(schoolItem.getSchoolName());
+        }
+        for(String schoolName : watchList) {
+            if(!schoolNames.contains(schoolName) && schoolName!=null) {
+                schoolItemList.add(createSchoolItem(schools.get(schoolName)));
+            }
+        }
+
+        wAdapter.notifyDataSetChanged();
+    }
+
+    private SchoolItem createSchoolItem(School school) {
+        String printGrade;
+        int gradePSLE = school.getGradePSLE();
+        int gradeO = school.getGradeO();
+        if ((gradeO != -1) && (gradePSLE != -1)) {
+            printGrade = "\nPSLE: " + gradePSLE + "  /  O-Level: " + gradeO;
+        } else if ((gradeO == -1) && (gradePSLE != -1)) {
+            printGrade = "\nCut-Off Score: " + gradePSLE + " (PSLE)";
+        } else if (gradeO != -1) {
+            printGrade = "\nCut-Off Score: " + gradeO + " (O-Level)";
+        } else {
+            printGrade = "Cut-Off Score: Not Applicable";
+        }
+        SchoolItem schoolItem = new SchoolItem(
+                R.drawable.school_icon,
+                school.getSchoolName(),
+                printGrade,
+                "Distance: " + Double.toString(school.getDistance())
+        );
+
+        return schoolItem;
+    }
 
 }

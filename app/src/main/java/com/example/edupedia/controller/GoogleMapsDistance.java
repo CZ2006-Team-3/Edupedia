@@ -109,7 +109,7 @@ public class GoogleMapsDistance //extends AppCompatActivity
 
             //recyclerView.setAdapter(adapterClass);
 
-            //adapterClass = new AdapterClass(schools);
+//            adapterClass = new AdapterClass(schools);
             //adapterClass = new AdapterClass(schoolItemList);
         }
 

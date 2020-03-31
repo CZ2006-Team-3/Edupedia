@@ -1,6 +1,7 @@
 package com.example.edupedia.ui.home;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -38,6 +39,7 @@ import com.example.edupedia.R;
 import com.example.edupedia.ui.AdvFilterDialogFragment;
 import com.example.edupedia.ui.Compare.CompareFragment;
 import com.example.edupedia.ui.FilterUI;
+import com.example.edupedia.ui.MainNavigationUI;
 import com.example.edupedia.ui.SchoolItem;
 import com.example.edupedia.controller.SortController;
 import com.example.edupedia.controller.WatchlistController;
@@ -85,6 +87,7 @@ public class HomeFragment extends Fragment implements SortByDialogFragment.SortB
     private HashMap<String, School> schools;
     private ArrayList<School> schoolArrayList;
 
+    private MainNavigationUI mainNavigationUI;
     private WatchlistController watchlistController = WatchlistController.getInstance();
     private AdvFilterDialogFragment advFilter = new AdvFilterDialogFragment();
     private SearchController searchController;
@@ -307,6 +310,7 @@ public class HomeFragment extends Fragment implements SortByDialogFragment.SortB
                 while ((i < 10) && !added) {
                     if (watchlist[i] == null) {
                         watchlistController.addSchool(schoolToAdd, i);
+//                        mainNavigationUI.watchlistFragment.updateInfo(schools.get(schoolToAdd));
                         mAdapter.notifyItemChanged(position);
                         Toast toast = Toast.makeText(getActivity(), "School has been added", Toast.LENGTH_SHORT);
                         toast.show();
@@ -327,12 +331,14 @@ public class HomeFragment extends Fragment implements SortByDialogFragment.SortB
             @Override
             public void onCompareSelect(int position) {
                 String schoolToCompare = mSchoolList.get(position).getSchoolName();
-                CompareFragment comparison = new CompareFragment();
+                CompareFragment comparison = (CompareFragment) mainNavigationUI.compareFragment;
                 Bundle args = new Bundle();
                 args.putString("SchoolName", schoolToCompare);
                 comparison.setArguments(args);
-                getFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                        comparison).commit();
+                comparison.update(comparison.getView());
+                FragmentTransaction ft = mainNavigationUI.fm.beginTransaction().hide(mainNavigationUI.currentFragment).show(comparison);
+                mainNavigationUI.currentFragment = comparison;
+                ft.commit();
                 Toast toast = Toast.makeText(getActivity(), "School has been added to comparison", Toast.LENGTH_LONG);
                 toast.show();
                 mAdapter.notifyItemChanged(position);
@@ -457,5 +463,13 @@ public class HomeFragment extends Fragment implements SortByDialogFragment.SortB
 
     public void setSchoolDB(HashMap<String, School> schools) {
         this.schools = schools;
+    }
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        if(context instanceof MainNavigationUI) {
+            mainNavigationUI = (MainNavigationUI) context;
+        }
     }
 }

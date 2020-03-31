@@ -1,5 +1,6 @@
 package com.example.edupedia.ui.Compare;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -7,12 +8,14 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.edupedia.R;
 import com.example.edupedia.model.School;
 import com.example.edupedia.model.SchoolDB;
+import com.example.edupedia.ui.MainNavigationUI;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -41,7 +44,7 @@ public class CompareFragment extends Fragment {
     private HashMap<String, School> schools;
     private SchoolDB schoolDB;
     private static int i = 0;
-
+    private MainNavigationUI mainNavigationUI;
 
     @Nullable
     @Override
@@ -50,6 +53,23 @@ public class CompareFragment extends Fragment {
          * The functions and buttons etc created upon the loading of this fragment
          */
 
+        View layout =  inflater.inflate(R.layout.fragment_compare, container, false);
+        update(layout);
+
+        return layout;
+
+    }
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        if(context instanceof MainNavigationUI) {
+            mainNavigationUI = (MainNavigationUI) context;
+        }
+    }
+
+
+    public void update(View layout) {
         Bundle bundle = this.getArguments();
         if (bundle!=null) {
             String value = bundle.getString("SchoolName");
@@ -84,7 +104,7 @@ public class CompareFragment extends Fragment {
                 }
             }
         }
-        View layout =  inflater.inflate(R.layout.fragment_compare, container, false);
+
         if (compareList[0] == null & compareList[1] == null) {
             Toast toast = Toast.makeText(getActivity(), "No schools have been added to compare", Toast.LENGTH_LONG);
             toast.show();
@@ -164,8 +184,6 @@ public class CompareFragment extends Fragment {
             drive2 = layout.findViewById(R.id.school2Driving);
             drive2.setText(Double.toString(compareList[1].getDrivingTime()));
         }
-
-        return layout;
 
     }
 

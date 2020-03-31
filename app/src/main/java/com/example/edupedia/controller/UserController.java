@@ -1,15 +1,18 @@
 package com.example.edupedia.controller;
 
+import android.annotation.SuppressLint;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.example.edupedia.ui.SettingsFragment;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.EmailAuthProvider;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseAuthInvalidUserException;
 import com.google.firebase.auth.FirebaseUser;
@@ -26,7 +29,6 @@ public class UserController {
     private boolean locationAccess;
     private DatabaseReference current_user_db;
 
-
     private FirebaseUser user;
 
     // static variable watchlistController of type WatchlistController
@@ -36,16 +38,33 @@ public class UserController {
     private UserController(FirebaseUser usr) {
         this.user = usr;
         this.current_user_db = FirebaseDatabase.getInstance().getReference().child("User_DB").child(user.getUid());
+        current_user_db.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                name = (String) dataSnapshot.child("name").getValue();
+                edLevel = (String) dataSnapshot.child("ed_level").getValue();
+                locationAccess = dataSnapshot.child("location_access").getValue() != null;
+
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                // ...
+            }
+        });
     }
 
 
     // Static method to create instance of Singleton class
-    public static void init(FirebaseUser usr) {
-        if (userController == null)
-            userController = new UserController(usr);
+    public static void init() {
+        FirebaseUser usr = FirebaseAuth.getInstance().getCurrentUser();
+        userController = new UserController(usr);
     }
 
     public static UserController getInstance() {
+        if(userController==null) init();
+
         return userController;
     }
 
@@ -94,46 +113,10 @@ public class UserController {
     }
 
     public String getName(){
-        String user_id = user.getUid();
-        current_user_db.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                if (dataSnapshot.child("name").getValue() != null) {
-                    String key = dataSnapshot.getKey();
-                    Log.d("FireBase REAADDD", key);
-                    name = (String) dataSnapshot.child("name").getValue();
-                } else {
-                    name = "NOT FOUND";
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                // ...
-            }
-        });
         return name;
     }
 
     public String getEdLevel(){
-        String user_id = user.getUid();
-        current_user_db.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                if (dataSnapshot.child("ed_level").getValue() != null) {
-                    String key = dataSnapshot.getKey();
-                    Log.d("FireBase REAADDD", key);
-                    edLevel = (String) dataSnapshot.child("ed_level").getValue();
-                } else {
-                    edLevel = "NOT FOUND";
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                // ...
-            }
-        });
         return edLevel;
     }
 
@@ -147,23 +130,6 @@ public class UserController {
 
     public boolean getLocationAccess(){
         String user_id = user.getUid();
-        current_user_db.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                if (dataSnapshot.child("location_access").getValue() != null) {
-                    String key = dataSnapshot.getKey();
-                    Log.d("FireBase REAADDD", key);
-                    locationAccess = (boolean) dataSnapshot.child("location_access").getValue();
-                } else {
-
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                // ...
-            }
-        });
-        return locationAccess;
+       return locationAccess;
     }
 }
