@@ -222,7 +222,6 @@
             android:textColor="@color/blackText"
             android:text="Not found"
             android:gravity="left|center"
-            android:text="Not found"
             app:layout_constraintStart_toEndOf="@+id/web"
             app:layout_constraintTop_toBottomOf="@+id/url_display" />
 
