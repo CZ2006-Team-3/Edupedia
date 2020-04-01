@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="400dp"
     android:layout_height="131dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -7,7 +8,7 @@
     android:background="#EFEEED"
     android:paddingBottom="12dp">
 
-    <RelativeLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="4dp">
@@ -16,19 +17,27 @@
             android:id="@+id/school_img"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:padding="2dp" />
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="28dp"
+            android:padding="2dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/school_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="16dp"
+            android:layout_toEndOf="@+id/school_img"
+            android:paddingBottom="4dp"
             android:text="School Name"
+            android:textColor="@color/blackText"
             android:textSize="16sp"
             android:textStyle="bold"
-            android:textColor="@color/blackText"
-            android:layout_alignParentTop="true"
-            android:paddingBottom="4dp"
-            android:layout_toEndOf="@+id/school_img"/>
+            app:layout_constraintStart_toEndOf="@+id/school_img"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/grade_cutOff"
@@ -36,15 +45,16 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/school_name"
             android:layout_alignParentBottom="true"
-            android:layout_marginStart="6dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="59dp"
+            android:layout_marginStart="92dp"
+            android:layout_marginTop="4dp"
             android:layout_toEndOf="@+id/school_img"
             android:paddingBottom="3dp"
             android:text="Grade Cut-Off"
             android:textColor="@color/blackText"
             android:textSize="12sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/school_name" />
 
         <TextView
             android:id="@+id/distanceInfo"
@@ -52,15 +62,15 @@
             android:layout_height="41dp"
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
-            android:layout_marginStart="4dp"
-            android:layout_marginEnd="239dp"
-            android:layout_marginBottom="8dp"
+            android:layout_marginStart="92dp"
             android:layout_toEndOf="@+id/school_img"
             android:paddingBottom="2dp"
             android:text="Distance"
             android:textColor="@color/blackText"
             android:textSize="12sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/grade_cutOff" />
 
         <ImageView
             android:id="@+id/watchListStar"
@@ -68,11 +78,16 @@
             android:layout_height="35dp"
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
-            android:layout_marginEnd="9dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginBottom="72dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="24dp"
+            android:background="@drawable/star"
             android:text=" "
-            android:background="@drawable/star" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toEndOf="@+id/distanceInfo"
+            app:layout_constraintTop_toBottomOf="@+id/compareClick"
+            app:layout_constraintVertical_bias="1.0" />
 
         <ImageView
             android:id="@+id/compareClick"
@@ -80,11 +95,12 @@
             android:layout_height="30dp"
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
-            android:layout_marginEnd="9dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginBottom="22dp"
-            android:src="@drawable/icon_material_compare" />
+            android:layout_marginStart="156dp"
+            android:layout_marginTop="16dp"
+            android:src="@drawable/icon_material_compare"
+            app:layout_constraintStart_toEndOf="@+id/school_name"
+            app:layout_constraintTop_toTopOf="parent" />
 
 
-    </RelativeLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>
