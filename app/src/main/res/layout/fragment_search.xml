@@ -141,15 +141,4 @@
         android:outlineAmbientShadowColor="@color/blackText"
         android:outlineSpotShadowColor="@color/blackText" />
 
-    <ProgressBar
-        android:id="@+id/determinateBar"
-        style="@android:style/Widget.ProgressBar.Horizontal"
-        android:layout_width="329dp"
-        android:layout_height="38dp"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginEnd="42dp"
-        android:layout_marginBottom="136dp" />
-
-
 </RelativeLayout>

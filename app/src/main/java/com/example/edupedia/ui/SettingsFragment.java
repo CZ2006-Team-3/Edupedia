@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.RadioGroup;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -20,8 +21,10 @@ public class SettingsFragment extends Fragment {
     private TextView Name;
     private TextView EducationLevel;
     private TextView Email;
+    private Switch locationAccessSwitch;
     private FirebaseUser user;
-    private String name, edlevel;
+    private String name, edlevel, email;
+    private boolean locationAccess;
     private UserController userController = UserController.getInstance();
 
     @Nullable
@@ -44,7 +47,13 @@ public class SettingsFragment extends Fragment {
         edlevel = userController.getEdLevel();
 
         Email = rootview.findViewById(R.id.SettingEmail);
-        Email.setText(userController.getEmail());
+        email = userController.getEmail();
+        Email.setText(email);
+
+        locationAccessSwitch = rootview.findViewById(R.id.switch1);
+        locationAccess = userController.getLocationAccess();
+        locationAccessSwitch.setChecked(locationAccess);
+
 
         ImageButton changePassword=(ImageButton) rootview.findViewById(R.id.ChangePasswordButton);
         ImageButton changeUsername=(ImageButton) rootview.findViewById(R.id.ChangeEmailButtonSettings);
@@ -87,6 +96,17 @@ public class SettingsFragment extends Fragment {
         Name.setText(name);
         EducationLevel.setText(edlevel);
         return rootview;
+    }
+
+    public void updateInfo() {
+        name = userController.getName();
+        edlevel = userController.getEdLevel();
+        locationAccess = userController.getLocationAccess();
+        email = userController.getEmail();
+        Name.setText(name);
+        EducationLevel.setText(edlevel);
+        locationAccessSwitch.setChecked(locationAccess);
+        Email.setText(email);
     }
 
 }

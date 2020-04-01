@@ -174,7 +174,7 @@
             app:layout_constraintTop_toBottomOf="@+id/distance" />
 
         <ImageView
-            android:id="@+id/web"
+            android:id="@+id/web2"
             android:layout_width="58dp"
             android:layout_height="46dp"
             android:layout_alignParentEnd="true"
@@ -185,6 +185,18 @@
             app:layout_constraintTop_toBottomOf="@+id/trainIcon"
             app:srcCompat="@drawable/link" />
 
+        <ImageView
+            android:id="@+id/watchListLogo"
+            android:layout_width="58dp"
+            android:layout_height="46dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="56dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/trainIcon"
+            app:srcCompat="@drawable/fire" />
+
         <TextView
             android:id="@+id/url_display"
             android:layout_width="237dp"
@@ -192,23 +204,15 @@
             android:layout_alignParentStart="true"
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
-            android:layout_marginStart="36dp"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="8dp"
             android:autoLink="web"
             android:gravity="left|center"
             android:text="url link"
-            app:layout_constraintStart_toEndOf="@+id/web"
+            android:textColor="@color/blackText"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.391"
+            app:layout_constraintStart_toEndOf="@+id/web2"
             app:layout_constraintTop_toBottomOf="@+id/publicTransportTiming" />
-
-        <ImageView
-            android:id="@+id/banner"
-            android:layout_width="381dp"
-            android:layout_height="39dp"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentBottom="true"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:srcCompat="@drawable/group008" />
 
         <TextView
             android:id="@+id/watchCount"
@@ -217,13 +221,14 @@
             android:layout_alignParentStart="true"
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
-            android:layout_marginStart="36dp"
-            android:layout_marginTop="16dp"
-            android:textColor="@color/blackText"
-            android:text="Not found"
+            android:layout_marginTop="8dp"
             android:gravity="left|center"
-            app:layout_constraintStart_toEndOf="@+id/web"
+            android:text="WatchList Count"
+            android:textColor="@color/blackText"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/watchListLogo"
             app:layout_constraintTop_toBottomOf="@+id/url_display" />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

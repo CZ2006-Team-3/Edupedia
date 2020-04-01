@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.example.edupedia.model.School;
 import com.example.edupedia.model.SchoolDB;
+import com.example.edupedia.model.UserID;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -43,12 +44,15 @@ public class WatchlistController {
 
 
     // Static method to create instance of Singleton class
-    public static void init(String uid) {
+    public static void init() {
+        String uid = UserID.getInstance().getID();
         if (watchlistController == null)
             watchlistController = new WatchlistController(uid);
     }
 
     public static WatchlistController getInstance() {
+        if(watchlistController==null) init();
+
         return watchlistController;
     }
 
@@ -92,15 +96,15 @@ public class WatchlistController {
                     String key = dataSnapshot.getKey();
                     Log.d("FireBase REAADDD", key);
                     try {
-                         ArrayList<String> arrayList = (ArrayList<String>) dataSnapshot.child("watchlist").getValue();
+                        ArrayList<String> arrayList = (ArrayList<String>) dataSnapshot.child("watchlist").getValue();
                         watchlist = arrayList.toArray(new String[10]);
                     }
                     catch (ClassCastException e) {
                         //watchlist
                     }
-//                    Log.d("FireBase REAADDD", watchlist[0]);
+//                        Log.d("FireBase REAADDD", watchlist[0]);
                 } else {
-                    watchlist = new String[10];
+                        watchlist = new String[10];
                 }
             }
 
@@ -115,7 +119,7 @@ public class WatchlistController {
 
     public boolean exists(String schoolName) {
         for(String schoolNameCompare : watchlist) {
-            if(schoolNameCompare!=null && schoolName.equals(schoolNameCompare))
+            if(schoolName.equals(schoolNameCompare))
                 return true;
         }
         return false;

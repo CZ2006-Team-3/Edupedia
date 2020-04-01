@@ -36,6 +36,7 @@ public class schoolInfoUI extends AppCompatActivity {
     private ImageView distanceLogo;
     private ImageView trainLogo;
     private ImageView urlLogo;
+    private ImageView watchlistLogo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,7 +61,8 @@ public class schoolInfoUI extends AppCompatActivity {
         drivingLogo = findViewById(R.id.drivingIcon);
         distanceLogo = findViewById(R.id.distanceIcon);
         trainLogo = findViewById(R.id.trainIcon);
-        urlLogo = findViewById(R.id.web);
+        urlLogo = findViewById(R.id.web2);
+        watchlistLogo = findViewById(R.id.watchListLogo);
         schoolLogo.setImageResource(R.drawable.school);
         courseLogo.setImageResource(R.drawable.course);
         gradeLogo.setImageResource(R.drawable.grade);
@@ -68,12 +70,13 @@ public class schoolInfoUI extends AppCompatActivity {
         distanceLogo.setImageResource(R.drawable.distance);
         trainLogo.setImageResource(R.drawable.public_transport);
         urlLogo.setImageResource(R.drawable.link);
+        watchlistLogo.setImageResource(R.drawable.fire);
         LiveData<Integer> watchcount = viewmodel.getWatchCount();
         watchcount.observe(this, new Observer<Integer>(){
 
             @Override
             public void onChanged(Integer i) {
-                watchCount.setText(String.valueOf(i));
+                watchCount.setText("Number of people looking at this school : " + String.valueOf(i));
             }
 
         });
@@ -83,15 +86,14 @@ public class schoolInfoUI extends AppCompatActivity {
 
     public void setData(Bundle extras) {
         schoolName.setText(extras.getString("schoolName"));
-        course.setText(extras.getString("course"));
-        if (Integer.toString(extras.getInt("grade")).equals("0")) {
-            grade.setText("Not Applicable");
-        } else {
-            grade.setText(Integer.toString(extras.getInt("grade")));
-        }
-        drive.setText(String.format("%.2f", extras.getDouble("drive")));
-        dist.setText(String.format("%.2f", extras.getDouble("dist")));
-        publicTime.setText(String.format("%.2f", extras.getDouble("publicTime")));
+        course.setText("Course Name" + extras.getString("course"));
+//        if (Integer.toString(extras.getInt("grade")).equals("0")) {
+//            grade.setText("Not Applicable");
+//        } else {
+        grade.setText("Grade Cut-Off: " + extras.getString("grade"));
+        drive.setText("Time taken to drive:" + String.format("%.2f", extras.getDouble("drive")));
+        dist.setText("Distance" + String.format("%.2f", extras.getDouble("dist")));
+        publicTime.setText("Time to travel in Public Transport" + String.format("%.2f", extras.getDouble("publicTime")));
         url.setText(extras.getString("url"));
     }
 
