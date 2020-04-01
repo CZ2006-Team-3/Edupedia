@@ -62,7 +62,7 @@ public class SettingsFragment extends Fragment {
         changeUsername.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                Intent myIntent = new Intent(v.getContext(), ChangeUsername.class);
+                Intent myIntent = new Intent(v.getContext(), ChangeEmail.class);
                 SettingsFragment.this.startActivity(myIntent);
             }
         });

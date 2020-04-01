@@ -4,33 +4,29 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.util.Patterns;
-import android.view.Gravity;
-import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
-import android.widget.PopupWindow;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.edupedia.R;
 import com.example.edupedia.controller.UserController;
 
-import androidx.annotation.Nullable;
-import androidx.fragment.app.DialogFragment;
-
-public class ChangeUsername extends Activity implements View.OnClickListener {
+/**
+ * change email class for users choosing to change the email listed in their profile
+ */
+public class ChangeEmail extends Activity implements View.OnClickListener {
     EditText editTextEmail, editTextEmailRetype;
     String email, emailRetype;
     private UserController userController = UserController.getInstance();
 
+    /**
+     * default method that occurs upon the creation of the activity
+     * this method sets the dimensions for the change email pop up
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.change_username);
+        setContentView(R.layout.change_email);
 
         DisplayMetrics dm = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(dm);
@@ -46,7 +42,10 @@ public class ChangeUsername extends Activity implements View.OnClickListener {
         findViewById(R.id.changeUsernameButton).setOnClickListener(this);
 
     }
-
+    /**
+     * method to change the email by called userController
+     * method has error handling to ensure the email typed matches the email retyped by the user and it must be a valid email address
+     */
     private void changeEmail(){
         email = editTextEmail.getText().toString();
         emailRetype = editTextEmailRetype.getText().toString();
@@ -69,6 +68,10 @@ public class ChangeUsername extends Activity implements View.OnClickListener {
         finish();
     }
 
+    /**
+     * button calling the change email method once the user clicks on the button
+     * @param view
+     */
     @Override
     public void onClick(View view){
         switch(view.getId()){

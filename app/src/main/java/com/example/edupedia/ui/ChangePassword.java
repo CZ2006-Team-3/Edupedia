@@ -23,11 +23,18 @@ import com.example.edupedia.controller.UserController;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
+/**
+ * change password class for users choosing to change their password
+ */
 public class ChangePassword extends Activity implements View.OnClickListener{
     EditText editTextPassword, editTextPasswordRetype;
     String pwd, pwdretype;
     private UserController userController = UserController.getInstance();
 
+    /**
+     * default method that occurs upon the creation of the activity
+     * this method sets the dimensions for the change password pop up
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
@@ -47,6 +54,10 @@ public class ChangePassword extends Activity implements View.OnClickListener{
         findViewById(R.id.changePasswordButton).setOnClickListener(this);
     }
 
+    /**
+     * method to change the password by called userController
+     * method has error handling to ensure the password typed matches the password retyped by the user and password length should be atleast 6 digits
+     */
     private void changePassword() {
 
         pwd = editTextPassword.getText().toString();
@@ -82,6 +93,10 @@ public class ChangePassword extends Activity implements View.OnClickListener{
         finish();
     }
 
+    /**
+     * button calling the change password method once the user clicks on the button
+     * @param view
+     */
     @Override
     public void onClick(View view) {
         switch(view.getId()){

@@ -31,7 +31,7 @@
         <activity android:name=".ui.ChangePassword"
             android:theme="@style/AppTheme.CustomTheme"
             ></activity>
-        <activity android:name=".ui.ChangeUsername"
+        <activity android:name=".ui.ChangeEmail"
             android:theme="@style/AppTheme.CustomTheme"
             ></activity>
         <activity android:name=".ui.SortBy"
