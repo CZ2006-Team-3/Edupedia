@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -13,26 +14,30 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginEnd="14dp"
-        android:layout_marginRight="14dp"
-        android:layout_marginBottom="216dp"
         android:background="#00000000"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.516"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/locationButton"
+        app:layout_constraintVertical_bias="0.222"
         app:srcCompat="@drawable/find_institute" />
 
     <TextView
         android:id="@+id/textView8"
-        android:layout_width="504dp"
-        android:layout_height="69dp"
+        android:layout_width="351dp"
+        android:layout_height="64dp"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginEnd="-126dp"
-        android:layout_marginRight="-126dp"
-        android:layout_marginBottom="489dp"
+        android:layout_marginTop="168dp"
         android:fontFamily="sans-serif"
         android:text="Finding your next step for education"
         android:textColor="@color/blackText"
-        android:textSize="20dp" />
+        android:textSize="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/locationEnter"
@@ -41,11 +46,16 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginEnd="14dp"
-        android:layout_marginRight="14dp"
-        android:layout_marginBottom="309dp"
+        android:layout_marginTop="52dp"
+        android:layout_marginEnd="16dp"
         android:background="@drawable/edit_text_round_box"
-        android:text="" />
+        android:text=""
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/locationButton"
+        app:layout_constraintTop_toBottomOf="@+id/nature"
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/education"
@@ -54,11 +64,12 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginEnd="247dp"
-        android:layout_marginRight="247dp"
-        android:layout_marginBottom="482dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="40dp"
         android:text="Education Level"
-        android:textColor="@color/blackText" />
+        android:textColor="@color/blackText"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView8" />
 
     <TextView
         android:id="@+id/gradeCutOff"
@@ -67,11 +78,12 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginEnd="247dp"
-        android:layout_marginRight="247dp"
-        android:layout_marginBottom="430dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="32dp"
         android:text="Grade Cut-off"
-        android:textColor="@color/blackText" />
+        android:textColor="@color/blackText"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/education" />
 
     <Spinner
         android:id="@+id/gradeCut_Off"
@@ -80,11 +92,14 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginEnd="17dp"
-        android:layout_marginRight="17dp"
-        android:layout_marginBottom="419dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
         android:entries="@array/gradeCutOff"
-        android:outlineSpotShadowColor="@color/blackText" />
+        android:outlineSpotShadowColor="@color/blackText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/gradeCutOff"
+        app:layout_constraintTop_toBottomOf="@+id/dropdown_education" />
 
     <Spinner
         android:id="@+id/nature"
@@ -93,11 +108,12 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginEnd="15dp"
-        android:layout_marginRight="15dp"
-        android:layout_marginBottom="371dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="20dp"
         android:entries="@array/subOffered"
-        android:outlineSpotShadowColor="@color/blackText" />
+        android:outlineSpotShadowColor="@color/blackText"
+        app:layout_constraintStart_toEndOf="@+id/addOptions"
+        app:layout_constraintTop_toBottomOf="@+id/gradeCut_Off" />
 
     <TextView
         android:id="@+id/addOptions"
@@ -106,11 +122,12 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginEnd="243dp"
-        android:layout_marginRight="243dp"
-        android:layout_marginBottom="376dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="32dp"
         android:text="Additional Choice"
-        android:textColor="@color/blackText" />
+        android:textColor="@color/blackText"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/gradeCutOff" />
 
     <Button
         android:id="@+id/locationButton"
@@ -119,12 +136,15 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginEnd="250dp"
-        android:layout_marginRight="250dp"
-        android:layout_marginBottom="301dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="64dp"
         android:background="@color/bgTint"
         android:text="Location"
-        android:textColor="@color/blackText" />
+        android:textColor="@color/blackText"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/addOptions"
+        app:layout_constraintVertical_bias="0.0" />
 
     <Spinner
         android:id="@+id/dropdown_education"
@@ -133,12 +153,12 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="18dp"
-        android:layout_marginRight="18dp"
-        android:layout_marginBottom="474dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="28dp"
         android:entries="@array/educationLevel"
         android:outlineAmbientShadowColor="@color/blackText"
-        android:outlineSpotShadowColor="@color/blackText" />
+        android:outlineSpotShadowColor="@color/blackText"
+        app:layout_constraintStart_toEndOf="@+id/education"
+        app:layout_constraintTop_toBottomOf="@+id/textView8" />
 
-</RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
