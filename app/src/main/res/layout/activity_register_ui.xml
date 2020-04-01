@@ -18,11 +18,15 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginTop="156dp"
+        android:layout_marginTop="108dp"
         android:text="Welcome to Edupedia"
         android:textColor="@color/blackText"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.59"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:layout_editor_absoluteX="150dp" />
+        app:layout_constraintVertical_bias="0.072" />
 
     <EditText
         android:id="@+id/editTextRetypePassword"
@@ -34,25 +38,25 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
         android:layout_marginTop="8dp"
+        android:layout_marginEnd="44dp"
         android:ems="10"
         android:inputType="textPassword"
-        app:layout_constraintTop_toBottomOf="@+id/editTextPassword"
-        tools:layout_editor_absoluteX="163dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextPassword" />
 
     <TextView
         android:id="@+id/textViewLogin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_marginStart="80dp"
-        android:layout_marginBottom="4dp"
+        android:layout_marginBottom="12dp"
         android:text="Already have an account? Login"
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-        android:textColor="@color/blackText"
+        android:textSize="14sp"
         app:layout_constraintBottom_toTopOf="@+id/buttonSignUp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/retypePassword"
-        app:layout_constraintVertical_bias="0.93" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/email"
@@ -65,6 +69,7 @@
         android:layout_alignParentBottom="true"
         android:layout_marginStart="40dp"
         android:layout_marginTop="35dp"
+        android:textColor="@color/blackText"
         android:text="Email"
         app:layout_constraintEnd_toStartOf="@+id/editTextEmail"
         app:layout_constraintHorizontal_bias="0.0"
@@ -84,6 +89,8 @@
         android:layout_marginTop="8dp"
         android:ems="10"
         android:inputType="textPassword"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/passwordRegistration"
         app:layout_constraintTop_toBottomOf="@+id/editTextUsername" />
 
@@ -95,12 +102,11 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
         android:layout_marginStart="160dp"
+        android:layout_marginBottom="16dp"
         android:background="@color/colorPrimary"
         android:text="Register"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextRetypePassword"
-        app:layout_constraintVertical_bias="0.709" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/retypePassword"
@@ -111,10 +117,11 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginTop="35dp"
+        android:layout_marginTop="32dp"
         android:text="Retype Password"
+        android:textColor="@color/blackText"
         app:layout_constraintEnd_toStartOf="@+id/editTextRetypePassword"
-        app:layout_constraintHorizontal_bias="0.54"
+        app:layout_constraintHorizontal_bias="0.672"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/passwordRegistration" />
 
@@ -130,6 +137,7 @@
         android:layout_marginStart="40dp"
         android:layout_marginTop="35dp"
         android:text="Education Level"
+        android:textColor="@color/blackText"
         app:layout_constraintEnd_toStartOf="@+id/textEdLevel"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -144,8 +152,8 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginTop="28dp"
-        android:layout_marginEnd="44dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="48dp"
         android:ems="10"
         android:inputType="textEmailAddress"
         app:layout_constraintEnd_toEndOf="parent"
@@ -162,6 +170,7 @@
         android:layout_alignParentBottom="true"
         android:layout_marginTop="35dp"
         android:text="UserName"
+        android:textColor="@color/blackText"
         app:layout_constraintEnd_toStartOf="@+id/editTextUsername"
         app:layout_constraintHorizontal_bias="0.392"
         app:layout_constraintStart_toStartOf="parent"
@@ -173,10 +182,12 @@
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="44dp"
         android:hint="Select Date"
-        app:layout_constraintTop_toBottomOf="@+id/editTextName"
-        tools:layout_editor_absoluteX="165dp" />
+        android:textColor="@color/blackText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextName" />
 
     <EditText
         android:id="@+id/editTextName"
@@ -187,11 +198,13 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginTop="52dp"
+        android:layout_marginTop="24dp"
         android:layout_marginEnd="44dp"
         android:hint="Enter your name here"
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/Name"
         app:layout_constraintTop_toBottomOf="@+id/WelcometoEdupedia" />
 
     <Spinner
@@ -202,9 +215,10 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
         android:layout_marginTop="20dp"
+        android:layout_marginEnd="48dp"
         android:hint="Select Education Level"
-        app:layout_constraintTop_toBottomOf="@+id/editTextEmail"
-        tools:layout_editor_absoluteX="165dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextEmail" />
 
     <TextView
         android:id="@+id/passwordRegistration"
@@ -218,6 +232,7 @@
         android:layout_marginStart="40dp"
         android:layout_marginTop="35dp"
         android:text="Password"
+        android:textColor="@color/blackText"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/usernameRegistration" />
 
@@ -231,9 +246,10 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
         android:layout_marginTop="20dp"
+        android:layout_marginEnd="48dp"
         android:hint="Username"
-        app:layout_constraintTop_toBottomOf="@+id/textEdLevel"
-        tools:layout_editor_absoluteX="165dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textEdLevel" />
 
     <TextView
         android:id="@+id/Name"
@@ -245,8 +261,9 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
         android:layout_marginStart="40dp"
-        android:layout_marginTop="52dp"
+        android:layout_marginTop="32dp"
         android:text="Name"
+        android:textColor="@color/blackText"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/WelcometoEdupedia" />
 
@@ -262,6 +279,7 @@
         android:layout_marginStart="40dp"
         android:layout_marginTop="35dp"
         android:text="Date Of Birth"
+        android:textColor="@color/blackText"
         app:layout_constraintEnd_toStartOf="@+id/textDateOfBirth"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
