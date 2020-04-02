@@ -64,9 +64,7 @@ import java.util.List;
  */
 public class HomeFragment extends Fragment implements SortByDialogFragment.SortByDialogListener,
         View.OnClickListener, AdvFilterDialogFragment.AdvFilterDialogListener {
-    public static final String SORT_VARIABLE_NAME = "sort";
-    public static final String ASCENDING_SORT = "ascending_sort";
-    public static final int RESULT_SUCCESS = 1;
+
     private String TAG = "HomeFragment";
 
     public interface SortEventListener {
@@ -489,6 +487,14 @@ public class HomeFragment extends Fragment implements SortByDialogFragment.SortB
 
     public void setSchoolDB(HashMap<String, School> schools) {
         this.schools = schools;
+    }
+
+    public int getSORT_VARIABLE() {
+        return SORT_VARIABLE;
+    }
+
+    public boolean isSORT_ASCENDING() {
+        return SORT_ASCENDING;
     }
 
     @Override
