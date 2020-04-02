@@ -23,33 +23,19 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Controller class for conducting primary search functions at the Search Page and generate results
+ */
 public class SearchController extends ViewModel {
 
     private MutableLiveData<String> textFilterEdLevel, textFilterGradeCutOff, textFilterNature,
             textFilterLocation;
     private MutableLiveData<ArrayList<String>> textFilterRegion, textFilterSchoolType, textFilterIP;
-    private EditText editLocation;
     private SortController sortController = SortController.getInstance();
-/*
-    public ArrayList<School> getDistances(ArrayList<School> schools) {
-        try {
-           // for (School school : schools) {
-                GoogleMapsDistance googleMapsDistance = new GoogleMapsDistance();
-                //ArrayList<School>, String passed in
-                schools = googleMapsDistance.execute(schools, getTextFilterLocation().getValue()).get();
-                //Toast.makeText(this, school.getAddress(),Toast.LENGTH_SHORT);
-                //Log.e("School location:", school.getAddress());
-            //}
-        }
-        catch (ExecutionException e) {
 
-        }
-        catch (InterruptedException e) {
-
-        }
-        return schools;
-    }*/
-
+    /**
+     * Store filter selected into application background file through DataStoreInterface
+     */
     public void storeFilterSettings() {
         //1. Save Filter Settings to Internal Storage
         JSONObject jsonFilter = new JSONObject();
@@ -65,6 +51,11 @@ public class SearchController extends ViewModel {
         dataStore.storeToMap(jsonFilter);
     }
 
+    /**
+     * Conduct basic search based on the Education Level, Grade Cut-Off and Nature of school
+     * @param schoolDB School Database stored in application
+     * @return Result of search as an ArrayList of the names of schools
+     */
     public ArrayList<String> onBasicSearch(HashMap<String, School> schoolDB) {
         ArrayList<String> results = new ArrayList<>();
         Iterator dbIterator = schoolDB.entrySet().iterator();
@@ -83,6 +74,17 @@ public class SearchController extends ViewModel {
         return results;
     }
 
+    /**
+     * determine whether a school passes the selection criteria set by the filters
+     * @param school School object
+     * @param edLevel Education Level set by filter
+     * @param gradeCutOff Grade Cut-Off set by filter
+     * @param nature Nature set by filter
+     * @param region
+     * @param type
+     * @param ip
+     * @return True if school passes the criteria
+     */
     private boolean applyFilter(School school,
                                 String edLevel,
                                 String gradeCutOff,
@@ -149,35 +151,10 @@ public class SearchController extends ViewModel {
         return true;
     }
 
-
-    public ArrayList<School> onAdvancedSearch(HashMap<String, School> basicResults) {
-        ArrayList<School> advancedResults = new ArrayList<School>();
-        Iterator dbIterator = basicResults.entrySet().iterator();
-        while (dbIterator.hasNext()) {
-            Map.Entry schoolEntry = (Map.Entry) dbIterator.next();
-            School school = (School) schoolEntry.getValue();
-            if (applyFilter(school,
-                    null,
-                    null,
-                    null,
-                    textFilterRegion.getValue(),
-                    textFilterSchoolType.getValue(),
-                    textFilterIP.getValue())) {
-                advancedResults.add(school);
-            }
-        }
-        return advancedResults;
-    }
-
-    private boolean hasOverlap(ArrayList<String> list1, ArrayList<String> list2) {
-        HashSet<String> set = new HashSet<>();
-        set.addAll(list1);
-        set.retainAll(list2); //list of overlapping ccas, hopefully
-        if (set.size() > 0)
-            return true;
-        return false;
-    }
-
+    /**
+     * Access DataStoreInterface to retrieve filter values (EdLevel, GradeCutOff, Nature, Location) from filters.json in background files
+     * @return HashMap containing filter type and filter values
+     */
     public HashMap<String, String> retrieveFilterSettings() {
         DataStoreInterface dataStore = DataStoreFactory.getDatastore("Filter");
         JSONObject jsonFilter = (JSONObject) dataStore.retrieveData();
@@ -197,20 +174,14 @@ public class SearchController extends ViewModel {
         }
         return map;
     }
-    /*
-    public ArrayList<School> getDistances(ArrayList<School> schools) {
-        for (School school: schools) {
-            String loc = getTextFilterLocation().getValue();
-            school = GoogleMapsDistance.googleMapsDistance(school, loc);
-            Log.e("School location:", school.getAddress());
-        }
-        return schools;
-    }*/
 
-    public ArrayList<String> retrieveResults(HashMap<String, School> db) {
+    /**
+     * Access DataStoreInterface to retrieve results (names of schools selected) from results.json in background files
+     * @return Results of the primary search, as ArrayList of names of schools selected
+     */
+    public ArrayList<String> retrieveResults() {
         DataStoreInterface dataStore = DataStoreFactory.getDatastore("Results");
         ArrayList<String> results = (ArrayList<String>) dataStore.retrieveData();
-//        Log.d("PRINT ARRAYLIST RESULTS", results.get(0));
         if (results == null) {
             return null;
         }
@@ -220,11 +191,21 @@ public class SearchController extends ViewModel {
         return results;
     }
 
+    /**
+     * Store results (names of schools) selected into application background file through DataStoreInterface
+     * @param results list of names of schools
+     */
     public void storeResults(ArrayList<String> results) {
         DataStoreInterface dataStore = DataStoreFactory.getDatastore("Results");
         dataStore.storeToMap(results);
     }
 
+    /**
+     * Constructs an ArrayList of School objects based on the names of the School through a lookup of School Database
+     * @param db School Database
+     * @param results list of names of schools
+     * @return list of School items
+     */
     @RequiresApi(api = Build.VERSION_CODES.N)
     public ArrayList<School> generateSchools(HashMap<String, School> db, ArrayList<String> results) {
         if (results == null) return new ArrayList<>();
@@ -237,6 +218,10 @@ public class SearchController extends ViewModel {
         return schoolList;
     }
 
+    /**
+     * get method to retrieve Education Level
+     * @return Education Level
+     */
     public MutableLiveData<String> getTextFilterEdLevel() {
         HashMap<String, String> filterSettings = retrieveFilterSettings();
         String s = filterSettings.get("EdLevel");
@@ -249,6 +234,10 @@ public class SearchController extends ViewModel {
         return textFilterEdLevel;
     }
 
+    /**
+     * get method to retrieve Grade Cut-Off
+     * @return  Grade Cut-Off
+     */
     public MutableLiveData<String> getTextFilterGradeCutOff() {
         HashMap<String, String> filterSettings = retrieveFilterSettings();
         String s = filterSettings.get("GradeCutOff");
@@ -261,6 +250,10 @@ public class SearchController extends ViewModel {
         return textFilterGradeCutOff;
     }
 
+    /**
+     * get method to retrieve Nature
+     * @return Nature
+     */
     public MutableLiveData<String> getTextFilterNature() {
         HashMap<String, String> filterSettings = retrieveFilterSettings();
         String s = filterSettings.get("Nature");
@@ -273,6 +266,10 @@ public class SearchController extends ViewModel {
         return textFilterNature;
     }
 
+    /**
+     * get method to retrieve Location
+     * @return Location
+     */
     public MutableLiveData<String> getTextFilterLocation() {
         HashMap<String, String> filterSettings = retrieveFilterSettings();
         String s = filterSettings.get("Location");
@@ -285,6 +282,10 @@ public class SearchController extends ViewModel {
         return textFilterLocation;
     }
 
+    /**
+     * get method to retrieve Region in the advanced filter settings
+     * @return Region
+     */
     public MutableLiveData<ArrayList<String>> getTextFilterRegion() {
         if (textFilterRegion == null) {
             textFilterRegion = new MutableLiveData<ArrayList<String>>();
@@ -292,6 +293,10 @@ public class SearchController extends ViewModel {
         return textFilterRegion;
     }
 
+    /**
+     * get method to retrieve ArrayList of School Type in the advanced filter settings
+     * @return School Type
+     */
     public MutableLiveData<ArrayList<String>> getTextFilterSchoolType() {
         if (textFilterSchoolType == null) {
             textFilterSchoolType = new MutableLiveData<ArrayList<String>>();
@@ -299,6 +304,10 @@ public class SearchController extends ViewModel {
         return textFilterSchoolType;
     }
 
+    /**
+     * get method to retrieve School Programme Type in the advanced filter settings
+     * @return School Programme Type
+     */
     public MutableLiveData<ArrayList<String>> getTextFilterIP() {
         if (textFilterIP == null) {
             textFilterIP = new MutableLiveData<ArrayList<String>>();
@@ -306,37 +315,64 @@ public class SearchController extends ViewModel {
         return textFilterIP;
     }
 
-
+    /**
+     *
+     * @param s Education Level
+     */
     public void setTextFilterEdLevel(String s) {
         MutableLiveData<String> liveData = this.getTextFilterEdLevel();
         liveData.setValue(s);
     }
 
+    /**
+     *
+     * @param s Nature
+     */
     public void setTextFilterNature(String s) {
         MutableLiveData<String> liveData = this.getTextFilterNature();
         liveData.setValue(s);
     }
 
+    /**
+     *
+     * @param s Grade Cut-Off
+     */
     public void setTextFilterGradeCutOff(String s) {
         MutableLiveData<String> liveData = this.getTextFilterGradeCutOff();
         liveData.setValue(s);
     }
 
+    /**
+     *
+     * @param s Location
+     */
     public void setTextFilterLocation(String s) {
         MutableLiveData<String> liveData = this.getTextFilterLocation();
         liveData.setValue(s);
     }
 
+    /**
+     *
+     * @param s Region
+     */
     public void setTextFilterRegion(ArrayList<String> s) {
         MutableLiveData<ArrayList<String>> liveData = this.getTextFilterRegion();
         liveData.setValue(s);
     }
 
+    /**
+     *
+     * @param s School Type
+     */
     public void setTextFilterSchoolType(ArrayList<String> s) {
         MutableLiveData<ArrayList<String>> liveData = this.getTextFilterSchoolType();
         liveData.setValue(s);
     }
 
+    /**
+     *
+     * @param s Integrated Programme
+     */
     public void setTextFilterIP(ArrayList<String> s) {
         MutableLiveData<ArrayList<String>> liveData = this.getTextFilterIP();
         liveData.setValue(s);

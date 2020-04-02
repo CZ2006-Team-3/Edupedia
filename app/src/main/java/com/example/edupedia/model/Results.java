@@ -27,12 +27,18 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 
+/**
+ * Concrete class to implement DataStoreInterface. Storing and retrieval of results from background files
+ */
 public class Results implements DataStoreInterface {
     private static final String FILE_NAME = "results.json";
 
     private static final String fileDir = "/data/data/com.example.edupedia/files";
 
-
+    /**
+     * implements DataStoreInterface. Retrieval of list of names of selected schools from background files
+     * @return ArrayList of school names
+     */
     public ArrayList<String> retrieveData(){
         FileReader fis = null;
         try {
@@ -78,6 +84,10 @@ public class Results implements DataStoreInterface {
 
     }
 
+    /**
+     * implements DataStoreInterface. Storng of list of names of selected schools to background files
+     * @param results ArrayList of names of schools
+     */
     //parameter takes in an ArrayList
     public void storeToMap(Object results){
         JSONArray jsonArray = new JSONArray((ArrayList<String>) results);

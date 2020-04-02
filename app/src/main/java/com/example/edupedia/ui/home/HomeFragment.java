@@ -92,6 +92,7 @@ public class HomeFragment extends Fragment implements SortByDialogFragment.SortB
     private MainNavigationUI mainNavigationUI;
     private WatchlistController watchlistController = WatchlistController.getInstance();
     private AdvFilterDialogFragment advFilter = new AdvFilterDialogFragment();
+    private SortByDialogFragment sortByFragment = new SortByDialogFragment();
     private SearchController searchController;
 
 
@@ -136,7 +137,7 @@ public class HomeFragment extends Fragment implements SortByDialogFragment.SortB
 
         //retrieving results from background files
         //whenever home is called the distance is not updated in these schools
-        ArrayList<String> results = searchController.retrieveResults(schools);
+        ArrayList<String> results = searchController.retrieveResults();
         Log.d("HomeFragment", String.valueOf(results));
         //gets a list of schools based on a string of school names
         schoolArrayList = searchController.generateSchools(schools, results);
@@ -451,9 +452,8 @@ public class HomeFragment extends Fragment implements SortByDialogFragment.SortB
         switch (view.getId()) {
             case R.id.sortButton:
                 FragmentTransaction ft = getChildFragmentManager().beginTransaction();
-                SortByDialogFragment sortBy = new SortByDialogFragment();
-                sortBy.setDialogFragmentListener(this);
-                sortBy.show(ft, "Sort By");
+                sortByFragment.setDialogFragmentListener(this);
+                sortByFragment.show(ft, "Sort By");
                 break;
 
             case R.id.filterButton:

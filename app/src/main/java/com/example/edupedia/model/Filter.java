@@ -26,12 +26,18 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
+/**
+ * Concrete class to implement DataStoreInterface. Storing and retrieval of filter settings values from background files
+ */
 public class Filter implements DataStoreInterface {
     private static final String FILE_NAME = "filter.json";
 
     private static final String fileDir = "/data/data/com.example.edupedia/files";
 
-
+    /**
+     * implements DataStoreInterface. Retrieval of filter settings values from background files
+     * @return JSONObject with key value pairs of the filter type and filter values
+     */
     public JSONObject retrieveData(){
         FileReader fis = null;
         try {
@@ -69,6 +75,10 @@ public class Filter implements DataStoreInterface {
 
     }
 
+    /**
+     * implements DataStoreInterface. Storing of filter settings values to background files
+     * @param json JSONObject with key value pairs of the filter type and filter values from user input
+     */
     //parameter takes in JSONObject
     public void storeToMap(Object json){
         String text = json.toString();

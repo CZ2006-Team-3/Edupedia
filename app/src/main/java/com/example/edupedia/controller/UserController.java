@@ -68,30 +68,10 @@ public class UserController {
         return userController;
     }
 
-    // Prompt the user to re-provide their sign-in credentials. Returns true if it is correct.
-    public void reAuthenticateUser(String email, String password){
-        // Prompt the user to re-provide their sign-in credentials
-        AuthCredential credential = EmailAuthProvider
-                .getCredential(email, password);
-
-
-        user.reauthenticate(credential)
-                    .addOnCompleteListener(new OnCompleteListener<Void>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Void> task) {
-                            if (task.isSuccessful()) {
-                                Log.d(TAG, "User re-authenticated.");
-                                //Intent Start UI
-
-                            } else {
-                                //
-                            }
-
-                        }
-                    });
-
-    }
-
+    /**
+     * Changes a user's password
+     * @param newPwd new password
+     */
     public void changePassword(String newPwd){
         user.updatePassword(newPwd)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {

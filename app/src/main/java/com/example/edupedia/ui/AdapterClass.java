@@ -128,6 +128,9 @@ public class AdapterClass extends RecyclerView.Adapter<AdapterClass.ExampleViewH
 
     public Filter getAdvancedFilter() { return advancedFilter; }
 
+    /**
+     * Filter object that performs filtering of ArrayAdapter based on advanced filter settings
+     */
     private Filter advancedFilter = new Filter() {
         @Override
         protected FilterResults performFiltering(CharSequence charSequence) {
@@ -167,7 +170,12 @@ public class AdapterClass extends RecyclerView.Adapter<AdapterClass.ExampleViewH
         notifyDataSetChanged();*/
     }
 
-
+    /**
+     * Filters the ArrayList of SchoolItems based on advanced filter settings passed in as CharSequence message
+     * @param SchoolItemListFull ArrayList of SchoolItems derived from results of primary search
+     * @param message encode d message containing advanced filter settings
+     * @return new list of SchoolItems
+     */
     public List<SchoolItem> applyAdvancedFilter(ArrayList<SchoolItem> SchoolItemListFull, CharSequence message){
         ArrayList<String> regions = new ArrayList<>();
         HashMap<String, String> decodeRegion = new HashMap<>();
