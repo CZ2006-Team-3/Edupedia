@@ -13,19 +13,21 @@ import android.widget.TextView;
 
 import com.example.edupedia.R;
 import com.example.edupedia.controller.SortController;
+import com.example.edupedia.ui.home.HomeFragment;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 
 /**
- * A simple {@link Fragment} subclass.
+ * DialogFragment that pops up when user clicks on sort button
+ *
  */
 public class SortByDialogFragment extends DialogFragment {
 
     private String TAG = "SortByDialogFragment";
-    private int SORT_VARIABLE = SortController.NAME;
-    private boolean SORT_ASCENDING = true;
+    private int SORT_VARIABLE;
+    private boolean SORT_ASCENDING;
     private SortByDialogListener listener;
 
     public interface SortByDialogListener {
@@ -47,6 +49,28 @@ public class SortByDialogFragment extends DialogFragment {
                              Bundle savedInstanceState) {
         View layout = inflater.inflate(R.layout.sort_by, container, false);
         RadioGroup sortBy = layout.findViewById(R.id.sortBy);
+        HomeFragment homeFragment = (HomeFragment) getParentFragment();
+        SORT_VARIABLE = homeFragment.getSORT_VARIABLE();
+        SORT_ASCENDING = homeFragment.isSORT_ASCENDING();
+
+        switch(SORT_VARIABLE) {
+            case SortController.DIST:
+                sortBy.check(R.id.radioDist);
+                break;
+
+            case SortController.DRIVING_TIME:
+                sortBy.check(R.id.radioDrivingTime);
+                break;
+
+            case SortController.NAME:
+                sortBy.check(R.id.radioName);
+                break;
+
+            case SortController.TRANSPORT_TIME:
+                sortBy.check(R.id.radioPT);
+                break;
+        }
+
 
         sortBy.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
@@ -94,6 +118,9 @@ public class SortByDialogFragment extends DialogFragment {
                 Log.d(TAG, Boolean.toString(SORT_ASCENDING));
             }
         });
+
+        if(SORT_ASCENDING) sortOrderBy.check(R.id.radioscending);
+        else sortOrderBy.check(R.id.radioDescending);
 
         return layout;
     }

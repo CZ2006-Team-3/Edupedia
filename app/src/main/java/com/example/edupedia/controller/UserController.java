@@ -43,7 +43,7 @@ public class UserController {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 name = (String) dataSnapshot.child("name").getValue();
                 edLevel = (String) dataSnapshot.child("ed_level").getValue();
-                locationAccess = dataSnapshot.child("location_access").getValue() != null;
+                locationAccess = dataSnapshot.child("location").getValue() != null;
 
 
             }
