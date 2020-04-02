@@ -59,7 +59,9 @@ import com.google.firebase.auth.FirebaseUser;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-
+/**
+ * Home Fragment class - all the functions on home page
+ */
 public class HomeFragment extends Fragment implements SortByDialogFragment.SortByDialogListener,
         View.OnClickListener, AdvFilterDialogFragment.AdvFilterDialogListener {
     public static final String SORT_VARIABLE_NAME = "sort";
@@ -92,10 +94,16 @@ public class HomeFragment extends Fragment implements SortByDialogFragment.SortB
     private AdvFilterDialogFragment advFilter = new AdvFilterDialogFragment();
     private SearchController searchController;
 
+
+
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        /**
+         * default method that occurs upon the creation of the activity
+         */
+
         // Inflate the layout for this fragment
        /* if (Looper.getMainLooper().getThread() == Thread.currentThread()) {
             //ok this runs while the background gets the google maps
@@ -189,6 +197,9 @@ public class HomeFragment extends Fragment implements SortByDialogFragment.SortB
     }
 
     public void createSchoolList() {
+        /**
+         *  method that creates a list of school to be displayed from the school class and database
+         */
         mSchoolList = new ArrayList<>();
         for (School school : schoolArrayList) {
             switch (school.getMainCode()) {
@@ -246,8 +257,13 @@ public class HomeFragment extends Fragment implements SortByDialogFragment.SortB
         }
     }
 
-
+    /**
+     *  method that builds a recycler view to display all the school items
+     */
     public void buildRecyclerView(View layout) {
+        /**
+         *  method that builds a recycler view to display all the school items
+         */
         mRecyclerView = layout.findViewById(R.id.recycler_view);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mRecyclerView.setHasFixedSize(true);
@@ -259,7 +275,11 @@ public class HomeFragment extends Fragment implements SortByDialogFragment.SortB
 
         mAdapter.setOnItemClickListener(new AdapterClass.OnItemClickListener() {
             @Override
+
             public void onItemClick(int position) {
+                /**
+                 * method that opens up school information page upon click
+                 */
                 mSchoolList = mAdapter.getSchoolItemList();
                 SchoolItem schoolItem = mSchoolList.get(position);
                 Intent intent = new Intent(HomeFragment.super.getContext(), schoolInfoUI.class);
@@ -298,6 +318,9 @@ public class HomeFragment extends Fragment implements SortByDialogFragment.SortB
 
             @Override
             public void onWatchListSelect(int position) {
+                /**
+                 * method that adds school to the watchlist upon click of the star button
+                 */
                 String schoolToAdd = mSchoolList.get(position).getSchoolName();
                 if (watchlistController.exists(schoolToAdd)) {
                     Toast toast = Toast.makeText(getActivity(), "School already exists!", Toast.LENGTH_SHORT);
@@ -330,6 +353,9 @@ public class HomeFragment extends Fragment implements SortByDialogFragment.SortB
 
             @Override
             public void onCompareSelect(int position) {
+                /**
+                 * method that adds school to the compare upon click of the compare button
+                 */
                 String schoolToCompare = mSchoolList.get(position).getSchoolName();
                 CompareFragment comparison = (CompareFragment) mainNavigationUI.compareFragment;
                 Bundle args = new Bundle();

@@ -30,7 +30,7 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginTop="168dp"
+        android:layout_marginTop="184dp"
         android:fontFamily="sans-serif"
         android:text="Finding your next step for education"
         android:textColor="@color/blackText"
@@ -40,24 +40,6 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/locationEnter"
-        android:layout_width="220dp"
-        android:layout_height="37dp"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginTop="52dp"
-        android:layout_marginEnd="16dp"
-        android:background="@drawable/edit_text_round_box"
-        android:text=""
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/locationButton"
-        app:layout_constraintTop_toBottomOf="@+id/nature"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <TextView
         android:id="@+id/education"
         android:layout_width="142dp"
         android:layout_height="wrap_content"
@@ -65,7 +47,7 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="24dp"
         android:text="Education Level"
         android:textColor="@color/blackText"
         app:layout_constraintStart_toStartOf="parent"
@@ -92,7 +74,7 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="12dp"
         android:layout_marginEnd="16dp"
         android:entries="@array/gradeCutOff"
         android:outlineSpotShadowColor="@color/blackText"
@@ -109,7 +91,7 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="12dp"
         android:entries="@array/subOffered"
         android:outlineSpotShadowColor="@color/blackText"
         app:layout_constraintStart_toEndOf="@+id/addOptions"
@@ -123,11 +105,27 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="28dp"
         android:text="Additional Choice"
         android:textColor="@color/blackText"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/gradeCutOff" />
+
+    <TextView
+        android:id="@+id/locationEnter"
+        android:layout_width="220dp"
+        android:layout_height="47dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="28dp"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/edit_text_round_box"
+        android:text=""
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/locationButton"
+        app:layout_constraintTop_toBottomOf="@+id/nature" />
 
     <Button
         android:id="@+id/locationButton"
@@ -136,16 +134,13 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginTop="64dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="36dp"
         android:background="@color/bgTint"
         android:text="Location"
         android:textColor="@color/blackText"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.059"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/addOptions"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@+id/addOptions" />
 
     <Spinner
         android:id="@+id/dropdown_education"
@@ -155,7 +150,7 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="16dp"
         android:entries="@array/educationLevel"
         android:outlineAmbientShadowColor="@color/blackText"
         android:outlineSpotShadowColor="@color/blackText"
