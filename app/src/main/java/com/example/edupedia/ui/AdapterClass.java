@@ -63,6 +63,9 @@ public class AdapterClass extends RecyclerView.Adapter<AdapterClass.ExampleViewH
         }
     }
 
+    /**
+     * allows clicking of elements on recycler view
+     */
     public interface OnItemClickListener {
         void onItemClick(int position);
         void onWatchListSelect(int position);
@@ -74,6 +77,9 @@ public class AdapterClass extends RecyclerView.Adapter<AdapterClass.ExampleViewH
         mListener = listener;
     }
 
+    /**
+     * creates recycler view of cards
+     */
     @NonNull
     @Override
     public ExampleViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -82,6 +88,9 @@ public class AdapterClass extends RecyclerView.Adapter<AdapterClass.ExampleViewH
         return evh;
     }
 
+    /**
+     * adds required information to be displayed on the cards
+     */
     @Override
     public void onBindViewHolder(@NonNull ExampleViewHolder holder, int position) {
         SchoolItem currentItem = schoolItemList.get(position);

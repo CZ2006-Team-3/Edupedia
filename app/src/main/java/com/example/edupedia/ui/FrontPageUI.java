@@ -8,11 +8,16 @@ import android.widget.Button;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.edupedia.R;
-
+/**
+ * class for the App's front page activity
+ */
 public class FrontPageUI extends AppCompatActivity  {
     private Button buttonA;
     private Button buttonB;
 
+    /**
+     * default view to be shown upon creation of this activity screen
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,6 +29,9 @@ public class FrontPageUI extends AppCompatActivity  {
         buttonB = (Button) findViewById(R.id.newUser);
 
         buttonA.setOnClickListener(new View.OnClickListener() {
+            /**
+             * method stating action to be carried out upon click of button A
+             */
             @Override
             public void onClick(View v) {
                 openLogin();
@@ -31,6 +39,9 @@ public class FrontPageUI extends AppCompatActivity  {
         });
 
         buttonB.setOnClickListener(new View.OnClickListener() {
+            /**
+             * method stating action to be carried out upon click of button A
+             */
             @Override
             public void onClick(View v) {
                 openRegister();
@@ -38,12 +49,16 @@ public class FrontPageUI extends AppCompatActivity  {
         });
 
     }
-
+    /**
+     * method to open up login page
+     */
     public void openLogin(){
         Intent intent1 = new Intent(this, StartUI.class);
         startActivity(intent1);
     }
-
+    /**
+     * method to open up register page
+     */
     public void openRegister(){
         Intent intent2 = new Intent(this, RegisterUI.class);
         startActivity(intent2);
