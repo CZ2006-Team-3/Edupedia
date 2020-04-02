@@ -4,14 +4,16 @@
         android:background="@drawable/watchlist_bg"
         android:id="@+id/fragment_watchlist">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_watchList_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="4dp"
-        android:scrollbars="vertical"
-        android:layout_marginTop="200dp"
-        android:background="#FFFFFF"/>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_watchList_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="200dp"
+            android:background="#FFFFFF"
+            android:padding="4dp"
+            android:scrollbars="vertical"
+            android:layout_marginStart="-2dp" />
 
 
-</RelativeLayout>
+    </RelativeLayout>

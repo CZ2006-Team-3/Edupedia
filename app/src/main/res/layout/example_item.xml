@@ -27,8 +27,8 @@
 
         <TextView
             android:id="@+id/school_name"
-            android:layout_width="225dp"
-            android:layout_height="30dp"
+            android:layout_width="226dp"
+            android:layout_height="43dp"
             android:layout_alignParentTop="true"
             android:layout_marginTop="24dp"
             android:layout_toEndOf="@+id/school_img"
