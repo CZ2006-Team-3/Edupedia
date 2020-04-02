@@ -35,6 +35,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -64,6 +65,7 @@ public class GoogleMapsActivity extends AppCompatActivity implements OnMapReadyC
     private Address address = null;
     private Location curLocation = null;
     private FusedLocationProviderClient mFusedLocationProviderClient;
+    private Marker curLocationMarker;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -217,7 +219,10 @@ public class GoogleMapsActivity extends AppCompatActivity implements OnMapReadyC
     private void showMarker(double lat, double lng) {
         MarkerOptions markerOptions = new MarkerOptions();
         markerOptions.position(new LatLng(lat, lng));
-        mGoogleMap.addMarker(markerOptions);
+        if (this.curLocationMarker != null) {
+            curLocationMarker.remove();
+        }
+        this.curLocationMarker = mGoogleMap.addMarker(markerOptions);
     }
 
     private void hideSoftKeyboard(View view) {
