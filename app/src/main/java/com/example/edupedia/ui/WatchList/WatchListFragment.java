@@ -32,21 +32,50 @@ import static com.example.edupedia.controller.WatchlistController.*;
 
 public class WatchListFragment extends Fragment {
 
-    private WatchListViewModel WatchListViewModel;
 
+    /**
+     * ArrayList containing schoolItems for display
+     */
     private ArrayList<SchoolItem> wSchoolList;
+    /**
+     * Recycler View to implement recycler view of displaying schools
+     */
     private RecyclerView wRecyclerView;
+    /**
+     * Adapter to implement recycler view
+     */
     private AdapterClass wAdapter;
+    /**
+     * Layout Manager to implement recycler view
+     */
     private RecyclerView.LayoutManager wLayoutManager;
+    /**
+     * String array for all the school names stored in watchlist
+     */
     private String[] watchList;
+    /**
+     * hashmap for all the schools
+     */
     private ArrayList<School> schoolList;
+    /**
+     * hashmap for all the schools
+     */
     private HashMap<String, School> schools;
+    /**
+     * School database is instantiated as schoolDB
+     */
     private SchoolDB schoolDB;
 
 
-    // Instantiating watchlistController class
+
+    /**
+     * view model is an instantiation of the Search Controller
+     */
     private WatchlistController watchlistController = WatchlistController.getInstance();
 
+    /**
+     * default method that executes upon creation of a watchlist fragment
+     */
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -88,7 +117,9 @@ public class WatchListFragment extends Fragment {
         return layout;
 
     }
-
+    /**
+     * method to generate a list of school from the database
+     */
     private ArrayList<School> generateSchools(HashMap<String, School> db, String[] results) {
         ArrayList<School> schoolList = new ArrayList<>();
         for (String name : results) {
@@ -97,7 +128,9 @@ public class WatchListFragment extends Fragment {
 
         return schoolList;
     }
-
+    /**
+     *  method that builds a recycler view to display all the school items
+     */
     private void buildRecyclerView(View layout) {
         wRecyclerView = layout.findViewById(R.id.recycler_watchList_view);
         wRecyclerView.setLayoutManager(new WrapContentLinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
@@ -109,6 +142,9 @@ public class WatchListFragment extends Fragment {
         wRecyclerView.setAdapter(wAdapter);
 
         wAdapter.setOnItemClickListener(new AdapterClass.OnItemClickListener() {
+            /**
+             * method that opens up school information page upon click
+             */
             @Override
             public void onItemClick(int position) {
                 wSchoolList.get(position).openSchoolInfo();
@@ -116,6 +152,9 @@ public class WatchListFragment extends Fragment {
 
             }
 
+            /**
+             * method that adds school to the watchlist upon click of the star button
+             */
             @Override
             public void onWatchListSelect(int position) {
                 String schoolToRemove = wSchoolList.get(position).getSchoolName();
@@ -138,7 +177,9 @@ public class WatchListFragment extends Fragment {
                 //wAdapter.notifyItemChanged(position);
                 //mSchoolList.get(position).addToWatchList();
             }
-
+            /**
+             * method that adds school to the compare upon click of the compare button
+             */
             @Override
             public void onCompareSelect(int position) {
 
@@ -158,7 +199,9 @@ public class WatchListFragment extends Fragment {
 
 
     }
-
+    /**
+     * method that updates information on watchlist fragment if any change occurs
+     */
     public void updateInfo() {
         ArrayList<SchoolItem> schoolItemList = wAdapter.getSchoolItemList();
         watchList = watchlistController.getWatchlist();
@@ -175,7 +218,9 @@ public class WatchListFragment extends Fragment {
 
         wAdapter.notifyDataSetChanged();
     }
-
+    /**
+     * method that creates schoolItem from school
+     */
     private SchoolItem createSchoolItem(School school) {
         String printGrade;
         int gradePSLE = school.getGradePSLE();

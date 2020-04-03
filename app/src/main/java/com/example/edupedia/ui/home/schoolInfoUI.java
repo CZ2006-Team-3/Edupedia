@@ -20,6 +20,10 @@ import com.example.edupedia.controller.SearchController;
 import com.example.edupedia.controller.StatisticsController;
 import com.example.edupedia.model.School;
 
+
+/**
+ * school Info UI class for implementing information page about schools
+ */
 public class schoolInfoUI extends AppCompatActivity {
     private TextView schoolName;
     private TextView grade;
@@ -38,6 +42,10 @@ public class schoolInfoUI extends AppCompatActivity {
     private ImageView urlLogo;
     private ImageView watchlistLogo;
 
+
+    /**
+     * default method that occurs upon the creation of the activity
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -84,16 +92,19 @@ public class schoolInfoUI extends AppCompatActivity {
         setData(extras);
     }
 
+    /**
+     *  method that sets data to the various textView elements
+     */
     public void setData(Bundle extras) {
         schoolName.setText(extras.getString("schoolName"));
-        course.setText("Course Name" + extras.getString("course"));
+        course.setText("Course Name: " + extras.getString("course"));
 //        if (Integer.toString(extras.getInt("grade")).equals("0")) {
 //            grade.setText("Not Applicable");
 //        } else {
         grade.setText("Grade Cut-Off: " + extras.getString("grade"));
-        drive.setText("Time taken to drive:" + String.format("%.2f", extras.getDouble("drive")));
-        dist.setText("Distance" + String.format("%.2f", extras.getDouble("dist")));
-        publicTime.setText("Time to travel in Public Transport" + String.format("%.2f", extras.getDouble("publicTime")));
+        drive.setText("Time taken to drive: " + String.format("%.2f", extras.getDouble("drive")));
+        dist.setText("Distance: " + String.format("%.2f", extras.getDouble("dist")));
+        publicTime.setText("Time to travel in Public Transport: " + String.format("%.2f", extras.getDouble("publicTime")));
         url.setText(extras.getString("url"));
     }
 

@@ -16,28 +16,13 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
         android:layout_marginRight="285dp"
-        android:text="E-mail"
+        android:text="E-MAIL"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/password"
-        android:layout_width="74dp"
-        android:layout_height="17dp"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginTop="56dp"
-        android:text="PASSWORD"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.077"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/username"
-        app:layout_constraintVertical_bias="0.089" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.458" />
 
     <TextView
         android:id="@+id/forgotpassword"
@@ -58,7 +43,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextPassword"
-        app:layout_constraintVertical_bias="0.936" />
+        app:layout_constraintVertical_bias="0.28" />
 
     <Button
         android:id="@+id/buttonLogin"
@@ -74,10 +59,10 @@
         android:text="LOGIN"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.391"
+        app:layout_constraintHorizontal_bias="0.188"
         app:layout_constraintStart_toEndOf="@+id/textViewSignup"
         app:layout_constraintTop_toBottomOf="@+id/forgotpassword"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.006" />
 
     <Button
         android:id="@+id/textViewSignup"
@@ -90,13 +75,13 @@
         android:layout_alignParentBottom="true"
         android:layout_marginTop="36dp"
         android:background="@color/colorPrimary"
-        android:text="Sign up instead"
+        android:text="Sign up"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.236"
+        app:layout_constraintHorizontal_bias="0.334"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/forgotpassword"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.006" />
 
     <EditText
         android:id="@+id/editTextEmail"
@@ -116,7 +101,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/username"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.504" />
+        app:layout_constraintVertical_bias="0.43" />
 
     <EditText
         android:id="@+id/editTextPassword"
@@ -125,16 +110,28 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginTop="68dp"
         android:layout_marginEnd="32dp"
+        android:layout_marginBottom="312dp"
         android:ems="10"
         android:inputType="textPassword"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.954"
-        app:layout_constraintStart_toEndOf="@+id/password"
-        app:layout_constraintTop_toBottomOf="@+id/editTextEmail"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintStart_toEndOf="@+id/password" />
+
+    <TextView
+        android:id="@+id/password"
+        android:layout_width="74dp"
+        android:layout_height="17dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="320dp"
+        android:text="PASSWORD"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.077"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <ProgressBar
         android:id="@+id/progressbar"

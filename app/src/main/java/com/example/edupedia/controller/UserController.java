@@ -22,6 +22,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+/**
+ * Controller class as a singleton to manage the retrieval, storage, changes of user information to Firebase Realtime Database
+ */
 public class UserController {
 
     private final String TAG = "UserController";
@@ -31,9 +34,16 @@ public class UserController {
 
     private FirebaseUser user;
 
-    // static variable watchlistController of type WatchlistController
+    /**
+     * static userController watchlistController of type UserController
+     */
+    // static userController watchlistController of type UserController
     private static UserController userController = null;
 
+    /**
+     * private constructor restricted to this class itself
+     * @param usr
+     */
     // private constructor restricted to this class itself
     private UserController(FirebaseUser usr) {
         this.user = usr;
@@ -43,7 +53,7 @@ public class UserController {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 name = (String) dataSnapshot.child("name").getValue();
                 edLevel = (String) dataSnapshot.child("ed_level").getValue();
-                locationAccess = dataSnapshot.child("location_access").getValue() != null;
+                locationAccess = dataSnapshot.child("location").getValue() != null;
 
 
             }
@@ -55,43 +65,29 @@ public class UserController {
         });
     }
 
-
+    /**
+     * Static method to create instance of Singleton class
+     */
     // Static method to create instance of Singleton class
     public static void init() {
         FirebaseUser usr = FirebaseAuth.getInstance().getCurrentUser();
         userController = new UserController(usr);
     }
 
+    /**
+     * Instantiate singleton
+     * @return UserController instance
+     */
     public static UserController getInstance() {
         if(userController==null) init();
 
         return userController;
     }
 
-    // Prompt the user to re-provide their sign-in credentials. Returns true if it is correct.
-    public void reAuthenticateUser(String email, String password){
-        // Prompt the user to re-provide their sign-in credentials
-        AuthCredential credential = EmailAuthProvider
-                .getCredential(email, password);
-
-
-        user.reauthenticate(credential)
-                    .addOnCompleteListener(new OnCompleteListener<Void>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Void> task) {
-                            if (task.isSuccessful()) {
-                                Log.d(TAG, "User re-authenticated.");
-                                //Intent Start UI
-
-                            } else {
-                                //
-                            }
-
-                        }
-                    });
-
-    }
-
+    /**
+     * Changes a user's password
+     * @param newPwd new password
+     */
     public void changePassword(String newPwd){
         user.updatePassword(newPwd)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -104,6 +100,10 @@ public class UserController {
                 });
     }
 
+    /**
+     * Changes a user's email account
+     * @param newEmail new email address
+     */
     public void changeEmail(String newEmail){
         user.updateEmail(newEmail);
     }

@@ -74,11 +74,11 @@ public class SearchFragment extends Fragment implements
     /**
      * result ok is set to -1
      */
-    public static final int RESULT_OK = -1;
+    private static final int RESULT_OK = -1;
     /**
      * results cancelled is set to 0
      */
-    public static final int RESULT_CANCELED = 0;
+    private static final int RESULT_CANCELED = 0;
 
     private String userLat;
 
@@ -86,11 +86,11 @@ public class SearchFragment extends Fragment implements
 
     private MainNavigationUI mainNavigationUI;
 
-    @Nullable
-    @Override
     /**
      * default method that occurs upon the creation of the activity
      */
+    @Nullable
+    @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         viewModel = new ViewModelProvider(this).get(SearchController.class);

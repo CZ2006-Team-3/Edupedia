@@ -4,12 +4,20 @@ import com.example.edupedia.model.DataStoreInterface;
 import com.example.edupedia.model.Filter;
 import com.example.edupedia.model.Results;
 
-
+/**
+ * Factory Class to decide between retrieval Filter and Results
+ */
 public class DataStoreFactory {
 
     private DataStoreFactory() {
 
     }
+
+    /**
+     * method to decide Filter or Results as the DataStoreInterface
+     * @param datastoreOption "Filter" or "Results"
+     * @return DataStoreInterface
+     */
     // static method to return appropriate DataStoreInterface object based on user choice
     public static DataStoreInterface getDatastore(String datastoreOption) {
         DataStoreInterface datastore = null;
@@ -18,8 +26,6 @@ public class DataStoreFactory {
             datastore = new Filter();
         } else if(datastoreOption.equals("Results")) {
             datastore = new Results();
-        } else if(datastoreOption.equals("AdvancedFilter")) {
-            datastore = new Filter();
         }
 
         return datastore;

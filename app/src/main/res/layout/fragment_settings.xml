@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent" android:layout_height="match_parent"
     android:background="@drawable/settings_bg"
@@ -23,47 +24,33 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginEnd="78dp"
-        android:layout_marginRight="78dp"
-        android:layout_marginBottom="185dp"
+        android:layout_marginStart="84dp"
+        android:layout_marginTop="20dp"
         android:adjustViewBounds="true"
         android:background="#00000000"
         android:padding="1dp"
         android:scaleType="fitCenter"
-        android:src="@drawable/group60" />
+        android:src="@drawable/group60"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ChangePasswordButton"
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/firstName"
-        android:layout_width="123dp"
-        android:layout_height="36dp"
+        android:layout_width="78dp"
+        android:layout_height="22dp"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
         android:layout_centerVertical="true"
-        android:layout_marginEnd="268dp"
-        android:layout_marginRight="268dp"
-        android:layout_marginBottom="492dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="200dp"
         android:text="Name"
         android:textColor="@color/blackText"
-        android:textSize="16sp" />
-
-    <TextView
-        android:id="@+id/SettingName"
-        android:layout_width="280dp"
-        android:layout_height="55dp"
-        android:text="Kane"
-        android:textColor="@color/blackText"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentBottom="true"
-        android:layout_centerVertical="true"
-        android:layout_marginEnd="18dp"
-        android:layout_marginRight="18dp"
-        android:layout_marginBottom="488dp"
-        android:background="@drawable/edit_text_round_box"
-        android:ems="10"
-        android:gravity="center"
-        android:hint="Name" />
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/SettingEmail"
@@ -72,13 +59,54 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginEnd="18dp"
-        android:layout_marginRight="18dp"
-        android:layout_marginBottom="424dp"
+        android:layout_marginTop="12dp"
         android:background="@drawable/edit_text_round_box"
         android:ems="10"
         android:gravity="center"
-        android:hint="Email" />
+        android:hint="Email"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.785"
+        app:layout_constraintStart_toEndOf="@+id/emailSettings"
+        app:layout_constraintTop_toBottomOf="@+id/SettingName" />
+
+    <TextView
+        android:id="@+id/SettingName"
+        android:layout_width="280dp"
+        android:layout_height="55dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_centerVertical="true"
+        android:layout_marginTop="180dp"
+        android:background="@drawable/edit_text_round_box"
+        android:ems="10"
+        android:gravity="center"
+        android:hint="Name"
+        android:text="Kane"
+        android:textColor="@color/blackText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.567"
+        app:layout_constraintStart_toEndOf="@+id/firstName"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/SettingEdu"
+        android:layout_width="280dp"
+        android:layout_height="55dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/edit_text_round_box"
+        android:ems="10"
+        android:gravity="center"
+        android:hint="Education Level"
+        android:text="Primary"
+        android:textColor="@color/blackText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.464"
+        app:layout_constraintStart_toEndOf="@+id/email"
+        app:layout_constraintTop_toBottomOf="@+id/SettingEmail" />
 
     <TextView
         android:id="@+id/emailSettings"
@@ -87,29 +115,13 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginEnd="348dp"
-        android:layout_marginRight="348dp"
-        android:layout_marginBottom="441dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="40dp"
         android:text="E-mail"
         android:textColor="@color/blackText"
-        android:textSize="16sp" />
-
-    <TextView
-        android:id="@+id/SettingEdu"
-        android:layout_width="280dp"
-        android:layout_height="55dp"
-        android:text="Primary"
-        android:textColor="@color/blackText"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginEnd="18dp"
-        android:layout_marginRight="348dp"
-        android:layout_marginBottom="348dp"
-        android:background="@drawable/edit_text_round_box"
-        android:ems="10"
-        android:gravity="center"
-        android:hint="Education Level" />
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/firstName" />
 
     <TextView
         android:id="@+id/LocationAccess"
@@ -119,13 +131,13 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginStart="22dp"
-        android:layout_marginEnd="231dp"
-        android:layout_marginRight="231dp"
-        android:layout_marginBottom="305dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="28dp"
         android:text="Location Access"
         android:textColor="@color/blackText"
-        android:textSize="16sp" />
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/email" />
 
     <Switch
         android:id="@+id/switch1"
@@ -133,25 +145,27 @@
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginStart="158dp"
-        android:layout_marginBottom="303dp" />
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="24dp"
+        app:layout_constraintStart_toEndOf="@+id/LocationAccess"
+        app:layout_constraintTop_toBottomOf="@+id/SettingEdu" />
 
     <ImageButton
         android:id="@+id/ChangeEmailButtonSettings"
-        android:layout_width="wrap_content"
-        android:layout_height="64dp"
+        android:layout_width="198dp"
+        android:layout_height="38dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginStart="-1dp"
-        android:layout_marginEnd="212dp"
-        android:layout_marginRight="212dp"
-        android:layout_marginBottom="219dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="28dp"
         android:adjustViewBounds="true"
         android:background="#00000000"
         android:scaleType="fitCenter"
-        android:src="@drawable/group401" />
+        android:src="@drawable/group401"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/LocationAccess" />
 
     <ImageButton
         android:id="@+id/ChangePasswordButton"
@@ -160,13 +174,16 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginEnd="7dp"
-        android:layout_marginRight="7dp"
-        android:layout_marginBottom="227dp"
+        android:layout_marginEnd="4dp"
         android:adjustViewBounds="true"
+        android:layout_marginTop="20dp"
         android:background="#00000000"
         android:scaleType="fitCenter"
-        android:src="@drawable/group58" />
+        android:src="@drawable/group58"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/ChangeEmailButtonSettings"
+        app:layout_constraintTop_toBottomOf="@+id/switch1" />
 
     <TextView
         android:id="@+id/email"
@@ -175,11 +192,12 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginStart="19dp"
-        android:layout_marginEnd="305dp"
-        android:layout_marginBottom="354dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="40dp"
         android:text="Education Level"
         android:textColor="@color/blackText"
-        android:textSize="16sp" />
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/emailSettings" />
 
-</RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

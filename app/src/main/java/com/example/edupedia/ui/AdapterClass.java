@@ -63,6 +63,9 @@ public class AdapterClass extends RecyclerView.Adapter<AdapterClass.ExampleViewH
         }
     }
 
+    /**
+     * allows clicking of elements on recycler view
+     */
     public interface OnItemClickListener {
         void onItemClick(int position);
         void onWatchListSelect(int position);
@@ -74,6 +77,9 @@ public class AdapterClass extends RecyclerView.Adapter<AdapterClass.ExampleViewH
         mListener = listener;
     }
 
+    /**
+     * creates recycler view of cards
+     */
     @NonNull
     @Override
     public ExampleViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -82,6 +88,9 @@ public class AdapterClass extends RecyclerView.Adapter<AdapterClass.ExampleViewH
         return evh;
     }
 
+    /**
+     * adds required information to be displayed on the cards
+     */
     @Override
     public void onBindViewHolder(@NonNull ExampleViewHolder holder, int position) {
         SchoolItem currentItem = schoolItemList.get(position);
@@ -128,6 +137,9 @@ public class AdapterClass extends RecyclerView.Adapter<AdapterClass.ExampleViewH
 
     public Filter getAdvancedFilter() { return advancedFilter; }
 
+    /**
+     * Filter object that performs filtering of ArrayAdapter based on advanced filter settings
+     */
     private Filter advancedFilter = new Filter() {
         @Override
         protected FilterResults performFiltering(CharSequence charSequence) {
@@ -166,7 +178,12 @@ public class AdapterClass extends RecyclerView.Adapter<AdapterClass.ExampleViewH
         notifyDataSetChanged();*/
     }
 
-
+    /**
+     * Filters the ArrayList of SchoolItems based on advanced filter settings passed in as CharSequence message
+     * @param SchoolItemListFull ArrayList of SchoolItems derived from results of primary search
+     * @param message encode d message containing advanced filter settings
+     * @return new list of SchoolItems
+     */
     public List<SchoolItem> applyAdvancedFilter(ArrayList<SchoolItem> SchoolItemListFull, CharSequence message){
         ArrayList<String> regions = new ArrayList<>();
         HashMap<String, String> decodeRegion = new HashMap<>();

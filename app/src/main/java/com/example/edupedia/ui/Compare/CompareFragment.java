@@ -70,6 +70,9 @@ public class CompareFragment extends Fragment {
 
 
     public void update(View layout) {
+        /**
+         * The method to update the schools to be compared
+         */
         Bundle bundle = this.getArguments();
         if (bundle!=null) {
             String value = bundle.getString("SchoolName");
