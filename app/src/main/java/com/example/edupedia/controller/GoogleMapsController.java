@@ -1,27 +1,13 @@
 package com.example.edupedia.controller;
 
-import android.Manifest;
-import android.app.Dialog;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
-import android.location.LocationManager;
-import android.os.Build;
 import android.util.Log;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageButton;
-import android.widget.Toast;
 
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
@@ -30,25 +16,24 @@ import java.util.List;
 import java.util.Locale;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
 
-public class GoogleMapsController extends AppCompatActivity implements OnMapReadyCallback {
+public class GoogleMapsController  {
     public static final int DEFAULT_ZOOM = 15;
     //private static final String TAG = "MapActivity";
     public static final int PERMISSION_REQUEST_CODE = 9001;
     private static final int PLAY_SERVICES_ERROR_CODE = 9002;
     public static final int GPS_REQUEST_CODE = 9003;
     public static final String TAG = "MapDebug";
-    private boolean mLocationPermissionGranted;
 
-    private ImageButton mBtnLocate;
+    private GoogleMapsActivity googleMapsActivity;
     private GoogleMap mGoogleMap;
-    private EditText mSearchAddress;
-    private Button confirmButton;
     private FusedLocationProviderClient mFusedLocationProviderClient;
 
+
+    public GoogleMapsController(GoogleMapsActivity googleMapsActivity) {
+        this.googleMapsActivity = googleMapsActivity;
+    }
+/*
     public void onMapReady(GoogleMap googleMap) {
         Log.d(TAG, "onMapReady: map is showing on the screen");
 
@@ -58,9 +43,9 @@ public class GoogleMapsController extends AppCompatActivity implements OnMapRead
         mGoogleMap.getUiSettings().setMyLocationButtonEnabled(true);
         mGoogleMap.getUiSettings().setMapToolbarEnabled(true);
     }
-
-    public Address geoLocate2(String locationName) {
-        Geocoder geocoder = new Geocoder(this, Locale.getDefault());
+*/
+    public Address geoLocate(String locationName) {
+        Geocoder geocoder = new Geocoder(googleMapsActivity, Locale.getDefault());
         Address address = null;
         try {
             List<Address> addressList = geocoder.getFromLocationName(locationName, 1);
@@ -78,39 +63,57 @@ public class GoogleMapsController extends AppCompatActivity implements OnMapRead
         }
         return address;
     }
-    private Location getCurrentLocation(GoogleMap mGoogleMap) {
-        Log.d(TAG, "Getting the device's current location");
-        Location currentLocation = null;
-        mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
+    public String reverseGeolocate(double latitude, double longitude) {
+        Geocoder geocoder = new Geocoder(googleMapsActivity, Locale.getDefault());
+        String addressStr = null;
         try {
-            if (checkLocationPermission()) {
-                Task location = mFusedLocationProviderClient.getLastLocation();
+            List<Address> addresses = geocoder.getFromLocation(latitude, longitude, 1); // Here 1 represent max location result to returned, by documents it recommended 1 to 5
+
+            addressStr = addresses.get(0).getAddressLine(0); // If any additional address line present than only, check with max available address lines by getMaxAddressLineIndex()
+            //String city = addresses.get(0).getLocality();
+            //String postalCode = addresses.get(0).getPostalCode();
+            //String knownName = addresses.get(0).getFeatureName();
+
+            //addressStr = address + city + postalCode + knownName;
+        }
+        catch (IOException e) {
+
+        }
+        return addressStr;
+    }
+    public void getCurrentLocation(Callback callback) {
+        Log.d(TAG, "Getting the device's current location");
+        mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(googleMapsActivity.getGoogleMapsActivity());
+        try {
+            //if (locationPermission) {
+            Task location = mFusedLocationProviderClient.getLastLocation();
                 location.addOnCompleteListener(new OnCompleteListener() {
+                    private Location curLocation;
                     @Override
                     public void onComplete(@NonNull Task task) {
                         if (task.isSuccessful()) {
                             Log.d(TAG, "onComplete: Found location!");
-                            Location currentLocation = (Location) task.getResult();
+                            curLocation = (Location) task.getResult();
                             //double lat = currentLocation.getLatitude();
                             //double lng = currentLocation.getLongitude();
                         } else {
                             Log.d(TAG, "OnComplete: Current location is null");
                             //Toast.makeText(MapActivity.this, "Unable to get location", Toast.LENGTH_SHORT).show();
                         }
+                        callback.firebaseResponseCallback(this.curLocation);
                     }
                 });
-            }
 
         } catch (SecurityException e) {
             Log.e(TAG, "getDeviceLocation: SecurityException " + e.getMessage());
         }
-        return currentLocation;
     }
-    private boolean checkLocationPermission() {
+   /* private boolean checkLocationPermission() {
         return ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
                 == PackageManager.PERMISSION_GRANTED;
     }
-
+*/
+   /*
     private boolean isServicesOk() {
 
         GoogleApiAvailability googleApi = GoogleApiAvailability.getInstance();
@@ -130,8 +133,8 @@ public class GoogleMapsController extends AppCompatActivity implements OnMapRead
             Toast.makeText(this, "Play services are required by this application", Toast.LENGTH_SHORT).show();
         }
         return false;
-    }
-
+    }*/
+/*
     private void requestLocationPermission() {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED) {
@@ -139,7 +142,8 @@ public class GoogleMapsController extends AppCompatActivity implements OnMapRead
                 requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, PERMISSION_REQUEST_CODE);
             }
         }
-    }
+    }*/
+    /*
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -150,8 +154,8 @@ public class GoogleMapsController extends AppCompatActivity implements OnMapRead
         } else {
             Toast.makeText(this, "Permission not granted", Toast.LENGTH_SHORT).show();
         }
-    }
-
+    }*/
+/*
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -168,5 +172,8 @@ public class GoogleMapsController extends AppCompatActivity implements OnMapRead
                 Toast.makeText(this, "GPS not enabled. Unable to show user location.", Toast.LENGTH_SHORT).show();
             }
         }
-    }
+    }*/
+}
+interface Callback{
+    void firebaseResponseCallback(Location result);
 }

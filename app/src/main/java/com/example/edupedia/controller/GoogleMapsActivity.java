@@ -63,9 +63,11 @@ public class GoogleMapsActivity extends AppCompatActivity implements OnMapReadyC
     private EditText mSearchAddress;
     private Button confirmButton;
     private Address address = null;
-    private Location curLocation = null;
+    private Location curLocation;
     private FusedLocationProviderClient mFusedLocationProviderClient;
     private Marker curLocationMarker;
+    private GoogleMapsController googleMapsController;
+    //private Location currentLocation = null;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,6 +75,7 @@ public class GoogleMapsActivity extends AppCompatActivity implements OnMapReadyC
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        googleMapsController = new GoogleMapsController(this);
         mSearchAddress = findViewById(R.id.et_address);
         mBtnLocate = findViewById(R.id.btn_locate);
         confirmButton = findViewById(R.id.confirmButton);
@@ -80,53 +83,65 @@ public class GoogleMapsActivity extends AppCompatActivity implements OnMapReadyC
         mBtnLocate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                geoLocate(view);
+                String locationName = mSearchAddress.getText().toString();
+                hideSoftKeyboard(view);
+                address = googleMapsController.geoLocate(locationName);
+                gotoLocation(mGoogleMap, address.getLatitude(), address.getLongitude());
+                showMarker(address.getLatitude(), address.getLongitude());
+                //Toast.makeText(this, address.getLocality(), Toast.LENGTH_SHORT).show();
             }
         });
-        confirmButton.setOnClickListener(new View.OnClickListener() {
+        confirmButton.setOnClickListener(new View.OnClickListener()  {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent();
                 if (address != null | curLocation != null) {
                     if (address != null) {
                         String addressStr = null;
-                        try {
-                            addressStr = reverseGeolocate(address.getLatitude(), address.getLongitude());
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
+                        addressStr = googleMapsController.reverseGeolocate(address.getLatitude(), address.getLongitude());
                         if (addressStr != null) {
                             intent.putExtra("Address", addressStr);
-                            Log.d("Address:", addressStr);
+                            intent.putExtra("userLat", String.valueOf(address.getLatitude()));
+                            Log.d("GoogleMapsHere", String.valueOf(address.getLatitude()));
+                            intent.putExtra("userLng", String.valueOf(address.getLongitude()));
+                            Log.d("GoogleMapsHere", String.valueOf(address.getLongitude()));
+                            //Log.d("Address:", addressStr);
                             setResult(RESULT_OK, intent);
                             finish();
                         }
                     } else if (curLocation != null) {
                         String addressStr = null;
-                        try {
-                            addressStr = reverseGeolocate(curLocation.getLatitude(), curLocation.getLongitude());
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
+                        addressStr = googleMapsController.reverseGeolocate(curLocation.getLatitude(), curLocation.getLongitude());
                         if (addressStr != null) {
                             intent.putExtra("Address", addressStr);
-                            Log.d("Address:", addressStr);
+                            intent.putExtra("userLat", String.valueOf(curLocation.getLatitude()));
+                            Log.d("GoogleMapsHere", String.valueOf(curLocation.getLatitude()));
+                            intent.putExtra("userLng", String.valueOf(curLocation.getLongitude()));
+                            Log.d("GoogleMapsHere", String.valueOf(curLocation.getLongitude()));
+                            //Log.d("Address:", addressStr);
                             setResult(RESULT_OK, intent);
                             finish();
                         }
                     }
+                    /*if (addressStr != null) {
+                        intent.putExtra("Address", addressStr);
+                        Log.d("Address:", addressStr);
+                        setResult(RESULT_OK, intent);
+                        finish();
+                    }*/
                 }
             }
         });
-        GoogleMapsDistance.setGoogleMapsActivity(this);
+        GoogleMapsDistance.setGoogleMapsController(this.googleMapsController);
     }
 
-    private void geoLocate(View view) {
+    /*private void geoLocate(View view) {
         hideSoftKeyboard(view);
-        String locationName = mSearchAddress.getText().toString();
+        //String locationName = mSearchAddress.getText().toString();
         Geocoder geocoder = new Geocoder(this, Locale.getDefault());
         try {
-            List<Address> addressList = geocoder.getFromLocationName(locationName, 1);
+            //locationName = "Singapore" + locationName;
+            List<Address> addressList = geocoder.getFromLocationName("Singapore" + locationName, 1);
             if (addressList.size() > 0) {
                 this.address = addressList.get(0);
                 gotoLocation(this.mGoogleMap, address.getLatitude(), address.getLongitude());
@@ -142,7 +157,8 @@ public class GoogleMapsActivity extends AppCompatActivity implements OnMapReadyC
         } catch (IOException e) {
 
         }
-    }
+    }*/
+    /*
     public Address geoLocate2(String locationName) {
         try {
             Geocoder geocoder = new Geocoder(this, Locale.getDefault());
@@ -159,49 +175,51 @@ public class GoogleMapsActivity extends AppCompatActivity implements OnMapReadyC
             }
         } catch (IOException e) { }
         return address;
-    }
+    }*/
+    /*
     private String reverseGeolocate(double latitude, double longitude) throws IOException {
         Geocoder geocoder = new Geocoder(this, Locale.getDefault());
-        //geocoder = new Geocoder(this, Locale.getDefault());
         String addressStr = null;
         try {
             List<Address> addresses = geocoder.getFromLocation(latitude, longitude, 1); // Here 1 represent max location result to returned, by documents it recommended 1 to 5
 
             String address = addresses.get(0).getAddressLine(0); // If any additional address line present than only, check with max available address lines by getMaxAddressLineIndex()
             String city = addresses.get(0).getLocality();
-            String state = addresses.get(0).getAdminArea();
             String postalCode = addresses.get(0).getPostalCode();
             String knownName = addresses.get(0).getFeatureName();
 
-            addressStr = address + city + state + postalCode + knownName;
+            addressStr = address + city + postalCode + knownName;
         }
         catch (IOException e) {
 
         }
         return addressStr;
-    }
+    }*/
     //this uses location whereas the others use address
-    private void getCurrentLocation(GoogleMap mGoogleMap) {
+/*
+    private void getCurrentLocation(Callback callback) {
         Log.d(TAG, "Getting the device's current location");
         mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
         try {
-            if (checkLocationPermission()) {
+            if (this.mLocationPermissionGranted) {
                 Task location = mFusedLocationProviderClient.getLastLocation();
                 location.addOnCompleteListener(new OnCompleteListener() {
                     @Override
                     public void onComplete(@NonNull Task task) {
                         if (task.isSuccessful()) {
                             Log.d(TAG, "onComplete: Found location!");
-                            Location currentLocation = (Location) task.getResult();
-                            double lat = currentLocation.getLatitude();
-                            double lng = currentLocation.getLongitude();
-                            gotoLocation(mGoogleMap, lat, lng);
-                            setLocation(currentLocation);
-                            showMarker(lat, lng);
+                            curLocation = (Location) task.getResult();
+                            //double lat = curLocation.getLatitude();
+                            //double lng = curLocation.getLongitude();
+
+                            //gotoLocation(mGoogleMap, lat, lng);
+                            //setLocation(curLocation);
+                            //showMarker(lat, lng);
                         } else {
                             Log.d(TAG, "OnComplete: Current location is null");
                             Toast.makeText(GoogleMapsActivity.this, "Unable to get location", Toast.LENGTH_SHORT).show();
                         }
+                        callback.firebaseResponseCallback(curLocation);
                     }
                 });
             }
@@ -210,7 +228,8 @@ public class GoogleMapsActivity extends AppCompatActivity implements OnMapReadyC
             Log.e(TAG, "getDeviceLocation: SecurityException " + e.getMessage());
 
         }
-    }
+        //return currentLocation;
+    }*/
 
     private void setLocation(Location currentLocation) {
         this.curLocation = currentLocation;
@@ -233,7 +252,17 @@ public class GoogleMapsActivity extends AppCompatActivity implements OnMapReadyC
     private void initGoogleMap() {
         if (isServicesOk()) {
             if (isGPSEnabled()) {
-                if (checkLocationPermission()) {
+                checkLocationPermission();
+                if (!mLocationPermissionGranted) {
+                    requestLocationPermission();
+                    if (!mLocationPermissionGranted) return;
+                }
+                Toast.makeText(this, "Ready to Map", Toast.LENGTH_SHORT).show();
+                SupportMapFragment supportMapFragment = (SupportMapFragment) getSupportFragmentManager()
+                        .findFragmentById(R.id.map_fragment_container);
+
+                supportMapFragment.getMapAsync(this);
+                /*if (!mLocationPermissionGranted) {
                     Toast.makeText(this, "Ready to Map", Toast.LENGTH_SHORT).show();
                     SupportMapFragment supportMapFragment = (SupportMapFragment) getSupportFragmentManager()
                             .findFragmentById(R.id.map_fragment_container);
@@ -248,7 +277,7 @@ public class GoogleMapsActivity extends AppCompatActivity implements OnMapReadyC
 
                         supportMapFragment.getMapAsync(this);
                     }
-                }
+                }*/
             }
         }
     }
@@ -258,11 +287,31 @@ public class GoogleMapsActivity extends AppCompatActivity implements OnMapReadyC
         Log.d(TAG, "onMapReady: map is showing on the screen");
 
         mGoogleMap=googleMap;
-        getCurrentLocation(mGoogleMap);
-
+        googleMapsController.getCurrentLocation(new Callback() {
+            @Override
+            public void firebaseResponseCallback(Location location) {
+                curLocation = location;
+                //Log.d(TAG, curLocation.toString());
+                double lat = curLocation.getLatitude();
+                double lng = curLocation.getLongitude();
+                gotoLocation(mGoogleMap, lat, lng);
+                setLocation(curLocation);
+                showMarker(lat, lng);
+                mGoogleMap.getUiSettings().setZoomControlsEnabled(true);
+                mGoogleMap.getUiSettings().setMyLocationButtonEnabled(true);
+                mGoogleMap.getUiSettings().setMapToolbarEnabled(true);
+            }
+        });
+        /*double lat = curLocation.getLatitude();
+        double lng = curLocation.getLongitude();
+        gotoLocation(mGoogleMap, lat, lng);
+        setLocation(curLocation);
+        showMarker(lat, lng);*/
+        /*Log.d(TAG, this.curLocation.toString());
         mGoogleMap.getUiSettings().setZoomControlsEnabled(true);
         mGoogleMap.getUiSettings().setMyLocationButtonEnabled(true);
-        mGoogleMap.getUiSettings().setMapToolbarEnabled(true);
+        mGoogleMap.getUiSettings().setMapToolbarEnabled(true);*/
+        //Log.d(TAG, this.curLocation.toString());
     }
 
     private void gotoLocation(GoogleMap mGoogleMap, double lat,double lng){
@@ -302,8 +351,8 @@ public class GoogleMapsActivity extends AppCompatActivity implements OnMapReadyC
         return false;
     }
 
-    private boolean checkLocationPermission() {
-        return ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+    private void checkLocationPermission() {
+        this.mLocationPermissionGranted = ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
                 == PackageManager.PERMISSION_GRANTED;
     }
 
@@ -404,4 +453,9 @@ public class GoogleMapsActivity extends AppCompatActivity implements OnMapReadyC
             }
         }
     }
+    public GoogleMapsActivity getGoogleMapsActivity() { return this; }
 }
+
+/*interface Callback{
+    void firebaseResponseCallback(Location result);
+}*/

@@ -97,26 +97,8 @@ public class HomeFragment extends Fragment implements SortByDialogFragment.SortB
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-       /* if (Looper.getMainLooper().getThread() == Thread.currentThread()) {
-            //ok this runs while the background gets the google maps
-            Log.e("UIStuff", "Home Fragment On UI Thread");
-        } else {
-            Log.e("UIStuff", "Home Fragment Not on UI Thread");
-        }*/
 
         View layout = inflater.inflate(R.layout.fragment_home, container, false);
-      /*  if (getFragmentManager().findFragmentById(R.id.fragment_container) != null) {
-            Fragment currentFragment = getFragmentManager().findFragmentById(R.id.fragment_container);
-            if (currentFragment instanceof SearchFragment) {
-                Log.e("UIStuff", "Is Instance of Search");
-            }
-            if (currentFragment instanceof HomeFragment) {
-                Log.e("UIStuff", "Is Instance of Home");
-            }
-            if (currentFragment.isVisible()) {
-                Log.e("UIStuff", "Is Vis");
-            }
-        }*/
         searchController = new ViewModelProvider(this).get(SearchController.class);
         ImageButton toSort = (ImageButton) layout.findViewById(R.id.sortButton);
         ImageButton filter = (ImageButton) layout.findViewById(R.id.filterButton);
@@ -124,7 +106,7 @@ public class HomeFragment extends Fragment implements SortByDialogFragment.SortB
 
         schoolDB = new SchoolDB(getContext());
         schools = schoolDB.getValue();
-        Log.d("SchDB", "Loaded");
+        //Log.d("SchDB", "Loaded");
 
         //retrieving results from background files
         //whenever home is called the distance is not updated in these schools

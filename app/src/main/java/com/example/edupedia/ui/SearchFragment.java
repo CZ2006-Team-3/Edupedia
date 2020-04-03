@@ -1,12 +1,10 @@
 package com.example.edupedia.ui;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Looper;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,9 +12,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.SearchView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -25,15 +21,12 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.edupedia.R;
 import com.example.edupedia.controller.GoogleMapsActivity;
 import com.example.edupedia.controller.GoogleMapsDistance;
-import com.example.edupedia.controller.SortController;
 import com.example.edupedia.model.School;
 import com.example.edupedia.model.SchoolDB;
 import com.example.edupedia.controller.SearchController;
@@ -87,6 +80,10 @@ public class SearchFragment extends Fragment implements
      */
     public static final int RESULT_CANCELED = 0;
 
+    private String userLat;
+
+    private String userLng;
+
     private MainNavigationUI mainNavigationUI;
 
     @Nullable
@@ -98,18 +95,6 @@ public class SearchFragment extends Fragment implements
 
         viewModel = new ViewModelProvider(this).get(SearchController.class);
         View rootview = inflater.inflate(R.layout.fragment_search, container, false);
-        /*if (getFragmentManager().findFragmentById(R.id.fragment_container) != null) {
-            Fragment currentFragment = getFragmentManager().findFragmentById(R.id.fragment_container);
-            if (currentFragment instanceof SearchFragment) {
-                Log.e("UIStuff", "Is Instance of Search");
-            }
-            if (currentFragment instanceof HomeFragment) {
-                Log.e("UIStuff", "Is Instance of Home");
-            }
-            if (currentFragment.isVisible()) {
-                Log.e("UIStuff", "Is Vis");
-            }
-        }*/
         schoolDB = new SchoolDB(getContext());
         schools = schoolDB.getValue();
 
@@ -286,7 +271,6 @@ public class SearchFragment extends Fragment implements
         textFilterNature = (TextView) dropdown_preffered_stream.getSelectedView();
         textFilterLocation = (TextView) rootview.findViewById(R.id.locationEnter);
         ///Click on Location button brings you to map view
-        //Starts GoogleMapsActivity-> GoogleMapsActivity returns a result to be displayed in text views
         Button button = rootview.findViewById(R.id.locationButton);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -315,58 +299,24 @@ public class SearchFragment extends Fragment implements
                 ArrayList<String> results = viewModel.onBasicSearch(schools);
                 //Store List of School Names
                 viewModel.storeResults(results);
-                //shift Fragment here
                 //gets list of schools based on hashmap of schools and names from basic search
                 ArrayList<School> schoolList = viewModel.generateSchools(schools, results);
-                //this should be here instead of home fragment because it doesnt make sense for the home f ragment to get distances everytime u press home button
-               // Caused by: java.lang.NullPointerException: Attempt to invoke virtual method 'android.location.Address com.example.edupedia.controller.GoogleMapsActivity.geoLocate2(java.lang.String)' on a null object reference
 
                 HomeFragment homeFragment = (HomeFragment) mainNavigationUI.homeFragment;
                 homeFragment.setSchoolList(schoolList);
                 homeFragment.createSchoolList();
                 ArrayList<SchoolItem> schoolItemList = homeFragment.getSchoolItemList();
-                //SchoolDB schoolDB = homeFragment.getSchoolDB();
 
                 FragmentTransaction ft = mainNavigationUI.fm.beginTransaction();
 
                 ft = ft.hide(mainNavigationUI.currentFragment).show(homeFragment);
                 mainNavigationUI.currentFragment = homeFragment;
                 ft.commit();
-                //RecyclerView recyclerView = homeFragment.getmRecyclerView(); this is null.
-                /*if (recyclerView == null) {
-                    Log.d("UIStuff", "recycler view null");
-                }*/
                 if (!textFilterLocation.getText().toString().equals("")) {
-                    new GoogleMapsDistance(homeFragment, getContext(), schoolItemList, schoolList, textFilterLocation.getText().toString()).execute();
+                    new GoogleMapsDistance(homeFragment, getContext(), schoolItemList, schoolList, textFilterLocation.getText().toString(), userLat, userLng).execute();
                 }
-
-                /*Intent intent = new Intent(v.getContext(), GoogleMapsDistance.class);
-                intent.putExtra("School List", schoolList);
-                intent.putExtra("User Location", textFilterLocation.getText().toString());
-                startActivity(intent);*/
-
-                /*if (Looper.getMainLooper().getThread() == Thread.currentThread()) {
-                    //ok this runs while the background gets the google maps
-                    Log.e("UIStuff", "Search Frag On UI Thread");
-                } else {
-                    Log.e("UIStuff", "Search Frag Not on UI Thread");
-                }
-                if (getFragmentManager().findFragmentById(R.id.fragment_container) != null) {
-                    Fragment currentFragment = getFragmentManager().findFragmentById(R.id.fragment_container);
-                    if (currentFragment instanceof SearchFragment) {
-                        Log.e("UIStuff", "Is Instance of Search");
-                    }
-                    if (currentFragment instanceof HomeFragment) {
-                        Log.e("UIStuff", "Is Instance of Home");
-                    }
-                    if (currentFragment.isVisible()) {
-                        Log.e("UIStuff", "Is Vis");
-                    }
-                }
-                Log.e("UIStuff", "Called1");*/
             }
         });
-        //Log.e("UIStuff", "Called3");
         return rootview;
     }
 
@@ -375,16 +325,19 @@ public class SearchFragment extends Fragment implements
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_CODE) {
             if(resultCode == RESULT_OK){
-                String result=data.getStringExtra("Address");
-                //Toast.makeText()
+                String result = data.getStringExtra("Address");
                 Log.d("Address:", result);
                 textFilterLocation.setText(result);
+                this.userLat = data.getStringExtra("userLat");
+                Log.d("GoogleMaps", userLat);
+                this.userLng = data.getStringExtra("userLng");
+                Log.d("GoogleMaps", this.userLng);
             }
             if (resultCode == RESULT_CANCELED) {
                 //Write your code if there's no result
             }
         }
-    }//onActivityResult
+    }
 
     public void onItemSelected(AdapterView<?> parent, View view,
                                int pos, long id) {

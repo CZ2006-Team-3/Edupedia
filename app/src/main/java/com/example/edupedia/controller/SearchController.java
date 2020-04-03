@@ -149,7 +149,7 @@ public class SearchController extends ViewModel {
         return true;
     }
 
-
+/*
     public ArrayList<School> onAdvancedSearch(HashMap<String, School> basicResults) {
         ArrayList<School> advancedResults = new ArrayList<School>();
         Iterator dbIterator = basicResults.entrySet().iterator();
@@ -177,7 +177,7 @@ public class SearchController extends ViewModel {
             return true;
         return false;
     }
-
+*/
     public HashMap<String, String> retrieveFilterSettings() {
         DataStoreInterface dataStore = DataStoreFactory.getDatastore("Filter");
         JSONObject jsonFilter = (JSONObject) dataStore.retrieveData();

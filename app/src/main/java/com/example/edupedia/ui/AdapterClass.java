@@ -145,7 +145,6 @@ public class AdapterClass extends RecyclerView.Adapter<AdapterClass.ExampleViewH
         protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
             schoolItemList.clear();
             schoolItemList.addAll((List)filterResults.values);
-            //THIS LINE IS DAMN IMPORTANT COS WITHOUT IT IT WONT AUTO CHANGE
             notifyDataSetChanged();
         }
     };
