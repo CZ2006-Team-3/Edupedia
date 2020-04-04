@@ -436,7 +436,7 @@ public class School implements Serializable {
 
     /**
      * Set this school's MOE programmes
-     * @param moeProgramme
+     * @param moeProgramme this school's MOE programmes
      */
     public void setMoeProgramme(ArrayList<String> moeProgramme) {
         this.moeProgramme = moeProgramme;
