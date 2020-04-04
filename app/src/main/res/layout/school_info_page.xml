@@ -11,18 +11,6 @@
         android:layout_height="match_parent">
 
 
-        <ImageView
-            android:id="@+id/schoolIcon"
-            android:layout_width="58dp"
-            android:layout_height="46dp"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="152dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/school" />
-
         <TextView
             android:id="@+id/schoolName"
             android:layout_width="237dp"
@@ -31,12 +19,24 @@
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
             android:layout_marginStart="36dp"
-            android:layout_marginTop="156dp"
-            android:text="School Name"
+            android:layout_marginTop="188dp"
             android:gravity="left|center"
+            android:text="School Name"
             android:textColor="@color/blackText"
             app:layout_constraintStart_toEndOf="@+id/schoolIcon"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/schoolIcon"
+            android:layout_width="58dp"
+            android:layout_height="46dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="184dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/school" />
 
         <ImageView
             android:id="@+id/courseIcon"

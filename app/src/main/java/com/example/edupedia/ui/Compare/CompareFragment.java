@@ -1,6 +1,7 @@
 package com.example.edupedia.ui.Compare;
 
 import android.content.Context;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +11,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 
 import com.example.edupedia.R;
@@ -42,10 +44,10 @@ public class CompareFragment extends Fragment {
     private TextView drive1;
     private TextView drive2;
     private HashMap<String, School> schools;
-    private SchoolDB schoolDB;
     private static int i = 0;
     private MainNavigationUI mainNavigationUI;
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState){
@@ -69,40 +71,29 @@ public class CompareFragment extends Fragment {
     }
 
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     public void update(View layout) {
         /**
          * The method to update the schools to be compared
          */
         Bundle bundle = this.getArguments();
-        if (bundle!=null) {
+        if (bundle != null) {
             String value = bundle.getString("SchoolName");
             if (value != null) {
-                schoolDB = new SchoolDB(getContext());
-                schools = schoolDB.getValue();
+                /*
+                if (schoolDB == null) {
+                    schoolDB = new SchoolDB(getContext());
+                    //schoolDB = new SchoolDB(getContext());
+                    schools = schoolDB.getValue();
+                }*/
+                schools = mainNavigationUI.getSchoolDB();
                 School toBeCompare = schools.get(value);
                 if (toBeCompare != null) {
                     i++;
-                    if (i%2==1) {
+                    if (i % 2 == 1) {
                         compareList[0] = toBeCompare;
-                    }
-                    else if (i%2==0) {
+                    } else if (i % 2 == 0) {
                         compareList[1] = toBeCompare;
-
-                    /*if (compareList[0] == null && compareList[1] == null) {
-                        compareList[0] = toBeCompare;
-                        i++;
-                    }
-                    else if (compareList[0] != null && compareList[1] == null){
-                        compareList[1] = toBeCompare;
-                        i++;
-                    }
-                    else if (compareList[0] != null && compareList[1] != null){
-                        if (i%2==1) {
-                            compareList[0] = toBeCompare;
-                        }
-                        else if (i%2==0){
-                            compareList[1] = toBeCompare;
-                        }*/
                     }
                 }
             }
@@ -122,7 +113,7 @@ public class CompareFragment extends Fragment {
             String gradeCut;
             int gradePSLE = compareList[0].getGradePSLE();
             int gradeO = compareList[0].getGradeO();
-            if ((gradeO!= -1) && (gradePSLE != -1)) {
+            if ((gradeO != -1) && (gradePSLE != -1)) {
                 gradeCut = "PSLE: " + gradePSLE + " / O-Level: " + gradeO;
             } else if ((gradeO == -1) && (gradePSLE != -1)) {
                 gradeCut = "PSLE: " + gradePSLE;
@@ -153,7 +144,7 @@ public class CompareFragment extends Fragment {
         }
 
         //For School 2
-        if (compareList[1]!=null) {
+        if (compareList[1] != null) {
             school2Name = layout.findViewById(R.id.school2Name);
             school2Name.setText(compareList[1].getSchoolName());
 
@@ -161,7 +152,7 @@ public class CompareFragment extends Fragment {
             String gradeCut;
             int gradePSLE = compareList[1].getGradePSLE();
             int gradeO = compareList[1].getGradeO();
-            if ((gradeO!= -1) && (gradePSLE != -1)) {
+            if ((gradeO != -1) && (gradePSLE != -1)) {
                 gradeCut = "PSLE: " + gradePSLE + " / O-Level: " + gradeO;
             } else if ((gradeO == -1) && (gradePSLE != -1)) {
                 gradeCut = "PSLE: " + gradePSLE;
@@ -189,5 +180,4 @@ public class CompareFragment extends Fragment {
         }
 
     }
-
 }

@@ -129,7 +129,6 @@ public class AdapterClass extends RecyclerView.Adapter<AdapterClass.ExampleViewH
         protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
             schoolItemList.clear();
             schoolItemList.addAll((List)filterResults.values);
-            //THIS LINE IS DAMN IMPORTANT COS WITHOUT IT IT WONT AUTO CHANGE
             notifyDataSetChanged();
         }
     };
@@ -161,21 +160,15 @@ public class AdapterClass extends RecyclerView.Adapter<AdapterClass.ExampleViewH
         }
     };
     public void updateDistance(String schoolName, double distance) {
-       // Log.d("UIStuff", "Distance Updated" + schoolItemListFull.size());
-
-        for (int i = 0; i < schoolItemListFull.size(); i++) {
-            //Log.d("UIStuff", "SchoolItem: " + schoolItem.getSchoolName());
-            //Log.d("UIStuff", "SchoolName: " + schoolName);
-            if (schoolItemListFull.get(i).getSchoolName().equals(schoolName)) {
-                schoolItemListFull.get(i).setDistance(distance);
+        Log.d("UIStuff", "Distance Updated: ");
+        for (int i = 0; i < schoolItemList.size(); i++) {
+            if (schoolItemList.get(i).getSchoolName().equals(schoolName)) {
+                schoolItemList.get(i).setDistance(distance);
                 Log.d("UIStuff", "Distance Updated: " + distance + ", School: " + schoolName);
                 notifyItemChanged(i);
                 break;
             }
         }
-        /*SchoolItem schoolItem = schoolItemHashMap.get(schoolName);
-        schoolItem.setDistance(distance);
-        notifyDataSetChanged();*/
     }
 
     /**
@@ -335,5 +328,8 @@ public class AdapterClass extends RecyclerView.Adapter<AdapterClass.ExampleViewH
 
     public ArrayList<SchoolItem> getSchoolItemList() {
         return schoolItemList;
+    }
+    public void setSchoolItemList(ArrayList<SchoolItem> schoolItemList) {
+        this.schoolItemList = schoolItemList;
     }
 }

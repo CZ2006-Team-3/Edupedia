@@ -4,6 +4,7 @@ import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.view.Menu;
@@ -15,6 +16,7 @@ import android.widget.SearchView;
 import com.example.edupedia.R;
 import com.example.edupedia.controller.UserController;
 import com.example.edupedia.controller.WatchlistController;
+import com.example.edupedia.model.School;
 import com.example.edupedia.model.UserID;
 import com.example.edupedia.ui.WatchList.WatchListFragment;
 import com.example.edupedia.ui.home.HomeFragment;
@@ -22,11 +24,15 @@ import com.example.edupedia.ui.Compare.CompareFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 
+import java.util.HashMap;
+
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
+@RequiresApi(api = Build.VERSION_CODES.N)
 public class MainNavigationUI extends AppCompatActivity {
     private SharedPreferences sharedPref;
 
@@ -37,6 +43,7 @@ public class MainNavigationUI extends AppCompatActivity {
     public final CompareFragment compareFragment = new CompareFragment();
     public final FragmentManager fm = getSupportFragmentManager();
     public Fragment currentFragment = searchFragment;
+    private HashMap<String, School> schools;
 
 
     @Override
@@ -62,7 +69,6 @@ public class MainNavigationUI extends AppCompatActivity {
         fm.beginTransaction().add(R.id.fragment_container,
                 currentFragment).commit();
 
-
     }
 
     private BottomNavigationView.OnNavigationItemSelectedListener navListener =
@@ -81,6 +87,7 @@ public class MainNavigationUI extends AppCompatActivity {
                         break;
 
                     case R.id.homeIcon:
+                        //homeFragment.updateInfo();
                         fm.beginTransaction().hide(currentFragment).show(homeFragment).commit();
                         currentFragment = homeFragment;
                         break;
@@ -100,6 +107,12 @@ public class MainNavigationUI extends AppCompatActivity {
     public FragmentManager getFm() {
         return fm;
     }
+
+    public void setSchoolDB(HashMap<String, School> schools) {
+        this.schools = schools;
+    }
+
+    public HashMap<String, School> getSchoolDB() { return this.schools; }
 }
 
 

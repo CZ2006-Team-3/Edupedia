@@ -1,65 +1,40 @@
 package com.example.edupedia.ui.home;
 
-import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Looper;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
 import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.RadioGroup;
 import android.widget.Toast;
 import android.widget.SearchView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
-import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.edupedia.controller.DataStoreFactory;
 import com.example.edupedia.controller.SearchController;
-import com.example.edupedia.model.DataStoreInterface;
-import com.example.edupedia.model.Filter;
 import com.example.edupedia.ui.AdapterClass;
 import com.example.edupedia.R;
 import com.example.edupedia.ui.AdvFilterDialogFragment;
 import com.example.edupedia.ui.Compare.CompareFragment;
-import com.example.edupedia.ui.FilterUI;
 import com.example.edupedia.ui.MainNavigationUI;
 import com.example.edupedia.ui.SchoolItem;
 import com.example.edupedia.controller.SortController;
 import com.example.edupedia.controller.WatchlistController;
 import com.example.edupedia.model.School;
 import com.example.edupedia.model.SchoolDB;
-import com.example.edupedia.ui.AdapterClass;
-import com.example.edupedia.ui.FilterUI;
-import com.example.edupedia.ui.SchoolItem;
-import com.example.edupedia.ui.SearchFragment;
-import com.example.edupedia.ui.SettingsFragment;
-import com.example.edupedia.ui.SortBy;
 import com.example.edupedia.ui.SortByDialogFragment;
-import com.example.edupedia.ui.StartUI;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 /**
  * Home Fragment class - all the functions on home page
  */
@@ -83,7 +58,7 @@ public class HomeFragment extends Fragment implements SortByDialogFragment.SortB
     private RecyclerView mRecyclerView;
     private AdapterClass mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
-    private SortController sortController;
+    //private SortController sortController;
     private SchoolDB schoolDB;
     private HashMap<String, School> schools;
     private ArrayList<School> schoolArrayList;
@@ -94,7 +69,6 @@ public class HomeFragment extends Fragment implements SortByDialogFragment.SortB
     private SortByDialogFragment sortByFragment = new SortByDialogFragment();
     private SearchController searchController;
 
-
     /**
      * default method that occurs upon the creation of the activity
      */
@@ -103,60 +77,26 @@ public class HomeFragment extends Fragment implements SortByDialogFragment.SortB
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-
+        Log.d("HomeFragment", "Here");
         // Inflate the layout for this fragment
-
         View layout = inflater.inflate(R.layout.fragment_home, container, false);
         searchController = new ViewModelProvider(this).get(SearchController.class);
         ImageButton toSort = (ImageButton) layout.findViewById(R.id.sortButton);
         ImageButton filter = (ImageButton) layout.findViewById(R.id.filterButton);
         SearchView searchButton = (SearchView) layout.findViewById(R.id.searchButton);
-
         schoolDB = new SchoolDB(getContext());
         schools = schoolDB.getValue();
         //Log.d("SchDB", "Loaded");
-
         //retrieving results from background files
-        //whenever home is called the distance is not updated in these schools
         ArrayList<String> results = searchController.retrieveResults();
-        Log.d("HomeFragment", String.valueOf(results));
+        Log.d("HomeFragment", "Here");
+        if (results != null)
+            Log.d("HomeFragment", String.valueOf(results.size()));
         //gets a list of schools based on a string of school names
         schoolArrayList = searchController.generateSchools(schools, results);
         Toast.makeText(getContext(), "Home Fragment", Toast.LENGTH_SHORT);
-        //Log.d("UIStuff", "here");
         //schoolArrayList = searchController.getDistances(schoolArrayList);
         toSort.setOnClickListener(this);
-/*
-        toSort.setOnClickListener(new View.OnClickListener() {
-              @Override
-              public void onClick(View v) {
-//                    Intent myIntent2 = new Intent(v.getContext(), SortBy.class);
-//                    startActivityForResult(myIntent2, RESULT_SUCCESS);
-                 FragmentTransaction ft = getChildFragmentManager().beginTransaction();
-                  DialogFragment sortBy = new SortByDialogFragment();
-                  sortBy.show(ft, "dialog");
-              }
-        });*/
-        //toSort.setOnClickListener(this);
-//        toSort.setOnClickListener(new View.OnClickListener() {
-//              @Override
-//              public void onClick(View v) {
-////                    Intent myIntent2 = new Intent(v.getContext(), SortBy.class);
-////                    startActivityForResult(myIntent2, RESULT_SUCCESS);
-//                 FragmentTransaction ft = getChildFragmentManager().beginTransaction();
-//                  SortByDialogFragment sortBy = new SortByDialogFragment();
-//                  sortBy.setDialogFragmentListener(this);
-//                  sortBy.show(ft, "Sort By");
-//
-//                                      }
-//                                  });
-//        filter.setOnClickListener(new View.OnClickListener(){
-//            @Override
-//            public void onClick(View v) {
-//                Intent myIntent2 = new Intent(v.getContext(), FilterUI.class);
-//                startActivityForResult(myIntent2, RESULT_SUCCESS);
-//            }
-//        });
         filter.setOnClickListener(this);
 
         searchButton.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -171,11 +111,21 @@ public class HomeFragment extends Fragment implements SortByDialogFragment.SortB
                 return false;
             }
         });
-
         createSchoolList();
         buildRecyclerView(layout);
-        //Log.d("UIStuff", "Built Here");
         return layout;
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    public void updateInfo() {
+        ArrayList<String> results = searchController.retrieveResults();
+        Log.d("HomeFragment", "Here");
+        if (results != null)
+            Log.d("HomeFragment", String.valueOf(results.size()));
+        schoolArrayList = searchController.generateSchools(schools, results);
+        createSchoolList();
+        mAdapter.setSchoolItemList(mSchoolList);
+        mAdapter.notifyDataSetChanged();
     }
 
     /**
@@ -234,12 +184,6 @@ public class HomeFragment extends Fragment implements SortByDialogFragment.SortB
             if (watchlistController.exists(school.getSchoolName())){
 
             }
-
-
-
-            //mSchoolList.add(new SchoolItem(R.drawable.school_icon, "RI", "4 Points", "2 km"));
-            //mSchoolList.add(new SchoolItem(R.drawable.school_icon, "AJC", "6 Points", "3 km"));
-            //mSchoolList.add(new SchoolItem(R.drawable.school_icon, "AGS", "8 Points", "5 km"));
         }
     }
 
@@ -337,6 +281,7 @@ public class HomeFragment extends Fragment implements SortByDialogFragment.SortB
             /**
              * method that adds school to the compare upon click of the compare button
              */
+            @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onCompareSelect(int position) {
                 String schoolToCompare = mSchoolList.get(position).getSchoolName();
@@ -448,11 +393,6 @@ public class HomeFragment extends Fragment implements SortByDialogFragment.SortB
         }
     }
 
-
-    public RecyclerView getmRecyclerView() {
-        return mRecyclerView;
-    }
-
     public ArrayList<SchoolItem> getSchoolItemList() {
         return this.mSchoolList;
     }
@@ -465,12 +405,14 @@ public class HomeFragment extends Fragment implements SortByDialogFragment.SortB
         return this.mAdapter;
     }
 
-    public void setSchoolList(ArrayList<School> schoolList) {
+   /* public void setSchoolList(ArrayList<School> schoolList) {
         this.schoolArrayList = schoolList;
-    }
+    } */
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     public void setSchoolDB(HashMap<String, School> schools) {
         this.schools = schools;
+        mainNavigationUI.setSchoolDB(schools);
     }
 
     public int getSORT_VARIABLE() {

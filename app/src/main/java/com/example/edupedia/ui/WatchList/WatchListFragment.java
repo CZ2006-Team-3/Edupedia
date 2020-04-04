@@ -1,13 +1,18 @@
 package com.example.edupedia.ui.WatchList;
 
+import android.content.Context;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -18,6 +23,7 @@ import com.example.edupedia.model.School;
 import com.example.edupedia.model.SchoolDB;
 import com.example.edupedia.ui.AdapterClass;
 import com.example.edupedia.ui.Compare.CompareFragment;
+import com.example.edupedia.ui.MainNavigationUI;
 import com.example.edupedia.ui.SchoolItem;
 import com.example.edupedia.ui.StartUI;
 import com.google.firebase.auth.FirebaseAuth;
@@ -66,7 +72,7 @@ public class WatchListFragment extends Fragment {
      */
     private SchoolDB schoolDB;
 
-
+    private MainNavigationUI mainNavigationUI;
 
     /**
      * view model is an instantiation of the Search Controller
@@ -77,19 +83,14 @@ public class WatchListFragment extends Fragment {
      * default method that executes upon creation of a watchlist fragment
      */
     @Nullable
+
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-//        /*
-//        watchlistController.setWatchlist(new String[] {"zero","one", "two","three","four",null,"six","seven","eight","nine"});
-//        watchlistController.addSchool("five",5);
-//        watchlistController.changePosition(3,7);
-//        watchlistController.removeSchool(9);
-//        watchlistController.pushWatchlist();
-//        watchlistController.pullWatchlist();
-//         */
         watchList = watchlistController.getWatchlist();
         schoolDB = new SchoolDB(getContext());
         schools = schoolDB.getValue();
+        //schools = mainNavigationUI.getSchoolDB();
+        if (schools != null) { Log.d("WatchList", String.valueOf(schools.size()));}
         boolean empty = true;
         for (String schoolName : watchList) {
             if (schoolName != null) {
@@ -116,6 +117,13 @@ public class WatchListFragment extends Fragment {
 
         return layout;
 
+    }
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        if(context instanceof MainNavigationUI) {
+            mainNavigationUI = (MainNavigationUI) context;
+        }
     }
     /**
      * method to generate a list of school from the database
@@ -149,7 +157,6 @@ public class WatchListFragment extends Fragment {
             public void onItemClick(int position) {
                 wSchoolList.get(position).openSchoolInfo();
                 wAdapter.notifyItemChanged(position);
-
             }
 
             /**
@@ -202,7 +209,9 @@ public class WatchListFragment extends Fragment {
     /**
      * method that updates information on watchlist fragment if any change occurs
      */
+    @RequiresApi(api = Build.VERSION_CODES.N)
     public void updateInfo() {
+        schools = mainNavigationUI.getSchoolDB();
         ArrayList<SchoolItem> schoolItemList = wAdapter.getSchoolItemList();
         watchList = watchlistController.getWatchlist();
         ArrayList<String> schoolNames = new ArrayList<>();
@@ -215,7 +224,6 @@ public class WatchListFragment extends Fragment {
                 schoolItemList.add(createSchoolItem(schools.get(schoolName)));
             }
         }
-
         wAdapter.notifyDataSetChanged();
     }
     /**
@@ -234,11 +242,12 @@ public class WatchListFragment extends Fragment {
         } else {
             printGrade = "Cut-Off Score: Not Applicable";
         }
+        Log.d("WatchListFragment", String.valueOf(school.getDistance()));
         SchoolItem schoolItem = new SchoolItem(
                 R.drawable.school_icon,
                 school.getSchoolName(),
                 printGrade,
-                "Distance: " + Double.toString(school.getDistance())
+                "Distance: " + school.getDistance()
         );
 
         return schoolItem;

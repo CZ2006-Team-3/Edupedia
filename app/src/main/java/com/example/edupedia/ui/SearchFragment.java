@@ -34,6 +34,7 @@ import com.example.edupedia.ui.home.HomeFragment;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.concurrent.ExecutionException;
 
 /**
  * Search Fragment class
@@ -299,13 +300,13 @@ public class SearchFragment extends Fragment implements
                 ArrayList<String> results = viewModel.onBasicSearch(schools);
                 //Store List of School Names
                 viewModel.storeResults(results);
-                //gets list of schools based on hashmap of schools and names from basic search
+                Log.d(TAG, String.valueOf(results.size()));
                 ArrayList<School> schoolList = viewModel.generateSchools(schools, results);
-
-                HomeFragment homeFragment = (HomeFragment) mainNavigationUI.homeFragment;
-                homeFragment.setSchoolList(schoolList);
-                homeFragment.createSchoolList();
-                ArrayList<SchoolItem> schoolItemList = homeFragment.getSchoolItemList();
+                HomeFragment homeFragment = mainNavigationUI.homeFragment;
+                //homeFragment.setSchoolList(schoolList);
+                homeFragment.updateInfo();
+                AdapterClass mAdapter = homeFragment.getAdapter();
+                //ArrayList<SchoolItem> schoolItemList = homeFragment.getSchoolItemList();
 
                 FragmentTransaction ft = mainNavigationUI.fm.beginTransaction();
 
@@ -313,7 +314,7 @@ public class SearchFragment extends Fragment implements
                 mainNavigationUI.currentFragment = homeFragment;
                 ft.commit();
                 if (!textFilterLocation.getText().toString().equals("")) {
-                    new GoogleMapsDistance(homeFragment, getContext(), schoolItemList, schoolList, textFilterLocation.getText().toString(), userLat, userLng).execute();
+                    new GoogleMapsDistance(homeFragment, getContext(), schoolList, userLat, userLng, mAdapter).execute();
                 }
             }
         });

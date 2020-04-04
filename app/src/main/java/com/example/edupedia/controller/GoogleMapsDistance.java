@@ -24,7 +24,6 @@ import java.util.HashMap;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.util.Log;
-import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -36,22 +35,15 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class GoogleMapsDistance extends AsyncTask<Void, Object, ArrayList<School>> implements Serializable {
 
-    /*protected void onPreExecute() {
-        this.googleMaps = new GoogleMapsActivity();
-        adapterClass = new AdapterClass();
-       // dialog = ProgressDialog.show(getContext(), null, "Loading schools...", false);
-    }
-*/  private static final String TAG = "GoogleMapsDistance";
+    private static final String TAG = "GoogleMapsDistance";
     private static final String KEY = "AIzaSyCUaalvzVnKZLKDtGCAp1hmU9pIrov4EMM";
-    //private AdapterClass mAdapter;
 
-    //protected class distanceTask extends AsyncTask<Object, Void, ArrayList<School>> {
     private AdapterClass adapterClass;
     private static GoogleMapsController googleMaps;
     private Context mContext;
     private HashMap<String, School> schoolHashMap;
     private ArrayList<School> schoolList;
-    private ArrayList<SchoolItem> schoolItemList;
+   // private ArrayList<SchoolItem> schoolItemList;
     private RecyclerView recyclerView;
     private String userLocation;
     private HomeFragment homeFragment;
@@ -60,32 +52,28 @@ public class GoogleMapsDistance extends AsyncTask<Void, Object, ArrayList<School
     private String userLng;
 
 
-    public GoogleMapsDistance(HomeFragment homeFragment, Context context, ArrayList<SchoolItem> schoolItemList, ArrayList<School> schoolList,
-                              String userLocation, String userLat, String userLng) {
+    public GoogleMapsDistance(HomeFragment homeFragment, Context context, ArrayList<School> schoolList,
+                              String userLat, String userLng, AdapterClass adapterClass) {
         this.mContext = context;
         this.schoolList = schoolList;
-        this.schoolItemList = schoolItemList;
-        //this.recyclerView = recyclerView;
-        this.userLocation = userLocation;
+       // this.schoolItemList = schoolItemList;
+       // this.userLocation = userLocation;
+        this.adapterClass= adapterClass;
         this.homeFragment = homeFragment;
         this.userLat = userLat;
         this.userLng = userLng;
     }
+    public GoogleMapsDistance() {
 
-
-/*    protected void onPreExecute() {
-//            googleMaps;
-
-            //recyclerView.setAdapter(adapterClass);
-
-//            adapterClass = new AdapterClass(schools);
-            //adapterClass = new AdapterClass(schoolItemList);
-        }*/
+    }
 
         @RequiresApi(api = Build.VERSION_CODES.N)
+        /*
+        ** method for retrieving distance using google api distance matrix asynchronously
+         */
         protected ArrayList<School> doInBackground(Void...values) {
             //adapterClass = new AdapterClass(schoolItemList);
-            Log.d("UIStuff", "Size of school item list" + schoolItemList.size());
+           // Log.d("UIStuff", "Size of school item list" + schoolItemList.size());
             //this.schoolHashMap = (HashMap<String, School>)objects[0];
             ArrayList<School> retSchools = new ArrayList<>();
             this.schoolDB = this.homeFragment.getSchoolDB();
@@ -95,17 +83,8 @@ public class GoogleMapsDistance extends AsyncTask<Void, Object, ArrayList<School
             int i = 0;
             for (School school : schoolList) {
                 Address schAddress = googleMaps.geoLocate("Singapore " + school.getPostalCode());
-                //Log.e(TAG, school.getPostalCode());
-                //Log.e(TAG, school.getSchoolName());
                 String schLat = String.valueOf(schAddress.getLatitude());
-                //Log.e(TAG, "Sch Lat+" + schLat);
                 String schLong = String.valueOf(schAddress.getLongitude());
-                //Log.e(TAG, "Sch Long:" + schLong);
-               /* Address userAddress = googleMaps.geoLocate(userLocation);
-                String userLat = String.valueOf(userAddress.getLatitude());
-                //Log.e(TAG, "User Lat:" + userLat);
-                String userLong = String.valueOf(userAddress.getLongitude());*/
-                //Log.e(TAG, "User Long" + userLong);
                 ArrayList<String> modeList = new ArrayList<>();
                 modeList.add("driving");
                 modeList.add("transit");
@@ -114,14 +93,11 @@ public class GoogleMapsDistance extends AsyncTask<Void, Object, ArrayList<School
                 Log.d(TAG, userLat);
                 Log.d(TAG, userLng);
                 for (String mode : modeList) {
-                    //Log.e(TAG, mode);
                     String requestURL = "https://maps.googleapis.com/maps/api/distancematrix/json?origins=" + schLat + "," + schLong +
                             "&destinations=" + this.userLat + "%2C" + this.userLng +
                             "&mode=" + mode +
                             "&key=" + KEY;
                     Log.e(TAG, requestURL);
-                    //HttpHandler sh = new HttpHandler();
-                    //String jsonStr = sh.makeServiceCall(userLocation);
                     String jsonStr = null;
                     try {
                         URL url = new URL(requestURL);
@@ -132,7 +108,6 @@ public class GoogleMapsDistance extends AsyncTask<Void, Object, ArrayList<School
                         int responseCode = conn.getResponseCode();
                         if (responseCode == HttpURLConnection.HTTP_OK) {
                             InputStream in = new BufferedInputStream(conn.getInputStream());
-                            //response = convertStreamToString(in);
                             BufferedReader reader = new BufferedReader(new InputStreamReader(in));
                             StringBuilder sb = new StringBuilder();
                             String line;
@@ -168,8 +143,10 @@ public class GoogleMapsDistance extends AsyncTask<Void, Object, ArrayList<School
                             JSONArray elements = rows.getJSONObject(0).getJSONArray("elements");
                             double distance = Double.valueOf(elements.getJSONObject(0).getJSONObject("distance").getString("value"));
                             distance = distance / 1000;
+                            distance = Math.round(distance * 100.0) / 100.0;
                             double duration = Double.valueOf(elements.getJSONObject(0).getJSONObject("duration").getString("value"));
                             duration = duration / 60;
+                            duration = Math.round(duration * 100.0) / 100.0;
                             distList.add(distance);
                             Log.d(TAG, mode + distance);
                             durList.add(duration);
@@ -202,36 +179,34 @@ public class GoogleMapsDistance extends AsyncTask<Void, Object, ArrayList<School
             }
            return retSchools;
         }
-        //FIX THIS
 
-        protected void onPostExecute(ArrayList<School> schools) {
+/*        protected void onPostExecute(ArrayList<School> schools) {
             Log.d(TAG, "Post Execute");
-            //Toast.makeText(getContext(), "HI", Toast.LENGTH_SHORT).show();
-            //adapterClass.notifyDataSetChanged();
         }
-
+*/
         @RequiresApi(api = Build.VERSION_CODES.N)
         protected void onProgressUpdate(Object... values) {
             if (schoolDB == null) {
-                schoolDB = this.homeFragment.getSchoolDB();
+                schoolDB = homeFragment.getSchoolDB();
             }
             School school = (School) values[0];
             //Log.d("SchDB", String.valueOf(school.getDistance()));
             String schoolName = school.getSchoolName();
             schoolDB.replace(schoolName, school);
-            this.homeFragment.setSchoolDB(schoolDB);
+            homeFragment.setSchoolDB(schoolDB);
             //Log.d("SchDB", "Set");
             double distance = (double)values[1];
             int i = (int)values[2];
             //Toast.makeText(mContext, schoolName+ ":" + distance, Toast.LENGTH_SHORT).show();
-            if (i == 0) { //the first update
-                this.adapterClass = this.homeFragment.getAdapter();
+            /*if (i == 0) { //the first update
+                //this.adapterClass = this.homeFragment.getAdapter();
                 if (adapterClass != null) {
                     Log.d(TAG, "Not NULL");
                 }
                 //recyclerView.setAdapter(adapterClass);
-            }
-            adapterClass.updateDistance(schoolName, distance); //include a write to csv function maybe
+            }*/
+            Log.d("UIStuff", "Updating distance" + schoolName);
+            adapterClass.updateDistance(schoolName, distance);
         }
 
         public static void setGoogleMapsController(GoogleMapsController googleMapsController) {

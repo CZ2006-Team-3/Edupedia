@@ -33,17 +33,7 @@ public class GoogleMapsController  {
     public GoogleMapsController(GoogleMapsActivity googleMapsActivity) {
         this.googleMapsActivity = googleMapsActivity;
     }
-/*
-    public void onMapReady(GoogleMap googleMap) {
-        Log.d(TAG, "onMapReady: map is showing on the screen");
 
-        mGoogleMap=googleMap;
-
-        mGoogleMap.getUiSettings().setZoomControlsEnabled(true);
-        mGoogleMap.getUiSettings().setMyLocationButtonEnabled(true);
-        mGoogleMap.getUiSettings().setMapToolbarEnabled(true);
-    }
-*/
     public Address geoLocate(String locationName) {
         Geocoder geocoder = new Geocoder(googleMapsActivity, Locale.getDefault());
         Address address = null;
@@ -63,6 +53,10 @@ public class GoogleMapsController  {
         }
         return address;
     }
+
+    /*
+    ** to reverse geolocate the longitude and latitude to
+     */
     public String reverseGeolocate(double latitude, double longitude) {
         Geocoder geocoder = new Geocoder(googleMapsActivity, Locale.getDefault());
         String addressStr = null;
@@ -70,11 +64,6 @@ public class GoogleMapsController  {
             List<Address> addresses = geocoder.getFromLocation(latitude, longitude, 1); // Here 1 represent max location result to returned, by documents it recommended 1 to 5
 
             addressStr = addresses.get(0).getAddressLine(0); // If any additional address line present than only, check with max available address lines by getMaxAddressLineIndex()
-            //String city = addresses.get(0).getLocality();
-            //String postalCode = addresses.get(0).getPostalCode();
-            //String knownName = addresses.get(0).getFeatureName();
-
-            //addressStr = address + city + postalCode + knownName;
         }
         catch (IOException e) {
 
@@ -155,25 +144,12 @@ public class GoogleMapsController  {
             Toast.makeText(this, "Permission not granted", Toast.LENGTH_SHORT).show();
         }
     }*/
-/*
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == GPS_REQUEST_CODE) {
-
-            LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
-
-            boolean providerEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
-
-            if (providerEnabled) {
-                Toast.makeText(this, "GPS is enabled.", Toast.LENGTH_SHORT).show();
-            } else {
-                Toast.makeText(this, "GPS not enabled. Unable to show user location.", Toast.LENGTH_SHORT).show();
-            }
-        }
-    }*/
 }
+
+/**
+ * interface to handle the asynchronous response for current location
+ */
 interface Callback{
     void firebaseResponseCallback(Location result);
 }

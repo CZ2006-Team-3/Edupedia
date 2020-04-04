@@ -38,6 +38,13 @@ public class SchoolDB {
         }
         return db;
     }
+    public void setDB(HashMap<String, School> db) {
+        this.db = db;
+    }
+
+    public HashMap<String, School> getDB() {
+        return db;
+    }
 
 
 
