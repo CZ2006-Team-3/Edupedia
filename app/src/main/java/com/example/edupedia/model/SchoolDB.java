@@ -7,9 +7,11 @@ import java.io.IOException;
 import java.util.HashMap;
 
 
-
+/**
+ *
+ */
 public class SchoolDB {
-    private SchoolReader schoolReader = null;
+    private SchoolReader schoolReader;
     private HashMap<String, School> db;
     private Context context;
 
