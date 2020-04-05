@@ -51,6 +51,7 @@ public class WatchlistController {
         this.uid = uid;
         current_user_db = FirebaseDatabase.getInstance().getReference().child("User_DB").child(uid);
         pullWatchlist();
+        Log.d("WatchListController", "Pulled");
     }
 
 
@@ -64,7 +65,11 @@ public class WatchlistController {
     }
 
     public static WatchlistController getInstance() {
-        if(watchlistController==null) init();
+        if(watchlistController==null)
+        {
+            Log.d("WatchListController", "Here");
+            init();
+        }
 
         return watchlistController;
     }
