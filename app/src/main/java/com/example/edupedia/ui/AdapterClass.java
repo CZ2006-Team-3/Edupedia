@@ -1,8 +1,5 @@
 package com.example.edupedia.ui;
 
-import android.annotation.SuppressLint;
-import android.content.DialogInterface;
-import android.os.AsyncTask;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -176,7 +173,7 @@ public class AdapterClass extends RecyclerView.Adapter<AdapterClass.ExampleViewH
         for (int i = 0; i < schoolItemList.size(); i++) {
             if (schoolItemList.get(i).getSchoolName().equals(schoolName)) {
                 schoolItemList.get(i).setDistance(distance);
-                Log.d("UIStuff", "Distance Updated: " + distance + ", School: " + schoolName);
+                //Log.d("UIStuff", "Distance Updated: " + distance + ", School: " + schoolName);
                 notifyItemChanged(i);
                 break;
             }

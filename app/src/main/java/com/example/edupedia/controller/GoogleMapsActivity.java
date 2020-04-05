@@ -81,15 +81,26 @@ public class GoogleMapsActivity extends AppCompatActivity implements OnMapReadyC
         initGoogleMap();
         mBtnLocate.setOnClickListener(new View.OnClickListener() {
             @Override
+            /**
+             * is called when search button is clicked
+             */
             public void onClick(View view) {
                 String locationName = mSearchAddress.getText().toString();
                 hideSoftKeyboard(view);
-                address = googleMapsController.geoLocate(locationName);
-                gotoLocation(mGoogleMap, address.getLatitude(), address.getLongitude());
-                showMarker(address.getLatitude(), address.getLongitude());
+                address = googleMapsController.geoLocate("Singapore " + locationName);
+                if (address != null) {
+                    gotoLocation(mGoogleMap, address.getLatitude(), address.getLongitude());
+                    showMarker(address.getLatitude(), address.getLongitude());
+                }
+                else {
+                    Toast.makeText(GoogleMapsActivity.this.getApplicationContext(), "Please input valid location in Singapore", Toast.LENGTH_SHORT).show();
+                }
                 //Toast.makeText(this, address.getLocality(), Toast.LENGTH_SHORT).show();
             }
         });
+        /**
+         * is called when confirm button is clicked
+         */
         confirmButton.setOnClickListener(new View.OnClickListener()  {
             @Override
             public void onClick(View view) {
@@ -101,10 +112,10 @@ public class GoogleMapsActivity extends AppCompatActivity implements OnMapReadyC
                         if (addressStr != null) {
                             intent.putExtra("Address", addressStr);
                             intent.putExtra("userLat", String.valueOf(address.getLatitude()));
-                            Log.d("GoogleMapsHere", String.valueOf(address.getLatitude()));
+                            //Log.d("GoogleMapsHere", String.valueOf(address.getLatitude()));
                             intent.putExtra("userLng", String.valueOf(address.getLongitude()));
-                            Log.d("GoogleMapsHere", String.valueOf(address.getLongitude()));
-                            Log.d("Address:", addressStr);
+                            //Log.d("GoogleMapsHere", String.valueOf(address.getLongitude()));
+                            //Log.d("Address:", addressStr);
                             setResult(RESULT_OK, intent);
                             finish();
                         }
@@ -114,10 +125,10 @@ public class GoogleMapsActivity extends AppCompatActivity implements OnMapReadyC
                         if (addressStr != null) {
                             intent.putExtra("Address", addressStr);
                             intent.putExtra("userLat", String.valueOf(curLocation.getLatitude()));
-                            Log.d("GoogleMapsHere", String.valueOf(curLocation.getLatitude()));
+                            //Log.d("GoogleMapsHere", String.valueOf(curLocation.getLatitude()));
                             intent.putExtra("userLng", String.valueOf(curLocation.getLongitude()));
-                            Log.d("GoogleMapsHere", String.valueOf(curLocation.getLongitude()));
-                            Log.d("Address:", addressStr);
+                            //Log.d("GoogleMapsHere", String.valueOf(curLocation.getLongitude()));
+                            //Log.d("Address:", addressStr);
                             setResult(RESULT_OK, intent);
                             finish();
                         }
@@ -202,6 +213,7 @@ public class GoogleMapsActivity extends AppCompatActivity implements OnMapReadyC
                 gotoLocation(mGoogleMap, lat, lng);
                 setLocation(curLocation);
                 showMarker(lat, lng);
+                mSearchAddress.setText(googleMapsController.reverseGeolocate(lat, lng));
                 mGoogleMap.getUiSettings().setZoomControlsEnabled(true);
                 mGoogleMap.getUiSettings().setMyLocationButtonEnabled(true);
                 mGoogleMap.getUiSettings().setMapToolbarEnabled(true);

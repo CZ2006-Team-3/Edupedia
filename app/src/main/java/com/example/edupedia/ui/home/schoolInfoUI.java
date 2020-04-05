@@ -102,9 +102,9 @@ public class schoolInfoUI extends AppCompatActivity {
 //            grade.setText("Not Applicable");
 //        } else {
         grade.setText("Grade Cut-Off: " + extras.getString("grade"));
-        drive.setText("Time taken to drive: " + String.format("%.2f", extras.getDouble("drive")));
-        dist.setText("Distance: " + String.format("%.2f", extras.getDouble("dist")));
-        publicTime.setText("Time to travel in Public Transport: " + String.format("%.2f", extras.getDouble("publicTime")));
+        drive.setText("Time taken to drive: " + String.format("%.2f", extras.getDouble("drive")) + " min");
+        dist.setText("Distance: " + String.format("%.2f", extras.getDouble("dist")) + " km");
+        publicTime.setText("Time to travel in Public Transport: " + String.format("%.2f", extras.getDouble("publicTime")) + " min");
         url.setText(extras.getString("url"));
     }
 

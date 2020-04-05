@@ -155,7 +155,7 @@ public class SchoolItem {
     public String getDrivingTime() { return drivingTime; }
 
     public void setDistance(double distance) {
-        distanceInfo = String.valueOf(distance);
+        distanceInfo = distance + " km";
     }
 
     //    public static Comparator<SchoolItem> DrivingTimeComparator = new Comparator<SchoolItem>() {

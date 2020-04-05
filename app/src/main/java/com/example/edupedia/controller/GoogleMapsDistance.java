@@ -85,9 +85,6 @@ public class GoogleMapsDistance extends AsyncTask<Void, Object, ArrayList<School
      */
         @RequiresApi(api = Build.VERSION_CODES.N)
         protected ArrayList<School> doInBackground(Void...values) {
-            //adapterClass = new AdapterClass(schoolItemList);
-           // Log.d("UIStuff", "Size of school item list" + schoolItemList.size());
-            //this.schoolHashMap = (HashMap<String, School>)objects[0];
             ArrayList<School> retSchools = new ArrayList<>();
 
             if (schoolDB == null) {
@@ -210,7 +207,6 @@ public class GoogleMapsDistance extends AsyncTask<Void, Object, ArrayList<School
             //Log.d("SchDB", "Set");
             double distance = (double)values[1];
             int i = (int)values[2];
-            //Toast.makeText(mContext, schoolName+ ":" + distance, Toast.LENGTH_SHORT).show();
             /*if (i == 0) { //the first update
                 //this.adapterClass = this.homeFragment.getAdapter();
                 if (adapterClass != null) {

@@ -121,15 +121,12 @@ public class HomeFragment extends Fragment implements SortByDialogFragment.SortB
     }
 
     /**
-     * updates recyclerview right before user switches tab to homefragment
+     * updates information in home fragment to reflect the updated results from new search query
      */
     @RequiresApi(api = Build.VERSION_CODES.N)
     public void updateInfo(ArrayList <School> schoolList) {
-        //ArrayList<String> results = searchController.retrieveResults();
-        //Log.d("HomeFragment", "Here");
         //if (results != null)
         //    Log.d("HomeFragment", String.valueOf(results.size()));
-        //schoolArrayList = searchController.generateSchools(schools, results);
         schoolArrayList = schoolList;
         createSchoolList();
         mAdapter.setSchoolItemList(mSchoolList);

@@ -211,6 +211,7 @@ public class WatchListFragment extends Fragment {
      */
     @RequiresApi(api = Build.VERSION_CODES.N)
     public void updateInfo() {
+        Log.d("WatchListFragment", "There");
         schools = mainNavigationUI.getSchoolDB();
         ArrayList<SchoolItem> schoolItemList = wAdapter.getSchoolItemList();
         for (SchoolItem schoolItem: schoolItemList) {
@@ -222,13 +223,9 @@ public class WatchListFragment extends Fragment {
             if (schoolItemList.get(i) != null) {
                 schoolNames.add(schoolItemList.get(i).getSchoolName());
                 wAdapter.notifyItemChanged(i);
-                Log.d("WatchListFragment", "HEreR");
+                Log.d("WatchListFragment", "Here");
             }
         }
-       /* for(SchoolItem schoolItem : schoolItemList) { //get all the current schools in schoolItemList
-            if(schoolItem!=null)
-                schoolNames.add(schoolItem.getSchoolName());
-        }*/
         for(String schoolName : watchList) { //if school in w atchlist but not currently in schoolitem list
             if(!schoolNames.contains(schoolName) && schoolName!=null) {
                 schoolItemList.add(createSchoolItem(schools.get(schoolName)));
@@ -257,7 +254,7 @@ public class WatchListFragment extends Fragment {
                 R.drawable.school_icon,
                 school.getSchoolName(),
                 printGrade,
-                "Distance: " + school.getDistance()
+                school.getDistance() + " km"
         );
 
         return schoolItem;

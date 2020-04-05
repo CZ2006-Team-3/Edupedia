@@ -44,14 +44,15 @@ public class GoogleMapsController  {
         Address address = null;
         try {
             List<Address> addressList = geocoder.getFromLocationName(locationName, 1);
-            if (addressList.size() == 1) {
-                address = addressList.get(0);
-            }
-            else {
-                for (Address add : addressList) {
-                    Log.d(TAG, "geoLocate: Address: " + address.getAddressLine(address.getMaxAddressLineIndex()));
+            if (addressList.size() > 0) {
+                if (addressList.size() == 1) {
+                    address = addressList.get(0);
+                } else {
+                    for (Address add : addressList) {
+                        Log.d(TAG, "geoLocate: Address: " + add.getAddressLine(add.getMaxAddressLineIndex()));
+                    }
+                    address = addressList.get(0);
                 }
-                address = addressList.get(0);
             }
         } catch (IOException e) {
 
