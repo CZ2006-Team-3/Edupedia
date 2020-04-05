@@ -23,6 +23,9 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
 
+/**
+ * Controls the sign-in/login screen
+ */
 public class StartUI extends AppCompatActivity implements View.OnClickListener {
 
     FirebaseAuth mAuth;
@@ -30,6 +33,7 @@ public class StartUI extends AppCompatActivity implements View.OnClickListener {
     ProgressBar progressBar;
     private SharedPreferences sharedPref;
     public static String firebase_key = "firebase_key";
+    private UserID userID = UserID.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +51,9 @@ public class StartUI extends AppCompatActivity implements View.OnClickListener {
 
     }
 
+    /**
+     * handles erroneous inputs
+     */
     private void userLogin() {
         String email = editTextEmail.getText().toString().trim();
         String password = editTextPassword.getText().toString().trim();
@@ -95,8 +102,9 @@ public class StartUI extends AppCompatActivity implements View.OnClickListener {
         });
     }
 
-    private UserID userID = UserID.getInstance();
-
+    /**
+     * connects to firebase for authentication if already logged in
+     */
     @Override
     protected void onStart() {
         super.onStart();

@@ -34,9 +34,6 @@
         <activity android:name=".ui.ChangeEmail"
             android:theme="@style/AppTheme.CustomTheme"
             ></activity>
-        <activity android:name=".ui.SortBy"
-            android:theme="@style/AppTheme.CustomTheme"
-            ></activity>
         <activity android:name=".ui.FilterUI"
             android:theme="@style/AppTheme.CustomTheme"
             ></activity>

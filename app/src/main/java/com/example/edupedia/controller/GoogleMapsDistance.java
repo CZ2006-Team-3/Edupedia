@@ -78,7 +78,7 @@ public class GoogleMapsDistance extends AsyncTask<Void, Object, ArrayList<School
            // Log.d("UIStuff", "Size of school item list" + schoolItemList.size());
             //this.schoolHashMap = (HashMap<String, School>)objects[0];
             ArrayList<School> retSchools = new ArrayList<>();
-            this.schoolDB = this.homeFragment.getSchoolDB();
+
             if (schoolDB == null) {
                 Log.d(TAG, "School DB is null");
             }

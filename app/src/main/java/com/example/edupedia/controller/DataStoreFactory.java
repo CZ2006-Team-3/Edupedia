@@ -18,8 +18,7 @@ public class DataStoreFactory {
      * @param datastoreOption "Filter" or "Results"
      * @return DataStoreInterface
      */
-    // static method to return appropriate DataStoreInterface object based on user choice
-    public static DataStoreInterface getDatastore(String datastoreOption) {
+    static DataStoreInterface getDatastore(String datastoreOption) {
         DataStoreInterface datastore = null;
 
         if(datastoreOption.equals("Filter")) {

@@ -25,7 +25,7 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * A simple {@link Fragment} subclass.
+ * Fragment that controls the selection of filters for homefragment
  */
 public class AdvFilterDialogFragment extends DialogFragment {
     private ArrayList<String> region = new ArrayList<>(
@@ -49,6 +49,9 @@ public class AdvFilterDialogFragment extends DialogFragment {
 
     private AdvFilterDialogListener listener;
 
+    /**
+     * onChangeCheckbox is implemented in HomeFragment and called whenever a checkbox is checked/unchecked
+     */
     public interface AdvFilterDialogListener {
         void onChangeCheckbox(ArrayList<String> region,  ArrayList<String> IP, ArrayList<String> type);
     }
@@ -62,6 +65,13 @@ public class AdvFilterDialogFragment extends DialogFragment {
         super.onCreate(savedInstanceState);
     }
 
+    /**
+     * iniitializes fragment layout
+     * @param inflater
+     * @param container
+     * @param savedInstanceState
+     * @return
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

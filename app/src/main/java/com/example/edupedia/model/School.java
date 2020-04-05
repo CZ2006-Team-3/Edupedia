@@ -5,6 +5,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
+/**
+ * entity class, holds attributes of a school
+ */
 public class School implements Serializable {
     // Compulsory attributes
     private String schoolName;          // [1]
@@ -214,7 +217,9 @@ public class School implements Serializable {
         this.publicTime = publicTime;
     }
 
-    public void setDistance(double distance) {this.distance = distance; }
+    public void setDistance(double distance) {
+        this.distance = distance;
+    }
 
     public void setSubjectsOffered(ArrayList<String> subjectsOffered) {
         this.subjectsOffered = subjectsOffered;
@@ -316,7 +321,9 @@ public class School implements Serializable {
         return moeProgramme;
     }
 
-    public double getDistance() { return distance; }
+    public double getDistance() {
+        return distance;
+    }
 
     public double getDrivingTime() {
         return drivingTime;
@@ -333,7 +340,6 @@ public class School implements Serializable {
     public int getGradePSLE() {
         return gradePSLE;
     }
-
 
     public static Comparator<School> DrivingTimeComparator = new Comparator<School>() {
         @Override
