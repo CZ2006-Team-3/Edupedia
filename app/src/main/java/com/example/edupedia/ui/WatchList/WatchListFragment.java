@@ -90,7 +90,9 @@ public class WatchListFragment extends Fragment {
         schoolDB = new SchoolDB(getContext());
         schools = schoolDB.getValue();
         //schools = mainNavigationUI.getSchoolDB();
-        if (schools != null) { Log.d("WatchList", String.valueOf(schools.size()));}
+        if (schools != null) {
+            Log.d("WatchList", String.valueOf(schools.size()));
+        }
         boolean empty = true;
         for (String schoolName : watchList) {
             if (schoolName != null) {
@@ -107,7 +109,7 @@ public class WatchListFragment extends Fragment {
             if (schoolList.size() != 0) {
                 wSchoolList = new ArrayList<>();
                 for (School school : schoolList) {
-                    if(school!=null)
+                    if (school != null)
                         wSchoolList.add(createSchoolItem(school));
                 }
             }
@@ -118,13 +120,15 @@ public class WatchListFragment extends Fragment {
         return layout;
 
     }
+
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
-        if(context instanceof MainNavigationUI) {
+        if (context instanceof MainNavigationUI) {
             mainNavigationUI = (MainNavigationUI) context;
         }
     }
+
     /**
      * method to generate a list of school from the database
      */
@@ -136,8 +140,9 @@ public class WatchListFragment extends Fragment {
 
         return schoolList;
     }
+
     /**
-     *  method that builds a recycler view to display all the school items
+     * method that builds a recycler view to display all the school items
      */
     private void buildRecyclerView(View layout) {
         wRecyclerView = layout.findViewById(R.id.recycler_watchList_view);
@@ -184,6 +189,7 @@ public class WatchListFragment extends Fragment {
                 //wAdapter.notifyItemChanged(position);
                 //mSchoolList.get(position).addToWatchList();
             }
+
             /**
              * method that adds school to the compare upon click of the compare button
              */
@@ -206,38 +212,40 @@ public class WatchListFragment extends Fragment {
 
 
     }
+
     /**
      * method that updates information on watchlist fragment if any change occurs
      */
     @RequiresApi(api = Build.VERSION_CODES.N)
     public void updateInfo() {
         Log.d("WatchListFragment", "There");
-        try {
-            schools = mainNavigationUI.getSchoolDB();
-            ArrayList<SchoolItem> schoolItemList = wAdapter.getSchoolItemList();
-            for (SchoolItem schoolItem : schoolItemList) {
-                Log.d("WatchListFragment", schoolItem.getDistanceInfo());
-            }
-            watchList = watchlistController.getWatchlist();
-            ArrayList<String> schoolNames = new ArrayList<>();
-            for (int i = 0; i < schoolItemList.size(); i++) {//get all the current schools in schoolItemList
-                if (schoolItemList.get(i) != null) {
-                    schoolNames.add(schoolItemList.get(i).getSchoolName());
-                    wAdapter.notifyItemChanged(i);
-                    Log.d("WatchListFragment", "Here");
-                }
-            }
-            for (String schoolName : watchList) { //if school in w atchlist but not currently in schoolitem list
-                if (!schoolNames.contains(schoolName) && schoolName != null) {
-                    schoolItemList.add(createSchoolItem(schools.get(schoolName)));
-                }
-            }
-            wAdapter.notifyDataSetChanged();
+        schools = mainNavigationUI.getSchoolDB();
+        ArrayList<SchoolItem> schoolItemList = wAdapter.getSchoolItemList();
+        for (SchoolItem schoolItem : schoolItemList) {
+            Log.d("WatchListFragment", schoolItem.getDistanceInfo());
         }
-        catch (NullPointerException e) {
-            return;
+        watchList = watchlistController.getWatchlist();
+        ArrayList<String> schoolNames = new ArrayList<>();
+        for (int i = 0; i < schoolItemList.size(); i++) {//get all the current schools in schoolItemList
+            if (schoolItemList.get(i) != null) {
+                schoolNames.add(schoolItemList.get(i).getSchoolName());
+                wAdapter.notifyItemChanged(i);
+                Log.d("WatchListFragment", "Here");
+            }
         }
+        schools = mainNavigationUI.getSchoolDB();
+        if (schools == null) {
+            SchoolDB schoolDB = new SchoolDB(getContext());
+            schools = schoolDB.getValue();
+        }
+        for (String schoolName : watchList) { //if school in w atchlist but not currently in schoolitem list
+            if (!schoolNames.contains(schoolName) && schoolName != null) {
+                schoolItemList.add(createSchoolItem(schools.get(schoolName)));
+            }
+        }
+        wAdapter.notifyDataSetChanged();
     }
+
     /**
      * method that creates schoolItem from school
      */
