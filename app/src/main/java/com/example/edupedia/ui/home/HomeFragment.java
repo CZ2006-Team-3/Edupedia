@@ -117,12 +117,13 @@ public class HomeFragment extends Fragment implements SortByDialogFragment.SortB
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
-    public void updateInfo() {
-        ArrayList<String> results = searchController.retrieveResults();
-        Log.d("HomeFragment", "Here");
-        if (results != null)
-            Log.d("HomeFragment", String.valueOf(results.size()));
-        schoolArrayList = searchController.generateSchools(schools, results);
+    public void updateInfo(ArrayList <School> schoolList) {
+        //ArrayList<String> results = searchController.retrieveResults();
+        //Log.d("HomeFragment", "Here");
+        //if (results != null)
+        //    Log.d("HomeFragment", String.valueOf(results.size()));
+        //schoolArrayList = searchController.generateSchools(schools, results);
+        schoolArrayList = schoolList;
         createSchoolList();
         mAdapter.setSchoolItemList(mSchoolList);
         mAdapter.notifyDataSetChanged();

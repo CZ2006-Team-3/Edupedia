@@ -213,13 +213,23 @@ public class WatchListFragment extends Fragment {
     public void updateInfo() {
         schools = mainNavigationUI.getSchoolDB();
         ArrayList<SchoolItem> schoolItemList = wAdapter.getSchoolItemList();
+        for (SchoolItem schoolItem: schoolItemList) {
+            Log.d("WatchListFragment", schoolItem.getDistanceInfo());
+        }
         watchList = watchlistController.getWatchlist();
         ArrayList<String> schoolNames = new ArrayList<>();
-        for(SchoolItem schoolItem : schoolItemList) {
+        for (int i = 0; i < schoolItemList.size(); i++) {//get all the current schools in schoolItemList
+            if (schoolItemList.get(i) != null) {
+                schoolNames.add(schoolItemList.get(i).getSchoolName());
+                wAdapter.notifyItemChanged(i);
+                Log.d("WatchListFragment", "HEreR");
+            }
+        }
+       /* for(SchoolItem schoolItem : schoolItemList) { //get all the current schools in schoolItemList
             if(schoolItem!=null)
                 schoolNames.add(schoolItem.getSchoolName());
-        }
-        for(String schoolName : watchList) {
+        }*/
+        for(String schoolName : watchList) { //if school in w atchlist but not currently in schoolitem list
             if(!schoolNames.contains(schoolName) && schoolName!=null) {
                 schoolItemList.add(createSchoolItem(schools.get(schoolName)));
             }

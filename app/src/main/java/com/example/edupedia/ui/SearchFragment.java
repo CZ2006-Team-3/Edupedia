@@ -304,7 +304,7 @@ public class SearchFragment extends Fragment implements
                 ArrayList<School> schoolList = viewModel.generateSchools(schools, results);
                 HomeFragment homeFragment = mainNavigationUI.homeFragment;
                 //homeFragment.setSchoolList(schoolList);
-                homeFragment.updateInfo();
+                homeFragment.updateInfo(schoolList);
                 AdapterClass mAdapter = homeFragment.getAdapter();
                 //ArrayList<SchoolItem> schoolItemList = homeFragment.getSchoolItemList();
 

@@ -34,6 +34,11 @@ public class GoogleMapsController  {
         this.googleMapsActivity = googleMapsActivity;
     }
 
+    /**
+     * method to obtain an address given a location name
+     * @param locationName
+     * @return
+     */
     public Address geoLocate(String locationName) {
         Geocoder geocoder = new Geocoder(googleMapsActivity, Locale.getDefault());
         Address address = null;
@@ -55,7 +60,7 @@ public class GoogleMapsController  {
     }
 
     /*
-    ** to reverse geolocate the longitude and latitude to
+    ** to reverse geolocate the longitude and latitude to retrieve a complete address string
      */
     public String reverseGeolocate(double latitude, double longitude) {
         Geocoder geocoder = new Geocoder(googleMapsActivity, Locale.getDefault());
@@ -70,6 +75,11 @@ public class GoogleMapsController  {
         }
         return addressStr;
     }
+
+    /**
+     * method to get current location of user
+     * @param callback
+     */
     public void getCurrentLocation(Callback callback) {
         Log.d(TAG, "Getting the device's current location");
         mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(googleMapsActivity.getGoogleMapsActivity());
@@ -97,54 +107,6 @@ public class GoogleMapsController  {
             Log.e(TAG, "getDeviceLocation: SecurityException " + e.getMessage());
         }
     }
-   /* private boolean checkLocationPermission() {
-        return ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
-                == PackageManager.PERMISSION_GRANTED;
-    }
-*/
-   /*
-    private boolean isServicesOk() {
-
-        GoogleApiAvailability googleApi = GoogleApiAvailability.getInstance();
-
-        int result = googleApi.isGooglePlayServicesAvailable(this);
-        if (result == ConnectionResult.SUCCESS) {
-            return true;
-        } else if (googleApi.isUserResolvableError(result)) {
-            Dialog dialog = googleApi.getErrorDialog(this, result, PLAY_SERVICES_ERROR_CODE, new DialogInterface.OnCancelListener() {
-                @Override
-                public void onCancel(DialogInterface task) {
-                    Toast.makeText(GoogleMapsController.this, "Dialog is cancelled by User", Toast.LENGTH_SHORT).show();
-                }
-            });
-            dialog.show();
-        } else {
-            Toast.makeText(this, "Play services are required by this application", Toast.LENGTH_SHORT).show();
-        }
-        return false;
-    }*/
-/*
-    private void requestLocationPermission() {
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
-                != PackageManager.PERMISSION_GRANTED) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, PERMISSION_REQUEST_CODE);
-            }
-        }
-    }*/
-    /*
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-
-        if (requestCode == PERMISSION_REQUEST_CODE && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-            mLocationPermissionGranted = true;
-            Toast.makeText(this, "Permission granted", Toast.LENGTH_SHORT).show();
-        } else {
-            Toast.makeText(this, "Permission not granted", Toast.LENGTH_SHORT).show();
-        }
-    }*/
-
 }
 
 /**

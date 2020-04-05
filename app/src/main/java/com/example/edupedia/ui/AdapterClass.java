@@ -160,7 +160,7 @@ public class AdapterClass extends RecyclerView.Adapter<AdapterClass.ExampleViewH
         }
     };
     public void updateDistance(String schoolName, double distance) {
-        Log.d("UIStuff", "Distance Updated: ");
+        //Log.d("UIStuff", "Distance Updated: ");
         for (int i = 0; i < schoolItemList.size(); i++) {
             if (schoolItemList.get(i).getSchoolName().equals(schoolName)) {
                 schoolItemList.get(i).setDistance(distance);

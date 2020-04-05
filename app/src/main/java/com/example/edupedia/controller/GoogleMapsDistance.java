@@ -67,10 +67,12 @@ public class GoogleMapsDistance extends AsyncTask<Void, Object, ArrayList<School
 
     }
 
+    /**
+     * method for retrieving distance using google api distance matrix asynchronously
+     * @param values
+     * @return
+     */
         @RequiresApi(api = Build.VERSION_CODES.N)
-        /*
-        ** method for retrieving distance using google api distance matrix asynchronously
-         */
         protected ArrayList<School> doInBackground(Void...values) {
             //adapterClass = new AdapterClass(schoolItemList);
            // Log.d("UIStuff", "Size of school item list" + schoolItemList.size());
@@ -180,11 +182,11 @@ public class GoogleMapsDistance extends AsyncTask<Void, Object, ArrayList<School
            return retSchools;
         }
 
-/*        protected void onPostExecute(ArrayList<School> schools) {
-            Log.d(TAG, "Post Execute");
-        }
-*/
-        @RequiresApi(api = Build.VERSION_CODES.N)
+    /**
+     * method to update the ui thread when distance is computed for each school
+     * @param values
+     */
+    @RequiresApi(api = Build.VERSION_CODES.N)
         protected void onProgressUpdate(Object... values) {
             if (schoolDB == null) {
                 schoolDB = homeFragment.getSchoolDB();
@@ -206,7 +208,8 @@ public class GoogleMapsDistance extends AsyncTask<Void, Object, ArrayList<School
                 //recyclerView.setAdapter(adapterClass);
             }*/
             Log.d("UIStuff", "Updating distance" + schoolName);
-            adapterClass.updateDistance(schoolName, distance);
+            if (adapterClass != null)
+                adapterClass.updateDistance(schoolName, distance);
         }
 
         public static void setGoogleMapsController(GoogleMapsController googleMapsController) {

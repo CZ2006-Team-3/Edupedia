@@ -104,7 +104,7 @@ public class GoogleMapsActivity extends AppCompatActivity implements OnMapReadyC
                             Log.d("GoogleMapsHere", String.valueOf(address.getLatitude()));
                             intent.putExtra("userLng", String.valueOf(address.getLongitude()));
                             Log.d("GoogleMapsHere", String.valueOf(address.getLongitude()));
-                            //Log.d("Address:", addressStr);
+                            Log.d("Address:", addressStr);
                             setResult(RESULT_OK, intent);
                             finish();
                         }
@@ -117,7 +117,7 @@ public class GoogleMapsActivity extends AppCompatActivity implements OnMapReadyC
                             Log.d("GoogleMapsHere", String.valueOf(curLocation.getLatitude()));
                             intent.putExtra("userLng", String.valueOf(curLocation.getLongitude()));
                             Log.d("GoogleMapsHere", String.valueOf(curLocation.getLongitude()));
-                            //Log.d("Address:", addressStr);
+                            Log.d("Address:", addressStr);
                             setResult(RESULT_OK, intent);
                             finish();
                         }
@@ -138,6 +138,12 @@ public class GoogleMapsActivity extends AppCompatActivity implements OnMapReadyC
         this.curLocation = currentLocation;
     }
 
+    /**
+     * method to display the marker on google maps
+     * @param lat
+     * @param lng
+     */
+
     private void showMarker(double lat, double lng) {
         MarkerOptions markerOptions = new MarkerOptions();
         markerOptions.position(new LatLng(lat, lng));
@@ -147,10 +153,18 @@ public class GoogleMapsActivity extends AppCompatActivity implements OnMapReadyC
         this.curLocationMarker = mGoogleMap.addMarker(markerOptions);
     }
 
+    /**
+     * method to hide keyboard
+     * @param view
+     */
     private void hideSoftKeyboard(View view) {
         InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
+
+    /**
+     * method to initialise google map and display on the screen
+     */
 
     private void initGoogleMap() {
         if (isServicesOk()) {
@@ -169,6 +183,10 @@ public class GoogleMapsActivity extends AppCompatActivity implements OnMapReadyC
         }
     }
 
+    /**
+     * method called when google maps is successfully shown on the screen
+     * @param googleMap
+     */
     @Override
     public void onMapReady(GoogleMap googleMap) {
         Log.d(TAG, "onMapReady: map is showing on the screen");
@@ -191,6 +209,13 @@ public class GoogleMapsActivity extends AppCompatActivity implements OnMapReadyC
         });
     }
 
+    /**
+     * method to move the view to a specific location
+     * @param mGoogleMap
+     * @param lat
+     * @param lng
+     */
+
     private void gotoLocation(GoogleMap mGoogleMap, double lat,double lng){
 
         LatLng latLng=new LatLng(lat,lng);
@@ -201,6 +226,11 @@ public class GoogleMapsActivity extends AppCompatActivity implements OnMapReadyC
         mGoogleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
 
     }
+
+    /**
+     * method to check if GPS is enabled
+     * @return
+     */
 
     private boolean isGPSEnabled() {
 
@@ -228,10 +258,18 @@ public class GoogleMapsActivity extends AppCompatActivity implements OnMapReadyC
         return false;
     }
 
+    /**
+     * method to check if location permission is granted
+     */
     private void checkLocationPermission() {
         this.mLocationPermissionGranted = ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
                 == PackageManager.PERMISSION_GRANTED;
     }
+
+    /**
+     * method to check if google play services is available
+     * @return
+     */
 
     private boolean isServicesOk() {
 
@@ -255,6 +293,10 @@ public class GoogleMapsActivity extends AppCompatActivity implements OnMapReadyC
         return false;
     }
 
+    /**
+     * method to request location permission
+     */
+
     private void requestLocationPermission() {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED) {
@@ -264,6 +306,11 @@ public class GoogleMapsActivity extends AppCompatActivity implements OnMapReadyC
         }
     }
 
+    /**
+     * method to create the options menu for various map views
+     * @param menu
+     * @return
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -271,6 +318,11 @@ public class GoogleMapsActivity extends AppCompatActivity implements OnMapReadyC
         return true;
     }
 
+    /**
+     * method to set the google map view type based on the option selected
+     * @param item
+     * @return
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
@@ -301,6 +353,12 @@ public class GoogleMapsActivity extends AppCompatActivity implements OnMapReadyC
         return super.onOptionsItemSelected(item);
     }
 
+    /**
+     * method to set the mLocationPermissionGranted variable and is called when permission is requested
+     * @param requestCode
+     * @param permissions
+     * @param grantResults
+     */
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -312,6 +370,13 @@ public class GoogleMapsActivity extends AppCompatActivity implements OnMapReadyC
             Toast.makeText(this, "Permission not granted", Toast.LENGTH_SHORT).show();
         }
     }
+
+    /**
+     *
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     */
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -332,7 +397,3 @@ public class GoogleMapsActivity extends AppCompatActivity implements OnMapReadyC
     }
     public GoogleMapsActivity getGoogleMapsActivity() { return this; }
 }
-
-/*interface Callback{
-    void firebaseResponseCallback(Location result);
-}*/
