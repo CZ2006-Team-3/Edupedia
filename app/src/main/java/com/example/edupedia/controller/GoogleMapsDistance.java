@@ -5,7 +5,6 @@ import android.location.Address;
 
 import com.example.edupedia.model.School;
 import com.example.edupedia.ui.AdapterClass;
-import com.example.edupedia.ui.SchoolItem;
 import com.example.edupedia.ui.home.HomeFragment;
 
 import java.io.BufferedInputStream;
@@ -36,7 +35,7 @@ import androidx.recyclerview.widget.RecyclerView;
 public class GoogleMapsDistance extends AsyncTask<Void, Object, ArrayList<School>> implements Serializable {
 
     private static final String TAG = "GoogleMapsDistance";
-    private static final String KEY = "AIzaSyCUaalvzVnKZLKDtGCAp1hmU9pIrov4EMM";
+    private String KEY = null;
 
     private AdapterClass adapterClass;
     private static GoogleMapsController googleMaps;
@@ -51,9 +50,19 @@ public class GoogleMapsDistance extends AsyncTask<Void, Object, ArrayList<School
     private String userLat;
     private String userLng;
 
+    /**
+     * this is the constructor to initialise all the necessary variables
+     * @param homeFragment
+     * @param context
+     * @param schoolList
+     * @param userLat
+     * @param userLng
+     * @param adapterClass
+     * @param APIKey
+     */
 
     public GoogleMapsDistance(HomeFragment homeFragment, Context context, ArrayList<School> schoolList,
-                              String userLat, String userLng, AdapterClass adapterClass) {
+                              String userLat, String userLng, AdapterClass adapterClass, String APIKey) {
         this.mContext = context;
         this.schoolList = schoolList;
        // this.schoolItemList = schoolItemList;
@@ -62,6 +71,8 @@ public class GoogleMapsDistance extends AsyncTask<Void, Object, ArrayList<School
         this.homeFragment = homeFragment;
         this.userLat = userLat;
         this.userLng = userLng;
+        this.KEY = APIKey;
+
     }
     public GoogleMapsDistance() {
 

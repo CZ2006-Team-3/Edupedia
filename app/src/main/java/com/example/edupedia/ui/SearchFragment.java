@@ -2,6 +2,8 @@ package com.example.edupedia.ui;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
@@ -313,8 +315,16 @@ public class SearchFragment extends Fragment implements
                 ft = ft.hide(mainNavigationUI.currentFragment).show(homeFragment);
                 mainNavigationUI.currentFragment = homeFragment;
                 ft.commit();
-                if (!textFilterLocation.getText().toString().equals("")) {
-                    new GoogleMapsDistance(homeFragment, getContext(), schoolList, userLat, userLng, mAdapter).execute();
+
+                try {
+                    ApplicationInfo applicationInfo = getContext().getPackageManager().getApplicationInfo(getContext().getPackageName(), PackageManager.GET_META_DATA);
+                    Bundle bundle = applicationInfo.metaData;
+                    String apiKey = bundle.getString("com.google.android.maps.v2.API_KEY");
+                    if (!textFilterLocation.getText().toString().equals("")) {
+                        new GoogleMapsDistance(homeFragment, getContext(), schoolList, userLat, userLng, mAdapter, apiKey).execute();
+                    }
+                } catch (Exception e) {
+                    Log.e(TAG, "Dear developer. Don't forget to configure your Google API Key in your AndroidManifest.xml file. More information can be found in README.md");
                 }
             }
         });
