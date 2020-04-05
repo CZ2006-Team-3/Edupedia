@@ -212,26 +212,31 @@ public class WatchListFragment extends Fragment {
     @RequiresApi(api = Build.VERSION_CODES.N)
     public void updateInfo() {
         Log.d("WatchListFragment", "There");
-        schools = mainNavigationUI.getSchoolDB();
-        ArrayList<SchoolItem> schoolItemList = wAdapter.getSchoolItemList();
-        for (SchoolItem schoolItem: schoolItemList) {
-            Log.d("WatchListFragment", schoolItem.getDistanceInfo());
-        }
-        watchList = watchlistController.getWatchlist();
-        ArrayList<String> schoolNames = new ArrayList<>();
-        for (int i = 0; i < schoolItemList.size(); i++) {//get all the current schools in schoolItemList
-            if (schoolItemList.get(i) != null) {
-                schoolNames.add(schoolItemList.get(i).getSchoolName());
-                wAdapter.notifyItemChanged(i);
-                Log.d("WatchListFragment", "Here");
+        try {
+            schools = mainNavigationUI.getSchoolDB();
+            ArrayList<SchoolItem> schoolItemList = wAdapter.getSchoolItemList();
+            for (SchoolItem schoolItem : schoolItemList) {
+                Log.d("WatchListFragment", schoolItem.getDistanceInfo());
             }
-        }
-        for(String schoolName : watchList) { //if school in w atchlist but not currently in schoolitem list
-            if(!schoolNames.contains(schoolName) && schoolName!=null) {
-                schoolItemList.add(createSchoolItem(schools.get(schoolName)));
+            watchList = watchlistController.getWatchlist();
+            ArrayList<String> schoolNames = new ArrayList<>();
+            for (int i = 0; i < schoolItemList.size(); i++) {//get all the current schools in schoolItemList
+                if (schoolItemList.get(i) != null) {
+                    schoolNames.add(schoolItemList.get(i).getSchoolName());
+                    wAdapter.notifyItemChanged(i);
+                    Log.d("WatchListFragment", "Here");
+                }
             }
+            for (String schoolName : watchList) { //if school in w atchlist but not currently in schoolitem list
+                if (!schoolNames.contains(schoolName) && schoolName != null) {
+                    schoolItemList.add(createSchoolItem(schools.get(schoolName)));
+                }
+            }
+            wAdapter.notifyDataSetChanged();
         }
-        wAdapter.notifyDataSetChanged();
+        catch (NullPointerException e) {
+            return;
+        }
     }
     /**
      * method that creates schoolItem from school
