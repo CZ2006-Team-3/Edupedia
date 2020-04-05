@@ -85,8 +85,13 @@ public class CompareFragment extends Fragment {
                     //schoolDB = new SchoolDB(getContext());
                     schools = schoolDB.getValue();
                 }*/
-                if (mainNavigationUI != null)
+                if (mainNavigationUI != null) {
                     schools = mainNavigationUI.getSchoolDB();
+                    if (schools == null) {
+                        SchoolDB schoolDB = new SchoolDB(getContext());
+                        schools = schoolDB.getValue();
+                    }
+                }
                 else {
                     SchoolDB schoolDB = new SchoolDB(getContext());
                     schools = schoolDB.getValue();
