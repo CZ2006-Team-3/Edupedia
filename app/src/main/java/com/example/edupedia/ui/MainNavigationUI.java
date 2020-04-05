@@ -32,11 +32,16 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
+
+/**
+ * activity class that contains five different fragments which are displayed
+ * depending on which tab the user clicked on
+ */
 @RequiresApi(api = Build.VERSION_CODES.N)
 public class MainNavigationUI extends AppCompatActivity {
     private SharedPreferences sharedPref;
 
-    public final HomeFragment homeFragment = new HomeFragment();
+    public HomeFragment homeFragment = new HomeFragment();
     public final SearchFragment searchFragment = new SearchFragment();
     public final SettingsFragment settingsFragment = new SettingsFragment();
     public final WatchListFragment watchlistFragment = new WatchListFragment();
@@ -45,7 +50,9 @@ public class MainNavigationUI extends AppCompatActivity {
     public Fragment currentFragment = searchFragment;
     private HashMap<String, School> schools;
 
-
+    /**
+     * initializes fragments
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,6 +78,9 @@ public class MainNavigationUI extends AppCompatActivity {
 
     }
 
+    /**
+     * initializes tabs
+     */
     private BottomNavigationView.OnNavigationItemSelectedListener navListener =
             item -> {
 
@@ -104,6 +114,10 @@ public class MainNavigationUI extends AppCompatActivity {
                 return true;
             };
 
+    /**
+     * returns the Fragment manager instance contained in this activity instance
+     * @return
+     */
     public FragmentManager getFm() {
         return fm;
     }

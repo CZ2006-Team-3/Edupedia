@@ -30,6 +30,9 @@ public class SortByDialogFragment extends DialogFragment {
     private boolean SORT_ASCENDING;
     private SortByDialogListener listener;
 
+    /**
+     * interface implemented by listeners of this dialogfragment
+     */
     public interface SortByDialogListener {
         void onChangeDialog(int sort_variable, boolean sort_ascending);
     }
@@ -72,11 +75,12 @@ public class SortByDialogFragment extends DialogFragment {
         }
 
 
+
         sortBy.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
             /**
              * onCheckedChanged returns the checkedId of the radio button that the user selects
              */
+            @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 // checkedId is the RadioButton selected
                 switch (checkedId) {
@@ -107,10 +111,10 @@ public class SortByDialogFragment extends DialogFragment {
 
         RadioGroup sortOrderBy = layout.findViewById(R.id.radioOrder);
         sortOrderBy.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
             /**
              * onCheckedChanged returns the checkedId of the radio button that the user selects
              */
+            @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 // checkedId is the RadioButton selected
                 SORT_ASCENDING = checkedId == R.id.radioscending;

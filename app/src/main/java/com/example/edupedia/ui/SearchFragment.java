@@ -321,6 +321,12 @@ public class SearchFragment extends Fragment implements
         return rootview;
     }
 
+    /**
+     * returns activity results from googlemaps activity
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     */
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -340,6 +346,7 @@ public class SearchFragment extends Fragment implements
         }
     }
 
+
     public void onItemSelected(AdapterView<?> parent, View view,
                                int pos, long id) {
         String text = parent.getItemAtPosition(pos).toString();
@@ -355,6 +362,10 @@ public class SearchFragment extends Fragment implements
 
     }
 
+    /**
+     * store an instance of MainNavigationUI
+     * @param context
+     */
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);

@@ -9,6 +9,9 @@ import java.util.Collections;
 
 import androidx.annotation.RequiresApi;
 
+/**
+ * Class to provide sort methods based on parameters passed in
+ */
 public class SortController {
     public static final int DIST = 0;
     public static final int CUTOFF = 1;
@@ -25,6 +28,13 @@ public class SortController {
         return singleton==null? singleton=new SortController() : singleton;
     }
 
+    /**
+     * sorts an arraylist of schools based on input parameters passed in
+     * @param sortVariable
+     * @param ascending
+     * @param schools
+     * @return
+     */
     @RequiresApi(api = Build.VERSION_CODES.N)
     public ArrayList<School> sortBy(int sortVariable, boolean ascending, ArrayList<School> schools) {
         switch(sortVariable) {

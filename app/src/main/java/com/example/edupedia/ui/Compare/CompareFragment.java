@@ -26,10 +26,8 @@ import java.util.Locale;
 /**
  * Fragment that allows 2 different schools to be added to allow comparison
  */
-
 public class CompareFragment extends Fragment {
 
-    private CompareViewModel compareViewModel;
     private static School[] compareList = new School[2];
     private TextView school1Name;
     private TextView school2Name;
@@ -47,13 +45,13 @@ public class CompareFragment extends Fragment {
     private static int i = 0;
     private MainNavigationUI mainNavigationUI;
 
+    /**
+     * The functions and buttons etc created upon the loading of this fragment
+     */
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState){
-        /**
-         * The functions and buttons etc created upon the loading of this fragment
-         */
 
         View layout =  inflater.inflate(R.layout.fragment_compare, container, false);
         update(layout);
@@ -71,11 +69,12 @@ public class CompareFragment extends Fragment {
     }
 
 
+    /**
+     * The method to update the schools to be compared
+     */
     @RequiresApi(api = Build.VERSION_CODES.N)
     public void update(View layout) {
-        /**
-         * The method to update the schools to be compared
-         */
+
         Bundle bundle = this.getArguments();
         if (bundle != null) {
             String value = bundle.getString("SchoolName");

@@ -41,7 +41,6 @@ public class AdapterClass extends RecyclerView.Adapter<AdapterClass.ExampleViewH
      * adapter class constructor
      * @param schoolList
      */
-
     public AdapterClass(ArrayList <SchoolItem> schoolList){
         schoolItemList = schoolList;
         if(schoolList!=null)
@@ -56,6 +55,11 @@ public class AdapterClass extends RecyclerView.Adapter<AdapterClass.ExampleViewH
         this.schoolList = schoolList;
     }*/
 
+    /**
+     * implementation for HomeFragment.SortEventListener interface
+     * @param sort_variable
+     * @param sort_ascending
+     */
     @Override
     public void onRequestSort(int sort_variable, boolean sort_ascending) {
         synchronized (schoolItemList) {
@@ -107,7 +111,9 @@ public class AdapterClass extends RecyclerView.Adapter<AdapterClass.ExampleViewH
 
     public Filter getFilter() { return schoolFilter; }
 
-    //the dynamic search for filter
+    /**
+     * implementation of filter class
+     */
     private Filter schoolFilter = new Filter() {
         @Override
         protected FilterResults performFiltering(CharSequence charSequence) {
@@ -159,6 +165,12 @@ public class AdapterClass extends RecyclerView.Adapter<AdapterClass.ExampleViewH
             notifyDataSetChanged();
         }
     };
+
+    /**
+     * update the distance of a given schoolitem
+     * @param schoolName
+     * @param distance
+     */
     public void updateDistance(String schoolName, double distance) {
         Log.d("UIStuff", "Distance Updated: ");
         for (int i = 0; i < schoolItemList.size(); i++) {
@@ -231,6 +243,9 @@ public class AdapterClass extends RecyclerView.Adapter<AdapterClass.ExampleViewH
         return results;
     }
 
+    /**
+     * viewholder that displays select attributes of the dataclass
+     */
     public static class ExampleViewHolder extends RecyclerView.ViewHolder{
 
         public ImageView mImageView;
@@ -291,6 +306,11 @@ public class AdapterClass extends RecyclerView.Adapter<AdapterClass.ExampleViewH
         }
     }
 
+    /**
+     * sorts based on sorting variable and sorting order
+     * @param sort_variable
+     * @param ascending
+     */
     private void sortBy(int sort_variable, boolean ascending) {
         Comparator<SchoolItem> comp;
         switch(sort_variable) {

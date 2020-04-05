@@ -17,6 +17,9 @@ import com.example.edupedia.R;
 import com.example.edupedia.controller.UserController;
 import com.google.firebase.auth.FirebaseUser;
 
+/**
+ * Fragment for user settings layout
+ */
 public class SettingsFragment extends Fragment {
     private TextView Name;
     private TextView EducationLevel;
@@ -98,7 +101,11 @@ public class SettingsFragment extends Fragment {
         return rootview;
     }
 
-    public void updateInfo() {
+    /**
+     * called to update info in the textviews right before layout for user settings
+     * is shown
+     */
+    void updateInfo() {
         name = userController.getName();
         edlevel = userController.getEdLevel();
         locationAccess = userController.getLocationAccess();

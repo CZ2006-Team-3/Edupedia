@@ -7,7 +7,9 @@ import java.io.IOException;
 import java.util.HashMap;
 
 
-
+/**
+ * encapsulation of school database
+ */
 public class SchoolDB {
     private SchoolReader schoolReader = null;
     private HashMap<String, School> db;
@@ -18,7 +20,7 @@ public class SchoolDB {
         this.schoolReader = SchoolReader.getInstance(context);
     }
 
-    public void loadDB(){
+    private void loadDB(){
         try {
             db = schoolReader.retrieveSchools();
             Log.d("Successfully Loaded", String.valueOf(db.size()));
@@ -38,6 +40,7 @@ public class SchoolDB {
         }
         return db;
     }
+
     public void setDB(HashMap<String, School> db) {
         this.db = db;
     }

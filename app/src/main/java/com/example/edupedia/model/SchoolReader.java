@@ -13,6 +13,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.stream.StreamSupport;
 
+/**
+ * Contains functions to parse relevant csv files and
+ * instantiate School objects from parsed data
+ */
 public class SchoolReader {
     public static final String CCA = "ccas";
     public static final String MOE = "moe";
@@ -29,6 +33,11 @@ public class SchoolReader {
         this.context = context;
     }
 
+    /**
+     * Reads data from general_info.csv and instantiates school objects
+     * @return
+     * @throws IOException
+     */
     public HashMap<String, School> retrieveSchools() throws IOException {
         HashMap<String, School> schools = new HashMap<String, School>();
         stream = context.getResources().openRawResource(R.raw.general_info);
@@ -75,6 +84,12 @@ public class SchoolReader {
         return schools;
     }
 
+    /**
+     * reads information from ccas.csv, moe_programme.csv and subjects_offered.csv and
+     * adds the information to the relevant school object
+     * @param schools
+     * @param arrayType
+     */
     public void addArray(HashMap<String, School> schools, String arrayType) {
         switch(arrayType) {
             case SUBJECT:
@@ -128,7 +143,14 @@ public class SchoolReader {
     }
 
 
-
+    /**
+     * adds ArrayList containing CCAs/subjects offered/moe programmes offereed
+     * by a specified school to the hashmap of schools
+     * @param schools
+     * @param array
+     * @param schoolName
+     * @param type
+     */
     private void addArrayToSchool(HashMap<String, School> schools, ArrayList<String> array, String schoolName, String type) {
             switch(type) {
                 case CCA:
@@ -145,6 +167,11 @@ public class SchoolReader {
             }
     }
 
+    /**
+     * returns singleton instance of SchoolReader
+     * @param context
+     * @return
+     */
     public static SchoolReader getInstance(Context context) {
         return instance==null? instance = new SchoolReader(context) : instance;
     }

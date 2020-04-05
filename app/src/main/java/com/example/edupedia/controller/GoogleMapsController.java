@@ -54,9 +54,9 @@ public class GoogleMapsController  {
         return address;
     }
 
-    /*
-    ** to reverse geolocate the longitude and latitude to
-     */
+    /**
+    * to reverse geolocate the longitude and latitude to
+    **/
     public String reverseGeolocate(double latitude, double longitude) {
         Geocoder geocoder = new Geocoder(googleMapsActivity, Locale.getDefault());
         String addressStr = null;
